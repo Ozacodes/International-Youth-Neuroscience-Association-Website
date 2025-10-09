@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Topic Listing Bootstrap 5 Template</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+        
+        <style>
+          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+            font-family: 'Work Sans', sans-serif !important;
+          }
+          #about-iyna {
+            padding-top: 6rem !important;
+            padding-bottom: 6rem !important;
+          }
+          /* Prevent nav links from breaking into two lines and reduce spacing */
+          .navbar .nav-link {
+            white-space: nowrap;
+          }
+          .navbar .nav-item {
+            margin-left: 0.3rem !important;
+            margin-right: 0.3rem !important;
+          }
+        </style>
+        <!-- Append mobile hero section CSS for override -->
+        <style>
+        /* Responsive hero section for mobile (match home page) */
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            font-size: 1.7rem !important;
+            line-height: 1.2 !important;
+            text-align: left !important;
+            padding: 0 10px !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: 100% !important;
+            max-width: 250px !important;
+            margin: 0 auto !important;
+            display: block !important;
+          }
+          .hero-section {
+            padding: 200px 0 !important;
+            min-height: 80vh !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            text-align: left !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 180px !important;
+            margin: 0 !important;
+            display: inline-block !important;
+            text-align: left !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+          .container, .container-fluid {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section background color override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section {
+            background: #DFE7EC !important;
+            background-image: none !important;
+          }
+          .hero-section .overlay {
+            display: none !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            padding-left: 18px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 and paragraph alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            padding-left: 0 !important;
+          }
+          .hero-section h1 {
+            padding-left: 24px !important;
+            padding-right: 10px !important;
+            margin-left: 0 !important;
+          }
+          .hero-section p {
+            padding-left: 24px !important;
+            margin-left: 0 !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            margin-left: 24px !important;
+            display: block !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 250px !important;
+            text-align: left !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button size override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            max-width: 160px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button even shorter override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 0.7rem !important;
+            padding-right: 0.7rem !important;
+            max-width: 110px !important;
+          }
+        }
+        </style>
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <!-- Load shared navigation -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+    </head>
+    
+    <body id="top">
+
+        <main>
+
+            <!-- Navigation placeholder - will be loaded by JavaScript -->
+            <div id="nav-placeholder"></div>
+              
+            
+
+            <!-- HERO SECTION -->
+                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+              
+                <div class="container" style="z-index: 2; position: relative;">
+                  <div class="row">
+                    <div class="col-lg-8 col-12">
+                      <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
+                          Neurosurgery Walk-Through Webinar
+                      </h1>
+                      <p style="font-size: 1.15rem; margin-bottom: 1.5rem; color: white; max-width: 600px;">
+                          Go behind the scenes of real brain surgery with expert commentary.<br><br>
+                          <b>Details:</b><br>
+                          Saturday, August 26, 2023<br>
+                          11 AM & 11 PM GMT
+                      </p>
+                      <a href="#" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem; margin-right: 15px;">Save Your Spot&nbsp;&rsaquo;</a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Lecturers Section</title>
+                  <style>
+                      @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+              
+                      .lecturers-section {
+                          font-family: 'Work Sans', sans-serif;
+                          background-color: white;
+                          padding: 60px 20px;
+                          color: #333;
+                      }
+              
+                      .lecturers-container {
+                          max-width: 750px;
+                          margin: 0 auto;
+                      }
+              
+                      .lecturers-title {
+                          font-size: 2.5rem;
+                          font-weight: 600;
+                          color: #333;
+                          margin-bottom: 50px;
+                          text-align: left;
+                      }
+              
+                      .lecturer-item {
+                          display: flex;
+                          align-items: flex-start;
+                          gap: 25px;
+                          margin-bottom: 60px;
+                      }
+              
+                      .lecturer-item:last-child {
+                          margin-bottom: 0;
+                      }
+              
+                      .lecturer-photo {
+                          width: 180px;
+                          height: 230px;
+                          background-color: #d3d3d3;
+                          flex-shrink: 0;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: #666;
+                          font-size: 0.7rem;
+                          text-align: center;
+                      }
+              
+                      .lecturer-content {
+                          flex: 1;
+                      }
+              
+                      .lecturer-name {
+                          font-size: 1.4rem;
+                          font-weight: 600;
+                          color: #333;
+                          margin-bottom: 5px;
+                      }
+              
+                      .lecturer-title-subtitle {
+                          font-size: 0.8rem;
+                          color: #666;
+                          text-transform: uppercase;
+                          letter-spacing: 0.5px;
+                          margin-bottom: 15px;
+                          font-weight: 500;
+                      }
+              
+                      .lecturer-bio {
+                          font-size: 0.9rem;
+                          color: #333;
+                          line-height: 1.5;
+                      }
+              
+                      @media (max-width: 768px) {
+                          .lecturers-section {
+                              padding: 40px 15px;
+                          }
+              
+                          .lecturers-title {
+                              font-size: 2rem;
+                              margin-bottom: 40px;
+                          }
+              
+                          .lecturer-item {
+                              margin-bottom: 50px;
+                              gap: 20px;
+                          }
+              
+                          .lecturer-photo {
+                              width: 150px;
+                              height: 190px;
+                          }
+              
+                          .lecturer-name {
+                              font-size: 1.2rem;
+                          }
+              
+                          .lecturer-title-subtitle {
+                              font-size: 0.75rem;
+                          }
+              
+                          .lecturer-bio {
+                              font-size: 0.85rem;
+                          }
+                      }
+              
+                      @media (max-width: 480px) {
+                          .lecturer-item {
+                              flex-direction: column;
+                              text-align: center;
+                              gap: 15px;
+                          }
+              
+                          .lecturer-photo {
+                              align-self: center;
+                              width: 120px;
+                              height: 150px;
+                          }
+              
+                          .lecturer-name {
+                              font-size: 1.1rem;
+                          }
+              
+                          .lecturer-bio {
+                              font-size: 0.8rem;
+                              text-align: left;
+                          }
+                      }
+                  </style>
+              </head>
+              <body>
+                
+                  <!-- SUBMISSION DETAILS SECTION -->
+<section style="background: #f7fafd; padding: 60px 0;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <h2 style="font-size: 2.2rem; font-weight: 700; color: #1B4965; margin-bottom: 28px; text-align: left;">About the Event</h2>
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+      <div style="margin-bottom: 0.7em; color: #1B2A41;">Step into the world of neurosurgery. Watch a live surgery walkthrough with expert narration, offering a rare look at how top professionals make decisions during complex operations.</div>
+      <ul style="margin: 0 0 0.7em 1.5em; padding-left: 1em; font-size: 1.15rem; color: #1B4965;">
+        <li>Full surgical video with commentary</li>
+        <li>Live Q&amp;A with professional neurosurgeons</li>
+        <li>Insights into neurosurgery techniques and tools</li>
+      </ul>
+      <div style="color: #1B2A41; margin-top: 1.2em;"><b>Who Should Attend</b><br>Perfect for students exploring careers in neuroscience, surgery, or medicine.</div>
+    </div>
+  </div>
+</section>
+<!-- END SUBMISSION DETAILS SECTION -->
+                  <section class="lecturers-section">
+                      <div class="lecturers-container">
+                          <h2 class="lecturers-title">Lecturers</h2>
+                          
+                          <!-- Dr. Raj Mukherjee -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/raj.webp" alt="Dr. Raj Mukherjee" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Raj Mukherjee</h3>
+                                  <p class="lecturer-title-subtitle">11am GMT session</p>
+                                  <p class="lecturer-bio">
+                                      Director of Neurosurgical Oncology, Johns Hopkins Bayview Medical Center
+                                  </p>
+                              </div>
+                          </div>
+
+                          <!-- Dr. Paul Brennan -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/paul.webp" alt="Dr. Paul Brennan" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Paul Brennan</h3>
+                                  <p class="lecturer-title-subtitle">11am GMT session</p>
+                                  <p class="lecturer-bio">
+                                      Neurosurgeon at the University of Edinburgh and NHS Lothian, Founder of eoSurgical
+                                  </p>
+                              </div>
+                          </div>
+                  </section>
+              </body>
+              </html>
+
+              
+        <!-- Footer placeholder - will be loaded by JavaScript -->
+        <div id="footer-placeholder"></div>
+        <script src="js/load-footer.js"></script>
+        <!-- SCRIPTS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+    </body>
+</html>
+          

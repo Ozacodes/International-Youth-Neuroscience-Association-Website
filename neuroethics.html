@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Topic Listing Bootstrap 5 Template</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+        
+        <style>
+          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+            font-family: 'Work Sans', sans-serif !important;
+          }
+          #about-iyna {
+            padding-top: 6rem !important;
+            padding-bottom: 6rem !important;
+          }
+          /* Prevent nav links from breaking into two lines and reduce spacing */
+          .navbar .nav-link {
+            white-space: nowrap;
+          }
+          .navbar .nav-item {
+            margin-left: 0.3rem !important;
+            margin-right: 0.3rem !important;
+          }
+        </style>
+        <!-- Append mobile hero section CSS for override -->
+        <style>
+        /* Responsive hero section for mobile (match home page) */
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            font-size: 1.7rem !important;
+            line-height: 1.2 !important;
+            text-align: left !important;
+            padding: 0 10px !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: 100% !important;
+            max-width: 250px !important;
+            margin: 0 auto !important;
+            display: block !important;
+          }
+          .hero-section {
+            padding: 200px 0 !important;
+            min-height: 80vh !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            text-align: left !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 180px !important;
+            margin: 0 !important;
+            display: inline-block !important;
+            text-align: left !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+          .container, .container-fluid {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section background color override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section {
+            background: #DFE7EC !important;
+            background-image: none !important;
+          }
+          .hero-section .overlay {
+            display: none !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            padding-left: 18px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 and paragraph alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            padding-left: 0 !important;
+          }
+          .hero-section h1 {
+            padding-left: 24px !important;
+            padding-right: 10px !important;
+            margin-left: 0 !important;
+          }
+          .hero-section p {
+            padding-left: 24px !important;
+            margin-left: 0 !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            margin-left: 24px !important;
+            display: block !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 250px !important;
+            text-align: left !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button size override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            max-width: 160px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button even shorter override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 0.7rem !important;
+            padding-right: 0.7rem !important;
+            max-width: 110px !important;
+          }
+        }
+        </style>
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <!-- Load shared navigation -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+    </head>
+    
+    <body id="top">
+
+        <main>
+
+            <!-- Navigation placeholder - will be loaded by JavaScript -->
+            <div id="nav-placeholder"></div>
+              
+            
+
+            <!-- HERO SECTION -->
+                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+              
+                <div class="container" style="z-index: 2; position: relative;">
+                  <div class="row" style="margin-top: -5rem;">
+                    <div class="col-lg-8 col-12">
+                      <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
+                          IYNA-INS Neuroethics Essay Competition
+                      </h1>
+                      <p style="font-size: 1.15rem; margin-bottom: 1.5rem; color: white; max-width: 600px;">
+                          Join a global conversation on neuroethics — submit your work by July 15, 2024. Please fill out both the interest form and the entry form to have your submission considered.
+                      </p>
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPXwdMwqpJc6sMQFd8tb6KzrpyxfJv9QR0I4Fu6nWOg8n8Vg/viewform?usp=preview" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem; margin-right: 15px;">Interest Form&nbsp;&rsaquo;</a>
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPXwdMwqpJc6sMQFd8tb6KzrpyxfJv9QR0I4Fu6nWOg8n8Vg/viewform?usp=preview" class="btn" style="background-color: #ffffff; color: #1B4965; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem; border: 2px solid #1B4965;">Entry Form&nbsp;&rsaquo;</a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+                            <!-- PROFESSIONAL SPONSORS SECTION -->
+              <style>
+                  .sponsors-section {
+                      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                      padding: 100px 0;
+                      font-family: 'Work Sans', sans-serif;
+                  }
+                  
+                  .sponsors-container {
+                      max-width: 1200px;
+                      margin: 0 auto;
+                      padding: 0 20px;
+                  }
+                  
+                  .sponsors-header {
+                      text-align: center;
+                      margin-bottom: 80px;
+                  }
+                  
+                  .sponsors-title {
+                      font-size: 3rem;
+                      font-weight: 700;
+                      color: #1B4965;
+                      margin-bottom: 1rem;
+                      position: relative;
+                  }
+                  
+                  .sponsors-title::after {
+                      content: '';
+                      position: absolute;
+                      bottom: -15px;
+                      left: 50%;
+                      transform: translateX(-50%);
+                      width: 80px;
+                      height: 4px;
+                      background: linear-gradient(90deg, #62B6CB, #1B4965);
+                      border-radius: 2px;
+                  }
+                  
+                  .sponsors-subtitle {
+                      font-size: 1.2rem;
+                      color: #6c757d;
+                      font-weight: 400;
+                      max-width: 600px;
+                      margin: 0 auto;
+                      line-height: 1.6;
+                  }
+                  
+                  .sponsors-grid {
+                      display: grid;
+                      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                      gap: 40px;
+                      margin-top: 60px;
+                  }
+                  
+                  .sponsor-card {
+                      background: white;
+                      border-radius: 20px;
+                      padding: 40px;
+                      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+                      border: 1px solid rgba(98, 182, 203, 0.1);
+                      transition: all 0.3s ease;
+                      position: relative;
+                      overflow: hidden;
+                  }
+                  
+                  .sponsor-card::before {
+                      content: '';
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      right: 0;
+                      height: 4px;
+                      background: linear-gradient(90deg, #62B6CB, #1B4965);
+                  }
+                  
+                  .sponsor-card:hover {
+                      transform: translateY(-8px);
+                      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+                      border-color: rgba(98, 182, 203, 0.2);
+                  }
+                  
+                                     .sponsor-header {
+                       text-align: center;
+                       margin-bottom: 25px;
+                   }
+                  
+                  .sponsor-name {
+                      font-size: 1.8rem;
+                      font-weight: 700;
+                      color: #1B4965;
+                      margin-bottom: 8px;
+                      line-height: 1.2;
+                  }
+                  
+                  .sponsor-acronym {
+                      font-size: 1rem;
+                      color: #62B6CB;
+                      font-weight: 600;
+                      text-transform: uppercase;
+                      letter-spacing: 0.5px;
+                  }
+                  
+                                     .sponsor-description {
+                       font-size: 1.1rem;
+                       color: #495057;
+                       line-height: 1.7;
+                       margin-top: 20px;
+                       text-align: center;
+                   }
+                  
+                  @media (max-width: 768px) {
+                      .sponsors-section {
+                          padding: 80px 0;
+                      }
+                      
+                      .sponsors-title {
+                          font-size: 2.5rem;
+                      }
+                      
+                      .sponsors-grid {
+                          grid-template-columns: 1fr;
+                          gap: 30px;
+                          margin-top: 50px;
+                      }
+                      
+                      .sponsor-card {
+                          padding: 30px;
+                      }
+                      
+                                             .sponsor-header {
+                           text-align: center;
+                       }
+                  }
+                  
+                  @media (max-width: 480px) {
+                      .sponsors-title {
+                          font-size: 2rem;
+                      }
+                      
+                      .sponsor-card {
+                          padding: 25px;
+                      }
+                      
+                      .sponsor-name {
+                          font-size: 1.5rem;
+                      }
+                  }
+              </style>
+              
+              <section class="sponsors-section">
+                  <div class="sponsors-container">
+                      <div class="sponsors-header">
+                          <h2 class="sponsors-title">Our Partners</h2>
+                          <p class="sponsors-subtitle">Collaborating with leading organizations to advance neuroscience education and research worldwide</p>
+                      </div>
+                      
+                      <div class="sponsors-grid">
+                          <!-- International Neuroethics Society -->
+                          <div class="sponsor-card">
+                              <div class="sponsor-header">
+                                  <h3 class="sponsor-name">International Neuroethics Society</h3>
+                                  <div class="sponsor-acronym">(INS)</div>
+                              </div>
+                              <p class="sponsor-description">
+                                  The INS is an interdisciplinary group of scholars, scientists, clinicians, and professionals dedicated to inspiring research and discussion on the responsible use of advances in brain science.
+                              </p>
+                          </div>
+                          
+                          <!-- International Youth Neuroscience Association -->
+                          <div class="sponsor-card">
+                              <div class="sponsor-header">
+                                  <h3 class="sponsor-name">International Youth Neuroscience Association</h3>
+                                  <div class="sponsor-acronym">(IYNA)</div>
+                              </div>
+                              <p class="sponsor-description">
+                                  The IYNA is a global, youth-led nonprofit promoting neuroscience education. The IYNA Journal publishes articles on neuroethics and neuroscience and supports a worldwide network of over 1,000 members in 126 countries.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+
+<!-- SUBMISSION DETAILS SECTION -->
+<style>
+.submission-details-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  height: 40vh;
+  min-height: 350px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+.submission-details-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111;
+  flex: 1 1 40%;
+  margin: 0;
+  line-height: 1.1;
+}
+.submission-details-text {
+  font-size: 1.3rem;
+  color: #111;
+  flex: 1 1 60%;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+@media (max-width: 900px) {
+  .submission-details-section {
+    flex-direction: column;
+    gap: 24px;
+    height: auto;
+    min-height: 0;
+    padding: 50px 0 30px 0;
+  }
+  .submission-details-title {
+    font-size: 2.2rem;
+    text-align: left;
+  }
+  .submission-details-text {
+    font-size: 1.1rem;
+    text-align: left;
+  }
+}
+@media (max-width: 600px) {
+  .submission-details-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    height: auto;
+    min-height: 0;
+    padding: 32px 16px 24px 16px;
+  }
+  .submission-details-title {
+    font-size: 1.4rem;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    word-break: break-word;
+  }
+  .submission-details-text {
+    font-size: 0.98rem;
+    text-align: left;
+    word-break: break-word;
+  }
+}
+</style>
+<section class="submission-details-section">
+  <h2 class="submission-details-title">Submission Details</h2>
+  <div class="submission-details-text">
+    Complete the Contest Entry Form and upload your final essay via the submission portal.<br>
+    Accepted file formats: .pdf, .doc, .docx, .mp4. Use the provided template to include required cover page info and ensure your essay remains anonymous for review.
+  </div>
+</section>
+<!-- END SUBMISSION DETAILS SECTION -->
+
+<!-- SPONSORSHIP INFORMATION SECTION -->
+<style>
+  .sponsorship-section {
+    background: #f8fbff;
+    padding: 80px 0 60px 0;
+    text-align: center;
+  }
+  .sponsorship-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1B4965;
+    margin-bottom: 40px;
+  }
+  .sponsorship-iframe-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 900px;
+  }
+  .sponsorship-iframe {
+    width: 100%;
+    min-height: 700px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(27, 73, 101, 0.08);
+    background: #fff;
+  }
+  @media (max-width: 1000px) {
+    .sponsorship-iframe-container {
+      max-width: 100%;
+      padding: 0 10px;
+    }
+    .sponsorship-iframe {
+      min-height: 500px;
+    }
+  }
+  @media (max-width: 600px) {
+    .sponsorship-title {
+      font-size: 1.5rem;
+    }
+    .sponsorship-iframe {
+      min-height: 350px;
+    }
+  }
+</style>
+<section class="sponsorship-section">
+  <h2 class="sponsorship-title">Learn More About the Competition</h2>
+  <div class="sponsorship-iframe-container">
+    <iframe class="sponsorship-iframe" src="https://drive.google.com/file/d/1E_avL9EGdy20cj0G1dzEY_uHlM4jTQKo/preview" allow="autoplay"></iframe>
+  </div>
+</section>
+<!-- END SPONSORSHIP INFORMATION SECTION -->
+
+    <!-- Footer placeholder - will be loaded by JavaScript -->
+<div id="footer-placeholder"></div>
+<script src="js/load-footer.js"></script>
+<!-- SCRIPTS -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.sticky.js"></script>
+<script src="js/click-scroll.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
+          

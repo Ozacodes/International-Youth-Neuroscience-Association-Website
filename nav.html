@@ -1,0 +1,260 @@
+<!-- Shared Navigation Bar for IYNA Website -->
+<nav class="navbar navbar-expand-lg" style="background-color: #6db9c3;">
+    <!-- Removed .container for full width -->
+      <!-- Logo and Brand (single line) -->
+      <a class="navbar-brand d-flex align-items-center" href="home.html" style="padding-left: 1rem;">
+        <img src="images/iyna-logo.png" alt="IYNA Logo" style="height: 36px; margin-right: 10px;">
+        <span class="fw-bold text-dark" style="font-size: 1.1rem; letter-spacing: 0.01em; line-height: 1.05;">International Youth<br>Neuroscience Association</span>
+      </a>
+  
+      <!-- Toggler for mobile -->
+      <div class="toggler-wrapper">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+  
+      <!-- Nav Links -->
+      <div class="collapse navbar-collapse w-100" id="mainNavbar">
+        <ul class="navbar-nav mx-auto align-items-center">
+          <li class="nav-item mx-1 dropdown">
+            <a class="nav-link text-dark fw-semibold" href="events_landing.html" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="window.location.href='events_landing.html'; return false;">
+              Events&nbsp;&rsaquo;
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="eventsDropdown" style="background-color: white; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-width: 250px; padding: 8px 0;">
+              <li>
+                <a class="dropdown-item" href="summer-program.html" style="padding: 12px 20px; color: #1B4965; font-weight: 600; font-size: 1rem;">Neuroscience Summer Program</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="ideathon.html" style="padding: 12px 20px; color: #1B4965; font-weight: 600; font-size: 1rem;">Ideathon Competitions</a>
+              </li>
+
+              <li>
+                <a class="dropdown-item" href="brain-bee.html" style="padding: 12px 20px; color: #1B4965; font-weight: 600; font-size: 1rem;">Brain Bee Bootcamp</a>
+              </li>
+
+              <li>
+                <a class="dropdown-item" href="neuroethics.html" style="padding: 12px 20px; color: #1B4965; font-weight: 600; font-size: 1rem;">Neuroethics Essay Competition</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="neuroand.html" style="padding: 12px 20px; color: #1B4965; font-weight: 600; font-size: 1rem;">Neuro&: Career Webinar Series</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item mx-1 dropdown">
+            <a class="nav-link text-dark fw-semibold" href="journal.html" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="window.location.href='journal.html'; return false;">
+              Journal&nbsp;&rsaquo;
+            </a>
+            <ul class="dropdown-menu" style="background-color: white; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-width: 250px; padding: 8px 0;">
+              <li>
+                <a class="dropdown-item" href="submission_guidlines.html" style="padding: 12px 20px; color: #1B4965; font-weight: 600; font-size: 1rem;">Submission Guidelines</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="journal_view.html" style="padding: 12px 20px; color: #1B4965; font-weight: 600; font-size: 1rem;">Published Issues</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item mx-1">
+            <a class="nav-link text-dark fw-semibold" href="chapters.html">Chapters</a>
+          </li>
+          <li class="nav-item mx-1">
+            <a class="nav-link text-dark fw-semibold" href="aboutus.html">About Us</a>
+          </li>
+          <li class="nav-item mx-1">
+            <a class="nav-link text-dark fw-semibold" href="supportus.html">Support Us</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto align-items-center pe-3 login-signup-nav">
+          <!-- Login/Signup buttons (shown when not logged in) -->
+          <li class="nav-item mx-1" id="login-nav-item">
+            <a class="nav-link text-dark fw-semibold" href="login.html">Login</a>
+          </li>
+          <li class="nav-item ms-2" id="signup-nav-item">
+            <a class="btn" href="signup.html" style="background-color: #b8e9e5; color: #153e56; font-weight: 600; border-radius: 8px; padding: 0.4rem 1.1rem; font-size: 1rem;">Sign up</a>
+          </li>
+          
+          <!-- User profile section removed for consistency -->
+        </ul>
+      </div>
+    </div>
+  </nav> 
+<script>
+// Allow parent dropdown link to navigate if clicked when already open
+if (typeof window !== 'undefined') {
+  document.querySelectorAll('.navbar .dropdown-toggle').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var parent = this.parentElement;
+      if (parent.classList.contains('show')) {
+        window.location = this.getAttribute('href');
+      }
+      // Otherwise, let Bootstrap handle opening the dropdown
+    });
+  });
+}
+</script> 
+<style>
+.navbar .dropdown-toggle::after {
+  display: none !important;
+}
+.navbar .dropdown-menu {
+  display: block;
+  flex-direction: column !important;
+}
+.navbar .dropdown-menu .dropdown-item {
+  display: block;
+  width: 100%;
+}
+.navbar .dropdown.d-flex .dropdown-menu {
+  left: 0 !important;
+  right: auto !important;
+  top: 100% !important;
+  transform: none !important;
+  min-width: 250px;
+}
+@media (max-width: 991.98px) {
+  .navbar-toggler {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  .toggler-wrapper {
+    margin-left: 40px !important;
+  }
+  nav.navbar {
+    padding-left: 15px !important;
+    padding-right: 16px !important;
+  }
+  .navbar-brand {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  .navbar-collapse {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .navbar-nav {
+    padding-top: 0 !important;
+    padding-bottom: 0.7 !important;
+  }
+  .navbar-nav .nav-item:first-child {
+    margin-top: 0 !important;
+  }
+  .navbar-nav .nav-item:last-child {
+    margin-bottom: 0 !important;
+  }
+  .navbar-collapse {
+    background: #f8f9fa;
+    width: 100vw;
+    left: 0;
+    top: 56px; /* height of navbar, adjust if needed */
+    position: absolute;
+    z-index: 1050;
+    padding: 1.5rem 1rem 2rem 1rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .navbar-nav {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  .navbar-nav .nav-item {
+    width: 100%;
+    margin: 0.2rem 0 !important;
+  }
+  .navbar-nav .nav-link, .navbar-nav .btn {
+    width: 100%;
+    text-align: left;
+    padding: 0.9rem 1rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    margin-bottom: 0.2rem;
+  }
+  .navbar-nav .btn {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .dropdown-menu {
+    position: static !important;
+    float: none;
+    width: 100%;
+    margin: 0.2rem 0 0 0;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+  }
+  .dropdown-menu .dropdown-item {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    width: 100%;
+  }
+  .dropdown-menu .dropdown-item:active, .dropdown-menu .dropdown-item:focus {
+    background: #b8e9e5;
+    color: #153e56;
+  }
+  .dropdown-toggle {
+    width: 100%;
+    display: block;
+    text-align: left;
+    margin-bottom: 0 !important;
+  }
+  .login-signup-nav {
+    margin-bottom: 1.2rem;
+    width: 100%;
+  }
+ 
+ /* User profile styling for mobile */
+ #user-profile-nav .nav-link {
+   width: 100%;
+   text-align: left;
+   padding: 0.9rem 1rem;
+   font-size: 1.1rem;
+   border-radius: 8px;
+   margin-bottom: 0.2rem;
+ }
+ 
+ #user-profile-nav img {
+   height: 18px !important;
+   width: 18px !important;
+   margin-right: 10px !important;
+ }
+}
+
+/* .dashboard-btn { */
+  background: #b8e9e5;
+  color: #153e56 !important;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.4rem 1.1rem;
+  font-size: 1rem;
+  transition: background 0.18s, color 0.18s;
+  border: none;
+  box-shadow: none;
+}
+.dashboard-btn:hover, .dashboard-btn:focus {
+  background: #eaf6f8;
+  color: #1B4965 !important;
+  text-decoration: none;
+}
+/* .user-btn { */
+  background: #b8e9e5;
+  color: #153e56 !important;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.4rem 1.1rem;
+  font-size: 1rem;
+  transition: background 0.18s, color 0.18s;
+  border: none;
+  box-shadow: none;
+}
+/* .user-btn:hover, .user-btn:focus { */
+  background: #eaf6f8;
+  color: #1B4965 !important;
+  text-decoration: none;
+}
+</style> 

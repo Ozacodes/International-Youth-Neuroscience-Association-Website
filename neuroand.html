@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neuro&: Exploring Neuroscience & Society</title>
+
+  <!-- Fonts and CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/database.js"></script>
+  <script src="js/load-nav.js"></script>
+  
+  <style>
+    body {
+      font-family: 'Work Sans', sans-serif;
+    }
+    .hero-section {
+      background: url('images/brain-bee.jpg') center right / cover no-repeat;
+      position: relative;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+    .hero-overlay {
+      background: linear-gradient(to right, rgba(223, 231, 236, 1.0) 0%, rgba(223, 231, 236, 0.85) 60%, rgba(223, 231, 236, 0) 100%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .section-title {
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    .placeholder-img {
+      background-color: #e0e0e0;
+      width: 100%;
+      height: 200px;
+      border-radius: 8px;
+    }
+    .faq-question {
+      font-weight: 600;
+    }
+    .accordion-item {
+      background-color: #ECF1F4;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 1rem;
+    }
+    .accordion-button {
+      border-radius: 8px !important;
+    }
+    .btn-rsvp {
+      background-color: #c4e9eb;
+      color: #000;
+      border: none;
+    }
+    .btn-handbook {
+      background-color: transparent;
+      color: #000;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+
+<body>
+
+            <!-- Navigation placeholder - will be loaded by JavaScript -->
+            <div id="nav-placeholder"></div>
+              
+            
+
+            <!-- HERO SECTION -->
+                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+              
+                <div class="container" style="z-index: 2; position: relative;">
+                  <div class="row" style="margin-top: -5rem;">
+                    <div class="col-lg-8 col-12">
+                      <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
+                          Neuro&: Career Webinar Series
+                      </h1>
+                      <p style="font-size: 1.15rem; margin-bottom: 1.5rem; color: white; max-width: 600px;">
+                          Join us monthly for thought-provoking conversations at the intersection of neuroscience, ethics, and society — supported by the Dana Foundation.
+                      </p>
+                      <a href="#" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem; margin-right: 15px;">Past Sessions&nbsp;&rsaquo;</a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Sponsors Section</title>
+              <style>
+                      @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+              
+                      .sponsors-section {
+                          font-family: 'Work Sans', sans-serif;
+                        background-color: #CAE9FF;
+                          padding: 80px 20px;
+                        color: #1B4965;
+                    }
+                    
+                      .sponsors-container {
+                        max-width: 1200px;
+                        margin: 0 auto;
+                    }
+                    
+                      .sponsors-title {
+                        font-size: 2.5rem;
+                        font-weight: 600;
+                        color: #1B4965;
+                          margin-bottom: 60px;
+                        text-align: left;
+                    }
+                    
+                      .sponsor-item {
+                          display: flex;
+                          align-items: center;
+                          gap: 50px;
+                        margin-bottom: 80px;
+                    }
+                    
+                      .sponsor-item:last-child {
+                          margin-bottom: 0;
+                      }
+              
+                      .sponsor-item.reverse {
+                          flex-direction: row-reverse;
+                    }
+                    
+                      .sponsor-logo {
+                          width: 400px;
+                          height: 300px;
+                          background-color: #c4c4c4;
+                          border-radius: 12px;
+                          flex-shrink: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                          color: #666;
+                          font-size: 1rem;
+                          font-weight: 500;
+                    }
+                    
+                      .sponsor-content {
+                          flex: 1;
+                      }
+              
+                      .sponsor-name {
+                          font-size: 1.8rem;
+                        font-weight: 600;
+                        color: #1B4965;
+                          margin-bottom: 20px;
+                          line-height: 1.3;
+                    }
+                    
+                      .sponsor-description {
+                        font-size: 1rem;
+                        color: #1B4965;
+                        line-height: 1.6;
+                    }
+                    
+                      @media (max-width: 968px) {
+                          .sponsor-item,
+                          .sponsor-item.reverse {
+                              flex-direction: column;
+                        text-align: center;
+                              gap: 30px;
+                    }
+                    
+                          .sponsor-logo {
+                              width: 100%;
+                              max-width: 400px;
+                              height: 250px;
+                          }
+                      }
+                    
+                    @media (max-width: 768px) {
+                          .sponsors-section {
+                              padding: 60px 15px;
+                        }
+                        
+                          .sponsors-title {
+                            font-size: 2rem;
+                              margin-bottom: 50px;
+                        }
+                        
+                          .sponsor-item {
+                            margin-bottom: 60px;
+                        }
+                        
+                          .sponsor-logo {
+                              height: 200px;
+                        }
+                        
+                          .sponsor-name {
+                            font-size: 1.5rem;
+                        }
+                        
+                          .sponsor-description {
+                            font-size: 0.95rem;
+                        }
+                    }
+                    
+                    @media (max-width: 480px) {
+                          .sponsors-title {
+                            font-size: 1.8rem;
+                            margin-bottom: 40px;
+                        }
+                        
+                          .sponsor-name {
+                              font-size: 1.3rem;
+                        }
+
+                          .sponsor-description {
+                font-size: 0.9rem;
+            }
+                    }
+                </style>
+</head>
+<body>
+                  <!-- EMBEDDABLE SPONSORS SECTION START -->
+                  <section class="sponsors-section">
+                      <div class="sponsors-container">
+                          
+                          <!-- International Neuroethics Society -->
+                          <div class="sponsor-item">
+                              <div class="sponsor-logo">
+                                <img src="NeuroDance.png-3.webp" alt="Dr. Alex Kwan" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                              </div>
+                              <div class="sponsor-content">
+                                  <h2 class="sponsors-title">Coming Up:</h2>
+                                  <p class="sponsor-description">
+                                      filler text about the event
+                                  </p>
+                                  <a href="#" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem; margin-right: 15px;">RSVP&nbsp;&rsaquo;</a>
+                                  <a href="#" class="btn" style="background-color: #ffffff; color: #1B4965; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem; border: 2px solid #1B4965;">Participant Handbook&nbsp;&rsaquo;</a>
+                              </div>
+                          </div>
+              
+                          <!-- International Youth Neuroscience Association -->
+                          <div class="sponsor-item reverse">
+                              <div class="sponsor-logo">
+                                  <img src="NeuroComics-3-3.png" alt="Dr. Alex Kwan" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                              </div>
+                              <div class="sponsor-content">
+                                  <h2 class="sponsors-title">Neuro&Engineering with Dr. Alex Kwan</h3>
+                                  <p class="sponsor-description">
+                                      Meet the Speaker: Alex Kwan is an Associate Professor at Cornell University whose work bridges biomedical engineering and neuroscience to advance mental health research and neurotechnologies.
+                                  </p>
+                                  <p class="sponsor-description">
+                                      When: Saturday, April 26th · 12–1:30 PM ET · Zoom
+                                  </p>
+                              </div>
+                          </div>
+                          <!-- International Neuroethics Society -->
+                          <div class="sponsor-item">
+                              <div class="sponsor-logo">
+                                <img src="members_dana.webp" alt="Dr. Alex Kwan" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                              </div>
+                              <div class="sponsor-content">
+                                  <h2 class="sponsors-title">Supported by the Dana Foundation</h2>
+                                  <p class="sponsor-description">
+                                      The INS is an interdisciplinary group of scholars, scientists, clinicians, and professionals dedicated to inspiring research and discussion on the responsible use of advances in brain science.
+                                  </p>
+                              </div>
+                          </div>
+                  </section>
+                  <!-- EMBEDDABLE SPONSORS SECTION END -->
+              </body>
+              </html>
+
+<!-- SUBMISSION DETAILS SECTION -->
+<style>
+.submission-details-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  height: 40vh;
+  min-height: 350px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+.submission-details-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111;
+  flex: 1 1 40%;
+  margin: 0;
+  line-height: 1.1;
+}
+.submission-details-text {
+  font-size: 1.3rem;
+  color: #111;
+  flex: 1 1 60%;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+@media (max-width: 900px) {
+  .submission-details-section {
+    flex-direction: column;
+    gap: 24px;
+    height: auto;
+    min-height: 0;
+    padding: 50px 0 30px 0;
+  }
+  .submission-details-title {
+    font-size: 2.2rem;
+    text-align: left;
+  }
+  .submission-details-text {
+    font-size: 1.1rem;
+    text-align: left;
+  }
+}
+@media (max-width: 600px) {
+  .submission-details-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    height: auto;
+    min-height: 0;
+    padding: 32px 16px 24px 16px;
+  }
+  .submission-details-title {
+    font-size: 1.4rem;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    word-break: break-word;
+  }
+  .submission-details-text {
+    font-size: 0.98rem;
+    text-align: left;
+    word-break: break-word;
+  }
+}
+</style>
+<section class="submission-details-section">
+  <h2 class="submission-details-title">Why Attend?</h2>
+  <div class="submission-details-text">
+    <ul>
+        <li>Gain insights from leading experts in neuroscience and society.</li>
+        <li>Qualify for the Neuro& Careers Certificate.</li>
+        <li>Earn IYNA Chapter points through participation.</li>
+    </ul>
+    <br>
+    <a href="#" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem; margin-right: 15px;">Participant Handbook&nbsp;&rsaquo;</a>
+  </div>
+</section>
+<!-- END SUBMISSION DETAILS SECTION -->
+
+<!-- FAQ SECTION -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Section</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .faq-container {
+            font-family: 'Work Sans', sans-serif;
+            background-color: #f7fafd;
+            padding: 60px 20px;
+            color: #1B4965;
+        }
+
+        .faq-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1B4965;
+            margin-bottom: 40px;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .faq-item {
+            background-color: #fff;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(27, 73, 101, 0.07);
+            overflow: hidden;
+            border-left: 6px solid #62B6CB;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 24px rgba(27, 73, 101, 0.13);
+            border-left: 6px solid #1B4965;
+        }
+
+        .faq-question {
+            padding: 24px 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #1B4965;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #f2f8fa;
+        }
+
+        .faq-arrow {
+            font-size: 1.2rem;
+            color: #62B6CB;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: #fff;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 32px 24px 32px;
+            color: #1B4965;
+            line-height: 1.6;
+            font-size: 1.05rem;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .answer-list {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .answer-list li {
+            margin-bottom: 5px;
+            color: #1B4965;
+            font-size: 1.05rem;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #62B6CB;
+        }
+
+        @media (max-width: 768px) {
+            .faq-container {
+                padding: 40px 10px;
+            }
+            .faq-title {
+                font-size: 1.6rem;
+                margin-bottom: 30px;
+            }
+            .faq-question {
+                padding: 18px 16px;
+                font-size: 1rem;
+            }
+            .faq-answer-content {
+                padding: 0 16px 18px 16px;
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <div class="faq-wrapper">
+            <h2 class="faq-title">
+                Frequently Asked Questions
+            </h2>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Where can I register for the webinar?
+                    <span class="faq-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                         An RSVP form will be posted to IYNA’s website, Discord, and Instagram.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Who can attend? What if I am an international student?
+                    <span class="faq-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Neuro& encourages participants from all over the world to attend! We hope to facilitate meaningful discussions with diverse perspectives. Our series is aimed at providing high school students with the opportunity to explore neuroscience-related careers but is open to any individual with an interest in the field.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    I am a member of an IYNA Chapter, do I get any benefits from attending a webinar?
+                    <span class="faq-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! All participants who attend and are also a part of an IYNA chapter will receive points for their chapter for their participation! You will be asked for your Chapter ID upon RSVP. Please refer to the IYNA Chapters Discord channel should you need further information.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Is there a limit on the number of people attending?
+                    <span class="faq-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        No. We will try our best to accommodate everyone based on our Zoom plan.Proficiency is highly recommended. No use of AI translation tools is allowed.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    What if I can’t attend the webinar? Will there be a recorded video posted?
+                    <span class="faq-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                         Yes, we will record the session and make the video available online on IYNA’s platforms. We encourage you to attend the webinar if possible, but feel free to register for the following month’s webinar!
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                     I am interested in speaking for Neuro&/have suggestions for potential speakers, who should I reach out to?
+                    <span class="faq-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Please email izhang@youthneuro.org, we would love to hear from you!
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Where can I find more information?
+                    <span class="faq-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Check out our Website and Instagram. Otherwise, please direct any unanswered questions to izhang@youthneuro.org
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const isActive = faqItem.classList.contains('active');
+
+            // Close all other FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-answer').classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ
+            if (isActive) {
+                faqItem.classList.remove('active');
+                answer.classList.remove('active');
+            } else {
+                faqItem.classList.add('active');
+                answer.classList.add('active');
+            }
+        }
+
+        // Add keyboard support
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleFAQ(this);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+<!-- FAQ SECTION -->
+
+<!-- Footer placeholder - will be loaded by JavaScript -->
+<div id="footer-placeholder"></div>
+<script src="js/load-footer.js"></script>
+<!-- SCRIPTS -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.sticky.js"></script>
+<script src="js/click-scroll.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
+          

@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>IYNA - Sign In</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <style>
+          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+            font-family: 'Work Sans', sans-serif !important;
+          }
+          
+          /* Prevent nav links from breaking into two lines and reduce spacing */
+          .navbar .nav-link {
+            white-space: nowrap;
+          }
+          .navbar .nav-item {
+            margin-left: 0.3rem !important;
+            margin-right: 0.3rem !important;
+          }
+
+          /* Login Page Specific Styles */
+          .login-container {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 0 5rem 0;
+          }
+
+          .login-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+          }
+
+          .login-form h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #000;
+            font-size: 2.5rem;
+            font-weight: 700;
+          }
+
+          .form-group {
+            margin-bottom: 1.5rem;
+          }
+
+          .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            color: #000;
+            font-size: 1rem;
+          }
+
+          .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #b8e9e5;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+          }
+
+          .form-control:focus {
+            outline: none;
+            border-color: #6db9c3;
+            box-shadow: 0 0 0 3px rgba(109, 185, 195, 0.1);
+          }
+
+          .btn-login {
+            background: linear-gradient(135deg, #b8e9e5 0%, #a0d9d3 100%);
+            color: #064c5c;
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border-radius: 12px;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(184, 233, 229, 0.3);
+            cursor: pointer;
+          }
+
+          .btn-login:hover {
+            background: linear-gradient(135deg, #a0d9d3 0%, #8bc9c4 100%);
+            color: #064c5c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(184, 233, 229, 0.4);
+          }
+
+          .btn-login:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(184, 233, 229, 0.3);
+          }
+
+          .btn-login:disabled {
+            background: #ccc;
+            transform: none;
+            cursor: not-allowed;
+            box-shadow: none;
+          }
+
+          .auth-links {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+          }
+
+          .auth-links a {
+            color: #6db9c3;
+            text-decoration: none;
+            font-weight: 500;
+          }
+
+          .auth-links a:hover {
+            color: #5a9da8;
+            text-decoration: underline;
+          }
+
+          .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            display: none;
+          }
+
+          .success-message {
+            color: #28a745;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            display: none;
+          }
+
+          .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            z-index: 1000;
+            display: none;
+          }
+
+          .connection-status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+          }
+
+          .connection-status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+          }
+        </style>
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+    </head>
+    
+    <body id="top">
+
+        <!-- Connection Status Indicator -->
+        <div class="connection-status" id="connectionStatus"></div>
+
+        <main>
+
+            <!-- NAVIGATION -->
+            <nav class="navbar navbar-expand-lg" style="background-color: #6db9c3;">
+                <div class="container">
+              
+                  <!-- Logo and Brand (single line) -->
+                  <a class="navbar-brand d-flex align-items-center" href="home.html">
+                    <img src="images/iyna-logo.png" alt="IYNA Logo" style="height: 36px; margin-right: 10px;">
+                    <span class="fw-bold text-dark" style="font-size: 1.1rem; letter-spacing: 0.01em; line-height: 1.05;">International Youth<br>Neuroscience Association</span>
+                  </a>
+              
+                  <!-- Toggler for mobile -->
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+              
+                  <!-- Nav Links -->
+                  <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+                    <ul class="navbar-nav align-items-center">
+                      <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fw-semibold" href="events.html">Events&nbsp;&rsaquo;</a>
+                      </li>
+                      <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fw-semibold" href="home.html#journal">Journal&nbsp;&rsaquo;</a>
+                      </li>
+                      <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fw-semibold" href="home.html#chapters">Chapters&nbsp;&rsaquo;</a>
+                      </li>
+                      <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fw-semibold" href="home.html#about-iyna">About Us&nbsp;&rsaquo;</a>
+                      </li>
+                      <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fw-semibold" href="home.html#donate">Support Us&nbsp;&rsaquo;</a>
+                      </li>
+              
+                      <!-- Login & Sign Up -->
+                      <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fw-semibold" href="login.html" style="color: #064c5c !important;">Login&nbsp;&rsaquo;</a>
+                      </li>
+                      <li class="nav-item ms-2">
+                        <a class="btn" href="signup.html" style="background-color: #b8e9e5; color: #153e56; font-weight: 600; border-radius: 8px; padding: 0.4rem 1.1rem; font-size: 1rem;">Sign up&nbsp;&rsaquo;</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+
+            <!-- LOGIN FORM SECTION -->
+            <section class="login-container">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="login-form">
+                                <h1>Sign In</h1>
+                                <form id="loginForm">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-login" id="loginBtn">Login</button>
+                                    <div class="error-message" id="errorMessage"></div>
+                                    <div class="success-message" id="successMessage"></div>
+                                </form>
+                                <div class="auth-links">
+                                    <p>Need an account? <a href="signup.html">Sign Up</a></p>
+                                    <p><a href="#forgot-password">Forgot Password?</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="py-5 text-dark" style="background-color: #62B6CB;">
+                <div class="container">
+                  <div class="row align-items-start">
+            
+                    <!-- Left: Logo + Description -->
+                    <div class="col-md-6 mb-4 mb-md-0">
+                      <div class="d-flex align-items-center mb-3">
+                        <img src="images/iyna-logo.png" alt="IYNA Logo" style="height: 40px; margin-right: 10px;">
+                        <h5 class="mb-0 fw-bold">International Youth<br>Neuroscience Association</h5>
+                      </div>
+                      <p style="color: #1B4965; font-size: 0.9rem;">
+                        Dedicated to connecting, educating, and inspiring the next<br>generation of neuroscientists by making the field of<br>neuroscience accessible to all.
+                      </p>
+                      <p class="mt-5" style="color: #1B4965; font-size: 0.9rem; white-space: nowrap;">&copy; 2025 International Youth Neuroscience Association, a 501(c)(3) nonprofit organization. All Rights Reserved.</p>
+                    </div>
+            
+                    <!-- Right: Partners + Donation + Social -->
+                    <div class="col-md-6 text-md-end text-center">
+                      <a href="home.html#donate" class="btn mb-4" style="background-color: #b8e9e5; color: black; font-weight: 600; border-radius: 8px;">Donate Now&nbsp;&rsaquo;</a>
+            
+                      <h6 class="fw-bold">OUR PARTNERS</h6>
+                      <div class="d-flex justify-content-md-end justify-content-center flex-wrap align-items-center gap-3 my-3">
+                        <img src="images/partners/alzheimers.png" alt="Alzheimer's Association" style="height: 40px;">
+                        <img src="images/partners/neuroethics.png" alt="Neuroethics Society" style="height: 40px;">
+                        <img src="images/partners/brainbee.png" alt="Brain Bee" style="height: 40px;">
+                      </div>
+            
+                      <div class="d-flex justify-content-md-end justify-content-center gap-3 mt-4">
+                        <a href="https://www.tiktok.com/" target="_blank">
+                          <img src="images/icons/tiktok.png" alt="TikTok" style="height: 28px;">
+                        </a>
+                        <a href="https://www.instagram.com/" target="_blank">
+                          <img src="images/icons/instagram.png" alt="Instagram" style="height: 28px;">
+                        </a>
+                        <a href="https://www.linkedin.com/" target="_blank">
+                          <img src="images/icons/linkedin.png" alt="LinkedIn" style="height: 28px;">
+                        </a>
+                      </div>
+                    </div>
+            
+                  </div>
+                </div>
+              </footer>
+
+        </main>
+
+        <!-- SCRIPTS - Load in correct order -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+
+        <!-- LOGIN SPECIFIC SCRIPTS -->
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('Login page loaded');
+
+                const loginForm = document.getElementById('loginForm');
+                const errorMessage = document.getElementById('errorMessage');
+                const successMessage = document.getElementById('successMessage');
+                const loginBtn = document.getElementById('loginBtn');
+
+                loginForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value;
+                    
+                    // Hide previous messages
+                    errorMessage.style.display = 'none';
+                    successMessage.style.display = 'none';
+                    
+                    // Basic validation
+                    if (!email || !password) {
+                        errorMessage.textContent = 'Please fill in all fields.';
+                        errorMessage.style.display = 'block';
+                        return;
+                    }
+
+                    try {
+                        // Show loading
+                        loginBtn.textContent = 'Logging in...';
+                        loginBtn.disabled = true;
+
+                        // Wait for database to be ready
+                        let attempts = 0;
+                        while (!window.db && attempts < 50) {
+                            await new Promise(resolve => setTimeout(resolve, 100));
+                            attempts++;
+                        }
+
+                        if (!window.db) {
+                            throw new Error('Database connection not available. Please refresh and try again.');
+                        }
+
+                        console.log('Attempting login with Supabase authentication...');
+
+                        // Use the database login function (which now uses Supabase auth)
+                        const userData = await window.db.loginUser(email, password);
+                        
+                        if (!userData) {
+                            throw new Error('Invalid email or password');
+                        }
+
+                        if (!userData.is_active) {
+                            throw new Error('Your account has been deactivated. Please contact an administrator.');
+                        }
+
+                        console.log('Login successful for:', userData.email, 'Role:', userData.role);
+
+                        // Store user data in sessionStorage for navigation
+                        // Always get fresh data from database to ensure role is current
+                        const freshUserData = await db.getUserByEmail(userData.email);
+                        sessionStorage.setItem('iyna_user', JSON.stringify(freshUserData));
+                        
+                        console.log('Stored fresh user data in session:', freshUserData);
+
+                        // Show success
+                        successMessage.textContent = 'Login successful! Redirecting...';
+                        successMessage.style.display = 'block';
+
+                        // Wait and redirect based on role
+                        setTimeout(() => {
+                            switch (freshUserData.role) {
+                                case 'chapter_lead':
+                                    window.location.href = 'chapter_lead_dash.html';
+                                    break;
+                                case 'deputy_chapter_lead':
+                                case 'regional_lead':
+                                case 'admin':
+                                    window.location.href = 'chapter_team_dash.html';
+                                    break;
+                                case 'chapter-lead':
+                                case 'chapter_lead':
+                                case 'chapter_director':
+                                    window.location.href = 'chapter_director_dash.html';
+                                    break;
+                                case 'member':
+                                default:
+                                    window.location.href = 'personal_dash.html';
+                                    break;
+                            }
+                        }, 1000);
+
+                    } catch (error) {
+                        console.error('Login error:', error);
+                        
+                        let errorText = 'Login failed. Please try again.';
+                        if (error.message.includes('Invalid login credentials') || error.message.includes('Invalid email')) {
+                            errorText = 'Invalid email or password. Please check your credentials.';
+                        } else if (error.message.includes('Email not confirmed')) {
+                            errorText = 'Please check your email and click the confirmation link before logging in.';
+                        } else if (error.message.includes('deactivated')) {
+                            errorText = error.message;
+                        } else if (error.message.includes('Database connection')) {
+                            errorText = error.message;
+                        }
+                        
+                        errorMessage.textContent = errorText;
+                        errorMessage.style.display = 'block';
+                    } finally {
+                        loginBtn.textContent = 'Login';
+                        loginBtn.disabled = false;
+                    }
+                });
+
+                // Check if already logged in via sessionStorage
+                setTimeout(async () => {
+                    try {
+                        const userData = sessionStorage.getItem('iyna_user');
+                        if (userData) {
+                            const user = JSON.parse(userData);
+                            if (user && user.is_active !== false) {
+                                console.log('Existing user session found, refreshing from database...');
+                                
+                                                                // Get fresh data from database to ensure role is current
+                                try {
+                                    const freshUser = await db.getUserByEmail(user.email);
+                                    sessionStorage.setItem('iyna_user', JSON.stringify(freshUser));
+                                    console.log('Session refreshed with fresh data:', freshUser);
+                                    
+                                    // Already logged in, redirect based on role
+                                    switch (freshUser.role) {
+                                        case 'chapter_lead':
+                                            window.location.href = 'chapter_lead_dash.html';
+                                            break;
+                                        case 'deputy_chapter_lead':
+                                        case 'regional_lead':
+                                        case 'admin':
+                                            window.location.href = 'chapter_team_dash.html';
+                                            break;
+                                        case 'chapter-lead':
+                                        case 'chapter_lead':
+                                        case 'chapter_director':
+                                            window.location.href = 'chapter_director_dash.html';
+                                            break;
+                                        case 'member':
+                                        default:
+                                            window.location.href = 'personal_dash.html';
+                                            break;
+                                    }
+                                } catch (refreshError) {
+                                    console.error('Error refreshing session from database:', refreshError);
+                                    // Fall back to existing session data
+                                    switch (user.role) {
+                                        case 'chapter_lead':
+                                            window.location.href = 'chapter_lead_dash.html';
+                                            break;
+                                        case 'deputy_chapter_lead':
+                                        case 'regional_lead':
+                                        case 'admin':
+                                            window.location.href = 'chapter_team_dash.html';
+                                            break;
+                                        case 'chapter-lead':
+                                        case 'chapter_lead':
+                                        case 'chapter_director':
+                                            window.location.href = 'chapter_director_dash.html';
+                                            break;
+                                        case 'member':
+                                        default:
+                                            window.location.href = 'personal_dash.html';
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    } catch (error) {
+                        console.log('No existing session found or error checking:', error);
+                    }
+                }, 2000);
+
+                // Test database connection
+                setTimeout(async () => {
+                    try {
+                        if (window.testDatabaseConnection) {
+                            const connected = await window.testDatabaseConnection();
+                            const status = document.getElementById('connectionStatus');
+                            if (connected) {
+                                status.className = 'connection-status success';
+                                // status.textContent = '✅ Database Connected';
+                            } else {
+                                status.className = 'connection-status error';
+                                // status.textContent = '❌ Database Connection Failed';
+                            }
+                            // status.style.display = 'block';
+                            // setTimeout(() => status.style.display = 'none', 3000);
+                        }
+                    } catch (error) {
+                        console.error('Connection test failed:', error);
+                    }
+                }, 1000);
+            });
+        </script>
+
+    </body>
+</html>
