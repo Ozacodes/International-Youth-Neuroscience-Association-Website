@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Journal - IYNA</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .journal-section {
+                background-color: white;
+                padding: 80px 0;
+            }
+
+            .intro-section {
+                max-width: 900px;
+                margin: 0 auto 40px auto;
+                text-align: center;
+                padding: 0 20px;
+            }
+
+            .page-title {
+                font-size: 2.8rem;
+                font-weight: bold;
+                margin-bottom: 30px;
+                color: #333;
+            }
+
+            .description {
+                font-size: 1.1rem;
+                color: #333;
+                line-height: 1.6;
+                margin-bottom: 40px;
+            }
+
+            .note {
+                font-style: italic;
+            }
+
+            .button-container {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                margin-top: 40px;
+            }
+
+            .button {
+                background-color: #a8d0db;
+                color: #333;
+                padding: 12px 24px;
+                text-decoration: none;
+                border-radius: 6px;
+                font-size: 1rem;
+                font-weight: normal;
+                transition: background-color 0.3s ease;
+                border: none;
+                cursor: pointer;
+                display: inline-block;
+            }
+
+            .button:hover {
+                background-color: #95c4d0;
+            }
+
+            .archive-container {
+                display: flex;
+                min-height: 600px;
+                max-width: 1200px;
+                margin: 0 auto;
+                background: white;
+            }
+
+            .sidebar {
+                width: 300px;
+                background-color: white;
+                padding: 40px 30px;
+                border-right: 1px solid #eee;
+                overflow-y: auto;
+            }
+
+            .main-content {
+                flex: 1;
+                padding: 40px 40px 40px 40px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                background: white;
+            }
+
+            .year-section {
+                margin-bottom: 30px;
+            }
+
+            .year-title {
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 15px;
+                cursor: pointer;
+                transition: color 0.3s ease;
+                padding: 5px 10px;
+                border-radius: 6px;
+            }
+
+            .year-title:hover {
+                color: #4A90E2;
+                background-color: #f8f9fa;
+            }
+
+            .year-title.active {
+                color: #4A90E2;
+                background-color: #f8f9fa;
+            }
+
+            .volumes-container {
+                display: none;
+                margin-left: 15px;
+            }
+
+            .volumes-container.active {
+                display: block;
+            }
+
+            .volume-item {
+                background-color: white;
+                padding: 12px 20px;
+                margin-bottom: 8px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 0.95rem;
+                color: #495057;
+                border: 1px solid #eee;
+            }
+
+            .volume-item:hover {
+                background-color: #f8f9fa;
+                transform: translateX(5px);
+            }
+
+            .volume-item.selected {
+                background-color: #4A90E2;
+                color: white;
+                border-color: #4A90E2;
+            }
+
+            .pdf-viewer {
+                width: 100%;
+                height: 800px;
+                border: none;
+                background: white;
+            }
+
+            .placeholder {
+                text-align: center;
+                color: #6c757d;
+                width: 100%;
+            }
+
+            .journal-cover-preview {
+                width: 250px;
+                height: 350px;
+                background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+                border-radius: 8px;
+                margin: 0 auto 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #495057;
+                font-size: 1.2rem;
+                text-align: center;
+            }
+
+            @media (max-width: 768px) {
+                .archive-container {
+                    flex-direction: column;
+                    margin: 20px;
+                }
+
+                .sidebar {
+                    width: 100%;
+                    border-right: none;
+                    border-bottom: 1px solid #eee;
+                    max-height: 400px;
+                }
+
+                .pdf-viewer {
+                    height: 500px;
+                }
+            }
+        </style>
+        
+        <!-- Load shared navigation -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+    </head>
+    
+    <body id="top">
+        <main>
+            <!-- Navigation placeholder -->
+            <div id="nav-placeholder"></div>
+
+            <section class="journal-section">
+                    <!-- Published Issues Introduction -->
+                    <div class="intro-section">
+                        <h1 class="page-title">Published Issues</h1>
+                        
+                        <p class="description">
+                            Check out our collection of all the IYNA Published Journals so far! The IYNA Journal gives young neuroscience enthusiasts the opportunity to take a deep dive into a neuroscience topic and publish their findings. To find out more about how to submit an article to our journal, click the button below. <span class="note">Note: the IYNA journal is not a peer reviewed journal and should not be represented or treated as such.</span>
+                        </p>
+
+                        <div class="button-container">
+                            <a href="submission_guidlines.html" class="button">Submission Guidelines</a>
+                            <a href="#" class="button">Submit</a>
+                        </div>
+                    </div>
+
+                <div class="archive-container">
+                    <div class="sidebar">
+                        <!-- 2025 -->
+                        <div class="year-section">
+                            <div class="year-title" onclick="toggleYear('2025')">2025</div>
+                            <div class="volumes-container" id="volumes-2025">
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1FD0kfVW67SGDZ1tDTj4HsZjo8EXrssBR/preview', this)">
+                                    Vol 9 Issue 3
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1pYXl-T3Iy3EogmxwG0qw10m2WH0SwJ2j/preview', this)">
+                                    Vol 9 Issue 4
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1IFreF5K3MzN5dCATcHq8bqMy3BcWFJHN/preview', this)">
+                                    IYNA-INS Special Edition
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2024 -->
+                        <div class="year-section">
+                            <div class="year-title" onclick="toggleYear('2024')">2024</div>
+                            <div class="volumes-container" id="volumes-2024">
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1aW6wS7eXQjVTdpP8uST9ICw1xpC8JGB3/preview', this)">
+                                    Vol 8 Issue 1
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1-U5TfP9dz5JKlMzTUbfsk6SWdKPxIB0h/preview', this)">
+                                    Vol 8 Issue 2
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1eg0KGa2jVuUyJ_veD593KyqekMFJoctZ/preview', this)">
+                                    Vol 8 Issue 3
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/14PDc8ocV9lOiOFqBrVsjHkupJsUsGkm1/preview', this)">
+                                    Vol 8 Issue 5 (May)
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1PJ0RP0Sii8WZ-j9HyR7go0RfX_d5BjWF/preview', this)">
+                                    Vol 8 Issue 5 (August)
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1zm5H9M8JEOHbe6041TP1YIZf1ckM_piL/preview', this)">
+                                    Vol 8 Issue 101
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2023 -->
+                        <div class="year-section">
+                            <div class="year-title" onclick="toggleYear('2023')">2023</div>
+                            <div class="volumes-container" id="volumes-2023">
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1xanNAXReiiXIPcDNS3BcI4Obtus3rUuO/preview', this)">
+                                    Vol 7 Issue 2
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1tw01pCHUFlOWqMYeqWdK8LHuuzU6w7wv/preview', this)">
+                                    Vol 7 Issue 3
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/104P_LP2LbdSGGiUV1DrLMBmc6W6dlD7w/preview', this)">
+                                    Vol 7 Issue 4
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1x9iBHd84oB9lDkFbnEDRv0QI5bFxNtBs/preview', this)">
+                                    Vol 7 Issue 5
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1ORmz0TL004px3FG-dWslIJXatPTZV4vK/preview', this)">
+                                    Vol 6 Issue 6
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1NR-fiog58k4ONJNp60KJLey4WKKQR0fb/preview', this)">
+                                    Vol 6 Issue 7
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1z1iClLQlTmC8nbcFng7mvggmv3ZgKqjq/preview', this)">
+                                    Vol 6 Issue 8
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1Dx1eQR2VS3GJFPaKaWPNNzXvt3rbrQlw/preview', this)">
+                                    Vol 6 Issue 9
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2022 -->
+                        <div class="year-section">
+                            <div class="year-title" onclick="toggleYear('2022')">2022</div>
+                            <div class="volumes-container" id="volumes-2022">
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1i0bBNuwgV3CKVcKK6VBrUCBuYnkG0g1w/preview', this)">
+                                    Vol 5 Issue 2
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1p1zTnwG9GXP3932G7SXVXyoO4WMkQCc7/preview', this)">
+                                    Vol 5 Issue 3
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1kDNuw6calHj0fzvzZUknHbFZ5vttPAEq/preview', this)">
+                                    Vol 5 Issue 4
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1M5UKf2AynNxbeMvnimtBhopRKeoz7-I4/preview', this)">
+                                    Vol 5 Issue 5
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1Qe1088Buj33-MSbyrVC22urM5yHSVHHA/preview', this)">
+                                    Vol 5 Issue 6
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1YcCdMZDR8bMcaNg-l9qQYwZMY3omy_G-/preview', this)">
+                                    Vol 5 Issue 7
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1146nUYoXZaaFzR9gtzyLiwhTgIVhRLSE/preview', this)">
+                                    Vol 5 Issue 8
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/11-FepfmgAhaVueSdDed4khW2wsclzEeF/preview', this)">
+                                    Vol 5 Issue 9
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1U7ZE_V5OVfMPoqHiCTvrG5-FQvMaO-9N/preview', this)">
+                                    Vol 6 Issue 2
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1cX8KgklzSz5IB9Vgy4JJASGT6onfkRTj/preview', this)">
+                                    Vol 5 Issue 3 (Second)
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/10CiHiD8s26hoD8KqOnMwPeptL6AXfatI/preview', this)">
+                                    Vol 5 Issue 4 (Second)
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1Z5M5D0JrUmcb2hBEOHl2Okmnz8EsKgbz/preview', this)">
+                                    Vol 5 Issue 5 (Second)
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2021 -->
+                        <div class="year-section">
+                            <div class="year-title" onclick="toggleYear('2021')">2021</div>
+                            <div class="volumes-container" id="volumes-2021">
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1z4AINhNZkz6Pa4c8pkP0C00BPc6dEUQ4/preview', this)">
+                                    Vol 4 Issue 1
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1JaIn5ge-jZ2oGtjl_ydPWhGoJlEZfu2S/preview', this)">
+                                    Vol 4 Issue 2
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1vIhyWeevv_LIXndZlHTlVuemEHSTInup/preview', this)">
+                                    Vol 4 Issue 3
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1DBGDMWBqDGTlH_JBrM2747naa80DrUkd/preview', this)">
+                                    Vol 4 Issue 4
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1mAEN-TX99h0BzSpGakWMZsA_2Sevnn1q/preview', this)">
+                                    Vol 4 Issue 5
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1Jz6klrQwweKZ94md-Aas4r4DdiYTJF36/preview', this)">
+                                    Vol 4 Issue 6
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1yP9VBOKFAHpXeNonuAfaPQ4_xip_5rEK/preview', this)">
+                                    Vol 4 Issue 7
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1g9Z7EHoDyNIOHOZnYmNplDXcbWC6ZBYJ/preview', this)">
+                                    Vol 4 Issue 8
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1P_d94h88XgZCtPdpoR73O6mDUYYet6l5/preview', this)">
+                                    Vol 5 Issue 1
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2020 -->
+                        <div class="year-section">
+                            <div class="year-title" onclick="toggleYear('2020')">2020</div>
+                            <div class="volumes-container" id="volumes-2020">
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/10h8Rk0QL1hED2wsBmE50yrdvejBnNtos/preview', this)">
+                                    Vol 3 Issue 3
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/19cmkaAsk_0yhukN9OBlpPEFqvZCNDqCx/preview', this)">
+                                    Vol 3 Issue 5
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1xKyug52vdzfN5gu9zWlajve6uKhkUh6U/preview', this)">
+                                    Vol 3 Issue 6
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1zaXnbZfhbgnoSBF1XunQHID4Y3j27flf/preview', this)">
+                                    Vol 3 Issue 7
+                                </div>
+                                <div class="volume-item" onclick="loadPDF('https://drive.google.com/file/d/1-Yo-NEQliJE5FQ1zZy1xevZsLUaCQINJ/preview', this)">
+                                    Vol 3 Issue 8
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main-content">
+                        <div class="placeholder" id="placeholder">
+                            <div class="journal-cover-preview">
+                                <div>IYNA Journal<br>Archive</div>
+                            </div>
+                            <h3>Select a Volume to View</h3>
+                            <p>Click on any year to expand the volumes, then select a specific issue to view the PDF preview.</p>
+                        </div>
+                        <iframe id="pdf-viewer" class="pdf-viewer" style="display: none;" src="" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer placeholder -->
+            <div id="footer-placeholder"></div>
+        </main>
+
+        <!-- Load shared footer -->
+        <script src="js/load-footer.js"></script>
+        
+        <!-- Bootstrap JS -->
+        <script src="js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            function toggleYear(year) {
+                // Close all other years
+                const allContainers = document.querySelectorAll('.volumes-container');
+                const allYearTitles = document.querySelectorAll('.year-title');
+                
+                allContainers.forEach(container => {
+                    if (container.id !== `volumes-${year}`) {
+                        container.classList.remove('active');
+                    }
+                });
+
+                allYearTitles.forEach(title => {
+                    if (!title.textContent.includes(year)) {
+                        title.classList.remove('active');
+                    }
+                });
+
+                // Toggle the clicked year
+                const container = document.getElementById(`volumes-${year}`);
+                const yearTitle = event.target;
+                
+                container.classList.toggle('active');
+                yearTitle.classList.toggle('active');
+            }
+
+            function loadPDF(url, element) {
+                // Remove selected class from all volume items
+                document.querySelectorAll('.volume-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked item
+                element.classList.add('selected');
+
+                // Hide placeholder and show PDF viewer
+                document.getElementById('placeholder').style.display = 'none';
+                const pdfViewer = document.getElementById('pdf-viewer');
+                pdfViewer.style.display = 'block';
+                pdfViewer.src = url;
+            }
+
+            // Initialize with 2025 expanded and Vol 9 Issue 3 selected
+            document.addEventListener('DOMContentLoaded', function() {
+                // Expand 2025 section
+                const year2025Title = document.querySelector('.year-title');
+                const year2025Container = document.getElementById('volumes-2025');
+                
+                year2025Title.classList.add('active');
+                year2025Container.classList.add('active');
+
+                // Select and load Vol 9 Issue 3
+                const vol9Issue3 = year2025Container.querySelector('.volume-item');
+                loadPDF('https://drive.google.com/file/d/1FD0kfVW67SGDZ1tDTj4HsZjo8EXrssBR/preview', vol9Issue3);
+            });
+        </script>
+    </body>
+</html>
+          

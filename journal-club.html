@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Topic Listing Bootstrap 5 Template</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+        
+        <style>
+          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+            font-family: 'Work Sans', sans-serif !important;
+          }
+          #about-iyna {
+            padding-top: 6rem !important;
+            padding-bottom: 6rem !important;
+          }
+          /* Prevent nav links from breaking into two lines and reduce spacing */
+          .navbar .nav-link {
+            white-space: nowrap;
+          }
+          .navbar .nav-item {
+            margin-left: 0.3rem !important;
+            margin-right: 0.3rem !important;
+          }
+        </style>
+        <!-- Append mobile hero section CSS for override -->
+        <style>
+        /* Responsive hero section for mobile (match home page) */
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            font-size: 1.7rem !important;
+            line-height: 1.2 !important;
+            text-align: left !important;
+            padding: 0 10px !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: 100% !important;
+            max-width: 250px !important;
+            margin: 0 auto !important;
+            display: block !important;
+          }
+          .hero-section {
+            padding: 200px 0 !important;
+            min-height: 80vh !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            text-align: left !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 180px !important;
+            margin: 0 !important;
+            display: inline-block !important;
+            text-align: left !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+          .container, .container-fluid {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section background color override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section {
+            background: #DFE7EC !important;
+            background-image: none !important;
+          }
+          .hero-section .overlay {
+            display: none !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            padding-left: 18px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 and paragraph alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            padding-left: 0 !important;
+          }
+          .hero-section h1 {
+            padding-left: 24px !important;
+            padding-right: 10px !important;
+            margin-left: 0 !important;
+          }
+          .hero-section p {
+            padding-left: 24px !important;
+            margin-left: 0 !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            margin-left: 24px !important;
+            display: block !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 250px !important;
+            text-align: left !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button size override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            max-width: 160px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button even shorter override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 0.7rem !important;
+            padding-right: 0.7rem !important;
+            max-width: 110px !important;
+          }
+        }
+        </style>
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <!-- Load shared navigation -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+    </head>
+    
+    <body id="top">
+
+        <main>
+
+            <!-- Navigation placeholder - will be loaded by JavaScript -->
+            <div id="nav-placeholder"></div>
+              
+            
+
+            <!-- HERO SECTION -->
+                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+              
+                <div class="container" style="z-index: 2; position: relative;">
+                  <div class="row">
+                    <div class="col-lg-8 col-12">
+                      <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
+                          Join the IYNA<br>Research Journal Club
+                      </h1>
+                      <p style="font-size: 1.15rem; margin-bottom: 1.5rem; color: white; max-width: 600px;">
+                          Explore, discuss, and present scientific literature in a welcoming, low-pressure community. Join monthly virtual meetings with other curious minds.
+                      </p>
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdfAHS7Dl5RUxI736_mXfaLuBPmQ71ss7yTAISiesXU2gZP1w/viewform" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem;" target="_blank" rel="noopener noreferrer">Join the Club</a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+           
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Journal Club Details</title>
+                  <style>
+                      @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+              
+                      .details-section {
+                          font-family: 'Work Sans', sans-serif;
+                          background-color: #CAE9FF;
+                          padding: 80px 20px;
+                          color: #1B4965;
+                      }
+              
+                      .details-container {
+                          max-width: 900px;
+                          margin: 0 auto;
+                      }
+              
+                      .details-title {
+                          font-size: 3rem;
+                          font-weight: 600;
+                          color: #1B4965;
+                          margin-bottom: 80px;
+                          text-align: left;
+                      }
+              
+                      .detail-block {
+                          background-color: white;
+                          border-radius: 16px;
+                          padding: 50px;
+                          margin-bottom: 40px;
+                          box-shadow: 0 4px 20px rgba(27, 73, 101, 0.1);
+                          text-align: center;
+                      }
+              
+                      .detail-block:last-child {
+                          margin-bottom: 0;
+                      }
+              
+                      .detail-icon {
+                          font-size: 3rem;
+                          margin-bottom: 20px;
+                          display: block;
+                      }
+              
+                      .detail-question {
+                          font-size: 1.8rem;
+                          font-weight: 600;
+                          color: #1B4965;
+                          margin-bottom: 30px;
+                      }
+              
+                      .detail-description {
+                          font-size: 1.1rem;
+                          color: #1B4965;
+                          line-height: 1.6;
+                          margin-bottom: 25px;
+                      }
+              
+                      .detail-list {
+                          list-style: none;
+                          padding: 0;
+                          margin: 0;
+                      }
+              
+                      .detail-list li {
+                          font-size: 1.1rem;
+                          color: #1B4965;
+                          line-height: 1.8;
+                          margin-bottom: 12px;
+                          position: relative;
+                          padding-left: 25px;
+                      }
+              
+                      .detail-list li::before {
+                          content: '•';
+                          color: #62B6CB;
+                          font-weight: bold;
+                          position: absolute;
+                          left: 0;
+                          font-size: 1.3rem;
+                      }
+              
+                      .simple-text {
+                          font-size: 1.2rem;
+                          color: #1B4965;
+                          line-height: 1.6;
+                      }
+              
+                      @media (max-width: 768px) {
+                          .details-section {
+                              padding: 60px 32px;
+                          }
+              
+                          .details-title {
+                              font-size: 2.5rem;
+                              margin-bottom: 60px;
+                          }
+              
+                          .detail-block {
+                              padding: 40px 30px;
+                              margin-bottom: 30px;
+                          }
+              
+                          .detail-icon {
+                              font-size: 2.5rem;
+                              margin-bottom: 15px;
+                          }
+              
+                          .detail-question {
+                              font-size: 1.5rem;
+                              margin-bottom: 25px;
+                          }
+              
+                          .detail-description,
+                          .detail-list li,
+                          .simple-text {
+                              font-size: 1rem;
+                          }
+              
+                          .detail-list li {
+                              margin-bottom: 10px;
+                          }
+                      }
+              
+                      @media (max-width: 480px) {
+                          .details-section {
+                              padding: 40px 12px;
+                          }
+                          .details-title {
+                              font-size: 2rem;
+                              margin-bottom: 50px;
+                          }
+              
+                          .detail-block {
+                              padding: 30px 20px;
+                          }
+              
+                          .detail-question {
+                              font-size: 1.3rem;
+                          }
+              
+                          .detail-description,
+                          .detail-list li,
+                          .simple-text {
+                              font-size: 0.95rem;
+                          }
+                      }
+                  </style>
+              </head>
+              <body>
+                  <!-- EMBEDDABLE DETAILS SECTION START -->
+                  <section class="details-section" style="background: #f7fafd; padding: 60px 0; color: #1B2A41;">
+                    <div class="details-container" style="max-width: 900px; margin: 0 auto;">
+                      <h2 class="details-title" style="font-size: 2.5rem; font-weight: 700; color: #1B2A41; margin-bottom: 48px; text-align: left;">Details</h2>
+
+                      <!-- What Is the Journal Club? -->
+                      <div class="detail-block" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); margin-bottom: 32px; padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+                        <h3 class="detail-question" style="font-size: 1.4rem; font-weight: 600; color: #1B4965; margin-bottom: 18px;">What Is the Journal Club?</h3>
+                        <p class="detail-description" style="font-size: 1.08rem; color: #1B2A41; margin-bottom: 16px;">A virtual club where students gather once a month to:</p>
+                        <ul class="detail-list">
+                          <li style="margin-bottom: 8px;">Read neuroscience-related research papers</li>
+                          <li style="margin-bottom: 8px;">Discuss findings and ask questions</li>
+                          <li style="margin-bottom: 8px;">Hear from guest scientists and current researchers</li>
+                          <li>Learn how to critically evaluate and present scientific literature</li>
+                        </ul>
+                      </div>
+
+                      <!-- Who Can Join? -->
+                      <div class="detail-block" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); margin-bottom: 32px; padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+                        <h3 class="detail-question" style="font-size: 1.4rem; font-weight: 600; color: #1B4965; margin-bottom: 18px;">Who Can Join?</h3>
+                        <ul class="detail-list">
+                          <li style="margin-bottom: 8px;">Open to high school and undergraduate students</li>
+                          <li style="margin-bottom: 8px;">No coursework or prior research experience required</li>
+                          <li>Ideal for anyone curious about neuroscience and science writing</li>
+                        </ul>
+                      </div>
+
+                      <!-- Why Participate? -->
+                      <div class="detail-block" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); margin-bottom: 0; padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+                        <h3 class="detail-question" style="font-size: 1.4rem; font-weight: 600; color: #1B4965; margin-bottom: 18px;">Why Participate?</h3>
+                        <p class="simple-text" style="font-size: 1.08rem; color: #1B2A41; margin-bottom: 0;">Perfect for students exploring careers in neuroscience, surgery, or medicine.</p>
+                      </div>
+                    </div>
+                  </section>
+                  <!-- EMBEDDABLE DETAILS SECTION END -->
+              </body>
+              </html>
+              
+        <!-- Footer placeholder - will be loaded by JavaScript -->
+        <div id="footer-placeholder"></div>
+        <script src="js/load-footer.js"></script>
+        <!-- SCRIPTS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+    </body>
+</html>
+          

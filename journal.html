@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Journal - IYNA</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+
+        <style>
+            body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+                font-family: 'Work Sans', sans-serif !important;
+            }
+
+            .journal-section {
+                background-color: #e6f3f7;
+                padding: 80px 0;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            .intro-section {
+                max-width: 900px;
+                margin: 0 auto 80px auto;
+                text-align: center;
+            }
+
+            .page-title {
+                font-size: 2.8rem;
+                font-weight: bold;
+                margin-bottom: 30px;
+            color: #333;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .note {
+            font-style: italic;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+                justify-content: center;
+            margin-top: 40px;
+        }
+
+        .button {
+            background-color: #a8d0db;
+            color: #333;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: normal;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+                display: inline-block;
+        }
+
+        .button:hover {
+            background-color: #95c4d0;
+        }
+
+            .journals-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, 400px);
+                gap: 30px;
+                justify-content: center;
+            }
+
+            .journal-item {
+                text-align: center;
+                transition: transform 0.3s ease;
+                cursor: pointer;
+                width: 400px;
+                height: 520px;
+                position: relative;
+            }
+
+            .journal-item:hover {
+                transform: translateY(-5px);
+            }
+
+            .journal-preview {
+                width: 400px;
+                height: 520px;
+                border: none;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                transition: box-shadow 0.3s ease;
+                background: transparent;
+                pointer-events: auto;
+            }
+
+            .journal-preview::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .journal-preview::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .journal-preview::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+            }
+
+            .journal-preview::-webkit-scrollbar-thumb:hover {
+                background-color: rgba(0, 0, 0, 0.3);
+            }
+
+            .journal-link {
+                display: block;
+                text-decoration: none;
+                height: 100%;
+                position: relative;
+            }
+
+            /* Modify overlay to only capture clicks, not block scrolling */
+            .journal-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                pointer-events: none;
+            }
+
+            .journal-link:hover {
+                pointer-events: none;
+            }
+
+            .journal-link:hover .journal-preview {
+                pointer-events: auto;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin-bottom: 30px;  /* Reduced from 50px to 30px */
+                color: #333;
+                text-align: center;
+            }
+
+        @media (max-width: 768px) {
+                .journal-section {
+                padding: 40px 20px;
+            }
+
+                .container {
+                    padding-left: 32px;
+                    padding-right: 32px;
+                }
+
+                .intro-section {
+                    margin-bottom: 60px;
+                }
+
+            .page-title {
+                font-size: 2.2rem;
+                margin-bottom: 30px;
+            }
+
+            .description {
+                font-size: 1rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .button {
+                text-align: center;
+            }
+
+                .section-title {
+                    font-size: 2rem;
+                    margin-bottom: 40px;
+                }
+
+                .journals-grid {
+                    grid-template-columns: 1fr;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                }
+
+                .journal-item, .journal-preview {
+                    width: 100%;
+                    max-width: 400px;
+                    height: calc(520px * (100vw / 400));
+                    max-height: 520px;
+                    margin: 0 auto;
+                }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .journals-grid {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    </style>
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <!-- Load shared navigation -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+</head>
+    
+    <body id="top">
+        <main>
+            <!-- Navigation placeholder - will be loaded by JavaScript -->
+            <div id="nav-placeholder"></div>
+
+            <section class="journal-section">
+    <div class="container">
+                    <!-- Published Issues Introduction -->
+                    <div class="intro-section">
+        <h1 class="page-title">Published Issues</h1>
+        
+        <p class="description">
+            Check out our collection of all the IYNA Published Journals so far! The IYNA Journal gives young neuroscience enthusiasts the opportunity to take a deep dive into a neuroscience topic and publish their findings. To find out more about how to submit an article to our journal, click the button below. <span class="note">Note: the IYNA journal is not a peer reviewed journal and should not be represented or treated as such.</span>
+        </p>
+
+        <div class="button-container">
+                            <a href="submission_guidlines.html" class="button">Submission Guidelines</a>
+            <a href="#" class="button">Google Drive Link</a>
+        </div>
+    </div>
+
+                    <!-- 2025 Journals Grid -->
+                    <h2 class="section-title">2025 Journals</h2>
+                    
+                    <div class="journals-grid">
+                        <!-- First 2025 Issue -->
+                        <a href="https://drive.google.com/file/d/1FD0kfVW67SGDZ1tDTj4HsZjo8EXrssBR/view" target="_blank" class="journal-link">
+                            <div class="journal-item">
+                                <iframe src="https://drive.google.com/file/d/1FD0kfVW67SGDZ1tDTj4HsZjo8EXrssBR/preview" class="journal-preview" loading="lazy" style="border: 0;" allowfullscreen></iframe>
+                                <div class="journal-overlay"></div>
+                            </div>
+                        </a>
+
+                        <!-- Second 2025 Issue -->
+                        <a href="https://drive.google.com/file/d/1pYXl-T3Iy3EogmxwG0qw10m2WH0SwJ2j/view" target="_blank" class="journal-link">
+                            <div class="journal-item">
+                                <iframe src="https://drive.google.com/file/d/1pYXl-T3Iy3EogmxwG0qw10m2WH0SwJ2j/preview" class="journal-preview" loading="lazy" style="border: 0;" allowfullscreen></iframe>
+                                <div class="journal-overlay"></div>
+                            </div>
+                        </a>
+
+                        <!-- Third 2025 Issue -->
+                        <a href="https://drive.google.com/file/d/1IFreF5K3MzN5dCATcHq8bqMy3BcWFJHN/view" target="_blank" class="journal-link">
+                            <div class="journal-item">
+                                <iframe src="https://drive.google.com/file/d/1IFreF5K3MzN5dCATcHq8bqMy3BcWFJHN/preview" class="journal-preview" loading="lazy" style="border: 0;" allowfullscreen></iframe>
+                                <div class="journal-overlay"></div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Read More Button -->
+                    <div style="text-align: center; margin-top: 50px;">
+                        <a href="journal_view.html" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem;">Read More&nbsp;&rsaquo;</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer placeholder - will be loaded by JavaScript -->
+            <div id="footer-placeholder"></div>
+        </main>
+
+        <!-- Load shared footer -->
+        <script src="js/load-footer.js"></script>
+        
+        <!-- Bootstrap JS -->
+        <script src="js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            // Add smooth hover animations
+            document.querySelectorAll('.journal-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        </script>
+    </body>
+</html>
+          
