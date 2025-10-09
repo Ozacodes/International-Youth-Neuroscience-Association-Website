@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Submission Guidelines - IYNA</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+        
+        <style>
+            body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+                font-family: 'Work Sans', sans-serif !important;
+            }
+           
+            /* Prevent horizontal scrolling and ensure mobile fit */
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            * {
+                box-sizing: border-box;
+            }
+            
+            main {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            
+            #about-iyna {
+                padding-top: 6rem !important;
+                padding-bottom: 6rem !important;
+            }
+            /* Prevent nav links from breaking into two lines and reduce spacing */
+            .navbar .nav-link {
+                white-space: nowrap;
+            }
+            .navbar .nav-item {
+                margin-left: 0.3rem !important;
+                margin-right: 0.3rem !important;
+            }
+
+            /* Guidelines specific styles */
+            .guideline-section {
+                background: #e9ecef;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                overflow: hidden;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                font-size: 18px;
+            }
+
+            .guideline-header {
+                background: #e9ecef;
+                padding: 20px 25px;
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: background-color 0.3s ease;
+                border: none;
+                width: 100%;
+                text-align: left;
+                font-size: 18px;
+            }
+
+            .guideline-header:hover {
+                background: #dee2e6;
+            }
+
+            .guideline-title {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #2c3e50;
+            }
+
+            .chevron {
+                font-size: 1.2rem;
+                color: #6c757d;
+                transition: transform 0.3s ease;
+            }
+
+            .guideline-content {
+                background: white;
+                padding: 0 25px;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease, padding 0.4s ease;
+                font-size: 18px;
+            }
+
+            .guideline-content.expanded {
+                max-height: 5000px;
+                padding: 25px;
+                font-size: 18px;
+            }
+
+            .guideline-section.expanded .chevron {
+                transform: rotate(180deg);
+            }
+
+            .intro-text {
+                font-style: italic;
+                color: #6c757d;
+                margin-bottom: 25px;
+                padding: 15px;
+                background: #fff3cd;
+                border-radius: 6px;
+                border-left: 4px solid #ffc107;
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: #2c3e50;
+                margin: 25px 0 15px 0;
+                border-bottom: 2px solid #e9ecef;
+                padding-bottom: 5px;
+                font-size: 16px;
+            }
+
+            .guideline-list {
+                margin: 15px 0;
+                padding-left: 0;
+                font-size: 16px;
+            }
+
+            .guideline-list li {
+                margin: 10px 0;
+                padding-left: 20px;
+                position: relative;
+                list-style: none;
+                font-size: 16px;
+            }
+
+            .guideline-list li::before {
+                content: "•";
+                color: #4A90E2;
+                font-weight: bold;
+                position: absolute;
+                left: 0;
+                font-size: 16px;
+            }
+
+            .sub-list {
+                margin: 10px 0;
+                padding-left: 40px;
+                font-size: 16px;
+                list-style: none;
+            }
+
+            .sub-list li {
+                margin: 8px 0;
+                color: #495057;
+                font-size: 16px;
+                position: relative;
+                padding-left: 20px;
+            }
+
+            .sub-list li::before {
+                content: "•";
+                color: #6c757d;
+                font-size: 16px;
+                position: absolute;
+                left: 0;
+            }
+
+            /* Roman numeral list specific styles */
+            .sub-list ol[type="i"] {
+                list-style-type: lower-roman;
+                padding-left: 40px;
+            }
+
+            .sub-list ol[type="i"] li {
+                padding-left: 15px;
+            }
+
+            .sub-list ol[type="i"] li::before {
+                display: none;
+            }
+
+            .highlight {
+                background: #fff3cd;
+                padding: 2px 4px;
+                border-radius: 3px;
+                font-size: 16px;
+            }
+
+            .example {
+                background: #f8f9fa;
+                border-left: 4px solid #4A90E2;
+                padding: 15px;
+                margin: 15px 0;
+                font-style: italic;
+                color: #495057;
+                font-size: 16px;
+            }
+
+            .important-note {
+                background: #d1ecf1;
+                border: 1px solid #bee5eb;
+                border-radius: 6px;
+                padding: 15px;
+                margin: 15px 0;
+                font-size: 16px;
+            }
+
+            .important-note strong {
+                color: #0c5460;
+                font-size: 16px;
+            }
+
+            /* Submission Process styles */
+            .submission-process {
+                background-color: #CCEAFF;
+                padding: 100px 0;
+            }
+
+            .submission-process .container {
+                max-width: 900px !important;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 0;
+            }
+
+            .process-title {
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin-bottom: 50px;
+                color: #333;
+            }
+
+            .step-title {
+                font-size: 1.4rem;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 15px;
+            }
+
+            .step-description {
+                font-size: 1rem;
+                color: #333;
+                line-height: 1.6;
+            }
+
+            @media (max-width: 768px) {
+                .guideline-header {
+                    padding: 15px 20px;
+                    font-size: 18px;
+                }
+
+                .guideline-title {
+                    font-size: 18px;
+                }
+
+                .guideline-content.expanded {
+                    padding: 20px;
+                    font-size: 18px;
+                }
+
+                .process-title {
+                    font-size: 2rem;
+                    margin-bottom: 40px;
+                }
+
+                .step-title {
+                    font-size: 1.2rem;
+                }
+
+                .step-description {
+                    font-size: 0.95rem;
+                }
+               
+                /* Mobile Hero Section */
+                .hero-section {
+                    height: 100vh !important;
+                    padding: 2rem 0;
+                }
+                
+                .hero-section h1 {
+                    font-size: 2rem !important;
+                    line-height: 1.2 !important;
+                    margin-bottom: 1rem !important;
+                }
+                
+                .hero-section p {
+                    font-size: 1rem !important;
+                    margin-bottom: 1.5rem !important;
+                }
+                
+                .hero-section .btn {
+                    font-size: 1rem !important;
+                    padding: 0.75rem 1.25rem !important;
+                    width: 100%;
+                    max-width: 300px;
+                }
+                
+                /* Mobile Guidelines Section */
+                .guideline-section {
+                    margin-bottom: 15px;
+                    border-radius: 6px;
+                }
+                
+                .guideline-header {
+                    padding: 12px 15px;
+                    font-size: 16px;
+                }
+                
+                .guideline-title {
+                    font-size: 16px;
+                    line-height: 1.3;
+                }
+                
+                .guideline-content.expanded {
+                    padding: 15px;
+                    font-size: 14px;
+                }
+                
+                .intro-text {
+                    font-size: 14px;
+                    padding: 12px;
+                    margin-bottom: 20px;
+                }
+                
+                .section-title {
+                    font-size: 15px;
+                    margin: 20px 0 12px 0;
+                }
+                
+                .guideline-list {
+                    margin: 12px 0;
+                    font-size: 14px;
+                }
+                
+                .guideline-list li {
+                    margin: 8px 0;
+                    padding-left: 18px;
+                    font-size: 14px;
+                    line-height: 1.5;
+                }
+                
+                .sub-list {
+                    margin: 8px 0;
+                    padding-left: 30px;
+                    font-size: 14px;
+                }
+                
+                .sub-list li {
+                    margin: 6px 0;
+                    padding-left: 18px;
+                    font-size: 14px;
+                    line-height: 1.5;
+                }
+                
+                .highlight {
+                    font-size: 14px;
+                    padding: 1px 3px;
+                }
+                
+                .example {
+                    padding: 12px;
+                    margin: 12px 0;
+                    font-size: 14px;
+                }
+                
+                .important-note {
+                    padding: 12px;
+                    margin: 12px 0;
+                    font-size: 14px;
+                }
+                
+                .important-note strong {
+                    font-size: 14px;
+                }
+                
+                /* Mobile Submission Process */
+                .submission-process {
+                    padding: 60px 0;
+                }
+                
+                .submission-process .container {
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding-left: 30px;
+                    padding-right: 30px;
+                }
+                
+                .process-title {
+                    font-size: 1.8rem;
+                    margin-bottom: 30px;
+                    text-align: center;
+                }
+                
+                .process-step {
+                    margin-bottom: 30px;
+                }
+                
+                .step-title {
+                    font-size: 1.1rem;
+                    margin-bottom: 12px;
+                }
+                
+                .step-description {
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                }
+                
+                /* Mobile Container Adjustments */
+                @media (max-width: 768px) {
+                    .container {
+                        max-width: 100% !important;
+                        padding-left: 15px;
+                        padding-right: 15px;
+                        width: 100%;
+                        overflow-x: hidden;
+                    }
+                }
+                
+                /* Ensure all sections fit mobile width */
+                @media (max-width: 768px) {
+                    section {
+                        width: 100%;
+                        max-width: 100%;
+                        overflow-x: hidden;
+                    }
+                }
+                
+                /* Prevent any element from causing horizontal scroll */
+                @media (max-width: 768px) {
+                    .guideline-section,
+                    .guideline-header,
+                    .guideline-content,
+                    .submission-process,
+                    .process-step {
+                        width: 100%;
+                    }
+                }
+                
+                /* Mobile Typography */
+                h1, h2, h3, h4, h5, h6 {
+                    line-height: 1.3;
+                }
+                
+                /* Mobile Spacing */
+                .py-5 {
+                    padding-top: 3rem !important;
+                    padding-bottom: 3rem !important;
+                }
+                
+                /* Mobile Button Adjustments */
+                .btn {
+                    white-space: normal;
+                    word-wrap: break-word;
+                }
+            }
+           
+            @media (max-width: 480px) {
+                /* Extra Small Mobile Devices */
+                .hero-section {
+                    height: 100vh !important;
+                    padding: 1.5rem 0;
+                }
+                
+                .hero-section h1 {
+                    font-size: 1.8rem !important;
+                }
+                
+                .hero-section p {
+                    font-size: 0.95rem !important;
+                }
+                
+                .guideline-header {
+                    padding: 10px 12px;
+                }
+                
+                .guideline-title {
+                    font-size: 15px;
+                }
+                
+                .guideline-content.expanded {
+                    padding: 12px;
+                    font-size: 13px;
+                }
+                
+                .process-title {
+                    font-size: 1.6rem;
+                }
+                
+                .step-title {
+                    font-size: 1rem;
+                }
+                
+                .step-description {
+                    font-size: 0.85rem;
+                }
+                
+                .submission-process {
+                    padding: 40px 0;
+                }
+                
+                .submission-process .container {
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding-left: 25px;
+                    padding-right: 25px;
+                }
+                
+                .container {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+            }
+        </style>
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <!-- Load shared navigation -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+    </head>
+    
+    <body id="top">
+        <main>
+            <!-- Navigation placeholder - will be loaded by JavaScript -->
+            <div id="nav-placeholder"></div>
+              
+            <!-- HERO SECTION -->
+                        <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+                
+                <div class="container" style="z-index: 2; position: relative;">
+                    <div class="row">
+                        <div class="col-lg-8 col-12">
+                            <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
+                                Submission Guidelines and Process
+                            </h1>
+                            <p style="font-size: 1.15rem; margin-bottom: 2rem; color: white; max-width: 600px;">
+                                Since its inception, the International Youth Neuroscience Association (IYNA) has worked to connect, educate, and inspire the next generation of neuroscientists.
+                            </p>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdyDRM6Ko7DglqMwyoD3fcYhu1AO5ngRIO4j-L8ev3XXmxiWw/viewform" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem;">SUBMIT&nbsp;&rsaquo;</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+              
+            <!-- GUIDELINES SECTION -->
+            <section class="py-5" style="background-color: #f8f9fa;">
+                <div class="container" style="max-width: 900px;">
+                    <!-- Editing Guidelines Section -->
+                    <div class="guideline-section">
+                        <button class="guideline-header" onclick="toggleSection(this)">
+                            <h2 class="guideline-title">Editing Guidelines</h2>
+                            <span class="chevron">▼</span>
+                        </button>
+                        <div class="guideline-content">
+                            <div class="intro-text">
+                                These are the guidelines provided to our editors. Keep them in mind while writing. Guidelines that have been recently added are highlighted in yellow.
+                            </div>
+
+                            <h3 class="section-title">General Guidelines:</h3>
+                            <ol class="guideline-list">
+                                <li>Articles submitted cannot have been previously published elsewhere (partly, entirely, or in another edited form), and articles may not be republished elsewhere without written permission from the Editor-in-Chief.</li>
+                                <li>You are not permitted to submit an article if you already have an article being edited in the system. You must wait for that first article to be published before being submitting another article (the Editor-in-Chief will allow what this restricts).</li>
+                                <li>Similarly, you are not permitted to submit multiple articles simultaneously, and more than one of your articles cannot be published in the same issue.</li>
+                                <li>There are many potential grammatical, logical, and contextual errors.</li>
+                                <li>Use primary sources in all articles whenever possible. If an original study is available, be sure to use the full original study and not a secondary or a paper.</li>
+                                <li>Use evidence when making any claim (whether referenced, established ones exists to illustrate the manipulation affecting the article.</li>
+                                <li>Images must be referenced at least once in the text of the article to ensure its relevance and to contextualize the image in the overall narrative structure. When referring to an image in your text, do NOT reference where by a figure number (i.e. "as shown in Figure X"), so you may refer to the image parenthetically at the end of a sentence: "(See Figure X)".</li>
+                                <li>Refrain from using online sources with urls that don't end in .gov, .org, or .edu. If you avoid this to do so source may not believe it's reputable (but it doesn't end in .gov, .org, or .edu), send an email to sage@youthneuro.org for further review. This rule only applies to information of an accredited article.</li>
+                                <li>If borrowing information from a non-IYNA article (such as from nature.com), name in the preceding sentence: "that for which there are many potential areas for improvement (add a reference), name citing a piece of paper again may create redundancy (the author's name should already be in the corresponding citation in the references table at the end of the article).</li>
+                                <li>When providing information from a third-person perspective or one of your person articles, refrain from citing the same source of information in multiple areas unless you're providing a direct citation. Limit yourself to 1-2 sentences."</li>
+                                <li>All journal entries should reflect a high level of awareness of the subject discussed.</li>
+                                <li>Articles may not be longer than three pages nor exceed seven pages. The References Table (see 9.1) is NOT counted within this page limitation.</li>
+                                <li>The primary objective is to create engaging content that is simple to any audience of readers who may not be overly familiar with the field of neuroscience. Thus, any jargon and technical language must be defined consistently and no term should be left uninterpreted goal.</li>
+                                <li>All assertions made that are not common knowledge (e.g. that the corpus callosum connects the cerebral hemispheres, that the typical adult human brain has between 86 and 100 billion neurons, etc.) should be properly cited in APA format. These citations should always lead the reader to the original research article.</li>
+                            </ol>
+
+                            <div class="important-note">
+                                <strong>A VERY IMPORTANT NOTE ON ACADEMIC HONESTY:</strong> IF A PIECE OF INFORMATION IS NOT 100% YOURS, IT MUST BE CITED! IF IT IS JUST A PARAPHRASED SENTENCE, CITE IT. IT IS STILL NOT YOUR ORIGINAL WORK.
+                            </div>
+
+                            <ol class="guideline-list" start="14">
+                                <li>All direct quotes should be in quotation marks and italicized.</li>
+                                <li>All quotations taken should be used only in their intended context and with complete accuracy. Context should be provided in all articles to ensure that any intended meaning is preserved.</li>
+                                <li>No unfairly representing anyone or anything (such as "...Miracle Drug Found to Cure Alzheimer's" to describe a study finding a new treatment or "Doctors Killing Patients" to begin a discussion on medically-assisted suicide), unless your circumstances utilize the situation most."</li>
+                                <li>Remember that editorial speed nor format excuses inaccuracy.</li>
+                                <li>Purpose and contact any mistakes that I refer to the purposes publication promptly and effectively, explaining to the readers why the information is important.</li>
+                                <li>Follow all guidelines on http://www.apa.org/ethics/code.asp, when applicable (I used this as inspiration for a few of the guidelines above).</li>
+                                <li>Used the collaboration or when referring to female researchers, scientists, doctors, or other neuroscientists. The articles MUST NOT MENTION THE FOLLOWING (See corollary in 13):</li>
+                            </ol>
+
+                            <ul class="sub-list">
+                                <li>The fact that she's a woman</li>
+                                <li>Her appearance</li>
+                                <li>Her child care arrangements</li>
+                                <li>How she nurtures her underlings</li>
+                                <li>How she was taken aback by the competitiveness in her field</li>
+                                <li>How she's soft-spoken and possibly just one of the boys</li>
+                                <li>How she juggles her work and family life</li>
+                            </ul>
+
+                            <ol class="guideline-list" start="21">
+                                <li>For any other minority group members, similar protocols should be taken to ensure that the focus of the article is on neuroscience and its in-place of the article line same dignity that other scientists get in our media.</li>
+                                <li>We require authors to use inclusive language regarding neurological conditions; we REQUIRE that common sense...</li>
+                                <li>We require authors to use inclusive language regarding marginalized identities, especially in terms of race, gender, and sexual orientation (see also previous guideline). For demonstrating, it's best practice to use the more inclusive term "people who may menstruate" rather than "women" to validate and acknowledge the experiences of transgender men and non-binary people who menstruate but don't necessarily identify as female.</li>
+                            </ol>
+
+                            <h3 class="section-title">Specific Column Guidelines</h3>
+                            <h4>A. Neuroethics</h4>
+                            <ul class="guideline-list">
+                                <li>All articles should demonstrate a thoroughly-reasoned approach to the subject matter.</li>
+                                <li>Writers should include at least as long as their contentions are supported by evidence, are respectful (especially regarding human rights), give all due weight to each), provide a clear framework for understanding (like the bioethical perspective), and are unapologetically accurate (no misleading statements). Writers are encouraged to address counterarguments as well.</li>
+                                <li>Writers should include all historical frameworks necessary. Do not make a false dichotomy!</li>
+                                <li>When relevant, use anecdotes or case studies (preferential). A VERY convincing reason to do so example of an acceptable case; school shootings are hard :). No arguments should contain logical fallacies; in severe statements, basic reasoning not only suffices but is encouraged; and at other websites.</li>
+                            </ul>
+
+                            <h4>B. Research</h4>
+                            <ul class="guideline-list">
+                                <li>All articles should describe recent discoveries (since 2010), preferably towards later dates if available, unless the article is showcasing very important findings (such as Broca's discoveries, Phineas Gage, Brodmann's areas, etc.).</li>
+                                <li>If nonprescient terminology or jargon is used, articles should include definitions of key terms in accessible language at the end of the article and at the term for first reference.</li>
+                                <li>Articles should describe research approaches/methods and techniques, only if properly explained. A useful example can be provided to include the data.</li>
+                                <li>Articles may not contain data collected by the author. The purpose of the Research column is to shed light on novel research conducted by leading experts in the field rather than focus on original research conducted by the author.</li>
+                            </ul>
+
+                            <h4>C. Interviews</h4>
+                            <ul class="guideline-list">
+                                <li>The interviewer's exact words may not be changed, even for grammatical purposes.</li>
+                                <li>All quotations must be taken in context with the precise questions asked included.</li>
+                                <li>All questions should be relevant, precise, and clear. No questions about subjects outside of their work (e.g. family life) should be included (see rules 20 and 22 for further instructions).</li>
+                                <li>Questions should demonstrate knowledge of the interviewee, including relevant education, achievements and research work.</li>
+                                <li>A complete transcript of the interview should be available upon request.</li>
+                                <li>Regarding interview content regarding the article publication should be available upon request; if preferred, the interviewees may review the finalized copy of the article before its publication to ensure all of their statements have been presented as intended.</li>
+                            </ul>
+
+                            <h4>D. Satire</h4>
+                            <ul class="guideline-list">
+                                <li>No articles should make explicit criticisms of any person or refer to specific individuals in a negative light. This is not political satire.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Formatting Guidelines Section -->
+                    <div class="guideline-section">
+                        <button class="guideline-header" onclick="toggleSection(this)">
+                            <h2 class="guideline-title">Formatting Guidelines</h2>
+                            <span class="chevron">▼</span>
+                        </button>
+                        <div class="guideline-content">
+                            <div class="intro-text">
+                                These are the guidelines provided to our editors. Keep them in mind while writing. Guidelines that have been recently added are highlighted in yellow.
+                            </div>
+
+                            <h3 class="section-title">General Guidelines:</h3>
+                            <ol class="guideline-list">
+                                <li><strong>IYNA Format should begin with the title of each paper, size 26 black Sorts Mill Goudy typeface aligned right.</strong> Type in your titles and subheadings into this smart title capitalization tool, and then copy and paste the results into your article (still following proper formatting). If you do not have access to a computer, then manually capitalize the right sort correctly.</li>
+                                <li>The author's name should be on the third or fourth line below the title in size 14 Sorts Mill Goudy typeface, also aligned right.</li>
+                                <li>After the author's name should come one blank line and then the word 'Abstract' or 'Introduction' aligned center. This should be followed by a 50 - 250 word abstract or introduction summarizing the article in size 12 Sorts Mill Goudy italic font with 1-inch margins on either side of the abstract. The abstract should be center aligned within these margins. You shouldn't add in-text citations to your abstract/introduction, since you should essentially be summarizing your own article, not stating new information.</li>
+                                <li>The body of the article follows the abstract and should be typed in size 11 black Sorts Mill Goudy with 115 spacing between lines.</li>
+                                <li>Contributions are required to have headings for each section of their paper. Section headings should be in size 11 black bolded Sorts Mill Goudy, aligned left. One blank line should be left above the section heading and one blank line underneath. The indented first line of the section should be indented.The indented sections may contain multiple paragraphs as long as a blank line separates each paragraph and the first line of each paragraph is indented.</li>
+                                <li>The IYNA wants all articles in the Journal of Youth Neuroscience to only include one simple image in their article. Contributors should format all images as a simple position, A position should not be specified. Images should be imported into the Google Doc, NOT typed out directly onto the Google Doc), and the resulting drawing should be set to "wrap text" and aligned with text so that content can be under. Foldable should be expanded to be big enough to make the image and caption legible.</li>
+                                <li>The captions of images should be in size 9 dark grey 4 Sorts Mill Goudy. They should begin with "Figure #:" followed by the caption. At the end of the caption, there should be brackets enclosing the numerical position of the citation in the References table that the image should be center aligned. If the caption is a complete sentence, it should end in a period. If not, then the caption should not end in a period. An example is shown below:</li>
+                            </ol>
+
+                            <div class="example">
+                                <strong>Example caption:</strong><br>
+                                Figure 1: The human brain showing major anatomical structures [15].
+                            </div>
+
+                            <ol class="guideline-list" start="8">
+                                <li>When referencing unoriginal material, IYNA Format articles must conform to the following guidelines:</li>
+                            </ol>
+
+                            <ul class="sub-list">
+                                <li><strong>In-text citations should occur at the end of the sentence in which they are made.</strong> Before the period ending the sentence, authors should include auto-formatting by typing the highest numerical position of the citation in the References table at the end of the paper, followed by a closing bracket. An example would be "...in which they are made [1]."</li>
+                                <li><strong>If the same reference is used in a series of consecutive sentences, only cite the citation at the very end of the last sentence of the consecutive string of sentences.</strong> If there is at least one sentence in between two sentences that cite the same reference, then you will include what each sequence.</li>
+                                <li><strong>The References Table should be formatted exactly in APA format and should appear at the very end of each sentence.</strong></li>
+                            </ul>
+
+                            <div class="sub-list">
+                                <ol type="i">
+                                    <li>The RT should follow the body of the paper, and should be set in size 9 black Sorts Mill Goudy aligned left. The word "References" should be placed on the first line of the two-columned table, with all sources/materials in the cells beneath.</li>
+                                    <li>Sources should be included in the RT in order of their appearance in the article. There is no need to laboriously alphabetize them :)</li>
+                                    <li>Sources should begin with an open bracket followed by their numerical position in the RT followed by a closing bracket and a single space. The source should now be listed with last name, comma, then the source author's first name followed by a period. The format of "Last Name, First Name" only applies to the first author if there are multiple authors. The authors following the first author will follow the format of "First Name Last Name" (e.g Williams, John and Andrew Cho). If there are several authors, separate all names with commas, and precede the last author's name (e.g. Williams, John et al.). Do not abbreviate author names.</li>
+                                    <li>The date of publication should be the second element following the source author (within APA format. The date should be in DD/MM/YYYY format (Note: Unsure some published or available. This helps you decide what info is in the highest and last format. The date of publication should end with a closed parenthesis and another period. (Note: If only the year of publication of a source is available, list year with and months available.)</li>
+                                    <li>A single space should come after the preceding period, followed by the Title of the sourced material. Do not surround your title in quotation marks; it should be italicized instead.</li>
+                                    <li>After the preceding period should come a single space and one of the following: 1. the title of the academic journal in which the article was published as published, and 2. the title of the website from which the source referenced was published, or 3. the chapter of the book from which the material was sourced (again, no surrounding quotation marks). You know what's coming next...</li>
+                                    <li>The following should come after a single space that follows the preceding period: 1. the page of the academic journal on which the source material was published, and 2. the URL of the website from which the source material is derived (can be a DOI link if available), or 3. the page(s) of the book from which the material was sourced. Followed by, you guessed it, another period.</li>
+                                    <li>The word "Retrieved", then a comma, then the date the source material was referenced in the DD/MM/YYYY format should follow the preceding period and another space.</li>
+                                </ol>
+                            </div>
+
+                            <ul class="sub-list">
+                                <li><strong>The references are to be complete.</strong> You should be arranged in a two-columned table inserted into your document with as many rows as necessary. Your references must be in numerical order going from the top left row to the bottom left row and then continuing from the top right row to the bottom right row. You must arrange your references in two symmetric columns (e.g. if the first eight references in the left column and the last eight references in the right column). If you have an odd number of references, then make the left column one reference longer than the right column. All cells should be center-aligned.</li>
+                                <li><strong>Reference formats must be unique from each other and may not repeat.</strong> Each and every reference must represent a distinct source of information used in your cite a reference more than once in your article, the in-line citation must contain the same number at the end of every sentence in which the reference is cited.</li>
+                                <li><strong>If any information is missing (e.g. author name, date of publication, etc.), skip over it and move on to the next required item in your reference.</strong> Do not put "Unknown", "N/A", or something similar.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUBMISSION PROCESS SECTION -->
+            <section class="submission-process">
+                <div class="container" style="max-width: 900px;">
+                    <h1 class="process-title">Submission Process</h1>
+                    
+                    <div class="process-step">
+                        <h2 class="step-title">1. Write and Submit</h2>
+                        <p class="step-description">
+                            Write your article on a neuroscience-related topic of your choosing. Articles should be based on reliable primary and secondary sources (Wikipedia and similar sources are not acceptable). We recommend using Pubmed to find sources. Please make sure you read the editing process below carefully. Gross deviations from the IYNA Editing and Formatting Guidelines will result in the automatic rejection of a submitted article. However, you are always welcome to make changes to a rejected article and resubmit for further consideration.
+                        </p>
+                    </div>
+
+                    <div class="process-step">
+                        <h2 class="step-title">2. Format Round 1</h2>
+                        <p class="step-description">
+                            Your article will be reviewed by our Managing Editor who will review the article within 2-5 weeks of receiving it and ensure that it follows the IYNA Formatting and Editorial Guidelines. Your article will be returned to you so that you can make edits accordingly.
+                        </p>
+                    </div>
+
+                    <div class="process-step">
+                        <h2 class="step-title">3. Format Round 2</h2>
+                        <p class="step-description">
+                            Your article will be reviewed by our Managing Editor who again will, within 2-5 weeks of receiving the article, review it and ensure that it follows the IYNA Formatting and Editorial Guidelines.
+                        </p>
+                    </div>
+
+                    <div class="process-step">
+                        <h2 class="step-title">4. Editing Round 1</h2>
+                        <p class="step-description">
+                            Your article will be reviewed by a senior editor and 2 junior editors, who will review the article within 2-5 weeks in accordance with the IYNA Formatting and Editorial Guidelines. Your article will be returned to you so that you can make edits accordingly.
+                        </p>
+                    </div>
+
+                    <div class="process-step">
+                        <h2 class="step-title">5. Editing Round 2</h2>
+                        <p class="step-description">
+                            When received with your improvements, the article will enter its final round of revision and be edited by another team of 1 senior editor and 1 junior editor, who will put the final touches on the article within 2-5 weeks. In some cases, the article may be sent back to you again.
+                        </p>
+                    </div>
+
+                    <div class="process-step">
+                        <h2 class="step-title">6. Compilation and Publication</h2>
+                        <p class="step-description">
+                            Finally, our journal leadership team will compile usually 10 articles (with related pages) of the to-be-published issue into one document to be later uploaded onto the IYNA Journal website. Typical timeline length of an article to be published varies but average time is 3-6 months.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer placeholder - will be loaded by JavaScript -->
+            <div id="footer-placeholder"></div>
+        </main>
+
+        <!-- JavaScript for guidelines -->
+        <script>
+            function toggleSection(header) {
+                const section = header.parentElement;
+                const content = section.querySelector('.guideline-content');
+                const chevron = header.querySelector('.chevron');
+                
+                // Toggle the expanded class
+                section.classList.toggle('expanded');
+                content.classList.toggle('expanded');
+                
+                // Update chevron direction
+                if (section.classList.contains('expanded')) {
+                    chevron.textContent = '▲';
+                } else {
+                    chevron.textContent = '▼';
+                }
+            }
+
+            // Add keyboard support for accessibility
+            document.querySelectorAll('.guideline-header').forEach(header => {
+                header.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleSection(this);
+                    }
+                });
+            });
+
+            // Smooth scrolling for better UX
+            document.querySelectorAll('.guideline-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    setTimeout(() => {
+                        this.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'nearest' 
+                        });
+                    }, 100);
+                });
+            });
+        </script>
+
+        <!-- Load shared footer -->
+        <script src="js/load-footer.js"></script>
+        
+        <!-- Bootstrap JS -->
+        <script src="js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
+          
