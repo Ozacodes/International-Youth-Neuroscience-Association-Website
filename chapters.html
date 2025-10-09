@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IYNA - Our Mission</title>
+    
+    <!-- CSS FILES -->        
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+        font-family: 'Work Sans', sans-serif !important;
+      }
+      /* Prevent nav links from breaking into two lines and reduce spacing */
+      .navbar .nav-link {
+        white-space: nowrap;
+      }
+      .navbar .nav-item {
+        margin-left: 0.3rem !important;
+        margin-right: 0.3rem !important;
+      }
+              .outline-blue-btn:hover {
+            background-color: #1B4965 !important;
+            color: #fff !important;
+            border-color: #1B4965 !important;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        /* Start New Chapter Section */
+        .start-chapter-section {
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+
+        .start-chapter-content h3 {
+            color: #1B4965;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .start-chapter-content p {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .start-chapter-btn {
+            background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(27, 73, 101, 0.3);
+        }
+
+        .start-chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(27, 73, 101, 0.4);
+        }
+    </style>
+                        
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+    
+    <!-- Load shared navigation -->
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/database.js"></script>
+    <script src="js/load-nav.js"></script>
+    
+    <script>
+        // Initialize Supabase client
+        const supabase = window.supabase.createClient(
+            'https://jxhkjdbcubmzprkhaoqb.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aGtqZGJjdWJtenBya2hhb3FiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyNzU5MDAsImV4cCI6MjA2Nzg1MTkwMH0.t0dp1yH7wU32Xuq987rlR-boIGHy9id4oi6g1KSdt2o'
+        );
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            line-height: 1.6;
+        }
+
+
+
+        /* Rankings Section Styles */
+        .rankings-section {
+            background-color: #f5f5f5;
+            padding: 80px 0;
+        }
+
+        .rankings-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .announcement-banner {
+            background-color: #BEE9E8;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .announcement-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .announcement-icon,
+        .chapter-star {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .announcement-icon img,
+        .chapter-star img {
+          width: 40px;
+          height: 40px;
+          object-fit: contain;
+          display: block;
+        }
+
+        .announcement-text {
+            color: #1B4965;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .view-all {
+            color: #1B4965;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .view-all:after {
+            content: " >";
+            margin-left: 5px;
+        }
+
+        .rankings-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1B4965;
+            margin-bottom: 30px;
+        }
+
+        .chapter-highlight {
+            background-color: #1B4965;
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .chapter-star {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #62B6CB;
+        }
+        .chapter-star img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .chapter-info {
+            flex: 1;
+        }
+
+        .chapter-label {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .chapter-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .chapter-code {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .search-filter-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-filter-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #62B6CB;
+        }
+
+        .filter-button {
+            background-color: #BEE9E8;
+            color: #1B4965;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-button:hover {
+            background-color: #62B6CB;
+            color: white;
+        }
+
+        .filter-tags {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            background-color: #BEE9E8;
+            color: #1B4965;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .remove-filter {
+            background-color: #1B4965;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .rankings-list {
+            background-color: white;
+            border-radius: 12px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-height: 500px;
+            min-height: 300px;
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+
+        .ranking-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1B4965;
+            width: 50px;
+            text-align: center;
+        }
+
+        .ranking-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .team-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1B4965;
+            margin-bottom: 2px;
+        }
+
+        .team-details {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .points-section {
+            text-align: right;
+            margin-right: 20px;
+        }
+
+        .points-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1B4965;
+            margin-bottom: 2px;
+        }
+
+        .points-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .join-button {
+            background-color: #BEE9E8;
+            color: #1B4965;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .join-button:hover {
+            background-color: #62B6CB;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                margin-left: 0px;
+                margin-right: 40px;
+                max-width: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .flags-container {
+                left: 40px;
+                bottom: 30px;
+            }
+
+            .flag {
+                width: 35px;
+                height: 22px;
+            }
+
+            .rankings-section {
+                padding: 40px 0;
+            }
+
+            .rankings-container {
+                padding: 0 15px;
+            }
+
+            .search-filter-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .ranking-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .ranking-number {
+                font-size: 20px;
+            }
+
+            .points-section {
+                text-align: left;
+                margin-right: 0;
+            }
+        }
+        .filter-dropdown {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 32px 32px 24px 32px;
+            min-width: 260px;
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .filter-dropdown .dropdown-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #222;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .filter-dropdown .dropdown-option {
+            font-size: 20px;
+            color: #222;
+            font-weight: 400;
+            padding: 2px 0;
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-align: left;
+            outline: none;
+            transition: color 0.2s;
+            margin-bottom: 2px;
+        }
+        .filter-dropdown .dropdown-option.selected {
+            color: #62B6CB;
+            font-weight: 600;
+            position: relative;
+        }
+        .filter-dropdown .dropdown-option.selected:before {
+            content: "↓ ";
+            color: #62B6CB;
+            font-size: 20px;
+            position: absolute;
+            left: -22px;
+        }
+        .filter-dropdown .dropdown-reset {
+            margin-top: 18px;
+            background: #F1F5F9;
+            color: #222;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            align-self: flex-end;
+        }
+        .filter-dropdown .dropdown-reset:hover {
+            background: #e2e8f0;
+        }
+        .selected-filters-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+        .selected-filter-btn {
+            background: #F1F5F9;
+            color: #222;
+            border: none;
+            border-radius: 18px;
+            padding: 8px 18px;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .selected-filter-btn .remove-x {
+            font-size: 18px;
+            color: #888;
+            margin-left: 4px;
+            cursor: pointer;
+        }
+        .selected-filter-btn:hover {
+            background: #e2e8f0;
+        }
+        iframe {
+            width: 65%;
+            height: 100%;
+            margin: auto auto;
+            background-color: #777;
+            display: block;
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav-placeholder"></div>
+    
+    <!-- HERO SECTION -->
+                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+                
+                <div class="container" style="z-index: 2; position: relative;">
+                  <div class="row">
+                    <div class="col-lg-7 col-12">
+                      <h1 style="font-size: 2.8rem; font-weight: 700; line-height: 1.2; color: white; margin-bottom: 1.5rem; font-family: 'Work Sans', sans-serif;">
+                        Connecting, Educating,<br> and Inspiring the Next<br> Generation of <span style="color: white;">Neuroscientists</span>
+                      </h1>
+                      <p style="font-size: 1.1rem; color: white; margin-bottom: 2rem; line-height: 1.6; font-weight: 400; max-width: 600px;">
+                        Discover the wonders of the brain through cutting-edge research, innovative competitions, and collaborative projects. Start your neuroscience journey today with expert-led programs designed for ambitious students worldwide.
+                      </p>
+                      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="signup.html" class="btn" style="background: #62B6CB; color: white; padding: 1rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(98, 182, 203, 0.3); border: none;">
+                          Join IYNA &nbsp;&rsaquo;
+                        </a>
+                        <a href="#about-iyna" class="btn" style="background: transparent; color: white; padding: 1rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; border: 2px solid white; transition: all 0.3s ease;" onclick="scrollToSection('about-iyna')">
+                          Learn More
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+    <!-- RANKINGS SECTION -->
+    <section class="rankings-section">
+        <div class="rankings-container">
+            <div class="announcement-banner">
+                <div class="announcement-content">
+                    <div class="announcement-icon">
+                      <img src="images/icons/speaker.png" alt="Speaker Icon" />
+                    </div>
+                    <div class="announcement-text">Season 7 has begun! This season will end on September 1st, 2025</div>
+                </div>
+            </div>
+
+            <h1 class="rankings-title">Rankings</h1>
+
+            <div class="chapter-highlight">
+                <div class="chapter-star">
+                  <img src="images/icons/solar_star-bold-duotone.png" alt="Star Icon" />
+                </div>
+                <div class="chapter-info">
+                    <div class="chapter-label">Chapter of the Season</div>
+                    <div class="chapter-name">Gharbiya STEM High School</div>
+                    <div class="chapter-code">EGY004 • Led by Islam Hani</div>
+                </div>
+            </div>
+
+            <div class="search-filter-section" style="position: relative;">
+              <div class="search-filter-row">
+                <input type="text" class="search-input" placeholder="Search">
+                <button class="filter-button" id="filterDropdownBtn" type="button">
+                  <span>≡</span> Filter
+                </button>
+              </div>
+              <div class="filter-dropdown" id="filterDropdownMenu">
+                <div class="dropdown-section-title">Sort By</div>
+                <button class="dropdown-option selected" data-sort="points">Points</button>
+                <button class="dropdown-option" data-sort="chapterid">ChapterID</button>
+                <button class="dropdown-option" data-sort="country">Country</button>
+                <div class="dropdown-section-title" style="margin-top: 18px;">Filter</div>
+                <button class="dropdown-option" data-filter="college">College Chapters</button>
+                <button class="dropdown-option" data-filter="highschool">High School Chapters</button>
+                <button class="dropdown-reset" id="resetFiltersBtn">Reset</button>
+              </div>
+              <div class="selected-filters-bar" id="selectedFiltersBar">
+                <!-- Selected filters will appear here -->
+              </div>
+            </div>
+
+            <div class="rankings-list">
+              <div class="ranking-item">
+                <div class="ranking-number">1</div>
+                <div class="ranking-info">
+                  <div class="team-name">Canyon Crest Academy</div>
+                  <div class="team-details"><span class="chapter-id">USA076</span></div>
+                </div>
+                <div class="points-section">
+                  <div class="points-number">60</div>
+                  <div class="points-label">Points</div>
+                </div>
+                <button class="join-button">Request to Join</button>
+              </div>
+              <div class="ranking-item">
+                <div class="ranking-number">2</div>
+                <div class="ranking-info">
+                  <div class="team-name">Stratford Girls' Grammar School</div>
+                  <div class="team-details"><span class="chapter-id">GBR002</span></div>
+                </div>
+                <div class="points-section">
+                  <div class="points-number">60</div>
+                  <div class="points-label">Points</div>
+                </div>
+                <button class="join-button">Request to Join</button>
+              </div>
+              <div class="ranking-item">
+                <div class="ranking-number">3</div>
+                <div class="ranking-info">
+                  <div class="team-name">Gharbiya STEM high school</div>
+                  <div class="team-details"><span class="chapter-id">EGY004</span></div>
+                </div>
+                <div class="points-section">
+                  <div class="points-number">0</div>
+                  <div class="points-label">Points</div>
+                </div>
+                <button class="join-button">Request to Join</button>
+              </div>
+              <div class="ranking-item">
+                <div class="ranking-number">4</div>
+                <div class="ranking-info">
+                  <div class="team-name">Interlake High School</div>
+                  <div class="team-details"><span class="chapter-id">USA042</span></div>
+                </div>
+                <div class="points-section">
+                  <div class="points-number">0</div>
+                  <div class="points-label">Points</div>
+                </div>
+                <button class="join-button">Request to Join</button>
+              </div>
+              <div class="ranking-item">
+                <div class="ranking-number">5</div>
+                <div class="ranking-info">
+                  <div class="team-name">FCS Innovation Academy</div>
+                  <div class="team-details"><span class="chapter-id">USA062</span></div>
+                </div>
+                <div class="points-section">
+                  <div class="points-number">0</div>
+                  <div class="points-label">Points</div>
+                </div>
+                <button class="join-button">Request to Join</button>
+              </div>
+              <!-- ... repeat for all 174 chapters from the Google Sheet ... -->
+            </div>
+            
+            <!-- Start New Chapter Section -->
+            <div class="start-chapter-section">
+                <div class="start-chapter-content">
+                    <h3>Don't see your school?</h3>
+                    <p>Start a new IYNA chapter at your school and become a chapter director.</p>
+                    <button class="start-chapter-btn" onclick="showNewChapterModal().catch(error => console.error('Error:', error))">
+                        Start New Chapter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div style="height: 600px !important; padding: 80px 60px; display: flex; align-items: center; justify-content: center;">
+            <iframe src="https://www.google.com/maps/d/embed?mid=1jv-Ga1L4YoelaxpI1XBIiMDwwSMOBIo&ehbc=2E312F" style="width: 100%; height: 100%; border: 0; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);"></iframe>
+        </div>
+    </section>
+
+    <!-- Footer placeholder - will be loaded by JavaScript -->
+    <div id="footer-placeholder"></div>
+    <script src="js/load-footer.js"></script>
+
+    <!-- JavaScript Files -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/click-scroll.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+        // Global variables
+        let chaptersData = [];
+
+        // Wait for DOM and database to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Chapters page loaded, initializing...');
+            
+            // Initialize UI elements first
+            initializeUIElements();
+            
+            // Wait for database to be ready
+            let attempts = 0;
+            function waitForDatabase() {
+                if (window.db) {
+                    console.log('Database ready, loading chapter data...');
+                    loadPageData();
+                } else if (attempts < 50) {
+                    attempts++;
+                    setTimeout(waitForDatabase, 200);
+                } else {
+                    console.error('Database not available after waiting');
+                    showErrorMessage('Unable to connect to database. Please refresh the page.');
+                }
+            }
+            
+            waitForDatabase();
+        });
+
+        // Main function to load all page data from database
+        async function loadPageData() {
+            try {
+                console.log('Starting to load data from database...');
+                
+                // Show loading state
+                showLoadingState();
+                
+                // Test database connection using existing function
+                console.log('Testing database connection...');
+                const testConnection = await window.testDatabaseConnection();
+                console.log('Database connection test result:', testConnection);
+                
+                // Load chapters using existing database functions
+                console.log('Loading chapters from database...');
+                const chapters = await loadChaptersFromDatabase();
+                console.log('Loaded chapters:', chapters);
+                
+                // Load announcements using existing function
+                console.log('Loading announcements...');
+                const announcements = await loadAnnouncements();
+                console.log('Announcements loaded:', announcements);
+                
+                // Update UI with the data
+                console.log('Updating UI with loaded data...');
+                updateAnnouncementsBanner(announcements);
+                updateChapterOfSeason(chapters);
+                await updateRankingsList(chapters);
+                
+                // Store chapters data globally
+                chaptersData = chapters;
+                
+                // Update Start New Chapter section based on user status
+                updateStartNewChapterSection();
+                
+                console.log('All data loaded successfully. Total chapters:', chapters.length);
+                
+            } catch (error) {
+                console.error('Error loading page data:', error);
+                showErrorMessage(`Error loading chapter data: ${error.message}`);
+            }
+        }
+
+        // Load chapters using existing database functions
+        async function loadChaptersFromDatabase() {
+            try {
+                console.log('Getting chapters using existing db functions...');
+                
+                // Use the getChapters function we added to database.js
+                const chapters = await window.db.getChapters();
+                console.log('Raw chapters from database:', chapters);
+
+                if (!chapters || chapters.length === 0) {
+                    console.log('No active chapters found in database');
+                    return [];
+                }
+
+                // Format chapters data with proper lead names and points
+                const formattedChapters = chapters.map(chapter => {
+                    // Determine who the lead is
+                    let leadName = 'No lead assigned';
+                    
+                    if (chapter.lead_user) {
+                        leadName = `${chapter.lead_user.first_name} ${chapter.lead_user.last_name}`;
+                    } else if (chapter.director) {
+                        leadName = `${chapter.director.first_name} ${chapter.director.last_name}`;
+                    } else if (chapter.director_name) {
+                        leadName = chapter.director_name;
+                    }
+
+                    return {
+                        ...chapter,
+                        totalPoints: chapter.points || 0,
+                        leadName: leadName
+                    };
+                });
+
+                // Sort by points descending (already ordered by database but just to be sure)
+                formattedChapters.sort((a, b) => b.totalPoints - a.totalPoints);
+
+                console.log('Formatted chapters with points:', formattedChapters);
+                return formattedChapters;
+                
+            } catch (error) {
+                console.error('Error in loadChaptersFromDatabase:', error);
+                throw error;
+            }
+        }
+
+        // Load announcements using existing function
+        async function loadAnnouncements() {
+            try {
+                if (window.db.getAnnouncements) {
+                    const announcements = await window.db.getAnnouncements();
+                    return announcements || [];
+                } else {
+                    console.log('getAnnouncements function not available');
+                    return [];
+                }
+            } catch (error) {
+                console.error('Error loading announcements:', error);
+                return [];
+            }
+        }
+
+        // Show loading state
+        function showLoadingState() {
+            const rankingsList = document.querySelector('.rankings-list');
+            if (rankingsList) {
+                rankingsList.innerHTML = `
+                    <div style="padding: 40px; text-align: center; color: #666;">
+                        <div style="margin-bottom: 20px;">
+                            <div style="width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #1B4965; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                        </div>
+                        <p>Loading chapter rankings...</p>
+                    </div>
+                    <style>
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    </style>
+                `;
+            }
+        }
+
+        // Update announcements banner
+        function updateAnnouncementsBanner(announcements) {
+            const announcementBanner = document.querySelector('.announcement-banner');
+            
+            if (!announcements.length) {
+                console.log('No announcements found, keeping default');
+                return;
+            }
+
+            const latestAnnouncement = announcements[0];
+            const announcementText = announcementBanner.querySelector('.announcement-text');
+            
+            if (announcementText) {
+                announcementText.textContent = latestAnnouncement.message;
+                console.log('Updated announcement banner with:', latestAnnouncement.message);
+            }
+
+
+        }
+
+        // Update "Chapter of the Season" section with real data
+        function updateChapterOfSeason(chaptersWithPoints) {
+            const chapterHighlight = document.querySelector('.chapter-highlight');
+            
+            if (!chaptersWithPoints || chaptersWithPoints.length === 0) {
+                console.log('No chapters found, hiding chapter of the season');
+                if (chapterHighlight) {
+                    chapterHighlight.style.display = 'none';
+                }
+                return;
+            }
+
+            // Show the section and update with top chapter
+            if (chapterHighlight) {
+                chapterHighlight.style.display = 'flex';
+            }
+
+            const topChapter = chaptersWithPoints[0];
+            console.log('Chapter of the season:', topChapter);
+            
+            const chapterName = chapterHighlight.querySelector('.chapter-name');
+            const chapterCode = chapterHighlight.querySelector('.chapter-code');
+            
+            if (chapterName) {
+                chapterName.textContent = topChapter.name || topChapter.school_name;
+            }
+            
+            if (chapterCode) {
+                chapterCode.textContent = `${topChapter.chapter_code} • Led by ${topChapter.leadName} • ${topChapter.totalPoints} points`;
+            }
+            
+            console.log('Updated chapter of the season section');
+        }
+
+        // Update rankings list with real data
+        async function updateRankingsList(chaptersWithPoints) {
+            const rankingsList = document.querySelector('.rankings-list');
+            
+            if (!rankingsList) {
+                console.error('Rankings list element not found');
+                return;
+            }
+
+            if (!chaptersWithPoints || chaptersWithPoints.length === 0) {
+                console.log('No chapters to display, showing empty state');
+                rankingsList.innerHTML = `
+                    <div style="padding: 40px; text-align: center; color: #666;">
+                        <h3 style="color: #1B4965; margin-bottom: 10px;">No Chapters Yet</h3>
+                        <p>Be the first to start a chapter in your community!</p>
+                        <a href="#chapter-registration-section" style="color: #1B4965; text-decoration: underline;">Register your chapter now</a>
+                    </div>
+                `;
+                return;
+            }
+
+            console.log(`Displaying ${chaptersWithPoints.length} chapters in rankings`);
+
+            // Clear existing items
+            rankingsList.innerHTML = '';
+
+            // Add each chapter to the rankings
+            for (let i = 0; i < chaptersWithPoints.length; i++) {
+                const chapter = chaptersWithPoints[i];
+                const rankingItem = document.createElement('div');
+                rankingItem.className = 'ranking-item';
+                rankingItem.setAttribute('data-chapter-id', chapter.id);
+                rankingItem.setAttribute('data-points', chapter.totalPoints);
+                rankingItem.setAttribute('data-name', chapter.name || chapter.school_name);
+                rankingItem.setAttribute('data-code', chapter.chapter_code);
+                rankingItem.setAttribute('data-country', chapter.chapter_code ? chapter.chapter_code.substring(0, 3) : '');
+
+                const chapterName = chapter.name || chapter.school_name;
+                const safeName = chapterName.replace(/'/g, "\\'");
+
+                // Check user's status for this chapter
+                const userStatus = await checkUserJoinRequestStatus(chapter.id);
+                
+                let buttonText = 'Request to Join';
+                let buttonStyle = '';
+                let buttonDisabled = false;
+                let buttonOnClick = `requestToJoinChapter('${chapter.id}', '${safeName}')`;
+
+                if (userStatus === 'member') {
+                    // No button shown for existing members, admins, or directors
+                    buttonText = '';
+                    buttonStyle = 'display: none;';
+                    buttonDisabled = true;
+                    buttonOnClick = '';
+                } else if (userStatus === 'pending') {
+                    // Show yellow "Requested" button for pending requests
+                    buttonText = 'Requested';
+                    buttonStyle = 'background: #ffc107; color: #212529; cursor: not-allowed;';
+                    buttonDisabled = true;
+                    buttonOnClick = '';
+                } else if (userStatus === 'approved') {
+                    // If approved, user should be a member - hide all buttons
+                    buttonText = '';
+                    buttonStyle = 'display: none;';
+                    buttonDisabled = true;
+                    buttonOnClick = '';
+                } else if (userStatus === 'denied' || userStatus === 'rejected') {
+                    // Allow re-request after rejection; show default Request to Join
+                    // Keep default values (already set above)
+                }
+
+                rankingItem.innerHTML = `
+                    <div class="ranking-number">${i + 1}</div>
+                    <div class="ranking-info">
+                        <div class="team-name">${chapterName}</div>
+                        <div class="team-details">
+                            <span class="chapter-id">${chapter.chapter_code}</span>
+                            ${chapter.leadName !== 'No lead assigned' ? ` • Led by ${chapter.leadName}` : ''}
+                        </div>
+                    </div>
+                    <div class="points-section">
+                        <div class="points-number">${chapter.totalPoints}</div>
+                        <div class="points-label">Points</div>
+                    </div>
+                    <button class="join-button" ${buttonOnClick ? `onclick="${buttonOnClick}"` : ''} 
+                            id="join-btn-${chapter.id}" ${buttonDisabled ? 'disabled' : ''} 
+                            style="${buttonStyle}">
+                        ${buttonText}
+                    </button>
+                `;
+
+                rankingsList.appendChild(rankingItem);
+            }
+
+            console.log(`Successfully displayed ${chaptersWithPoints.length} chapters in rankings`);
+        }
+
+        // Check if user has a pending join request for a specific chapter
+        // Batch cache of current user's join requests to avoid per-chapter calls
+        let cachedJoinRequestsByChapter = null;
+        
+        // Function to clear the join request cache
+        function clearJoinRequestCache() {
+            cachedJoinRequestsByChapter = null;
+        }
+        async function checkUserJoinRequestStatus(chapterId) {
+            try {
+                const userData = sessionStorage.getItem('iyna_user');
+                if (!userData) return null;
+                const currentUser = JSON.parse(userData);
+                
+                // If user is admin, chapter_director, or chapter_lead - no buttons shown
+                if (currentUser.role === 'chapter_lead' || currentUser.role === 'admin' || currentUser.role === 'chapter_director') {
+                    return 'member'; // Treat as member to hide buttons
+                }
+                
+                // If user already in a chapter, treat as member (no request UI)
+                if (currentUser.chapter_id) return 'member';
+                
+                // Load all requests once per page load
+                if (!cachedJoinRequestsByChapter) {
+                    const { data, error } = await supabase
+                        .from('chapter_join_request')
+                        .select('chapter_id, status')
+                        .eq('user_id', currentUser.id);
+                    if (error) {
+                        console.warn('Join request fetch failed; suppressing per-chapter errors:', error);
+                        cachedJoinRequestsByChapter = {};
+                    } else {
+                        cachedJoinRequestsByChapter = (data || []).reduce((acc, r) => { acc[r.chapter_id] = r.status; return acc; }, {});
+                    }
+                }
+                const status = cachedJoinRequestsByChapter[parseInt(chapterId)] || null;
+                // If user is not in any chapter, allow re-request even if a past request was approved or rejected
+                if (!currentUser.chapter_id) {
+                    if (status === 'approved' || status === 'rejected' || status === 'denied') {
+                        return null; // show default "Request to Join"
+                    }
+                }
+                return status;
+            } catch (error) {
+                console.error('Error checking join request status:', error);
+                return null;
+            }
+        }
+
+        // Handle chapter join request
+        window.requestToJoinChapter = async function(chapterId, chapterName) {
+            const joinBtn = document.getElementById(`join-btn-${chapterId}`);
+            
+            try {
+                // Check if user is logged in using sessionStorage
+                const userData = sessionStorage.getItem('iyna_user');
+                if (!userData) {
+                    alert('Please log in to request to join a chapter.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const currentUser = JSON.parse(userData);
+                if (currentUser.chapter_id) {
+                    alert('You are already a member of a chapter. Contact an administrator to change chapters.');
+                    return;
+                }
+
+                // Show join confirmation modal
+                showJoinChapterModal(chapterId, chapterName, currentUser);
+                
+            } catch (error) {
+                console.error('Error checking user status:', error);
+                alert('Error checking user status. Please try again.');
+            }
+        };
+
+        // Show join chapter confirmation modal
+        function showJoinChapterModal(chapterId, chapterName, currentUser) {
+            // Create modal HTML
+            const modalHTML = `
+                <div class="modal-overlay" id="joinChapterModal" style="display: flex;">
+                    <div class="modal-content" style="max-width: 600px; max-height: 90vh; text-align: left; background: white; border-radius: 16px; padding: 0; overflow: hidden; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); display: flex; flex-direction: column;">
+                        <!-- Modal Header -->
+                        <div style="background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%); padding: 2rem 2rem 1.5rem 2rem; color: white; flex-shrink: 0;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="margin: 0; font-size: 1.8rem; font-weight: 700; color: white;">Join Chapter</h3>
+                                <button onclick="closeJoinChapterModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">&times;</button>
+                            </div>
+                            <p style="margin: 0; font-size: 1rem; opacity: 0.9; font-weight: 400;">Confirm your information to join "${chapterName}"</p>
+                        </div>
+                        
+                        <!-- Modal Body -->
+                        <div style="padding: 2rem; overflow-y: auto; flex: 1;">
+                            <!-- User Information Display -->
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                                <h4 style="color: #1B4965; margin-bottom: 1rem; font-size: 1.1rem;">Your Information</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.95rem;">
+                                    <div>
+                                        <strong style="color: #666;">Name:</strong><br>
+                                        <span style="color: #1B4965;">${currentUser.first_name} ${currentUser.last_name}</span>
+                                    </div>
+                                    <div>
+                                        <strong style="color: #666;">Email:</strong><br>
+                                        <span style="color: #1B4965;">${currentUser.email}</span>
+                                    </div>
+                                    <div>
+                                        <strong style="color: #666;">School:</strong><br>
+                                        <span style="color: #1B4965;">${currentUser.school || 'Not specified'}</span>
+                                    </div>
+                                    <div>
+                                        <strong style="color: #666;">Grade Level:</strong><br>
+                                        <span style="color: #1B4965;">${currentUser.grade_level || 'Not specified'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Chapter Information -->
+                            <div style="background: #e8f4f8; border-left: 4px solid #1B4965; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+                                <p style="margin: 0; color: #1B4965; font-size: 0.95rem; line-height: 1.5; font-weight: 500;">
+                                    <strong>Chapter:</strong> ${chapterName}
+                                </p>
+                            </div>
+                            
+                            <!-- Reason for Joining -->
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">Why do you want to join this chapter? *</label>
+                                <textarea 
+                                    id="joinReason" 
+                                    class="form-control"
+                                    placeholder="Please explain your interest in joining this chapter. What do you hope to contribute and learn?"
+                                    style="width: 100%; min-height: 120px; resize: vertical; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;"
+                                    required></textarea>
+                                <small style="color: #6c757d; font-size: 0.9rem;">Be specific about your motivation and what you can bring to the chapter.</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Modal Footer -->
+                        <div style="background: #f8f9fa; padding: 1.5rem 2rem; border-top: 1px solid #e9ecef; display: flex; gap: 1rem; justify-content: flex-end; flex-shrink: 0;">
+                            <button onclick="closeJoinChapterModal()" style="background: #6c757d; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 500; transition: background-color 0.2s; font-size: 0.95rem;" onmouseover="this.style.background='#5a6268'" onmouseout="this.style.background='#6c757d'">Cancel</button>
+                            <button id="confirmJoinBtn" onclick="confirmJoinChapter('${chapterId}', '${chapterName}')" style="background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 0.95rem; box-shadow: 0 2px 8px rgba(27, 73, 101, 0.3);" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(27, 73, 101, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(27, 73, 101, 0.3)'">Join Chapter</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add modal to body
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        // Close join chapter modal
+        function closeJoinChapterModal() {
+            const modal = document.getElementById('joinChapterModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Confirm and process chapter join
+        async function confirmJoinChapter(chapterId, chapterName) {
+            const joinBtn = document.getElementById(`confirmJoinBtn`);
+            const reason = document.getElementById('joinReason').value.trim();
+            
+            if (!reason) {
+                alert('Please provide a reason for joining this chapter.');
+                return;
+            }
+            
+            try {
+                    if (joinBtn) {
+                    joinBtn.textContent = 'Processing...';
+                        joinBtn.disabled = true;
+                    }
+                
+                // Get current user from sessionStorage
+                const userData = sessionStorage.getItem('iyna_user');
+                if (!userData) {
+                    alert('Please log in to request to join a chapter.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const currentUser = JSON.parse(userData);
+
+                // Insert join request into chapter_join_request table (DO NOT update user's chapter_id yet)
+                try {
+                    const { data, error } = await supabase
+                        .from('chapter_join_request')
+                        .insert([{
+                            user_id: currentUser.id,
+                            chapter_id: parseInt(chapterId),
+                            user_name: `${currentUser.first_name} ${currentUser.last_name}`,
+                            user_email: currentUser.email,
+                            user_school: currentUser.school || 'Not specified',
+                            user_grade_level: currentUser.grade_level || 'Not specified',
+                            join_reason: reason,
+                            status: 'pending',
+                            requested_at: new Date().toISOString()
+                        }]);
+                    
+                    if (error) {
+                        console.error('Error creating join request:', error);
+                        throw error; // Don't continue if join request fails
+                    }
+                } catch (error) {
+                    console.error('Error inserting join request:', error);
+                    throw error; // Re-throw to show error to user
+                }
+
+                // Update session storage with join request info (but NOT chapter_id)
+                currentUser.pending_chapter_request = {
+                    chapter_id: parseInt(chapterId),
+                    chapter_name: chapterName,
+                    join_reason: reason,
+                    requested_at: new Date().toISOString()
+                };
+                sessionStorage.setItem('iyna_user', JSON.stringify(currentUser));
+
+                // Close modal
+                closeJoinChapterModal();
+                
+                alert(`Join request submitted for "${chapterName}"! Your request will be reviewed by the chapter director.`);
+                
+                // Refresh the rankings list to show updated button states
+                if (window.chaptersData) {
+                    await updateRankingsList(window.chaptersData);
+                }
+                
+                // Also refresh button states to ensure consistency
+                await refreshChapterButtonStates();
+                
+            } catch (error) {
+                console.error('Error joining chapter:', error);
+                alert('Error joining chapter. Please try again.');
+            } finally {
+                if (joinBtn && joinBtn.textContent === 'Processing...') {
+                    joinBtn.textContent = 'Join Chapter';
+                    joinBtn.disabled = false;
+                }
+            }
+        }
+
+        // Update Start New Chapter section based on user status
+        function updateStartNewChapterSection() {
+            try {
+                const userData = sessionStorage.getItem('iyna_user');
+                if (!userData) {
+                    // User not logged in - show default message
+                    return;
+                }
+
+                const currentUser = JSON.parse(userData);
+                const startChapterSection = document.querySelector('.start-chapter-section');
+                
+                if (!startChapterSection) return;
+
+                if (currentUser.chapter_id) {
+                    // User is already in a chapter
+                    startChapterSection.innerHTML = `
+                        <div class="start-chapter-content">
+                            <h3>Already in a Chapter</h3>
+                            <p>You are currently a member of an IYNA chapter. You cannot start a new chapter while being part of an existing one.</p>
+                            <div style="background: #e8f4f8; border-left: 4px solid #1B4965; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left;">
+                                <p style="margin: 0; color: #1B4965; font-size: 0.95rem; line-height: 1.5;">
+                                    <strong>Note:</strong> If you need to change chapters, please contact an IYNA administrator.
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                } else if (window.chaptersData && currentUser.school) {
+                    // Check if user's school already has a chapter
+                    const existingChapter = window.chaptersData.find(chapter => 
+                        chapter.school_name && 
+                        chapter.school_name.toLowerCase() === currentUser.school.toLowerCase()
+                    );
+                    
+                    if (existingChapter) {
+                        // User's school already has a chapter
+                        startChapterSection.innerHTML = `
+                            <div class="start-chapter-content">
+                                <h3>Chapter Already Exists</h3>
+                                <p>Your school (${currentUser.school}) already has an IYNA chapter: <strong>"${existingChapter.name || existingChapter.school_name}"</strong></p>
+                                <div style="background: #e8f4f8; border-left: 4px solid #1B4965; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                                    <p style="margin: 0; color: #1B4965; font-size: 0.95rem; line-height: 1.5;">
+                                        <strong>Note:</strong> You cannot start a new chapter at a school that already has one. Consider joining the existing chapter instead.
+                                    </p>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        // User can start a new chapter
+                        startChapterSection.innerHTML = `
+                            <div class="start-chapter-content">
+                                <h3>Don't see your school?</h3>
+                                <p>Start a new IYNA chapter at your school and become a chapter director.</p>
+                                <button class="start-chapter-btn" onclick="showNewChapterModal().catch(error => console.error('Error:', error))">
+                                    Start New Chapter
+                                </button>
+                            </div>
+                        `;
+                    }
+                } else {
+                    // User not logged in or no school info - show default
+                    startChapterSection.innerHTML = `
+                        <div class="start-chapter-content">
+                            <h3>Don't see your school?</h3>
+                            <p>Start a new IYNA chapter at your school and become a chapter director.</p>
+                            <button class="start-chapter-btn" onclick="showNewChapterModal().catch(error => console.error('Error:', error))">
+                                Start New Chapter
+                            </button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error updating start new chapter section:', error);
+            }
+        }
+
+        // Refresh button states for all chapters based on user's current status
+        async function refreshChapterButtonStates() {
+            if (!window.chaptersData) return;
+            
+            // Clear cached join requests to get fresh data
+            cachedJoinRequestsByChapter = null;
+            
+            for (const chapter of window.chaptersData) {
+                const button = document.getElementById(`join-btn-${chapter.id}`);
+                if (!button) continue;
+                
+                const userStatus = await checkUserJoinRequestStatus(chapter.id);
+                
+                let buttonText = 'Request to Join';
+                let buttonStyle = '';
+                let buttonDisabled = false;
+                let buttonOnClick = `requestToJoinChapter('${chapter.id}', '${chapter.name || chapter.school_name}')`;
+
+                if (userStatus === 'member') {
+                    // No button shown for existing members, admins, or directors
+                    buttonText = '';
+                    buttonStyle = 'display: none;';
+                    buttonDisabled = true;
+                    buttonOnClick = '';
+                } else if (userStatus === 'pending') {
+                    // Show yellow "Requested" button for pending requests
+                    buttonText = 'Requested';
+                    buttonStyle = 'background: #ffc107; color: #212529; cursor: not-allowed;';
+                    buttonDisabled = true;
+                    buttonOnClick = '';
+                } else if (userStatus === 'approved') {
+                    // If approved, user should be a member - hide all buttons
+                    buttonText = '';
+                    buttonStyle = 'display: none;';
+                    buttonDisabled = true;
+                    buttonOnClick = '';
+                } else if (userStatus === 'denied' || userStatus === 'rejected') {
+                    // Allow re-request after rejection; show default Request to Join
+                    // Keep default values (already set above)
+                }
+
+                button.textContent = buttonText;
+                button.style = buttonStyle;
+                button.disabled = buttonDisabled;
+                if (buttonOnClick) {
+                    button.onclick = () => eval(buttonOnClick);
+                } else {
+                    button.onclick = null;
+                }
+            }
+        }
+
+        // Initialize UI elements
+        function initializeUIElements() {
+            // Dropdown toggle
+            const filterBtn = document.getElementById('filterDropdownBtn');
+            const dropdownMenu = document.getElementById('filterDropdownMenu');
+            
+            if (filterBtn && dropdownMenu) {
+                document.addEventListener('click', function(e) {
+                    if (filterBtn.contains(e.target)) {
+                        dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
+                    } else if (!dropdownMenu.contains(e.target)) {
+                        dropdownMenu.style.display = 'none';
+                    }
+                });
+            }
+
+            initializeSortOptions();
+            initializeFilterOptions();
+            initializeSearch();
+            
+            // Set up periodic refresh of button states
+            setInterval(refreshChapterButtonStates, 10000); // Refresh every 10 seconds
+            
+            // Refresh button states when page becomes visible
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    refreshChapterButtonStates();
+                    updateStartNewChapterSection();
+                }
+            });
+        }
+
+        // Initialize sort options
+        function initializeSortOptions() {
+            const sortOptions = document.querySelectorAll('.dropdown-option[data-sort]');
+            sortOptions.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    sortOptions.forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const sortBy = this.getAttribute('data-sort');
+                    sortRankings(sortBy);
+                });
+            });
+        }
+
+        // Initialize filter options  
+        function initializeFilterOptions() {
+            const filterOptions = document.querySelectorAll('.dropdown-option[data-filter]');
+            const selectedFiltersBar = document.getElementById('selectedFiltersBar');
+            let selectedFilters = [];
+            
+            function renderSelectedFilters() {
+                selectedFiltersBar.innerHTML = '';
+                selectedFilters.forEach(f => {
+                    const btn = document.createElement('button');
+                    btn.className = 'selected-filter-btn';
+                    btn.innerHTML = `${f.label} <span class="remove-x">✕</span>`;
+                    btn.onclick = () => {
+                        selectedFilters = selectedFilters.filter(x => x.value !== f.value);
+                        renderSelectedFilters();
+                        filterRankings(selectedFilters);
+                    };
+                    selectedFiltersBar.appendChild(btn);
+                });
+                
+                if (selectedFilters.length > 0) {
+                    const removeAllBtn = document.createElement('button');
+                    removeAllBtn.className = 'selected-filter-btn';
+                    removeAllBtn.innerHTML = '✕ Remove all filters';
+                    removeAllBtn.onclick = () => {
+                        selectedFilters = [];
+                        renderSelectedFilters();
+                        filterRankings([]);
+                    };
+                    selectedFiltersBar.appendChild(removeAllBtn);
+                }
+            }
+            
+            filterOptions.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const value = this.getAttribute('data-filter');
+                    const label = this.textContent;
+                    if (!selectedFilters.some(f => f.value === value)) {
+                        selectedFilters.push({ value, label });
+                        renderSelectedFilters();
+                        filterRankings(selectedFilters);
+                    }
+                });
+            });
+            
+            const resetBtn = document.getElementById('resetFiltersBtn');
+            if (resetBtn) {
+                resetBtn.onclick = () => {
+                    selectedFilters = [];
+                    renderSelectedFilters();
+                    filterRankings([]);
+                    
+                    const sortOptions = document.querySelectorAll('.dropdown-option[data-sort]');
+                    sortOptions.forEach(b => b.classList.remove('selected'));
+                    sortOptions[0].classList.add('selected');
+                    sortRankings('points');
+                };
+            }
+        }
+
+        // Initialize search
+        function initializeSearch() {
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    searchChapters(e.target.value);
+                });
+            }
+        }
+
+        // Sorting function
+        function sortRankings(by) {
+            const rankingsList = document.querySelector('.rankings-list');
+            const items = Array.from(rankingsList.querySelectorAll('.ranking-item'));
+            let sorted;
+            
+            if (by === 'points') {
+                sorted = items.sort((a, b) => {
+                    const aPoints = parseInt(a.getAttribute('data-points') || '0', 10);
+                    const bPoints = parseInt(b.getAttribute('data-points') || '0', 10);
+                    return bPoints - aPoints;
+                });
+            } else if (by === 'chapterid') {
+                sorted = items.sort((a, b) => {
+                    const aCode = a.getAttribute('data-code') || '';
+                    const bCode = b.getAttribute('data-code') || '';
+                    return aCode.localeCompare(bCode);
+                });
+            } else if (by === 'country') {
+                sorted = items.sort((a, b) => {
+                    const aCountry = a.getAttribute('data-country') || '';
+                    const bCountry = b.getAttribute('data-country') || '';
+                    return aCountry.localeCompare(bCountry);
+                });
+            }
+            
+            rankingsList.innerHTML = '';
+            sorted.forEach((item, index) => {
+                const rankingNumber = item.querySelector('.ranking-number');
+                if (rankingNumber) {
+                    rankingNumber.textContent = index + 1;
+                }
+                rankingsList.appendChild(item);
+            });
+        }
+
+        // Filter function
+        function filterRankings(filters) {
+            const rankingsList = document.querySelector('.rankings-list');
+            const items = Array.from(rankingsList.querySelectorAll('.ranking-item'));
+            
+            items.forEach(item => {
+                let shouldShow = true;
+                item.style.display = shouldShow ? 'flex' : 'none';
+            });
+            
+            const visibleItems = items.filter(item => item.style.display !== 'none');
+            visibleItems.forEach((item, index) => {
+                const rankingNumber = item.querySelector('.ranking-number');
+                if (rankingNumber) {
+                    rankingNumber.textContent = index + 1;
+                }
+            });
+        }
+
+        // Search function
+        function searchChapters(searchTerm) {
+            const rankingsList = document.querySelector('.rankings-list');
+            const items = Array.from(rankingsList.querySelectorAll('.ranking-item'));
+            
+            items.forEach(item => {
+                const name = (item.getAttribute('data-name') || '').toLowerCase();
+                const code = (item.getAttribute('data-code') || '').toLowerCase();
+                const searchText = `${name} ${code}`;
+                
+                if (searchText.includes(searchTerm.toLowerCase()) || searchTerm === '') {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            const visibleItems = items.filter(item => item.style.display !== 'none');
+            visibleItems.forEach((item, index) => {
+                const rankingNumber = item.querySelector('.ranking-number');
+                if (rankingNumber) {
+                    rankingNumber.textContent = index + 1;
+                }
+            });
+        }
+
+        // Error message function
+        function showErrorMessage(message) {
+            const rankingsList = document.querySelector('.rankings-list');
+            if (rankingsList) {
+                rankingsList.innerHTML = `
+                    <div style="padding: 40px; text-align: center; color: #dc3545;">
+                        <h3 style="color: #dc3545; margin-bottom: 10px;">Error Loading Data</h3>
+                        <p>${message}</p>
+                        <button onclick="location.reload()" style="margin-top: 15px; padding: 10px 20px; background: #1B4965; color: white; border: none; border-radius: 5px; cursor: pointer; font-family: 'Work Sans', sans-serif;">
+                            Try Again
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Start New Chapter functionality
+        async function showNewChapterModal() {
+            try {
+                // Check if user is logged in
+                const userData = sessionStorage.getItem('iyna_user');
+                if (!userData) {
+                    alert('Please log in to start a new chapter.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const currentUser = JSON.parse(userData);
+                
+                // Check if user is already part of a chapter
+                if (currentUser.chapter_id) {
+                    alert('You can only create a chapter if you are not already part of a chapter, and your school doesn\'t have an IYNA chapter yet.\n\nYou are currently a member of a chapter, so you cannot start a new one.');
+                    return;
+                }
+
+                // Check if user's school already has a chapter
+                if (window.chaptersData && currentUser.school) {
+                    const existingChapter = window.chaptersData.find(chapter => 
+                        chapter.school_name && 
+                        chapter.school_name.toLowerCase() === currentUser.school.toLowerCase()
+                    );
+                    
+                    if (existingChapter) {
+                        alert(`Your school (${currentUser.school}) already has an IYNA chapter: "${existingChapter.name || existingChapter.school_name}".\n\nYou cannot start a new chapter at a school that already has one.`);
+                        return;
+                    }
+                }
+
+                const confirmNewChapter = confirm(
+                    "Do you want to start a new chapter?\n\n" +
+                    "This will:\n" +
+                    "• Allow you to create a new IYNA chapter\n" +
+                    "• Make you the director of the new chapter\n" +
+                    "• Require approval from IYNA administrators\n\n" +
+                    "Continue to the chapter request form?"
+                );
+                
+                if (confirmNewChapter) {
+                    document.getElementById('startChapterModal').style.display = 'flex';
+                    // Autofill and lock name/email from session user
+                    const firstName = currentUser.first_name || currentUser.user?.first_name || '';
+                    const lastName = currentUser.last_name || currentUser.user?.last_name || '';
+                    const emailVal = currentUser.email || currentUser.user?.email || '';
+                    const fullName = `${firstName} ${lastName}`.trim();
+                    const nameInput = document.getElementById('chapterRequestName');
+                    const emailInput = document.getElementById('chapterRequestEmail');
+                    if (nameInput) { nameInput.value = fullName; }
+                    if (emailInput) { emailInput.value = emailVal; }
+                }
+            } catch (error) {
+                console.error('Error checking user status for new chapter:', error);
+                alert('Error checking your eligibility. Please try again.');
+            }
+        }
+
+        function closeStartChapterModal() {
+            document.getElementById('startChapterModal').style.display = 'none';
+            // Reset form
+            document.getElementById('chapterRequestName').value = '';
+            document.getElementById('chapterRequestEmail').value = '';
+            document.getElementById('chapterRequestSchool').value = '';
+            document.getElementById('chapterRequestReason').value = '';
+        }
+
+        async function submitChapterRequest() {
+            const name = document.getElementById('chapterRequestName').value.trim();
+            const email = document.getElementById('chapterRequestEmail').value.trim();
+            const school = document.getElementById('chapterRequestSchool').value.trim();
+            const reason = document.getElementById('chapterRequestReason').value.trim();
+
+            if (!name || !email || !school || !reason) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitChapterBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            try {
+                // Ensure Supabase client is available
+                if (!window.supabase) {
+                    throw new Error('Supabase client not initialized.');
+                }
+
+                // Get current user from session
+                const userData = sessionStorage.getItem('iyna_user');
+                if (!userData) {
+                    alert('Please log in to submit a chapter request.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const currentUser = JSON.parse(userData);
+
+                // Insert chapter request into Supabase
+                const { data, error } = await supabase
+                    .from('chapter_request')
+                    .insert({
+                        user_id: currentUser.id || currentUser.user?.id,
+                        user_name: name,
+                        user_email: email,
+                        school_name: school,
+                        reason: reason,
+                        status: 'pending',
+                        requested_at: new Date().toISOString()
+                    })
+                    .select()
+                    .single();
+
+                if (error) {
+                    console.error('Supabase insert error:', error);
+                    throw error;
+                }
+
+                alert('Chapter request submitted successfully! We will review your application and get back to you soon.');
+                closeStartChapterModal();
+                // Refresh UI to reflect requested state
+                if (typeof updateStartNewChapterSection === 'function') {
+                    await updateStartNewChapterSection();
+                }
+            } catch (error) {
+                console.error('Error submitting chapter request:', error);
+                alert('Failed to submit chapter request. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Request';
+            }
+        }
+    </script>
+
+    <!-- Start New Chapter Modal -->
+    <div class="modal-overlay" id="startChapterModal" style="display: none;">
+        <div class="modal-content" style="max-width: 600px; max-height: 90vh; text-align: left; background: white; border-radius: 16px; padding: 0; overflow: hidden; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); display: flex; flex-direction: column;">
+            <!-- Modal Header -->
+            <div style="background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%); padding: 2rem 2rem 1.5rem 2rem; color: white; flex-shrink: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3 style="margin: 0; font-size: 1.8rem; font-weight: 700; color: white;">Start a New Chapter</h3>
+                    <button onclick="closeStartChapterModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">&times;</button>
+                </div>
+                <p style="margin: 0; font-size: 1rem; opacity: 0.9; font-weight: 400;">Create a new IYNA chapter at your school</p>
+            </div>
+            
+            <!-- Modal Body -->
+            <div style="padding: 2rem; overflow-y: auto; flex: 1;">
+                <!-- Information Alert -->
+                <div style="background: #e8f4f8; border-left: 4px solid #1B4965; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <p style="margin: 0; color: #1B4965; font-size: 0.95rem; line-height: 1.5; font-weight: 500;">
+                        <strong>Important:</strong> You can only start a chapter if one does not already exist at your school. We'll verify this before approving your request.
+                    </p>
+                </div>
+                
+                <!-- Form -->
+                <form id="startChapterForm">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">Your Full Name *</label>
+                        <input type="text" id="chapterRequestName" class="form-control" placeholder="Enter your full name" required style="width: 100%; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;" readonly>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">Your Email *</label>
+                        <input type="email" id="chapterRequestEmail" class="form-control" placeholder="Enter your email address" required style="width: 100%; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;" readonly>
+            </div>
+            
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">School Name *</label>
+                        <input type="text" id="chapterRequestSchool" class="form-control" placeholder="Enter your school name" required style="width: 100%; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">Reason for Starting a Chapter *</label>
+                        <textarea 
+                            id="chapterRequestReason" 
+                            class="form-control"
+                            placeholder="Please explain why you want to start a new chapter at your school. Include details about student interest, faculty support, and your vision for the chapter..."
+                            style="width: 100%; min-height: 120px; resize: vertical; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;"
+                            required></textarea>
+                        <small style="color: #6c757d; font-size: 0.9rem;">Be detailed and specific about your motivation and plans for the chapter.</small>
+            </div>
+                </form>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div style="background: #f8f9fa; padding: 1.5rem 2rem; border-top: 1px solid #e9ecef; display: flex; gap: 1rem; justify-content: flex-end; flex-shrink: 0;">
+                <button onclick="closeStartChapterModal()" style="background: #6c757d; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 500; transition: background-color 0.2s; font-size: 0.95rem;" onmouseover="this.style.background='#5a6268'" onmouseout="this.style.background='#6c757d'">Cancel</button>
+                <button id="submitChapterBtn" onclick="submitChapterRequest()" style="background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 0.95rem; box-shadow: 0 2px 8px rgba(27, 73, 101, 0.3);" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(27, 73, 101, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(27, 73, 101, 0.3)'">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay Styles -->
+    <style>
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+    </style>
+
+</body>
+</html>

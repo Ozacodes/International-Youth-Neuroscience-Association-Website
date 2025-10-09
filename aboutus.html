@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IYNA - Our Mission</title>
+    
+    <!-- CSS FILES -->        
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+        font-family: 'Work Sans', sans-serif !important;
+      }
+      /* Prevent nav links from breaking into two lines and reduce spacing */
+      .navbar .nav-link {
+        white-space: nowrap;
+      }
+      .navbar .nav-item {
+        margin-left: 0.3rem !important;
+        margin-right: 0.3rem !important;
+      }
+    </style>
+                        
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+    
+    <!-- Load shared navigation -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/nav-login-state.js"></script>
+    <script src="js/load-nav.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/database.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            line-height: 1.6;
+        }
+
+        .hero-section {
+            position: relative;
+            background: url('images/hero-squeezed (1).png') center center / cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+            color: white;
+            padding: 60px 15px;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-weight: 400;
+            max-width: 600px;
+            color: white;
+        }
+
+        #particles {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.7);
+            opacity: .9;
+            transform: translateY(0);
+            animation-name: floatUp;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+            15% { opacity: 0.8; }
+            100% { transform: translateY(-140vh) translateX(40px) scale(0.7); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                margin-left: 0px;
+                margin-right: 40px;
+                max-width: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .flags-container {
+                left: 40px;
+                bottom: 30px;
+            }
+
+            .flag {
+                width: 35px;
+                height: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="nav-placeholder"></div>
+    
+    <!-- HERO SECTION -->
+    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+        <div id="particles" aria-hidden="true"></div>
+        <div class="container hero-content" style="z-index: 2; position: relative;">
+          <div class="row">
+            <div class="col-lg-7 col-12">
+              <h1 class="hero-title" style="color: white; font-family: 'Work Sans', sans-serif;">
+                Connecting, Educating,<br> and Inspiring the Next<br> Generation of <span style="color: white;">Neuroscientists</span>
+              </h1>
+              <p class="hero-description">
+                Discover the wonders of the brain through cutting-edge research, innovative competitions, and collaborative projects. Start your neuroscience journey today with expert-led programs designed for ambitious students worldwide.
+              </p>
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="signup.html" class="btn" style="background: #62B6CB; color: white; padding: 1rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(98, 182, 203, 0.3); border: none;">
+                  Join IYNA &nbsp;&rsaquo;
+                </a>
+                <a href="#about-iyna" class="btn" style="background: transparent; color: white; padding: 1rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; border: 2px solid white; transition: all 0.3s ease;" onclick="scrollToSection('about-iyna')">
+                  Learn More
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="about-story-section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); color: #333; padding: 100px 0;">
+        <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 40px;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem; font-family: 'Work Sans', sans-serif; color: #1B4965; position: relative;">
+                    Our Story
+                    <div style="width: 80px; height: 4px; background: #62B6CB; margin: 20px auto 0; border-radius: 2px;"></div>
+                </h2>
+                <p style="font-size: 1.2rem; color: #666; font-weight: 400; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                    A journey of passion, innovation, and global impact in neuroscience education
+                </p>
+            </div>
+            
+            <div style="background: white; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); padding: 60px; margin-bottom: 40px;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; font-family: 'Work Sans', sans-serif; line-height: 1.8; color: #444;">
+                    The International Youth Neuroscience Association (IYNA) was founded as the Youth Neuroscience Clubs of America at the 2016 United States National Brain Bee. Norbert Myslinski, founder of the International Brain Bee, challenged USA Brain Bee competitors not just to compete for the top prize but to come together to build a community for young people studying neuroscience. On March 18, 2016, our founding team met this challenge with an outline of what would eventually become the IYNA: an organization led by students, for students, designed to spread excitement for and knowledge of neuroscience to students across the globe.
+                </p>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; font-family: 'Work Sans', sans-serif; line-height: 1.8; color: #444;">
+                    From its founding, the IYNA wanted to introduce students to scientific literacy through a student-written and edited journal and empower students to spread their love of neuroscience among their communities through its chapters system. As we grew, we built new partnerships and projects — from our Modern Youth Education, Leadership, and Inquiry in Neuroscience Initiative which built our summer course curriculum, to our annual competitions hosted in collaboration with the Alzheimer's Association and International Neuroethics Society, to our Neuro& Career Webinar series hosted with the support of the Dana Foundation. After nearly ten years of growth, the IYNA is as committed as ever to finding new ways of inviting students to explore the wonders of the brain.
+                </p>
+            </div>
+            
+            <div style="background: #62B6CB; border-radius: 16px; padding: 50px; color: white; text-align: center;">
+                <h3 style="font-size: 1.8rem; font-weight: 600; margin-bottom: 1.5rem; font-family: 'Work Sans', sans-serif;">
+                    Special Recognition
+                </h3>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; font-family: 'Work Sans', sans-serif; line-height: 1.6; color: #1B4965;">
+                    We would like to extend a special thank you to the former executive directors of the IYNA, as well as all of the volunteers and members who have made our community so special:
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 600px; margin: 0 auto;">
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);">
+                        <div style="font-weight: 600; margin-bottom: 5px; font-family: 'Work Sans', sans-serif;">Jacob Umans</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);">
+                        <div style="font-weight: 600; margin-bottom: 5px; font-family: 'Work Sans', sans-serif;">Nicholas Chrapliwy</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);">
+                        <div style="font-weight: 600; margin-bottom: 5px; font-family: 'Work Sans', sans-serif;">Alexander Skvortsov</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);">
+                        <div style="font-weight: 600; margin-bottom: 5px; font-family: 'Work Sans', sans-serif;">Julia Shi</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);">
+                        <div style="font-weight: 600; margin-bottom: 5px; font-family: 'Work Sans', sans-serif;">Khayla Black</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);">
+                        <div style="font-weight: 600; margin-bottom: 5px; font-family: 'Work Sans', sans-serif;">Brian Lee</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);">
+                        <div style="font-weight: 600; margin-bottom: 5px; font-family: 'Work Sans', sans-serif;">Jessica Song</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);">
+                        <div style="font-weight: 600; margin-bottom: 5px; font-family: 'Work Sans', sans-serif;">Jiya Mody</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Meet the Team Section -->
+    <style>
+      /* Meet the Team styles scoped to .team-section */
+      .team-section * {
+        box-sizing: border-box;
+      }
+      .team-section {
+        background-color: #f8f9fa;
+        color: #333;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        padding: 60px 0;
+      }
+      .team-section .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
+      }
+      .team-section .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 40px;
+        color: #2c3e50;
+      }
+      .team-section .nav-tabs {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 50px;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .team-section .nav-tab {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #6c757d;
+        text-decoration: none;
+        padding: 8px 0;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s ease;
+        position: relative;
+        white-space: nowrap;
+      }
+      .team-section .nav-tab:hover {
+        color: #495057;
+      }
+      .team-section .nav-tab.active {
+        color: #2c3e50;
+        border-bottom-color: #2c3e50;
+      }
+      .team-section .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+      .team-section .team-member {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+      .team-section .team-member:hover {
+        transform: translateY(-5px);
+      }
+      .team-section .member-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #d1d5db, #e5e7eb);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+      }
+      .team-section .member-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .team-section .member-avatar:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+      .team-section .member-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 5px;
+      }
+      .team-section .member-pronouns {
+        font-size: 0.85rem;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+      }
+      .team-section .member-role {
+        font-size: 0.95rem;
+        color: #495057;
+        line-height: 1.4;
+        max-width: 200px;
+        margin-bottom: 10px;
+      }
+
+      .team-section .leadership-section {
+        display: block;
+      }
+      .team-section .other-sections {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        .team-section .container {
+          padding: 40px 15px;
+        }
+        .team-section .page-title {
+          font-size: 2rem;
+        }
+        .team-section .nav-tabs {
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+        .team-section .nav-tab {
+          font-size: 1rem;
+        }
+        .team-section .team-grid {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 20px;
+        }
+        .team-section .member-avatar {
+          width: 100px;
+          height: 100px;
+        }
+        .team-section .member-name {
+          font-size: 1rem;
+        }
+        .team-section .member-role {
+          font-size: 0.9rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .team-section .team-grid {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+      
+      /* Modal styles */
+      .team-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+      }
+      
+      .team-modal-content {
+        background-color: white;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 16px;
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+      
+      .team-modal-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #333;
+        line-height: 1;
+      }
+      
+      .team-modal-close:hover {
+        color: #666;
+      }
+      
+      .team-modal-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      
+      .team-modal-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-right: 20px;
+        background: linear-gradient(135deg, #d1d5db, #e5e7eb);
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      
+      .team-modal-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      
+      .team-modal-info h3 {
+        margin: 0 0 5px 0;
+        font-size: 1.5rem;
+        color: #2c3e50;
+      }
+      
+      .team-modal-pronouns {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+      
+      .team-modal-role {
+        color: #495057;
+        font-size: 1rem;
+        line-height: 1.4;
+        margin-bottom: 15px;
+      }
+      
+      .team-modal-bio {
+        color: #333;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+    </style>
+    <section class="team-section">
+      <div class="container">
+        <h1 class="page-title">Meet the Team</h1>
+        <nav class="nav-tabs">
+          <a href="#" class="nav-tab active" data-section="leadership">Core Leadership</a>
+          <a href="#" class="nav-tab" data-section="operations">Operations</a>
+          <a href="#" class="nav-tab" data-section="website">Website</a>
+          <a href="#" class="nav-tab" data-section="chapters">Chapters</a>
+          <a href="#" class="nav-tab" data-section="collegiate">Collegiate Network</a>
+          <a href="#" class="nav-tab" data-section="resources">Resources</a>
+          <a href="#" class="nav-tab" data-section="events">Events</a>
+          <a href="#" class="nav-tab" data-section="bbb">Brain Bee Bootcamp</a>
+          <a href="#" class="nav-tab" data-section="summer_program">Summer Program</a>
+          <a href="#" class="nav-tab" data-section="ideathon">Ideathon</a>
+          <a href="#" class="nav-tab" data-section="marketing">Marketing</a>
+          <a href="#" class="nav-tab" data-section="journal">Journal</a>
+          <a href="#" class="nav-tab" data-section="board">Board Committee</a>
+        </nav>
+        
+        <!-- Core Leadership Section -->
+        <div id="leadership" class="leadership-section">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Eesha Oza is a Co-Executive Director at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/EeshaOza.png" alt="Eesha Oza" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Eesha Oza</div>
+              
+              <div class="member-role">Co-Executive Director</div>
+ 
+            </div>
+            <div class="team-member" data-bio="Irene Zhang is a Co-Executive Director at the International Youth Neuroscience Association (IYNA).">
+              
+               <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/IreneZhang.jpeg" alt="Irene Zhang." onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Irene Zhang</div>
+              
+              <div class="member-role">Co-Executive Director, Neuro& Director</div>
+            
+            </div>
+            <div class="team-member" data-bio="Jacob Umans is Board Chair and Co-founder at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Jacob Umans</div>
+              <div class="member-role">Board Chair, Co-founder</div>
+            
+            </div>
+          </div>
+        </div>
+
+        <!-- Website Section -->
+        <div id="website" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Aaryan Oza is a Website Manager at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Aaryan Oza</div>
+              <div class="member-role">Website</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Operations Section -->
+        <div id="operations" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Shrika Vejandla is an Operations Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Shrika Vejandla</div>
+              <div class="member-role">Operations</div>
+            </div>
+            <div class="team-member" data-bio="Felix Nickel is an Operations Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Felix Nickel</div>
+              <div class="member-role">Operations</div>
+            </div>
+            <div class="team-member" data-bio="Srileka Karthikeyan is an Operations Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Srileka Karthikeyan</div>
+              <div class="member-role">Operations</div>
+            </div>
+            <div class="team-member" data-bio="Aashvi Ravi is an Operations Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Aashvi Ravi</div>
+              <div class="member-role">Operations Team Member</div>
+            </div>
+            <div class="team-member" data-bio="Wesley Yuen is an Operations Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Wesley Yuen</div>
+              <div class="member-role">Operations</div>
+            </div>
+            <div class="team-member" data-bio="Elizabeth Fung is an Operations Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Elizabeth Fung</div>
+              <div class="member-role">Operations</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chapters Section -->
+        <div id="chapters" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Arla Shio is a Chapter Lead at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Arla Shio</div>
+              <div class="member-role">Chapter Lead, Regional Lead, Chapter Director</div>
+            </div>
+            <div class="team-member" data-bio="Youlan Li is a Deputy Chapter Lead at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Youlan Li</div>
+              <div class="member-role">Deputy Chapter Lead</div>
+            </div>
+            <div class="team-member" data-bio="Maxwell Li is a Chapter Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Maxwell Li</div>
+              <div class="member-role">Regional Lead of Canada</div>
+            </div>
+            <div class="team-member" data-bio="Arunima Jaiswal is a Chapter Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Arunima Jaiswal</div>
+              <div class="member-role">Chapters</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collegiate Network Section -->
+        <div id="collegiate" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Jinming Wang is a Director of Undergraduate Engagement at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Jinming Wang</div>
+              <div class="member-role">Director of Undergraduate Engagement</div>
+            </div>
+            <div class="team-member" data-bio="Armin Pazooki is the Founder of the Collegiate Neuroscience Network at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Armin Pazooki</div>
+              <div class="member-role">Founder of the Collegiate Neuroscience Network</div>
+            </div>
+            <div class="team-member" data-bio="Justin Zhang is a Communications Lead at the International Youth Neuroscience Association (IYNA).">
+              <<div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Justin Zhang</div>
+              <div class="member-role">Communications Lead</div>
+            </div>
+            <div class="team-member" data-bio="John Ponce is a Co-Director of Undergraduate Engagement at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">John Ponce</div>
+              <div class="member-role">Co-Director of Undergraduate Engagement</div>
+            </div>
+            <div class="team-member" data-bio="Zainab Soofi is a Collegiate Outreach Coordinator at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Zainab Soofi</div>
+              <div class="member-role">Collegiate Outreach Coordinator</div>
+            </div>
+            <div class="team-member" data-bio="Celestine Ilo is a Collegiate Outreach Coordinator at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Celestine Ilo</div>
+              <div class="member-role">Collegiate Outreach Coordinator</div>
+            </div>
+            <div class="team-member" data-bio="Sajani Patel is a Collegiate Outreach Coordinator at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Sajani Patel</div>
+              <div class="member-role">Collegiate Outreach Coordinator</div>
+            </div>
+            <div class="team-member" data-bio="Kamalina Gogoi is a Collegiate Outreach Coordinator at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kamalina Gogoi</div>
+              <div class="member-role">Collegiate Outreach Coordinator, Resources Department Member</div>
+            </div>
+            <div class="team-member" data-bio="Muneeb Ahmad is a Collegiate Outreach Coordinator at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Muneeb Ahmad Muneer</div>
+              <div class="member-role">Collegiate Outreach Coordinator</div>
+            </div>
+            <div class="team-member" data-bio="Mariam Abdulhafiz is a Collegiate Outreach Coordinator at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Mariam Abdulhafiz</div>
+              <div class="member-role">Collegiate Outreach Coordinator</div>
+            </div>
+
+            <div class="team-member" data-bio="Kenda Khodor is an Outreach Coordinator at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kenda Khodor</div>
+              <div class="member-role">Outreach Coordinator</div>
+            </div>
+
+            <div class="team-member" data-bio="Abraham Hambardzumyan is a Collegiate Network Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Abraham Hambardzumyan</div>
+              <div class="member-role">Collegiate Network Member</div>
+            </div>
+
+            <div class="team-member" data-bio="Michael Bean is a Collegiate Network Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Michael Bean</div>
+              <div class="member-role">Collegiate Network Member</div>
+            </div>
+
+            <div class="team-member" data-bio="Yuta Chen is a Collegiate Network Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Yuta Chen</div>
+              <div class="member-role">Collegiate Network Member</div>
+            </div>
+
+            <div class="team-member" data-bio="Mariam Salah is a Collegiate Network Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Mariam Salah</div>
+              <div class="member-role">Collegiate Network Member</div>
+            </div>
+
+            <div class="team-member" data-bio="Dhrathri Puttheti is a Collegiate Network Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Dhrathri Puttheti</div>
+              <div class="member-role">Collegiate Network Member</div>
+            </div>
+
+            <div class="team-member" data-bio="Kritvi Dutta is a Collegiate Network Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kritvi Dutta</div>
+              <div class="member-role">Collegiate Network Member</div>
+            </div>
+
+            <div class="team-member" data-bio="Ashley Jing is a Collegiate Network Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Ashley Jing</div>
+              <div class="member-role">Collegiate Network Member</div>
+            </div>
+
+            <div class="team-member" data-bio="Zymal Hashmani is a Collegiate Network Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Zymal Hashmani</div>
+              <div class="member-role">Collegiate Network Member</div>
+            </div>
+
+            <div class="team-member" data-bio="Thanusi Logatha is a Collegiate Network Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Thanusi Logatha</div>
+              <div class="member-role">Collegiate Network Member</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resources Section -->
+        <div id="resources" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Hazal Ceylan is a Resources Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Hazal Ceylan</div>
+              <div class="member-role">Resources</div>
+            </div>
+            <div class="team-member" data-bio="Kalyeni Seshan is a Resources Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kalyeni Seshan</div>
+              <div class="member-role">Resources</div>
+            </div>
+            <div class="team-member" data-bio="Aiman Rathore is a Resources Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Aiman Rathore</div>
+              <div class="member-role">Resources</div>
+            </div>
+            <div class="team-member" data-bio="Keerthana Sridhar is a Resources Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Keerthana Sridhar</div>
+              <div class="member-role">Resources</div>
+            </div>
+            <div class="team-member" data-bio="Ameya Balaji is a Resources Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Ameya Balaji</div>
+              <div class="member-role">Resources</div>
+            </div>
+            <div class="team-member" data-bio="Anika Thatte is a Resources Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Anika Thatte</div>
+              <div class="member-role">Resources</div>
+            </div>
+            <div class="team-member" data-bio="Delaney Nguyen is a Resources Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Delaney Nguyen</div>
+              <div class="member-role">Resources</div>
+            </div>
+            <div class="team-member" data-bio="Ray Das is a Resources Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Ray Das</div>
+              <div class="member-role">Resources</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Events Section -->
+        <div id="events" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Andrew Mi is an Events Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Andrew Mi</div>
+              <div class="member-role">Events</div>
+            </div>
+            <div class="team-member" data-bio="Annie Zhou is an Events Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Annie Zhou</div>
+              <div class="member-role">Events</div>
+            </div>
+            <div class="team-member" data-bio="Danielle Choi is an Events Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Danielle Choi</div>
+              <div class="member-role">Events</div>
+            </div>
+            <div class="team-member" data-bio="Selena Shen is an Events Team Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Selena Shen</div>
+              <div class="member-role">Events</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Brain Bee Bootcamp Section -->
+        <div id="bbb" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Rishi Suresh is a Brain Bee Bootcamp team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Rishi Suresh</div>
+              <div class="member-role">Brain Bee Bootcamp</div>
+            </div>
+            <div class="team-member" data-bio="Hima Makonahally Pratap is a Brain Bee Bootcamp team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Hima Makonahally Pratap</div>
+              <div class="member-role">Brain Bee Bootcamp</div>
+            </div>
+            <div class="team-member" data-bio="Krzysztof Janota is a Brain Bee Bootcamp team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Krzysztof Janota</div>
+              <div class="member-role">Brain Bee Bootcamp</div>
+            </div>
+            <div class="team-member" data-bio="Hazal Ceylan is a Brain Bee Bootcamp team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Hazal Ceylan</div>
+              <div class="member-role">Brain Bee Bootcamp</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summer Program Section -->
+        <div id="summer_program" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Morgan Prather is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Morgan Prather</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Barkin Canogullari is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Barkin Canogullari</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Elizabeth Liu is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Elizabeth Liu</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Sanvi Gupta is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Sanvi Gupta</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Hazal Ceylan is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Hazal Ceylan</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Shriyans Narsingam is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Shriyans Narsingam</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Tanvi Srinivasan is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Tanvi Srinivasan</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Justin Zhang is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Justin Zhang</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Eve Harrison is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Eve Harrison</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Caspian Politini is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Caspian Politini</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Andres Dominguez is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Andres Dominguez</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Christin Wen is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Christin Wen</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Isabel Dionne is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Isabel Dionne</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Saleen Waters is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Saleen Waters</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Andrea Mojsoska is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Andrea Mojsoska</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+            <div class="team-member" data-bio="Emily Haile is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Emily Haile</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Sheryl Varghese is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Sheryl Varghese</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Adtiya Krishnan is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Adtiya Krishnan</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Abdur Nasir is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Abdur Nasir</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Reem Rahmaoui is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Reem Rahmaoui</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Katelyn Lieb is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Katelyn Lieb</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Gurleen Hans is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Gurleen Hans</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Kayleigh Ruggles is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kayleigh Ruggles</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Oshin Puri is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Oshin Puri</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Jash Khatiwala is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Jash Khatiwala</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Wee Leng Tan is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Wee Leng Tan</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Andrei Nesterenko is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Andrei Nesterenko</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Charlotte Qi is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Charlotte Qi</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Edward Shen is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Edward Shen</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Jay Abraham is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Jay Abraham</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Kalyani Seshan is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kalyani Seshan</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Tolulope Gbayisomore is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Tolulope Gbayisomore</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Yara Tohme is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Yara Tohme</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Ankit Sharma is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Ankit Sharma</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Emily Kirkby is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Emily Kirkby</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Danisha Kumar is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Danisha Kumar</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+
+            <div class="team-member" data-bio="Avani Rara is a Summer Program team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Avani Rara</div>
+              <div class="member-role">Summer Program</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ideathon Section -->
+        <div id="ideathon" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Damaris K is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Damaris K</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Rishi Suresh is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Rishi Suresh</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Kavya Chintakayala is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kavya Chintakayala</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Simran Agarwala is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Simran Agarwala</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Srileka Karthikeyan is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Srileka Karthikeyan</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Tanvi Srinivasan is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Tanvi Srinivasan</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Kaylor Huang is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kaylor Huang</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Danielle Tomoka Choi is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Danielle Tomoka Choi</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Nicholas Hon Ngai Choi is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Nicholas Hon Ngai Choi</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Anshuman Roy is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Anshuman Roy</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Alexa Khan is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Alexa Khan</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Nisha Liana Evangelista is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Nisha Liana Evangelista</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Tolulope Judah Gbayisomore is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Tolulope Judah Gbayisomore</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Arielle (Ari) Howard is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Arielle (Ari) Howard</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Fadila Kahli is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Fadila Kahli</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Kristina Zmeikova is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kristina Zmeikova</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+            <div class="team-member" data-bio="Jihoon Choi is an Ideathon team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Jihoon Choi</div>
+              <div class="member-role">Ideathon</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marketing Section -->
+        <div id="marketing" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Kavya Chintakayala is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kavya Chintakayala</div>
+              <div class="member-role">Marketing</div>
+            </div>
+            <div class="team-member" data-bio="Sumuga Swaminathan is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Sumuga Swaminathan</div>
+              <div class="member-role">Marketing</div>
+            </div>
+
+            <div class="team-member" data-bio="Alexis Icasas is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Alexis Icasas</div>
+              <div class="member-role">Marketing</div>
+            </div>
+
+            <div class="team-member" data-bio="Tiffany Wong is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Tiffany Wong</div>
+              <div class="member-role">Marketing</div>
+            </div>
+
+            <div class="team-member" data-bio="Sanjana Akkulugari is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Sanjana Akkulugari</div>
+              <div class="member-role">Marketing</div>
+            </div>
+
+            <div class="team-member" data-bio="Sanvi Gupta is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Sanvi Gupta</div>
+              <div class="member-role">Marketing</div>
+            </div>
+
+            <div class="team-member" data-bio="Srileka Karthikeyan is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Srileka Karthikeyan</div>
+              <div class="member-role">Marketing</div>
+            </div>
+
+            <div class="team-member" data-bio="Aaryan Oza is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Aaryan Oza</div>
+              <div class="member-role">Marketing</div>
+            </div>
+
+            <div class="team-member" data-bio="Reema Ayache is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Reema Ayache</div>
+              <div class="member-role">Marketing</div>
+            </div>
+
+            <div class="team-member" data-bio="Harini Venkatesh is a Marketing team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Harini Venkatesh</div>
+              <div class="member-role">Marketing</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Journal Section -->
+        <div id="journal" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Alex Dubno is Editor-in-Chief at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Alex Dubno</div>
+              <div class="member-role">Editor-in-Chief (Journal)</div>
+            </div>
+
+            <div class="team-member" data-bio="Annie Pan is a Former Editor-in-Chief at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Annie Pan</div>
+              <div class="member-role">Former Editor-in-Chief</div>
+            </div>
+
+            <div class="team-member" data-bio="Riyaa Sri Ramanathan is a Journal team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Riyaa Sri Ramanathan</div>
+              <div class="member-role">Journal</div>
+            </div>
+
+            <div class="team-member" data-bio="Youlan Li is a Journal team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Youlan Li</div>
+              <div class="member-role">Journal</div>
+            </div>
+
+            <div class="team-member" data-bio="Ashvin Kumar is a Journal team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Ashvin Kumar</div>
+              <div class="member-role">Journal</div>
+            </div>
+
+            <div class="team-member" data-bio="Kavya Chintakayala is a Journal team member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Kavya Chintakayala</div>
+              <div class="member-role">Journal</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Board Committee Section -->
+        <div id="board" class="other-sections" style="display:none;">
+          <div class="team-grid">
+            <div class="team-member" data-bio="Jacob Umans is Board Chair and Co-founder at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Jacob Umans</div>
+              <div class="member-role">Board Committee</div>
+            </div>
+            <div class="team-member" data-bio="Courtney Kloske is a Board Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Courtney Kloske</div>
+              <div class="member-role">Board Member</div>
+            </div>
+            <div class="team-member" data-bio="Robert Beets is a Board Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Robert Beets</div>
+              <div class="member-role">Board Member</div>
+            </div>
+            <div class="team-member" data-bio="Natasha Slater is a Board Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Natasha Slater</div>
+              <div class="member-role">Board Member</div>
+            </div>
+            <div class="team-member" data-bio="Ionut Dumitru is a Board Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Ionut Dumitru</div>
+              <div class="member-role">Board Member</div>
+            </div>
+            <div class="team-member" data-bio="Konrad Kording is a Board Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Konrad Kording</div>
+              <div class="member-role">Board Member</div>
+            </div>
+            <div class="team-member" data-bio="Jiya Mody is a Board Member at the International Youth Neuroscience Association (IYNA).">
+              <div class="member-avatar">
+                <img src="images/IYNA Bio Photos/unamed.png" alt="Jacob Umans" onerror="this.style.display='none'">
+              </div>
+              <div class="member-name">Jiya Mody</div>
+              <div class="member-role">Board Member</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Team Member Modal -->
+      <div id="teamModal" class="team-modal">
+        <div class="team-modal-content">
+          <span class="team-modal-close">&times;</span>
+          <div class="team-modal-header">
+            <div class="team-modal-avatar" id="modalAvatar">
+              <img src="images/IYNA Bio Photos/unamed.png" alt="IYNA" onerror="this.style.display='none'">
+            </div>
+            <div class="team-modal-info">
+              <h3 id="modalName"></h3>
+              <div class="team-modal-pronouns" id="modalPronouns" style="display:none;"></div>
+              <div class="team-modal-role" id="modalRole"></div>
+              
+            </div>
+          </div>
+          <div class="team-modal-bio" id="modalBio"></div>
+        </div>
+      </div>
+      
+      <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.team-section .nav-tab');
+        const sections = document.querySelectorAll('.team-section .leadership-section, .team-section .other-sections');
+        tabs.forEach(tab => {
+          tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            sections.forEach(section => {
+              section.style.display = 'none';
+            });
+            const sectionId = this.getAttribute('data-section');
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+              targetSection.style.display = 'block';
+            }
+          });
+        });
+        
+        // Add click events to team members to open modal
+        const teamMembers = document.querySelectorAll('.team-section .team-member');
+        const modal = document.getElementById('teamModal');
+        const modalClose = document.querySelector('.team-modal-close');
+        
+        teamMembers.forEach(member => {
+          member.addEventListener('click', function() {
+            const name = this.querySelector('.member-name').textContent;
+            const pronounsEl = this.querySelector('.member-pronouns');
+            const pronouns = pronounsEl ? pronounsEl.textContent : '';
+            const role = this.querySelector('.member-role').textContent;
+            const bio = this.getAttribute('data-bio') || '';
+            
+            // Populate modal
+            document.getElementById('modalName').textContent = name;
+            if (pronouns) {
+              document.getElementById('modalPronouns').style.display = 'block';
+              document.getElementById('modalPronouns').textContent = pronouns;
+            } else {
+              document.getElementById('modalPronouns').style.display = 'none';
+              document.getElementById('modalPronouns').textContent = '';
+            }
+            document.getElementById('modalRole').textContent = role;
+            document.getElementById('modalBio').textContent = bio;
+            
+            // Handle avatar (left blank intentionally)
+            const modalAvatar = document.getElementById('modalAvatar');
+            modalAvatar.innerHTML = '';
+            
+            // Show modal
+            modal.style.display = 'block';
+          });
+        });
+        
+        // Close modal when clicking close button
+        modalClose.addEventListener('click', function() {
+          modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+          if (event.target === modal) {
+            modal.style.display = 'none';
+          }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape' && modal.style.display === 'block') {
+            modal.style.display = 'none';
+          }
+        });
+      </script>
+    </section>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles when page loads
+        window.addEventListener('load', createParticles);
+
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- Footer placeholder - will be loaded by JavaScript -->
+    <div id="footer-placeholder"></div>
+    <script src="js/load-footer.js"></script>
+
+    <!-- JavaScript Files -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/click-scroll.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+</html>

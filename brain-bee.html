@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Topic Listing Bootstrap 5 Template</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+        
+        <style>
+          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+            font-family: 'Work Sans', sans-serif !important;
+          }
+          #about-iyna {
+            padding-top: 6rem !important;
+            padding-bottom: 6rem !important;
+          }
+          /* Prevent nav links from breaking into two lines and reduce spacing */
+          .navbar .nav-link {
+            white-space: nowrap;
+          }
+          .navbar .nav-item {
+            margin-left: 0.3rem !important;
+            margin-right: 0.3rem !important;
+          }
+        </style>
+        <!-- Append mobile hero section CSS for override -->
+        <style>
+        /* Responsive hero section for mobile (match home page) */
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            font-size: 1.7rem !important;
+            line-height: 1.2 !important;
+            text-align: left !important;
+            padding: 0 10px !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: 100% !important;
+            max-width: 250px !important;
+            margin: 0 auto !important;
+            display: block !important;
+          }
+          .hero-section {
+            padding: 220px 0 !important;
+            min-height: 80vh !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            text-align: left !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 180px !important;
+            margin: 0 !important;
+            display: inline-block !important;
+            text-align: left !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+          .container, .container-fluid {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section background color override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section {
+            background: #DFE7EC !important;
+            background-image: none !important;
+          }
+          .hero-section .overlay {
+            display: none !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            padding-left: 18px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 and paragraph alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            padding-left: 0 !important;
+          }
+          .hero-section h1 {
+            padding-left: 24px !important;
+            padding-right: 10px !important;
+            margin-left: 0 !important;
+          }
+          .hero-section p {
+            padding-left: 24px !important;
+            margin-left: 0 !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            margin-left: 24px !important;
+            display: block !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 250px !important;
+            text-align: left !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button size override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            max-width: 160px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button even shorter override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 0.7rem !important;
+            padding-right: 0.7rem !important;
+            max-width: 110px !important;
+          }
+        }
+        </style>
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <!-- Load shared navigation -->
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+    </head>
+    
+    <body id="top">
+
+        <main>
+
+            <!-- Navigation placeholder - will be loaded by JavaScript -->
+            <div id="nav-placeholder"></div>
+              
+            
+
+            <!-- HERO SECTION -->
+                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+              
+                <div class="container" style="z-index: 2; position: relative;">
+                  <div class="row">
+                    <div class="col-lg-8 col-12">
+                      <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
+                          Brain Bee Bootcamp 2025
+                      </h1>
+                      <p style="font-size: 1.15rem; margin-bottom: 1.5rem; color: white; max-width: 600px;">
+                          Organized by IYNA in partnership with the International Brain Bee (IBB), the Brain Bee Bootcamp offers focused prep for participants at all levels—local, regional, or national—from around the world.
+                      </p>
+                      <a href="#about" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem;">Learn More&nbsp;&rsaquo;</a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Lecturers Section</title>
+                  <style>
+                      @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+              
+                      .lecturers-section {
+                          font-family: 'Work Sans', sans-serif;
+                          background-color: white;
+                          padding: 60px 20px;
+                          color: #333;
+                      }
+              
+                      .lecturers-container {
+                          max-width: 750px;
+                          margin: 0 auto;
+                      }
+              
+                      .lecturers-title {
+                          font-size: 2.5rem;
+                          font-weight: 600;
+                          color: #333;
+                          margin-bottom: 50px;
+                          text-align: left;
+                      }
+              
+                      .lecturer-item {
+                          display: flex;
+                          align-items: flex-start;
+                          gap: 25px;
+                          margin-bottom: 60px;
+                      }
+              
+                      .lecturer-item:last-child {
+                          margin-bottom: 0;
+                      }
+              
+                      .lecturer-photo {
+                          width: 180px;
+                          height: 230px;
+                          background-color: #d3d3d3;
+                          flex-shrink: 0;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: #666;
+                          font-size: 0.7rem;
+                          text-align: center;
+                      }
+              
+                      .lecturer-content {
+                          flex: 1;
+                      }
+              
+                      .lecturer-name {
+                          font-size: 1.4rem;
+                          font-weight: 600;
+                          color: #333;
+                          margin-bottom: 5px;
+                      }
+              
+                      .lecturer-title-subtitle {
+                          font-size: 0.8rem;
+                          color: #666;
+                          text-transform: uppercase;
+                          letter-spacing: 0.5px;
+                          margin-bottom: 15px;
+                          font-weight: 500;
+                      }
+              
+                      .lecturer-bio {
+                          font-size: 0.9rem;
+                          color: #333;
+                          line-height: 1.5;
+                      }
+              
+                      @media (max-width: 768px) {
+                          .lecturers-section {
+                              padding: 40px 15px;
+                          }
+              
+                          .lecturers-title {
+                              font-size: 2rem;
+                              margin-bottom: 40px;
+                          }
+              
+                          .lecturer-item {
+                              margin-bottom: 50px;
+                              gap: 20px;
+                          }
+              
+                          .lecturer-photo {
+                              width: 150px;
+                              height: 190px;
+                          }
+              
+                          .lecturer-name {
+                              font-size: 1.2rem;
+                          }
+              
+                          .lecturer-title-subtitle {
+                              font-size: 0.75rem;
+                          }
+              
+                          .lecturer-bio {
+                              font-size: 0.85rem;
+                          }
+                      }
+              
+                      @media (max-width: 480px) {
+                          .lecturer-item {
+                              flex-direction: column;
+                              text-align: center;
+                              gap: 15px;
+                          }
+              
+                          .lecturer-photo {
+                              align-self: center;
+                              width: 120px;
+                              height: 150px;
+                          }
+              
+                          .lecturer-name {
+                              font-size: 1.1rem;
+                          }
+              
+                          .lecturer-bio {
+                              font-size: 0.8rem;
+                              text-align: left;
+                          }
+                      }
+                  </style>
+              </head>
+              <body>
+                
+                  <!-- SUBMISSION DETAILS SECTION -->
+<section style="background: #f7fafd; padding: 60px 0;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <h2 style="font-size: 2.2rem; font-weight: 700; color: #1B4965; margin-bottom: 28px; text-align: left;">Submission Details</h2>
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+      <div style="margin-bottom: 0.7em;">The bootcamp follows the IBB World Championship format with sections on:</div>
+      <ul style="margin: 0 0 0.7em 1.5em; padding-left: 1em; font-size: 1.15rem; color: #1B4965;">
+        <li>Written exam</li>
+        <li>Patient diagnosis</li>
+        <li>Neuroanatomy</li>
+        <li>Neurohistology</li>
+      </ul>
+      <div style="margin-bottom: 0.7em; color: #1B2A41;">You’ll also hear from past IBB finalists and neuroscience experts, who’ll share study strategies and insights to help you succeed.</div>
+      <div style="margin-bottom: 0.4em; color: #1B2A41;"><b>Dates:</b> 4 weekends, from January 11 to February 2, 2025</div>
+      <div style="color: #1B2A41;"><b>Before registering:</b> Please review the full <a href="#" style="color: #20495e; text-decoration: underline;">Brain Bee Bootcamp Info Packet</a> for details.</div>
+    </div>
+  </div>
+</section>
+<!-- END SUBMISSION DETAILS SECTION -->
+                  <section class="lecturers-section">
+                      <div class="lecturers-container">
+                          <h2 class="lecturers-title">Lecturers</h2>
+                          
+                          <!-- Dr. Marta Casquero-Veiga -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/marta.jpg" alt="Dr. Marta Casquero-Veiga" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Marta Casquero-Veiga</h3>
+                                  <p class="lecturer-title-subtitle">POSTDOC - CNR</p>
+                                  <p class="lecturer-bio">
+                                      Marta obtained her Bachelor's Degree in Biology in 2014 from Universidad Complutense de Madrid (UCM) and her Master's Degree in Biochemistry, Molecular Biology and Biomedicine in 2016. In 2021, she received her PhD in Biomedical Research from Instituto de investigación biomédica de Neuropsychiatric disorders and neurodegenerative diseases.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Mark -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo">PHOTO</div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Mark</h3>
+                                  <p class="lecturer-title-subtitle">UNDERGRADUATE STUDENT - UNIVERSITY OF MANITOBA</p>
+                                  <p class="lecturer-bio">
+                                      Mark is a second-year undergraduate student at the University of Manitoba. In 2023, he achieved 8th place in one of the prestigious Science fairs. Passionate about neuroscience, he spent his summer researching a rare monogenetic neurodevelopmental disorder, further cementing his dedication to the field.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Avi Singh -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/avi.jpg" alt="Dr. Avi Singh" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Avi Singh</h3>
+                                  <p class="lecturer-title-subtitle">FACULTY NEUROLOGY AND MEDICAL INFORMATICS</p>
+                                  <p class="lecturer-bio">
+                                      Dr. Avi Singh is currently pursuing his neurology residency at Emory University, USA. With exceptional academic achievements, including an All India Rank of 37 in AFMC and 69 in AIIMS, Dr. Singh is also the past Vice President of AMSA India and a Chapter Representative for the Journal of AMSA International. Additionally, he was a national level hockey player and has volunteered in rural locations, showcasing his diverse experience. In addition to his passion for medical education and neurology, he runs a YouTube channel, Medically Meditative By Avi, and is a talented poet in four languages, as well as an ardent film buff enthusiast.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Sotiria Moza -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/sotiria moza_2022.jpg" alt="Dr. Sotiria Moza" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Sotiria Moza</h3>
+                                  <p class="lecturer-title-subtitle">POSTDOC-SUPERVISOR</p>
+                                  <p class="lecturer-bio">
+                                      Sotiria holds a Bachelor's in Psychology and is a PhD candidate at Aristotle University of Thessaloniki. She is the scientific coordinator of Noema Cognitive Center & Tech Solutions, with expertise in cognitive psychology, neuroscience, and cognitive assessment. Her research interests focus on numerous research and professional roles.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Ian Stevens -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/ianstevens.jpeg" alt="Dr. Ian Stevens" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Ian Stevens</h3>
+                                  <p class="lecturer-title-subtitle"></p>
+                                  <p class="lecturer-bio">
+                                      Ian is a Project Manager & Research Assistant at The Hastings Center, with a background in philosophy and bioethics. He has published extensively on ethical dilemmas in neurotechnology and plans to begin medical school in 2025.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Manas Ranjan Sahu -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/manas.jpg" alt="Dr. Manas Ranjan Sahu" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Manas Ranjan Sahu</h3>
+                                  <p class="lecturer-title-subtitle">PRINCIPAL SCIENTIST-CHEMISTRY</p>
+                                  <p class="lecturer-bio">
+                                      Dr. Sahu's research on the Hippo signaling pathway in Alzheimer's disease has contributed significantly to understanding neurodegeneration. He has published extensively in top-tier journals and received numerous academic honors.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Hotzman -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/hotzman.png" alt="Dr. Hotzman" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Hotzman</h3>
+                                  <p class="lecturer-title-subtitle">FACULTY, WASHINGTON UNIVERSITY SCHOOL OF MEDICINE</p>
+                                  <p class="lecturer-bio">
+                                      Dr. Hotzman holds a bachelor's degree in Anthropology from the University of Southern Mississippi and completed the Masters and Doctorate in Anthropology at the University of Florida. With a background in forensic anthropology since 2015, he served as a faculty member at Duke University. He has spent over a decade teaching gross anatomy, embryology, and neuroscience in medical schools in Mississippi and Idaho. Currently, she directs the human dissection and anatomy lab and teaches gross anatomy and clinical anatomy courses.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Reese Chadwick -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/reese.jpg" alt="Reese Chadwick" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Reese Chadwick</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: COGNITIVE AND BEHAVIORAL NEUROSCIENCE</p>
+                              <p class="lecturer-bio">
+                                Reese Chadwick is a senior undergraduate student at the University of Florida majoring in Cognitive and Behavioral Neuroscience with a minor in Statistics. She is currently completing her senior thesis in Dr. Natalie Ebner’s Social–Cognitive and Affective Development Lab, investigating how gaze and emotional facial cues influence trustworthiness perceptions in younger versus older adults. Post-graduation, Reese plans to pursue a gap year for additional research experience before applying to PhD programs in lifespan development.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dr. Mutyala -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/Mutyala.jpg" alt="Dr. Mutyala" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dr. Mutyala</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: MULTIPLE SCLEROSIS</p>
+                              <p class="lecturer-bio">
+                                A graduate from Gandhi Medical College, Hyderabad, India, currently on her USMLE journey, Dr. Mutyala is keen to pursue a Residency in Neurology. She has completed desired Neurology electives, and her passion for Neurology and research was amplified after three of her abstracts were accepted at Mayo Clinic conferences. In addition to academic pursuits, Dr. Mutyala enjoys writing, music, public speaking, dance, and more.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Chun Hei Tai -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/chun.jpeg" alt="Chun Hei Tai" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Chun Hei Tai</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: MULTIPLE SCLEROSIS</p>
+                              <p class="lecturer-bio">
+                                Chun Hei Tai is a freshman at Stanford University, studying bioengineering and physics. With a broad range of interests across the sciences, Chun Hei developed a particular passion for neuroscience during high school. In 2023, he was honored to be named the World Champion of the International Brain Bee. He is excited to explore how his interdisciplinary studies can contribute to advancements in neuroscience, molecular biology, and translational research.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Jeanelle Ariza Torres -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/jeanelle.png" alt="Jeanelle Ariza Torres" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Jeanelle Ariza Torres</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEURO-HISTOLOGY AND MOLECULAR BIOLOGY</p>
+                              <p class="lecturer-bio">
+                                Jeanelle Ariza Torres is a Biologist with over 20 years of experience in neuro-histology and molecular biology. Currently serving as a Lab Manager at the Allen Institute for Brain Science, she oversees teams working on tissue sectioning, staining, and reagent preparation for critical research initiatives. Jeanelle has developed protocols for brain sample analysis across species and has extensive expertise in histological techniques, microscopy, and imaging software. She holds a Bachelor of Science in Biology and a Post-Baccalaureate in Forensic Anthropology, and she is fluent in English and Spanish.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Julia Nakoneczna -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/julia_IBB.jpg" alt="Julia Nakoneczna" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Julia Nakoneczna</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEUROSCIENCE AND MEDICAL EDUCATION</p>
+                              <p class="lecturer-bio">
+                                Julia Nakoneczna is a Polish medical student and a three-time Brain Bee laureate at the national and international levels. She has completed internships at the Nencki Institute of Experimental Biology PAS and actively participates in conferences. Julia’s extracurricular pursuits include martial arts, tracking dog guidance, and windsurfing. She is also a passionate organizer, having spearheaded a cardiology symposium during her first year of medical studies.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dev Desai -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/Dev.jpeg" alt="Dev Desai" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dev Desai</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEUROLOGY CASE STUDY</p>
+                              <p class="lecturer-bio">
+                                Dev Desai is a third-year medical student at GCS Medical College, Ahmedabad. He was selected for the prestigious ICMR Short-Term Studentship (STS), for his research on public health. He has also been actively involved in various awareness campaigns aimed at improving healthcare knowledge in the community. His dedication to medical research and education is reflected in his commitment to fostering awareness and contributing to the betterment of healthcare practices.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dr. Elizabeth Engler-Chiurazzi -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/elizabeth.jpg" alt="Dr. Elizabeth Engler-Chiurazzi" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dr. Elizabeth Engler-Chiurazzi</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEUROIMMUN. COMMUNICATION</p>
+                              <p class="lecturer-bio">
+                                Dr. Engler-Chiurazzi is a behavioral neuroscientist at Tulane University. Her NIH-funded research explores the intersection of the nervous and immune systems in brain aging, injury, and disease. She has a strong track record in public outreach and neuroscience education.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dr. Lauren Bojarski -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/lauren.jpg" alt="Dr. Lauren Bojarski" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dr. Lauren Bojarski</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: PATIENT ADVOCACY</p>
+                              <p class="lecturer-bio">
+                                Dr. Bojarski is a neurodegenerative fellow and board-certified neurologist at the University of Kentucky. Her research focuses on advocacy, education, and dispelling neurophobia through innovative methods.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Professor Charles Watson -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/charles.png" alt="Professor Charles Watson" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Professor Charles Watson</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: BRAIN MAPPING, CORTEX MAPPING</p>
+                              <p class="lecturer-bio">
+                                Professor Charles Watson is an eminent neurobiologist and public health physician with over 35 years’ experience teaching anatomy to medical and science students. During his tenure as chief health officer of Western Australia from 1984 to 1994, he established campaigns for quit, HIV/AIDS, and breast cancer screening and was appointed their Chief Health Officer in 1993. Charles holds an emeritus professorial position at Curtin University and has authored or co-authored 25 books on neuroscience, including his renowned atlas of the rat brain, cited over 10,000 times. He has published over 100 journal articles and was made a Member of the Order of Australia in 2004 for his contributions to brain research and public health.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Ms. Lucy Core -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/lucy.png" alt="Ms. Lucy Core" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Ms. Lucy Core</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: READING, MECHANISMS OF LEARNING AND EDUCATION</p>
+                              <p class="lecturer-bio">
+                                Ms. Lucy Core is a PhD student in Prof. Jason Warren’s Brain Behaviour Group at the UCL Dementia Research Centre, investigating the neural mechanisms underlying musical object processing in Alzheimer’s disease and frontotemporal dementia. She uses methodologies such as functional MRI, pupillometry, and neuropsychology. Lucy completed an MSc in Cognitive Neuroscience at UCL, researching working memory in hearing and deaf individuals. In Dr. Vicki Graham’s lab, she graduated with First Class Honours in Cognitive Science from Macquarie University, where she worked on projects in auditory cognitive neuroscience and machine learning. She has also contributed to Inuit Sign Language revitalisation and access to healthcare for Deaf individuals. Lucy’s research assistant roles at Georgetown University focused on the neural bases of reading and math in children with learning disabilities.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Prof. Bindu Menon -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/Bindu.png" alt="Prof. Bindu Menon" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Prof. Bindu Menon</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEUROLOGY AND PUBLIC HEALTH</p>
+                              <p class="lecturer-bio">
+                                Prof. Menon has over 100 publications and numerous awards, including the Mridha Spirit of Neurology award. She pioneered “Neurology on Wheels” and developed several health apps to aid patients with neurological disorders.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dr. Vasudha Anil -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/Vasudha.png" alt="Dr. Vasudha Anil" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dr. Vasudha Anil</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: ANATOMY, DISSECTION TRAINING</p>
+                              <p class="lecturer-bio">
+                                Dr. Anil specializes in anatomical education and is recognized for her contributions to medical training and dissections. She leads workshops to enhance hands-on skills in anatomical studies.
+                              </p>
+                            </div>
+                          </div>
+                      </div>
+                  </section>
+              </body>
+              </html>
+
+              
+        <!-- Footer placeholder - will be loaded by JavaScript -->
+        <div id="footer-placeholder"></div>
+        <script src="js/load-footer.js"></script>
+        <!-- SCRIPTS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+    </body>
+</html>
+          
