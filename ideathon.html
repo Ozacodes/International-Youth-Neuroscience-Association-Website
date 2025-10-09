@@ -1,0 +1,1544 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Topic Listing Bootstrap 5 Template</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+        
+        <style>
+          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+            font-family: 'Work Sans', sans-serif !important;
+          }
+          #about-iyna {
+            padding-top: 6rem !important;
+            padding-bottom: 6rem !important;
+          }
+          /* Prevent nav links from breaking into two lines and reduce spacing */
+          .navbar .nav-link {
+            white-space: nowrap;
+          }
+          .navbar .nav-item {
+            margin-left: 0.3rem !important;
+            margin-right: 0.3rem !important;
+          }
+        </style>
+        <!-- Append mobile hero section CSS for override -->
+        <style>
+        /* Responsive hero section for mobile (match home page) */
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            font-size: 1.7rem !important;
+            line-height: 1.2 !important;
+            text-align: left !important;
+            padding: 0 10px !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: 100% !important;
+            max-width: 250px !important;
+            margin: 0 auto !important;
+            display: block !important;
+          }
+          .hero-section {
+            padding: 250px !important;
+            min-height: 80vh !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            text-align: left !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 180px !important;
+            margin: 0 !important;
+            display: inline-block !important;
+            text-align: left !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+          .container, .container-fluid {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section background color override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section {
+            background: #DFE7EC !important;
+            background-image: none !important;
+          }
+          .hero-section .overlay {
+            display: none !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            padding-left: 18px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 and paragraph alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            padding-left: 0 !important;
+          }
+          .hero-section h1 {
+            padding-left: 24px !important;
+            padding-right: 10px !important;
+            margin-left: 0 !important;
+          }
+          .hero-section p {
+            padding-left: 24px !important;
+            margin-left: 0 !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            margin-left: 24px !important;
+            display: block !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 250px !important;
+            text-align: left !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button size override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            max-width: 160px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button even shorter override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 0.7rem !important;
+            padding-right: 0.7rem !important;
+            max-width: 110px !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: remove vertical line and center cards/text -->
+        <style>
+        @media (max-width: 768px) {
+          /* Remove vertical line in timeline */
+          .timeline::before {
+            display: none !important;
+          }
+          /* Center timeline cards */
+          .timeline-card {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            text-align: center !important;
+          }
+          .timeline-date-block,
+          .timeline-content-block {
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: wider, shorter, and centered cards -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-card {
+            width: 92vw !important;
+            max-width: 98vw !important;
+            min-width: 0 !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            border-radius: 18px !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: remove right gap, full width cards and containers -->
+        <style>
+        @media (max-width: 768px) {
+          html, body {
+            overflow-x: hidden !important;
+            width: 100vw !important;
+          }
+          .timeline-container,
+          .timeline {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 100vw !important;
+            max-width: 100vw !important;
+          }
+          .timeline-card {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            min-width: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            border-radius: 0 !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: center cards with margin on both sides -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-card {
+            width: 92vw !important;
+            max-width: 95vw !important;
+            min-width: 0 !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            border-radius: 14px !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: add line below 2025 in all cards -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-date-block .date-year {
+            display: block;
+            position: relative;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+          }
+          .timeline-date-block .date-year::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: #1B4965;
+            margin: 0 auto;
+            margin-top: 4px;
+            border-radius: 1px;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: longer, equally spaced line below year -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-date-block .date-year {
+            display: block;
+            position: relative;
+            padding-bottom: 14px;
+            margin-bottom: 14px;
+          }
+          .timeline-date-block .date-year::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 2px;
+            background: #1B4965;
+            margin: 10px auto 0 auto;
+            border-radius: 1px;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: longer line, less space below -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-date-block .date-year {
+            display: block;
+            position: relative;
+            padding-bottom: 14px;
+            margin-bottom: 8px;
+          }
+          .timeline-date-block .date-year::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: #1B4965;
+            margin: 10px auto 0 auto;
+            border-radius: 1px;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: increase font size of text below line -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-content-block .event-title {
+            font-size: 1.25rem !important;
+          }
+          .timeline-content-block .event-description {
+            font-size: 1.08rem !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: increase date size -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-date-block .date-main {
+            font-size: 1.5rem !important;
+          }
+          .timeline-date-block .date-year {
+            font-size: 1.15rem !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: increase padding for all sides of cards -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-card {
+            padding: 24px 18px !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: reduce space between cards -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-item {
+            margin-bottom: 18px !important;
+          }
+          .timeline-item:last-child {
+            margin-bottom: 0 !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: increase title size and reduce space below -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-title {
+            font-size: 2rem !important;
+            margin-bottom: 12px !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: reduce top and bottom padding of program section -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-container {
+            padding-top: 50px !important;
+            padding-bottom: 30px !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: perfectly center cards -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-card {
+            width: 90vw !important;
+            max-width: 90vw !important;
+            min-width: 0 !important;
+            margin-left: calc(50% - 45vw) !important;
+            margin-right: auto !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            border-radius: 14px !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: increase left and right padding inside cards -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-card {
+            padding-left: 24px !important;
+            padding-right: 24px !important;
+          }
+        }
+        </style>
+        <!-- Mobile timeline: hide vertical dividers -->
+        <style>
+        @media (max-width: 768px) {
+          .timeline-divider {
+            display: none !important;
+          }
+        }
+        </style>
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <!-- Load shared navigation -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+    </head>
+    
+    <body id="top">
+
+        <main>
+
+            <!-- Navigation placeholder - will be loaded by JavaScript -->
+            <div id="nav-placeholder"></div>
+              
+            
+
+            <!-- HERO SECTION -->
+                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+              
+                <div class="container" style="z-index: 2; position: relative;">
+                  <div class="row">
+                    <div class="col-lg-8 col-12">
+                      <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
+                          IYNA-Alzheimer's Association<br>Ideathon 2025
+                      </h1>
+                      <p style="font-size: 1.15rem; margin-bottom: 1.5rem; color: white; max-width: 600px;">
+                          The 2025 IYNA Ideathon is a virtual neuroscience competition for high school and college students. This year's theme, in partnership with the Alzheimer's Association, focuses on neurodegeneration. It runs from Jan 11–25, with finalists competing live on Mar 16.
+                      </p>
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfbappZ7QluaanRarO8vTSQfT66ILShKl9soC6kHZ_jr8wM8g/closedform" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem;">Apply Now&nbsp;&rsaquo;</a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+                <!-- TIMELINE SECTION -->
+              <style>
+                    .timeline-container {
+                        max-width: 1200px;
+                        margin: 0 auto;
+                        padding: 0;
+                        background: #fff;
+                    }
+                    .timeline-title {
+                        font-size: 2.5rem;
+                        font-weight: 700;
+                        margin-bottom: 60px;
+                        color: #1B4965;
+                        text-align: center;
+                    }
+                    .timeline {
+                        position: relative;
+                        padding: 20px 0;
+                        min-height: 700px;
+                    }
+                    .timeline::before {
+                        content: '';
+                        position: absolute;
+                        left: 50%;
+                        top: 0;
+                        bottom: 0;
+                        width: 3px;
+                        background-color: #1B4965;
+                        transform: translateX(-50%);
+                        z-index: 0;
+                    }
+                    .timeline-item {
+                        position: relative;
+                        margin-bottom: 80px;
+                        width: 100%;
+                        z-index: 1;
+                        min-height: 140px;
+                    }
+                    .timeline-item.left .timeline-card {
+                        position: absolute;
+                        left: 0;
+                        width: calc(50% - 30px);
+                        margin-right: 30px;
+                    }
+                    .timeline-item.right .timeline-card {
+                        position: absolute;
+                        right: 0;
+                        width: calc(50% - 30px);
+                        margin-left: 30px;
+                    }
+                    .timeline-card {
+                        display: flex;
+                        align-items: stretch;
+                        background: #ECF1F4;
+                        border-radius: 24px;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+                        padding: 32px 40px;
+                        min-width: 480px;
+                        max-width: 600px;
+                        width: 100%;
+                        position: relative;
+                    }
+                    .timeline-date-block {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        margin-right: 24px;
+                        min-width: 120px;
+                        height: 100%;
+                        align-self: center;
+                    }
+                    .timeline-date-block .date-main {
+                        font-size: 2rem;
+                        font-weight: 700;
+                        color: #111;
+                        line-height: 1;
+                        margin-bottom: 4px;
+                        display: block;
+                    }
+                    .timeline-date-block .date-year {
+                        font-size: 1.2rem;
+                        color: #222;
+                        font-weight: 400;
+                        display: block;
+                    }
+                    .timeline-divider {
+                        width: 2px;
+                        background: #20495e;
+                        margin: 0 32px;
+                        height: auto;
+                    }
+                    .timeline-content-block {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        justify-content: center;
+                        height: 100%;
+                    }
+                    .timeline-content-block .event-title {
+                        font-size: 1.6rem;
+                        font-weight: 700;
+                        color: #111;
+                        margin-bottom: 8px;
+                    }
+                    .timeline-content-block .event-description {
+                        font-size: 1.1rem;
+                        color: #222;
+                        line-height: 1.5;
+                    }
+                    @media (max-width: 900px) {
+                        .timeline-card {
+                            flex-direction: column;
+                            min-width: 0;
+                            max-width: 100%;
+                            padding: 24px 12px;
+                            position: relative !important;
+                            left: 20px !important;
+                            right: 20px !important;
+                            margin: 0 !important;
+                        }
+                        .timeline-circle {
+                            margin: 0 0 16px 0 !important;
+                        }
+                        .timeline-divider {
+                            height: 32px;
+                            margin: 16px 0;
+                        }
+                        .timeline-item {
+                            min-height: auto !important;
+                        }
+                    }
+                </style>
+                <div class="timeline-container" style="padding: 80px 0;">
+                    <h2 class="timeline-title">Program Timeline</h2>
+                    <div class="timeline">
+                        <!-- Timeline Item 1 - Applications Open -->
+                        <div class="timeline-item left">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block">
+                                    <div class="date-main">Feb 05</div>
+                                    <div class="date-year">2025</div>
+                                </div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Applications Open</div>
+                                    <div class="event-description">Summer program applications are now available. Start your journey into neuroscience with IYNA's comprehensive summer program.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Timeline Item 2 - Application Deadline -->
+                        <div class="timeline-item right">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block">
+                                    <div class="date-main">May 10</div>
+                                    <div class="date-year">2025</div>
+                                </div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Application Deadline</div>
+                                    <div class="event-description">All applications must be submitted by 11:59 PM EST. Late submissions will not be considered.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Timeline Item 3 - Acceptance Notifications -->
+                        <div class="timeline-item left">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block">
+                                    <div class="date-main">May 20</div>
+                                    <div class="date-year">2025</div>
+                                </div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Acceptance Notifications</div>
+                                    <div class="event-description">Selected participants will receive acceptance emails with program details and next steps.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Timeline Item 4 - Program Begins -->
+                        <div class="timeline-item right">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block">
+                                    <div class="date-main">June 15</div>
+                                    <div class="date-year">2025</div>
+                                </div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Program Begins</div>
+                                    <div class="event-description">Welcome to the IYNA Summer Program! Join your cohort for the first session and begin your neuroscience journey.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Timeline Item 5 - Program Ends -->
+                        <div class="timeline-item left">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block">
+                                    <div class="date-main">July 15</div>
+                                    <div class="date-year">2025</div>
+                                </div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Program Concludes</div>
+                                    <div class="event-description">Final presentations and program wrap-up. Celebrate your achievements and join the IYNA alumni network.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                  </div>
+                </div>
+                
+                <!-- PREVIOUS SUMMER STATS SECTION -->
+                <style>
+                    .stats-section {
+                        background: #1B4965;
+                        color: white;
+                        padding: 80px 0;
+                        text-align: center;
+                    }
+                    
+                    .stats-container {
+                        max-width: 1000px;
+                        margin: 0 auto;
+                        padding: 0 40px;
+                    }
+                    
+                    .stats-title {
+                        font-size: 3rem;
+                        font-weight: bold;
+                        margin-bottom: 80px;
+                        color: white;
+                        letter-spacing: -1px;
+                    }
+                    
+                    .stats-grid {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 120px;
+                    }
+                    
+                    .stat-item {
+                        text-align: center;
+                    }
+                    
+                    .stat-number {
+                        font-size: 4rem;
+                        font-weight: bold;
+                        color: white;
+                        margin-bottom: 10px;
+                        line-height: 1;
+                    }
+                    
+                    .stat-label {
+                        font-size: 2rem;
+                        color: white;
+                        font-weight: normal;
+                        line-height: 1.2;
+                    }
+                    
+                    @media (max-width: 768px) {
+                        .stats-container {
+                            padding: 0 20px;
+                        }
+                        
+                        .stats-title {
+                            font-size: 2.2rem;
+                            margin-bottom: 60px;
+                        }
+                        
+                        .stats-grid {
+                            flex-direction: column;
+                            gap: 60px;
+                        }
+                        
+                        .stat-number {
+                            font-size: 3rem;
+                        }
+                        
+                        .stat-label {
+                            font-size: 1.5rem;
+                        }
+                    }
+                    
+                    @media (max-width: 480px) {
+                        .stats-title {
+                            font-size: 1.8rem;
+                            margin-bottom: 50px;
+                        }
+                        
+                        .stat-number {
+                            font-size: 2.5rem;
+                        }
+                        
+                        .stat-label {
+                            font-size: 1.2rem;
+                        }
+                    }
+                </style>
+                
+                <section class="stats-section">
+                    <div class="stats-container">
+                        <h2 class="stats-title">Have Questions About the 2025 Ideathon?</h2>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem; color: white;">
+                                    Join us to learn more about the Ideathon structure, timeline, competition benefits, and how to get involved.
+                                </p>
+                                <p style="font-size: 1.1rem; font-weight: 600; color: white;">
+                                    The IYNA will be hosting two live information sessions via Zoom.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                                  </section>
+                
+                <!-- BEGIN: Info Sessions Registration Section -->
+<section style="background: #fff; padding: 60px 0;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5 mb-4 mb-md-0">
+        <div style="background: #dde4ea; border-radius: 16px; padding: 48px 32px; min-height: 340px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+          <h2 style="font-size: 2.2rem; font-weight: 700; margin-bottom: 32px; color: #111;">Sunday, December 1st</h2>
+          <div style="font-size: 1.15rem; color: #222; margin-bottom: 36px;">1:00 PM – 2:00 PM EST on Zoom</div>
+          <a href="https://yale.zoom.us/meeting/register/tJUtd-Cgrz8iE9dxSraqUBDVUtRoodNrsE-d" target="_blank" style="background: #20495e; color: #fff; font-weight: 700; border-radius: 10px; padding: 16px 32px; font-size: 1.1rem; text-decoration: none; letter-spacing: 1px;">DEC 1ST REGISTRATION</a>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div style="background: #dde4ea; border-radius: 16px; padding: 48px 32px; min-height: 340px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+          <h2 style="font-size: 2.2rem; font-weight: 700; margin-bottom: 32px; color: #111;">Sunday, December 8th</h2>
+          <div style="font-size: 1.15rem; color: #222; margin-bottom: 36px;">1:00 PM – 2:00 PM EST on Zoom</div>
+          <a href="https://yale.zoom.us/meeting/register/tJEpdOiqrz0sHNXMgI0zSqNQJNbdXwdWZadv" target="_blank" style="background: #20495e; color: #fff; font-weight: 700; border-radius: 10px; padding: 16px 32px; font-size: 1.1rem; text-decoration: none; letter-spacing: 1px;">DEC 8TH REGISTRATION</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END: Info Sessions Registration Section -->
+                
+                <!-- ELIGIBILITY AND STRUCTURE SECTION -->
+                <style>
+                    .eligibility-section {
+                        background-color: #CAE9FF;
+                        padding: 80px 0;
+                        color: #1B4965;
+                    }
+                    
+                    .eligibility-container {
+                        max-width: 1200px;
+                        margin: 0 auto;
+                        padding: 0 20px;
+                    }
+                    
+                    .eligibility-section-title {
+                        font-size: 2.5rem;
+                        font-weight: 600;
+                        color: #1B4965;
+                        margin-bottom: 50px;
+                        text-align: left;
+                    }
+                    
+                    .eligibility-info-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                        gap: 40px;
+                        margin-bottom: 80px;
+                    }
+                    
+                    .eligibility-info-card {
+                        background-color: white;
+                        border-radius: 16px;
+                        padding: 25px 20px;
+                        text-align: center;
+                        box-shadow: 0 4px 20px rgba(27, 73, 101, 0.1);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                        min-height: 180px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+                    
+                    .eligibility-info-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 8px 30px rgba(27, 73, 101, 0.15);
+                    }
+                    
+                    .eligibility-card-icon {
+                        width: 50px;
+                        height: 50px;
+                        background-color: #62B6CB;
+                        border-radius: 50%;
+                        margin: 0 auto 15px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                    }
+                    
+                    .eligibility-card-title {
+                        font-size: 1.3rem;
+                        font-weight: 600;
+                        color: #1B4965;
+                        margin-bottom: 15px;
+                    }
+                    
+                    .eligibility-card-content {
+                        font-size: 1rem;
+                        color: #1B4965;
+                        line-height: 1.6;
+                    }
+                    
+                    .eligibility-requirements-list li {
+                        margin-bottom: 6px;
+                        position: relative;
+                        padding-left: 0;
+                        font-size: 1rem;
+                        color: #1B4965;
+                        line-height: 1.6;
+                    }
+                    
+                    .eligibility-requirements-list {
+                        list-style: none;
+                        text-align: center;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    
+
+                    
+                    .eligibility-requirements-list li::before {
+                        content: '•';
+                        color: #62B6CB;
+                        font-weight: bold;
+                        margin-right: 8px;
+                    }
+                    
+                    .eligibility-contact-info {
+                        font-size: 0.95rem;
+                        line-height: 1.5;
+                    }
+                    
+                    .eligibility-email-link, .eligibility-discord-link {
+                        color: #62B6CB;
+                        text-decoration: none;
+                        font-weight: 500;
+                    }
+                    
+                    .eligibility-email-link:hover, .eligibility-discord-link:hover {
+                        text-decoration: underline;
+                    }
+                    
+                    /* Icon styles using CSS shapes and emojis */
+                    .eligibility-icon-graduation::after { content: '🎓'; }
+                    .eligibility-icon-team::after { content: '👥'; }
+                    .eligibility-icon-language::after { content: '🗣️'; }
+                    .eligibility-icon-requirements::after { content: '📋'; }
+                    .eligibility-icon-platform::after { content: '💻'; }
+                    .eligibility-icon-support::after { content: '🏆'; }
+                    .eligibility-icon-contact::after { content: '📧'; }
+                    
+                    @media (max-width: 768px) {
+                        .eligibility-container {
+                            padding: 0 15px;
+                        }
+                        
+                        .eligibility-section-title {
+                            font-size: 2rem;
+                            margin-bottom: 40px;
+                        }
+                        
+                        .eligibility-info-grid {
+                            grid-template-columns: 1fr;
+                            gap: 30px;
+                            margin-bottom: 60px;
+                        }
+                        
+                        .eligibility-info-card {
+                            padding: 30px 25px;
+                        }
+                        
+                        .eligibility-card-icon {
+                            width: 50px;
+                            height: 50px;
+                            font-size: 1.5rem;
+                            margin-bottom: 20px;
+                        }
+                        
+                        .eligibility-card-title {
+                            font-size: 1.2rem;
+                        }
+                        
+                        .eligibility-card-content {
+                            font-size: 0.95rem;
+                        }
+                    }
+                    
+                    @media (max-width: 480px) {
+                        .eligibility-section {
+                            padding: 60px 0;
+                        }
+                        
+                        .eligibility-section-title {
+                            font-size: 1.8rem;
+                            margin-bottom: 30px;
+                        }
+                    }
+                </style>
+                
+                <section class="eligibility-section" style="background: #f7fafd; padding: 60px 0; color: #1B2A41;">
+  <div class="eligibility-container" style="max-width: 900px; margin: 0 auto;">
+    <h2 class="eligibility-section-title" style="font-size: 2.5rem; font-weight: 700; color: #1B2A41; margin-bottom: 48px; text-align: left;">Eligibility & Structure</h2>
+                        
+    <!-- Eligibility Card -->
+    <div class="eligibility-card" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); margin-bottom: 32px; padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+      <h3 style="font-size: 1.4rem; font-weight: 700; color: #1B4965; margin-bottom: 18px;">Eligibility</h3>
+      <ul style="list-style: disc inside; padding-left: 1.2em; margin: 0;">
+        <li><b>Divisions:</b> High School and Undergraduate</li>
+        <li><b>Team Size:</b> 1–3 members</li>
+        <li><b>Language:</b> English only, one fluent speaker</li>
+        <li><b>Requirements:</b> Zoom access, Reliable internet, Full participation</li>
+      </ul>
+                            </div>
+                            
+    <!-- Structure and Information Card -->
+    <div class="eligibility-card" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); margin-bottom: 0; padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+      <h3 style="font-size: 1.4rem; font-weight: 700; color: #1B4965; margin-bottom: 18px;">Structure and Information</h3>
+      <ul style="list-style: disc inside; padding-left: 1.2em; margin: 0;">
+        <li><b>Platform:</b> Google Classroom for updates and materials</li>
+        <li><b>Support:</b> Mentorship, feedback, expert guidance</li>
+        <li><b>Contact:</b> Email: <a href="mailto:ideathon@youthneuro.org" style="color: #62B6CB; text-decoration: none; font-weight: 500;">ideathon@youthneuro.org</a>, Discord: <span style="color: #62B6CB; font-weight: 500;">#ideathon-questions</span></li>
+                                </ul>
+                        </div>
+                    </div>
+                                  </section>
+                
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awards and Recognition</title>
+                <style>
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+        .awards-section {
+            font-family: 'Work Sans', sans-serif;
+            background-color: #1B4965;
+            padding: 60px 20px;
+            color: #fff;
+                    }
+                    
+        .awards-container {
+            max-width: 800px;
+                        margin: 0 auto;
+                    }
+                    
+        .awards-title {
+                        font-size: 2.5rem;
+                        font-weight: 600;
+            color: #fff;
+                        margin-bottom: 50px;
+            text-align: left;
+                    }
+                    
+        .awards-table-container {
+            background-color: #20495e;
+                        border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(27, 73, 101, 0.1);
+        }
+
+        .awards-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .awards-table th {
+            background-color: #1B4965;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.3rem;
+            padding: 25px 30px;
+            text-align: left;
+            border-bottom: 2px solid #62B6CB;
+        }
+
+        .awards-table td {
+            padding: 20px 30px;
+            border-bottom: 1px solid #20495e;
+            vertical-align: middle;
+                        font-size: 1rem;
+            color: #fff;
+        }
+
+        .awards-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .awards-table tr:hover {
+            background-color: #20495e;
+        }
+
+        .award-name {
+            font-weight: 500;
+        }
+
+        .prize-amount {
+            font-weight: 600;
+            color: #62B6CB;
+            font-size: 1.1rem;
+                    }
+                    
+                    @media (max-width: 768px) {
+            .awards-section {
+                padding: 40px 15px;
+                        }
+                        
+            .awards-title {
+                            font-size: 2rem;
+                            margin-bottom: 40px;
+                        }
+                        
+            .awards-table th {
+                font-size: 1.1rem;
+                padding: 20px 20px;
+            }
+
+            .awards-table td {
+                padding: 15px 20px;
+                font-size: 0.95rem;
+            }
+
+            .prize-amount {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .awards-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+            .awards-table th,
+            .awards-table td {
+                padding: 15px;
+            }
+
+            .awards-table th {
+                            font-size: 1rem;
+                        }
+
+            .awards-table td {
+                font-size: 0.9rem;
+            }
+                    }
+                </style>
+</head>
+<body>
+    <div class="awards-section">
+        <div class="awards-container">
+            <h2 class="awards-title">Awards and Recognition</h2>
+            
+            <div class="awards-table-container">
+                <table class="awards-table">
+                    <thead>
+                        <tr>
+                            <th>Award</th>
+                            <th>Prize</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="award-name">1st Place</td>
+                            <td class="prize-amount">$500</td>
+                        </tr>
+                        <tr>
+                            <td class="award-name">2nd Place</td>
+                            <td class="prize-amount">$400</td>
+                        </tr>
+                        <tr>
+                            <td class="award-name">3rd Place</td>
+                            <td class="prize-amount">$250</td>
+                        </tr>
+                        <tr>
+                            <td class="award-name">Kording Award in Computational Neuroscience</td>
+                            <td class="prize-amount">$100</td>
+                        </tr>
+                    </tbody>
+                </table>
+                                    </div>
+                                    </div>
+                                </div>
+    <!-- EMBEDDABLE SECTION END -->
+
+<!-- SPONSORSHIP INFORMATION SECTION -->
+<style>
+  .sponsorship-section {
+    background: #f8fbff;
+    padding: 80px 0 60px 0;
+    text-align: center;
+  }
+  .sponsorship-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1B4965;
+    margin-bottom: 40px;
+  }
+  .sponsorship-iframe-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 900px;
+  }
+  .sponsorship-iframe {
+    width: 100%;
+    min-height: 700px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(27, 73, 101, 0.08);
+    background: #fff;
+  }
+  @media (max-width: 1000px) {
+    .sponsorship-iframe-container {
+      max-width: 100%;
+      padding: 0 10px;
+    }
+    .sponsorship-iframe {
+      min-height: 500px;
+    }
+  }
+  @media (max-width: 600px) {
+    .sponsorship-title {
+      font-size: 1.5rem;
+    }
+    .sponsorship-iframe {
+      min-height: 350px;
+    }
+  }
+</style>
+<section class="sponsorship-section">
+  <h2 class="sponsorship-title">Sponsorship Information</h2>
+  <div class="sponsorship-iframe-container">
+    <iframe class="sponsorship-iframe" src="https://drive.google.com/file/d/1KZCjCpJpPK5BZpWLhenqx-VJ8KjXzQgY/preview" allow="autoplay"></iframe>
+  </div>
+</section>
+<!-- END SPONSORSHIP INFORMATION SECTION -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awards and Recognition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+        .awards-winners-section {
+             font-family: 'Work Sans', sans-serif;
+            background-color: #CAE9FF;
+            padding: 80px 20px;
+             color: #1B4965;
+         }
+
+        .awards-winners-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1B4965;
+            margin-bottom: 60px;
+            text-align: left;
+        }
+
+        .year-section {
+            background-color: white;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(27, 73, 101, 0.12);
+        }
+
+        .year-header {
+            background-color: #BEE9E8;
+            padding: 28px 35px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            font-size: 1.7rem;
+        }
+
+        .year-header:hover {
+            background-color: #a8dbd9;
+        }
+
+        .year-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1B4965;
+        }
+
+        .toggle-arrow {
+            font-size: 1.5rem;
+            color: #62B6CB;
+            transition: transform 0.3s ease;
+        }
+
+        .year-section.active .toggle-arrow {
+            transform: rotate(180deg);
+        }
+
+        .winners-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: white;
+        }
+
+        .winners-content.active {
+            max-height: 2000px;
+        }
+
+        .winners-list {
+            padding: 40px 35px;
+        }
+
+        .award-category {
+            margin-bottom: 50px;
+        }
+
+        .award-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1B4965;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .winner-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 10px;
+        }
+
+        .winner-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(27, 73, 101, 0.10);
+            flex-shrink: 0;
+        }
+
+        .winner-name {
+            font-size: 1.2rem;
+            color: #62B6CB;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .winner-details {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .awards-winners-container {
+                max-width: 100%;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .year-header {
+                font-size: 1.2rem;
+                padding: 18px 20px;
+            }
+            .year-title {
+                font-size: 1.1rem;
+            }
+            .winners-list {
+                padding: 25px 10px;
+            }
+            .category-title {
+                font-size: 1.1rem;
+            }
+            .winner-row {
+                gap: 18px;
+            }
+            .winner-photo {
+                width: 70px;
+                height: 70px;
+            }
+            .winner-name {
+                font-size: 1rem;
+            }
+            .winner-details {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .section-title {
+                font-size: 1.1rem;
+                margin-bottom: 30px;
+            }
+            .year-header {
+                font-size: 1rem;
+                padding: 12px 8px;
+            }
+            .winners-list {
+                padding: 10px 2px;
+            }
+            .winner-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .winner-photo {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="awards-winners-section">
+        <div class="awards-winners-container">
+            <h2 class="section-title">Awards and Recognition</h2>
+            
+            <!-- 2024 Winners -->
+            <div class="year-section active">
+                <button class="year-header" onclick="toggleYear(this)">
+                    <span class="year-title">2024 Winners</span>
+                    <span class="toggle-arrow">▼</span>
+                </button>
+                <div class="winners-content active">
+                    <div class="winners-list">
+                        <div class="award-category">
+                            <div class="category-title">CLINICAL SCIENCE</div>
+                            <div class="winner-row">
+                                <img class="winner-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Chloe Hansel">
+                                <div>
+                                    <div class="winner-name">1st: Chloe Hansel</div>
+                                    <div class="winner-details">Title: Does Focused Ultrasound Enhance A Amyloid-β-Based Alzheimer's Therapy?</div>
+                    </div>
+                </div>
+            </div>
+                        <div class="award-category">
+                            <div class="category-title">PUBLIC HEALTH</div>
+                            <div class="winner-row">
+                                <img class="winner-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Ting Qiu">
+                                <div>
+                                    <div class="winner-name">1st: Ting Qiu</div>
+                                    <div class="winner-details">Title: Chronic Posttraumatic Stress Among Caregivers during COVID-19</div>
+                    </div>
+                    </div>
+                </div>
+                        <div class="award-category">
+                            <div class="category-title">BASIC SCIENCE</div>
+                            <div class="winner-row">
+                                <img class="winner-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Ananya Sathvik">
+                                <div>
+                                    <div class="winner-name">1st: Ananya Sathvik</div>
+                                    <div class="winner-details">Title: Neural Mechanisms of Object Recognition</div>
+            </div>
+                    </div>
+                    </div>
+                        <div class="award-category">
+                            <div class="category-title">LARGEST POTENTIAL IMPACT</div>
+                            <div class="winner-row">
+                                <img class="winner-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Chloe Hansel">
+                                <div>
+                                    <div class="winner-name">1st: Chloe Hansel</div>
+                                    <div class="winner-details">Title: Does Focused Ultrasound Enhance A Amyloid-β-Based Alzheimer's Therapy?</div>
+                </div>
+            </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 2023 Winners -->
+            <div class="year-section">
+                <button class="year-header" onclick="toggleYear(this)">
+                    <span class="year-title">2023 Winners</span>
+                    <span class="toggle-arrow">▼</span>
+                </button>
+                <div class="winners-content">
+                    <div class="winners-list">
+                        <div class="award-category">
+                            <div class="category-title">CLINICAL SCIENCE</div>
+                            <div class="winner-row">
+                                <img class="winner-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Chloe Hansel, Lily Hua and Asra Ali">
+                                <div>
+                                    <div class="winner-name">1st: Chloe Hansel, Lily Hua and Asra Ali</div>
+                                    <div class="winner-details">Title: "Alzheimer's Disease: Memory, Mechanistic Approaches, Social Justice"</div>
+                    </div>
+                </div>
+            </div>
+                        <div class="award-category">
+                            <div class="category-title">Annika Romele</div>
+                            <div class="winner-row">
+                                <img class="winner-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Annika Romele">
+                                <div>
+                                    <div class="winner-name">Finding better mechanisms for neural regeneration: An analysis of axon growth cones</div>
+                    </div>
+                    </div>
+                </div>
+                        <div class="award-category">
+                            <div class="category-title">Kendall Bristol, Carson Bauer, Mycah Afra, Cooper Branch</div>
+                            <div class="winner-row">
+                                <img class="winner-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Kendall Bristol, Carson Bauer, Mycah Afra, Cooper Branch">
+                                <div>
+                                    <div class="winner-name">Growing new neurons the old-fashioned way: neurogenesis in the mature brain</div>
+            </div>
+                    </div>
+                    </div>
+                        <div class="award-category">
+                            <div class="category-title">Pristine Garay</div>
+                            <div class="winner-row">
+                                <img class="winner-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Pristine Garay">
+                                <div>
+                                    <div class="winner-name">Exploring the range of the amygdala's role in emotional intelligence and its effect on human cognitive abilities and social skills</div>
+                </div>
+            </div>
+                    </div>
+                        <div class="award-category">
+                            <div class="category-title">Victoria Stanislawska, Aleksandra Dubno</div>
+                            <div class="winner-row">
+                                <img class="winner-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Victoria Stanislawska, Aleksandra Dubno">
+                                <div>
+                                    <div class="winner-name">Use of AI in Brain Computer Interfaces for the rehabilitation and assistance of paralyzed patients</div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+    <!-- EMBEDDABLE SECTION END -->
+
+    <script>
+        function toggleYear(button) {
+            const yearSection = button.parentElement;
+            const content = yearSection.querySelector('.winners-content');
+            const isActive = yearSection.classList.contains('active');
+
+            // Close all other sections
+            document.querySelectorAll('.year-section').forEach(section => {
+                if (section !== yearSection) {
+                    section.classList.remove('active');
+                    section.querySelector('.winners-content').classList.remove('active');
+                }
+            });
+
+            // Toggle current section
+            if (isActive) {
+                yearSection.classList.remove('active');
+                content.classList.remove('active');
+            } else {
+                yearSection.classList.add('active');
+                content.classList.add('active');
+            }
+        }
+
+        // Add keyboard support
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.year-header').forEach(button => {
+            button.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                        toggleYear(this);
+                }
+                });
+            });
+        });
+    </script>
+        <!-- Footer placeholder - will be loaded by JavaScript -->
+    <div id="footer-placeholder"></div>
+    <script src="js/load-footer.js"></script>
+    
+    <!-- SCRIPTS -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/click-scroll.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
+</html>
+          

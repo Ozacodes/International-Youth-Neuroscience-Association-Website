@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IYNA - Dashboard</title>
+        
+    <!-- Load shared navigation -->
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/database.js"></script>
+    <script src="js/load-nav.js"></script>
+    <script src="js/load-footer.js"></script>
+        
+    <!-- CSS FILES -->           
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+        
+    <style>
+        body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link {
+            font-family: 'Work Sans', sans-serif !important;
+        }
+                
+        .loading-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            flex-direction: column;
+        }
+                
+        .loading-spinner {
+            text-align: center;
+        }
+                
+        .spinner-border {
+            color: #6db9c3;
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .error-container {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem;
+            max-width: 500px;
+        }
+
+        .retry-btn {
+            background: #6db9c3;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .retry-btn:hover {
+            background: #5a9ea7;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Placeholder -->
+    <div id="nav-placeholder"></div>
+
+    <div class="loading-container" id="loadingContainer">
+        <div class="loading-spinner">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <h3 class="mt-3">Loading Dashboard...</h3>
+            <p class="text-muted">Redirecting you to the right place</p>
+        </div>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/database.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        async function redirectToDashboard() {
+            try {
+                console.log('Dashboard router: Checking authentication...');
+                
+                // Check if user is authenticated via Supabase session
+                const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+                
+                if (sessionError) {
+                    console.error('Session error:', sessionError);
+                    redirectToLogin('Session error');
+                    return;
+                }
+
+                if (!session) {
+                    console.log('No active session found');
+                    redirectToLogin('No active session');
+                    return;
+                }
+
+                console.log('Active session found:', session.user.email);
+
+                // Get the full user data from the database using the session email
+                const userData = await db.getUserByEmail(session.user.email);
+                
+                if (!userData) {
+                    console.log('User data not found in database');
+                    redirectToLogin('User not found in database');
+                    return;
+                }
+
+                if (!userData.is_active) {
+                    console.log('User account is inactive');
+                    redirectToLogin('Account inactive');
+                    return;
+                }
+
+                console.log('User authenticated:', userData.email);
+                console.log('User role:', userData.role);
+
+                // Redirect based on user role with correct filenames
+                switch(userData.role) {
+                    case 'chapter_lead':
+                        console.log('Redirecting to chapter lead dashboard');
+                        window.location.href = 'chapter_lead_dash.html';
+                        break;
+                    case 'deputy_chapter_lead':
+                    case 'regional_lead':
+                    case 'admin':
+                        console.log('Redirecting to admin dashboard');
+                        window.location.href = 'chapter_team_dash.html'; // Updated filename
+                        break;
+                    case 'chapter_director':
+                        console.log('Redirecting to chapter director dashboard');
+                        window.location.href = 'chapter_director_dash.html';
+                        break;
+                    case 'member':
+                    default:
+                        console.log('Redirecting to member dashboard');
+                        window.location.href = 'personal_dash.html'; // Keep your existing filename
+                        break;
+                }
+                
+            } catch (error) {
+                console.error('Error during authentication:', error);
+                showError('Authentication failed. Please try logging in again.');
+            }
+        }
+
+        function redirectToLogin(reason) {
+            console.log('Redirecting to login:', reason);
+            // Sign out of Supabase session
+            supabase.auth.signOut();
+            window.location.href = 'login.html';
+        }
+
+        function showError(message) {
+            document.getElementById('loadingContainer').innerHTML = `
+                <div class="error-container">
+                    <h3>Authentication Error</h3>
+                    <p>${message}</p>
+                    <button onclick="window.location.href='login.html'" class="retry-btn">Return to Login</button>
+                    <button onclick="location.reload()" class="retry-btn">Try Again</button>
+                </div>
+            `;
+        }
+
+        // Initialize when page loads
+        $(document).ready(function() {
+            console.log('Dashboard router loaded');
+            redirectToDashboard();
+        });
+    </script>
+</body>
+</html>

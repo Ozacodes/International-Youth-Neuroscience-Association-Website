@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>IYNA - Events</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <!-- Load shared navigation -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Work Sans', sans-serif !important;
+                background-color: #f5f5f5;
+                color: #333;
+                line-height: 1.6;
+            }
+
+            .events-container {
+                max-width: 800px;
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                font-weight: bold;
+                color: #1B4965;
+                margin-bottom: 40px;
+            }
+
+            .events-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+                margin-bottom: 30px;
+            }
+
+            .event-card {
+                background-color: #e8f0f5;
+                border-radius: 8px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                text-decoration: none;
+                color: inherit;
+                display: block;
+            }
+
+            .event-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .event-image {
+                width: 100%;
+                height: 150px;
+                background-color: #8e92a3;
+                border-radius: 8px 8px 0 0;
+            }
+
+            .event-content {
+                padding: 20px;
+            }
+
+            .event-title {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+            .event-description {
+                font-size: 0.9rem;
+                color: #555;
+                line-height: 1.5;
+            }
+
+            @media (max-width: 768px) {
+                .events-container {
+                    padding: 20px;
+                }
+
+                .events-grid {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                }
+
+                .event-title {
+                    font-size: 1.1rem;
+                }
+
+                .event-description {
+                    font-size: 0.85rem;
+                }
+            }
+/* Duplicate event card styles removed */
+          /* Event Card Styles - Enhanced Modern Design */
+          .event-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+            border: 1px solid #e9ecef;
+            border-radius: 20px;
+            padding: 2.75rem;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            min-height: 340px;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid #6db9c3;
+            overflow: hidden;
+          }
+
+          .event-date {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6db9c3;
+            background: rgba(109, 185, 195, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(109, 185, 195, 0.2);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+          }
+
+          .event-card:hover .event-date {
+            background: rgba(109, 185, 195, 0.15);
+            border-color: rgba(109, 185, 195, 0.3);
+            transform: translateY(-2px);
+          }
+
+          .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(109, 185, 195, 0.03) 0%, rgba(90, 165, 175, 0.06) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+          }
+
+          .event-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            transform: translateY(-6px) scale(1.02);
+            border-left-color: #5aa5af;
+            background: linear-gradient(145deg, #ffffff 0%, #f0f8ff 50%, #e6f3ff 100%);
+          }
+
+          .event-card:hover::before {
+            opacity: 1;
+          }
+
+          .event-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1B4965;
+            margin: 0 0 1.25rem 0;
+            line-height: 1.2;
+            position: relative;
+            padding-bottom: 0.75rem;
+          }
+
+          .event-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #6db9c3 0%, #5aa5af 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+          }
+
+          .event-card:hover .event-title::after {
+            width: 60px;
+          }
+
+          .event-subtitle {
+            font-size: 1.05rem;
+            color: #495057;
+            margin: 0 0 2.5rem 0;
+            line-height: 1.7;
+            flex-grow: 1;
+            font-weight: 400;
+            opacity: 0.9;
+          }
+
+          .event-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 1.75rem;
+            border-top: 2px solid #f0f0f0;
+            position: relative;
+          }
+
+          .event-footer::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, #6db9c3 0%, #5aa5af 100%);
+            border-radius: 1px;
+          }
+
+          .view-details-btn {
+            background: linear-gradient(135deg, #6db9c3 0%, #5aa5af 100%);
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(109, 185, 195, 0.25);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+          }
+
+          .view-details-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+          }
+
+          .view-details-btn:hover {
+            background: linear-gradient(135deg, #5aa5af 0%, #4a95a0 100%);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(109, 185, 195, 0.4);
+          }
+
+          .view-details-btn:hover::before {
+            left: 100%;
+          }
+
+          /* Enhanced grid layout */
+          .events-grid {
+            gap: 2rem;
+          }
+
+          /* Responsive improvements */
+          @media (max-width: 768px) {
+            .event-card {
+              padding: 2rem;
+              min-height: 300px;
+            }
+            
+            .event-title {
+              font-size: 1.3rem;
+            }
+            
+            .event-subtitle {
+              font-size: 1rem;
+            }
+          }
+        </style>
+    </head>
+    
+    <body>
+        <!-- Navigation placeholder -->
+        <div id="nav-placeholder"></div>
+
+        <!-- HERO SECTION -->
+                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+            
+            <div class="container" style="z-index: 2; position: relative;">
+                <div class="row" style="margin-top: -5rem;">
+                    <div class="col-lg-8 col-12">
+                        <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
+                            Explore Global<br>
+                            Neuroscience Events<br>
+                            with IYNA
+                        </h1>
+                        <p style="font-size: 1.15rem; margin-bottom: 2rem; color: white; max-width: 600px;">
+                            Since its inception, the International Youth Neuroscience Association (IYNA) has worked to connect, educate, and inspire the next generation of neuroscientists.
+                        </p>
+                        <a href="#featured-events" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem;">EXPLORE EVENTS&nbsp;&rsaquo;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+                      <section class="py-5" id="featured-events">
+                <div class="container">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h2 class="fw-bold">Events</h2>
+                  </div>
+                  <div class="row justify-content-start">
+              
+                    <!-- Event Card 1: Brain Bee Bootcamp -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                      <div class="event-card">
+                        <div class="event-date">January 11 - Febuary 2</div>
+                        <h5 class="event-title">Brain Bee Bootcamp</h5>
+                        <p class="event-subtitle">Prepare for the Brain Bee with intensive training modeled after the IBB World Championship, featuring practice exams, lectures, and guidance from past finalists. The program runs January 11 to February 2, 2025.</p>
+                        <div class="event-footer">
+                          <a href="brain-bee.html" class="view-details-btn">Learn More</a>
+                        </div>
+                      </div>
+                    </div>
+              
+                    <!-- Event Card 2: Neuroscience Summer Program -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                      <div class="event-card">
+                        <div class="event-date">Jun-Aug; Apply Feb 15 - May10</div>
+                        <h5 class="event-title">Neuroscience Summer Program</h5>
+                        <p class="event-subtitle">Join students from over 40 countries for a month long exploration of undergraduate level neuroscience through lectures, problem solving, and discovery based learning. Learn how the brain works and how to think like a scientist.</p>
+                        <div class="event-footer">
+                          <a href="summer-program.html" class="view-details-btn">Learn More</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Event Card 3: Ideathon Competitions -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                      <div class="event-card">
+                        <div class="event-date">Jan 11-25</div>
+                        <h5 class="event-title">Ideathon Competitions</h5>
+                        <p class="event-subtitle">Compete virtually with students worldwide in this year’s neuroscience innovation challenge focused on neurodegeneration in collaboration with the Alzheimer’s Association. Finalist teams will advance to a live showcase in March.</p>
+                        <div class="event-footer">
+                          <a href="ideathon.html" class="view-details-btn">Learn More</a>
+                        </div>
+                      </div>
+                    </div>
+
+                                        <!-- Event Card 6: Neuroethics Essay Competition -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="event-card">
+                          <div class="event-date">Jan 15 - Feb 28</div>
+                          <h5 class="event-title">Neuroethics Essay Competition</h5>
+                            <p class="event-subtitle">Join the 10th annual IYNA essay contest—submit your neuroethics essay for global recognition and academic engagement.</p>
+                          <div class="event-footer">
+                          <a href="neuroethics.html" class="view-details-btn">Learn More</a>
+                          </div>
+                        </div>
+                    </div>
+
+                                        <!-- Event Card 7: Neuro& -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="event-card">
+                          <div class="event-date">Monthly</div>
+                          <h5 class="event-title">Neuro&: Career Webinar Series</h5>
+                            <p class="event-subtitle">Explore diverse neuroscience careers in this monthly webinar series featuring leading experts, interactive discussions, and live Q&A. Gain insights, advice, and inspiration for your future path.</p>
+                          <div class="event-footer">
+                          <a href="neuroand.html" class="view-details-btn">Learn More</a>
+                          </div>
+                        </div>
+                      </div>
+
+                    <!-- Event Card 8: Neurosurgery Series -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="event-card">
+                          <div class="event-date">Curerntly Inactive</div>
+                          <h5 class="event-title">Neurosurgery Series</h5>
+                            <p class="event-subtitle">Experience a live walkthrough of a neurosurgery with expert commentary and a panel Q&A. This event offers an invaluable opportunity for students interested in the world of brain surgery.</p>
+                          <div class="event-footer">
+                          <a href="neurosurgery.html" class="view-details-btn">Learn More</a>
+                          </div>
+                        </div>
+                    </div>
+              
+                  </div>
+                </div>
+              </section>
+
+        <!-- Footer placeholder -->
+        <div id="footer-placeholder"></div>
+        
+        <!-- Scripts -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/load-footer.js"></script>
+        
+        <script>
+            // Add click tracking for analytics (optional)
+            document.querySelectorAll('.event-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    console.log('Event clicked:', this.href);
+                    // You can add analytics tracking here
+                });
+            });
+
+            // Add keyboard navigation support
+            document.querySelectorAll('.event-card').forEach(card => {
+                card.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        window.location.href = this.href;
+                    }
+                });
+                
+                // Make cards focusable
+                card.setAttribute('tabindex', '0');
+            });
+        </script>
+    </body>
+</html>
+          
