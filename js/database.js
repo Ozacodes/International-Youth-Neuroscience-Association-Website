@@ -15,7 +15,7 @@ if (!window.supabase) {
     };
 }
 
-// Initialize Supabase client using a different variable name
+// Initialize Supabase client using a different variable name to avoid conflicts
 let supabaseClient;
 try {
     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -56,7 +56,7 @@ const db = {
                 throw new Error('Missing required fields');
             }
 
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .insert([{
                     email: userData.email.toLowerCase().trim(),
@@ -65,6 +65,7 @@ const db = {
                     last_name: userData.lastName.trim(),
                     role: userData.role || 'member',
                     chapter_id: userData.chapterId || null,
+                    discord_username: userData.discord_username || null,
                     is_active: true,
                     created_at: new Date().toISOString(),
                     updated_at: new Date().toISOString()
@@ -85,8 +86,8 @@ const db = {
 
     async loginUser(email, password) {
         try {
-            // Check if supabase client is available
-            if (!supabase) {
+            // Check if supabaseClient is available
+            if (!supabaseClient) {
                 throw new Error('Database connection not available. Please refresh the page and try again.');
             }
 
@@ -101,7 +102,7 @@ const db = {
 
             console.log('Attempting login for email:', email.toLowerCase().trim());
 
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .select('*')
                 .eq('email', email.toLowerCase().trim())
@@ -129,7 +130,7 @@ const db = {
 
     async getUser(userId) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .select('*')
                 .eq('id', userId)
@@ -145,7 +146,7 @@ const db = {
 
     async getUserByEmail(email) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .select('*')
                 .eq('email', email.toLowerCase().trim())
@@ -170,16 +171,26 @@ const db = {
                 delete updateData.password; // Remove plain text password
             }
 
+            // Handle discord_username updates
+            if (updateData.hasOwnProperty('discord_username')) {
+                // Allow null/empty values to clear the discord username
+                updateData.discord_username = updateData.discord_username || null;
+            }
+
             updateData.updated_at = new Date().toISOString();
 
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .update(updateData)
                 .eq('id', userId)
                 .select()
             
-            if (error) throw error
-            return data[0]
+            if (error) {
+                console.error('Error updating user:', error);
+                throw error;
+            }
+            
+            return data[0];
         } catch (error) {
             console.error('Error updating user:', error);
             throw error;
@@ -189,7 +200,7 @@ const db = {
     // Events functions
     async getEvents() {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('events')
                 .select('*')
                 .order('event_date', { ascending: true })
@@ -204,7 +215,7 @@ const db = {
 
     async createEvent(eventData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('events')
                 .insert([{
                     ...eventData,
@@ -222,7 +233,7 @@ const db = {
 
     async updateEvent(eventId, eventData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('events')
                 .update(eventData)
                 .eq('id', eventId)
@@ -238,7 +249,7 @@ const db = {
 
     async deleteEvent(eventId) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('events')
                 .delete()
                 .eq('id', eventId)
@@ -254,7 +265,7 @@ const db = {
     // Tasks functions
     async getTasks() {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('tasks')
                 .select('*')
                 .order('created_at', { ascending: false })
@@ -269,7 +280,7 @@ const db = {
 
     async createTask(taskData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('tasks')
                 .insert([{
                     ...taskData,
@@ -287,7 +298,7 @@ const db = {
 
     async updateTask(taskId, taskData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('tasks')
                 .update(taskData)
                 .eq('id', taskId)
@@ -304,7 +315,7 @@ const db = {
     async deleteTask(taskId) {
         try {
             // First check if there are any user task completions referencing this task
-            const { data: completions, error: checkError } = await supabase
+            const { data: completions, error: checkError } = await supabaseClient
                 .from('user_task_completions')
                 .select('id')
                 .eq('task_id', taskId)
@@ -316,7 +327,7 @@ const db = {
             }
             
             // If no completions exist, proceed with deletion
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('tasks')
                 .delete()
                 .eq('id', taskId)
@@ -332,7 +343,7 @@ const db = {
     async forceDeleteTask(taskId) {
         try {
             // First delete all related user task completions
-            const { error: deleteCompletionsError } = await supabase
+            const { error: deleteCompletionsError } = await supabaseClient
                 .from('user_task_completions')
                 .delete()
                 .eq('task_id', taskId)
@@ -340,7 +351,7 @@ const db = {
             if (deleteCompletionsError) throw deleteCompletionsError
             
             // Then delete the task
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('tasks')
                 .delete()
                 .eq('id', taskId)
@@ -357,7 +368,7 @@ const db = {
     async getChapters() {
         try {
             // First try the relationship approach
-            let { data, error } = await supabase
+            let { data, error } = await supabaseClient
                 .from('chapters')
                 .select(`
                     *,
@@ -375,8 +386,8 @@ const db = {
                 
                 // Fallback: Get chapters and users separately, then join manually
                 const [chaptersResult, usersResult] = await Promise.all([
-                    supabase.from('chapters').select('*').order('school_name', { ascending: true }),
-                    supabase.from('users').select('id, first_name, last_name, email')
+                    supabaseClient.from('chapters').select('*').order('school_name', { ascending: true }),
+                    supabaseClient.from('users').select('id, first_name, last_name, email')
                 ]);
                 
                 if (chaptersResult.error) throw chaptersResult.error;
@@ -410,7 +421,7 @@ const db = {
 
     async createChapter(chapterData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapters')
                 .insert([{
                     ...chapterData,
@@ -431,7 +442,7 @@ const db = {
             console.log('Updating chapter with data:', chapterData);
             
             // Try to update with all fields including points
-            let { data, error } = await supabase
+            let { data, error } = await supabaseClient
                 .from('chapters')
                 .update(chapterData)
                 .eq('id', chapterId)
@@ -445,7 +456,7 @@ const db = {
                     console.warn('Points column not found, updating without points field');
                     const { points, ...chapterDataWithoutPoints } = chapterData;
                     
-                    const { data: dataWithoutPoints, error: errorWithoutPoints } = await supabase
+                    const { data: dataWithoutPoints, error: errorWithoutPoints } = await supabaseClient
                         .from('chapters')
                         .update(chapterDataWithoutPoints)
                         .eq('id', chapterId)
@@ -468,7 +479,7 @@ const db = {
 
     async deleteChapter(chapterId) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapters')
                 .delete()
                 .eq('id', chapterId)
@@ -484,7 +495,7 @@ const db = {
     // Delete user account
     async deleteUser(userId) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .delete()
                 .eq('id', userId)
@@ -501,7 +512,7 @@ const db = {
     async registerUserForEvent(userId, eventId) {
         try {
             // Check if user is already registered
-            const { data: existing, error: checkError } = await supabase
+            const { data: existing, error: checkError } = await supabaseClient
                 .from('event_registrations')
                 .select('id')
                 .eq('user_id', userId)
@@ -512,7 +523,7 @@ const db = {
                 throw new Error('User is already registered for this event');
             }
 
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('event_registrations')
                 .insert([{
                     user_id: userId,
@@ -531,7 +542,7 @@ const db = {
 
     async getUserEventRegistrations(userId) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('event_registrations')
                 .select(`
                     *,
@@ -557,7 +568,7 @@ const db = {
     // Admin functions
     async getAllUsers() {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .select('*')
                 .order('created_at', { ascending: false })
@@ -572,7 +583,7 @@ const db = {
 
     async updateUserRole(userId, newRole) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .update({ 
                     role: newRole,
@@ -591,7 +602,7 @@ const db = {
 
     async updateUserStatus(userId, isActive) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .update({ 
                     is_active: isActive,
@@ -712,7 +723,7 @@ const db = {
     // Search functions
     async searchUsers(query) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .select('*')
                 .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%,email.ilike.%${query}%`)
@@ -728,7 +739,7 @@ const db = {
 
     async searchEvents(query) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('events')
                 .select('*')
                 .or(`title.ilike.%${query}%,description.ilike.%${query}%`)
@@ -745,7 +756,7 @@ const db = {
     // Utility functions
     async checkEmailExists(email) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .select('id')
                 .eq('email', email.toLowerCase().trim())
@@ -761,7 +772,7 @@ const db = {
 
     async getChapterByCode(chapterCode) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapters')
                 .select('*')
                 .eq('chapter_code', chapterCode.toUpperCase())
@@ -783,7 +794,7 @@ const db = {
             console.log('Getting point requests from database...');
             
             // Get requests from user_task_completions table (without relationships first)
-            const { data: taskCompletions, error: completionsError } = await supabase
+            const { data: taskCompletions, error: completionsError } = await supabaseClient
                 .from('user_task_completions')
                 .select('*')
                 .order('completed_at', { ascending: false })
@@ -795,7 +806,7 @@ const db = {
             }
             
             // Get requests from task_submissions table (without relationships first)
-            const { data: taskSubmissions, error: submissionsError } = await supabase
+            const { data: taskSubmissions, error: submissionsError } = await supabaseClient
                 .from('task_submissions')
                 .select('*')
                 .order('submitted_at', { ascending: false })
@@ -807,7 +818,7 @@ const db = {
             }
             
             // Get all users for manual joining
-            const { data: users, error: usersError } = await supabase
+            const { data: users, error: usersError } = await supabaseClient
                 .from('users')
                 .select('id, first_name, last_name, email, role, chapter_id')
             
@@ -816,7 +827,7 @@ const db = {
             }
             
             // Get all chapters for manual joining
-            const { data: chapters, error: chaptersError } = await supabase
+            const { data: chapters, error: chaptersError } = await supabaseClient
                 .from('chapters')
                 .select('id, school_name, chapter_code')
             
@@ -825,7 +836,7 @@ const db = {
             }
             
             // Get all tasks for manual joining
-            const { data: tasks, error: tasksError } = await supabase
+            const { data: tasks, error: tasksError } = await supabaseClient
                 .from('tasks')
                 .select('id, title, task_code, points')
             
@@ -893,7 +904,7 @@ const db = {
             const tableName = submissionType === 'task_submission' ? 'task_submissions' : 'user_task_completions';
             
             // First, get the request details to find the user and points
-            const { data: requestData, error: requestError } = await supabase
+            const { data: requestData, error: requestError } = await supabaseClient
                 .from(tableName)
                 .select('*')
                 .eq('id', requestId)
@@ -903,7 +914,7 @@ const db = {
             if (!requestData) throw new Error('Request not found');
             
             // Update the request status to approved
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from(tableName)
                 .update({ status: 'approved' })
                 .eq('id', requestId)
@@ -925,7 +936,7 @@ const db = {
     async updateChapterPoints(userId) {
         try {
             // Get the user to find their chapter
-            const { data: user, error: userError } = await supabase
+            const { data: user, error: userError } = await supabaseClient
                 .from('users')
                 .select('chapter_id')
                 .eq('id', userId)
@@ -938,7 +949,7 @@ const db = {
             }
             
             // Get all users in the chapter
-            const { data: chapterUsers, error: usersError } = await supabase
+            const { data: chapterUsers, error: usersError } = await supabaseClient
                 .from('users')
                 .select('id')
                 .eq('chapter_id', user.chapter_id);
@@ -948,7 +959,7 @@ const db = {
             const userIds = chapterUsers.map(u => u.id);
             
             // Calculate total approved points for all members in the chapter
-            const { data: approvedPoints, error: pointsError } = await supabase
+            const { data: approvedPoints, error: pointsError } = await supabaseClient
                 .from('user_task_completions')
                 .select('points_awarded')
                 .eq('status', 'approved')
@@ -957,7 +968,7 @@ const db = {
             if (pointsError) throw pointsError;
             
             // Also get approved task submissions
-            const { data: approvedSubmissions, error: submissionsError } = await supabase
+            const { data: approvedSubmissions, error: submissionsError } = await supabaseClient
                 .from('task_submissions')
                 .select('awarded_points')
                 .eq('status', 'approved')
@@ -971,7 +982,7 @@ const db = {
             const totalChapterPoints = taskCompletionsPoints + taskSubmissionsPoints;
             
             // Update the chapter's points
-            const { error: updateError } = await supabase
+            const { error: updateError } = await supabaseClient
                 .from('chapters')
                 .update({ points: totalChapterPoints })
                 .eq('id', user.chapter_id);
@@ -992,7 +1003,7 @@ const db = {
             console.log('Starting recalculation of all chapter points...');
             
             // Get all chapters
-            const { data: chapters, error: chaptersError } = await supabase
+            const { data: chapters, error: chaptersError } = await supabaseClient
                 .from('chapters')
                 .select('id, school_name');
             
@@ -1000,7 +1011,7 @@ const db = {
             
             for (const chapter of chapters) {
                 // Get all users in this chapter
-                const { data: chapterUsers, error: usersError } = await supabase
+                const { data: chapterUsers, error: usersError } = await supabaseClient
                     .from('users')
                     .select('id')
                     .eq('chapter_id', chapter.id);
@@ -1012,7 +1023,7 @@ const db = {
                 
                 if (chapterUsers.length === 0) {
                     // No users in chapter, set points to 0
-                    await supabase
+                    await supabaseClient
                         .from('chapters')
                         .update({ points: 0 })
                         .eq('id', chapter.id);
@@ -1023,7 +1034,7 @@ const db = {
                 const userIds = chapterUsers.map(u => u.id);
                 
                 // Get approved task completions
-                const { data: approvedPoints, error: pointsError } = await supabase
+                const { data: approvedPoints, error: pointsError } = await supabaseClient
                     .from('user_task_completions')
                     .select('points_awarded')
                     .eq('status', 'approved')
@@ -1035,7 +1046,7 @@ const db = {
                 }
                 
                 // Get approved task submissions
-                const { data: approvedSubmissions, error: submissionsError } = await supabase
+                const { data: approvedSubmissions, error: submissionsError } = await supabaseClient
                     .from('task_submissions')
                     .select('awarded_points')
                     .eq('status', 'approved')
@@ -1052,7 +1063,7 @@ const db = {
                 const totalChapterPoints = taskCompletionsPoints + taskSubmissionsPoints;
                 
                 // Update the chapter's points
-                const { error: updateError } = await supabase
+                const { error: updateError } = await supabaseClient
                     .from('chapters')
                     .update({ points: totalChapterPoints })
                     .eq('id', chapter.id);
@@ -1077,7 +1088,7 @@ const db = {
             // Determine which table to update based on submission type
             const tableName = submissionType === 'task_submission' ? 'task_submissions' : 'user_task_completions';
             
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from(tableName)
                 .update({ status: 'rejected' })
                 .eq('id', requestId)
@@ -1094,7 +1105,7 @@ const db = {
     // Chapter Requests functions
     async getChapterRequests() {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapter_requests')
                 .select('*')
                 .eq('status', 'pending')
@@ -1115,7 +1126,7 @@ const db = {
             
             // First, get the chapter request details
             console.log('Step 1: Getting chapter request details...');
-            const { data: requestData, error: requestError } = await supabase
+            const { data: requestData, error: requestError } = await supabaseClient
                 .from('chapter_requests')
                 .select('*')
                 .eq('id', requestId)
@@ -1138,7 +1149,7 @@ const db = {
             }
 
             // Prevent duplicate school entries: check existing chapters by school_name
-            const { data: existingBySchool, error: existingSchoolErr } = await supabase
+            const { data: existingBySchool, error: existingSchoolErr } = await supabaseClient
                 .from('chapters')
                 .select('id, school_name, chapter_code')
                 .eq('school_name', requestData.school_name)
@@ -1152,7 +1163,7 @@ const db = {
 
             // Find the user by email
             console.log('Step 2: Finding user by email:', requestData.requester_email);
-            const { data: userData, error: userError } = await supabase
+            const { data: userData, error: userError } = await supabaseClient
                 .from('users')
                 .select('*')
                 .eq('email', requestData.requester_email)
@@ -1185,7 +1196,7 @@ const db = {
             }
             
             // Pre-check: ensure no existing chapter with same code
-            const { data: existingChapter, error: existingErr } = await supabase
+            const { data: existingChapter, error: existingErr } = await supabaseClient
                 .from('chapters')
                 .select('id, school_name, chapter_code')
                 .eq('chapter_code', chapterCode)
@@ -1209,7 +1220,7 @@ const db = {
             
             console.log('Creating chapter with data:', chapterData);
             
-            const { data: newChapter, error: chapterError } = await supabase
+            const { data: newChapter, error: chapterError } = await supabaseClient
                 .from('chapters')
                 .insert([chapterData])
                 .select()
@@ -1233,7 +1244,7 @@ const db = {
             
             // Update the user's role to chapter_director and assign them to the chapter
             console.log('Step 4: Updating user role to chapter_director...');
-            const { error: userUpdateError } = await supabase
+            const { error: userUpdateError } = await supabaseClient
                 .from('users')
                 .update({
                     role: 'chapter_director',
@@ -1250,7 +1261,7 @@ const db = {
             
             // Update the chapter request status to approved
             console.log('Step 5: Updating chapter request status to approved...');
-            const { data: updatedRequest, error: requestUpdateError } = await supabase
+            const { data: updatedRequest, error: requestUpdateError } = await supabaseClient
                 .from('chapter_requests')
                 .update({ status: 'approved' })
                 .eq('id', requestId)
@@ -1282,7 +1293,7 @@ const db = {
 
     async rejectChapterRequest(chapterId) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapter_requests')
                 .update({ status: 'rejected' })
                 .eq('id', chapterId)
@@ -1300,7 +1311,7 @@ const db = {
     async getAnnouncements() {
         try {
             // First try with priority ordering
-            let { data, error } = await supabase
+            let { data, error } = await supabaseClient
                 .from('announcements')
                 .select(`
                     *,
@@ -1338,7 +1349,7 @@ const db = {
 
     async createAnnouncement(announcementData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('announcements')
                 .insert([{
                     ...announcementData,
@@ -1356,7 +1367,7 @@ const db = {
 
     async updateAnnouncement(announcementId, announcementData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('announcements')
                 .update(announcementData)
                 .eq('id', announcementId)
@@ -1372,7 +1383,7 @@ const db = {
 
     async deleteAnnouncement(announcementId) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('announcements')
                 .update({ is_active: false })
                 .eq('id', announcementId)
@@ -1403,7 +1414,7 @@ const db = {
                 insertData.file_urls = fileUrls;
             }
 
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('user_task_completions')
                 .insert([insertData])
                 .select()
@@ -1419,7 +1430,7 @@ const db = {
     // Helper function to create chapter request
     async createChapterRequest(chapterData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapter_requests')
                 .insert([{
                     requester_name: chapterData.requester_name,
@@ -1462,7 +1473,7 @@ const db = {
             
             console.log('Data being inserted into Supabase:', insertData);
             
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('task_submissions')
                 .insert([insertData])
                 .select()
@@ -1482,7 +1493,7 @@ const db = {
 
     async getTaskSubmissions(userId = null, chapterId = null) {
         try {
-            let query = supabase
+            let query = supabaseClient
                 .from('task_submissions')
                 .select(`
                     *,
@@ -1525,7 +1536,7 @@ const db = {
 
     async updateTaskSubmission(submissionId, updateData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('task_submissions')
                 .update({
                     ...updateData,
@@ -1571,7 +1582,7 @@ const db = {
     // Get next available chapter code
     async getNextChapterCode(countryCode = 'USA') {
         try {
-            const { data: existingChapters, error } = await supabase
+            const { data: existingChapters, error } = await supabaseClient
                 .from('chapters')
                 .select('chapter_code')
                 .like('chapter_code', `${countryCode}%`)
@@ -1598,7 +1609,7 @@ const db = {
     // Join user to chapter
     async joinUserToChapter(userId, chapterId) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .update({ 
                     chapter_id: chapterId,
@@ -1622,89 +1633,10 @@ const db = {
         }
     },
 
-    async createUser(userData) {
-        try {
-            // Hash the password before storing
-            const hashedPassword = await hashPassword(userData.password);
-            
-            // Validate email format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(userData.email)) {
-                throw new Error('Invalid email format');
-            }
-
-            // Validate required fields
-            if (!userData.firstName || !userData.lastName || !userData.email || !userData.password) {
-                throw new Error('Missing required fields');
-            }
-
-            const { data, error } = await supabase
-                .from('users')
-                .insert([{
-                    email: userData.email.toLowerCase().trim(),
-                    password_hash: hashedPassword,
-                    first_name: userData.firstName.trim(),
-                    last_name: userData.lastName.trim(),
-                    role: userData.role || 'member',
-                    chapter_id: userData.chapterId || null,
-                    discord_username: userData.discord_username || null, // Add discord username support
-                    is_active: true,
-                    created_at: new Date().toISOString(),
-                    updated_at: new Date().toISOString()
-                }])
-                .select()
-            
-            if (error) {
-                console.error('Database error:', error);
-                throw error;
-            }
-            
-            return data[0];
-        } catch (error) {
-            console.error('Error creating user:', error);
-            throw error;
-        }
-    },
-
-    // Updated updateUser function to properly handle discord_username
-    async updateUser(userId, updateData) {
-        try {
-            // If password is being updated, hash it
-            if (updateData.password) {
-                updateData.password_hash = await hashPassword(updateData.password);
-                delete updateData.password; // Remove plain text password
-            }
-
-            // Handle discord_username updates
-            if (updateData.hasOwnProperty('discord_username')) {
-                // Allow null/empty values to clear the discord username
-                updateData.discord_username = updateData.discord_username || null;
-            }
-
-            updateData.updated_at = new Date().toISOString();
-
-            const { data, error } = await supabase
-                .from('users')
-                .update(updateData)
-                .eq('id', userId)
-                .select()
-            
-            if (error) {
-                console.error('Error updating user:', error);
-                throw error;
-            }
-            
-            return data[0];
-        } catch (error) {
-            console.error('Error updating user:', error);
-            throw error;
-        }
-    },
-
     // New function to update just the Discord username
     async updateDiscordUsername(userId, discordUsername) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .update({ 
                     discord_username: discordUsername || null,
@@ -1724,7 +1656,7 @@ const db = {
     // New function to get users with Discord usernames (for community features)
     async getUsersWithDiscord() {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .select('id, first_name, last_name, discord_username, chapter_id')
                 .not('discord_username', 'is', null)
@@ -1742,7 +1674,7 @@ const db = {
     // New function to search users by Discord username
     async searchUsersByDiscord(discordQuery) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('users')
                 .select('id, first_name, last_name, discord_username, chapter_id')
                 .ilike('discord_username', `%${discordQuery}%`)
@@ -1757,10 +1689,10 @@ const db = {
         }
     },
 
-    // Chapter Request functions
+    // Chapter Request functions (updated table name)
     async createChapterRequest(requestData) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapter_request')
                 .insert([{
                     user_id: requestData.user_id,
@@ -1783,7 +1715,7 @@ const db = {
 
     async getChapterRequests(status = 'pending') {
         try {
-            let query = supabase
+            let query = supabaseClient
                 .from('chapter_request')
                 .select('*')
                 .order('requested_at', { ascending: false });
@@ -1806,7 +1738,7 @@ const db = {
         try {
             updateData.processed_at = new Date().toISOString();
             
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapter_request')
                 .update(updateData)
                 .eq('id', requestId)
@@ -1816,163 +1748,6 @@ const db = {
             return data[0];
         } catch (error) {
             console.error('Error updating chapter request:', error);
-            throw error;
-        }
-    },
-
-    async approveChapterRequest(requestId, customChapterCode = null) {
-        try {
-            console.log('=== STARTING CHAPTER REQUEST APPROVAL ===');
-            console.log('Request ID to approve:', requestId);
-            
-            // First, get the chapter request details
-            console.log('Step 1: Getting chapter request details...');
-            const { data: requestData, error: requestError } = await supabase
-                .from('chapter_request')
-                .select('*')
-                .eq('id', requestId)
-                .single();
-            
-            if (requestError) {
-                console.error('Error getting chapter request:', requestError);
-                throw new Error('Failed to get chapter request: ' + requestError.message);
-            }
-            if (!requestData) {
-                console.error('Chapter request not found for ID:', requestId);
-                throw new Error('Chapter request not found');
-            }
-            
-            console.log('Chapter request data retrieved successfully:', requestData);
-            
-            // Find the user by email
-            console.log('Step 2: Finding user by email:', requestData.user_email);
-            const { data: userData, error: userError } = await supabase
-                .from('users')
-                .select('*')
-                .eq('email', requestData.user_email)
-                .single();
-            
-            if (userError) {
-                console.error('Error finding user:', userError);
-                throw new Error('Failed to find user: ' + userError.message);
-            }
-            if (!userData) {
-                console.error('User not found for email:', requestData.user_email);
-                throw new Error('User not found');
-            }
-            
-            console.log('User data retrieved successfully:', userData);
-            
-            // Generate or use custom chapter code
-            console.log('Step 3: Setting chapter code for school:', requestData.school_name);
-            let chapterCode;
-            
-            if (customChapterCode) {
-                chapterCode = customChapterCode;
-                console.log('Using custom chapter code:', chapterCode);
-            } else {
-                // Generate a unique chapter code (school abbreviation + random number)
-                const schoolAbbrev = requestData.school_name.split(' ').map(word => word[0]).join('').toUpperCase();
-                const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-                chapterCode = `${schoolAbbrev}${randomNum}`;
-                console.log('Generated chapter code:', chapterCode);
-            }
-            
-            // Pre-check: ensure no existing chapter with same code
-            const { data: existingChapter, error: existingErr } = await supabase
-                .from('chapters')
-                .select('id, school_name, chapter_code')
-                .eq('chapter_code', chapterCode)
-                .maybeSingle();
-            if (existingErr && existingErr.code && existingErr.code !== 'PGRST116') {
-                console.warn('Warning checking for existing chapter:', existingErr);
-            }
-            if (existingChapter) {
-                throw new Error(`Chapter with code ${chapterCode} already exists for ${existingChapter.school_name}.`);
-            }
-
-            // Create the new chapter
-            const chapterData = {
-                school_name: requestData.school_name,
-                chapter_code: chapterCode,
-                director_id: userData.id,
-                status: 'active',
-                created_at: new Date().toISOString()
-            };
-            console.log('Chapter data prepared:', chapterData);
-            
-            console.log('Creating chapter with data:', chapterData);
-            
-            const { data: newChapter, error: chapterError } = await supabase
-                .from('chapters')
-                .insert([chapterData])
-                .select()
-                .single();
-            
-            if (chapterError) {
-                console.error('Chapter creation error details:', chapterError);
-                // Provide clearer guidance for common conflicts
-                if ((chapterError.code === '23505') || /duplicate key value/i.test(chapterError.message)) {
-                    if (/chapters_pkey/i.test(chapterError.message)) {
-                        throw new Error('Failed to create chapter: Primary key conflict. This usually means the chapters ID sequence is out of sync. Please reset the chapters id sequence in Supabase (set it to max(id)+1) and try again.');
-                    }
-                    if (/chapter_code/i.test(chapterError.message)) {
-                        throw new Error(`Failed to create chapter: Chapter code ${chapterCode} already exists.`);
-                    }
-                }
-                throw new Error('Failed to create chapter: ' + chapterError.message);
-            }
-            
-            console.log('New chapter created successfully:', newChapter);
-            
-            // Update the user's role to chapter_director and assign them to the chapter
-            console.log('Step 4: Updating user role to chapter_director...');
-            const { error: userUpdateError } = await supabase
-                .from('users')
-                .update({
-                    role: 'chapter_director',
-                    chapter_id: newChapter.id
-                })
-                .eq('id', userData.id);
-            
-            if (userUpdateError) {
-                console.error('Error updating user role:', userUpdateError);
-                throw new Error('Failed to update user role: ' + userUpdateError.message);
-            }
-            
-            console.log('User role updated to chapter_director successfully');
-            
-            // Update the chapter request status to approved
-            console.log('Step 5: Updating chapter request status to approved...');
-            const { data: updatedRequest, error: requestUpdateError } = await supabase
-                .from('chapter_request')
-                .update({ 
-                    status: 'approved',
-                    processed_at: new Date().toISOString()
-                })
-                .eq('id', requestId)
-                .select()
-                .single();
-            
-            if (requestUpdateError) {
-                console.error('Error updating chapter request status:', requestUpdateError);
-                throw new Error('Failed to update chapter request status: ' + requestUpdateError.message);
-            }
-            
-            console.log('Chapter request status updated to approved successfully');
-            console.log('Updated request data:', updatedRequest);
-            
-            console.log('=== CHAPTER REQUEST APPROVAL COMPLETED SUCCESSFULLY ===');
-            return {
-                chapter: newChapter,
-                user: userData,
-                request: updatedRequest
-            };
-            
-        } catch (error) {
-            console.error('=== CHAPTER REQUEST APPROVAL FAILED ===');
-            console.error('Error details:', error);
-            console.error('Error message:', error.message);
             throw error;
         }
     },
@@ -1988,7 +1763,7 @@ const db = {
                 updateData.admin_notes = adminNotes;
             }
             
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapter_request')
                 .update(updateData)
                 .eq('id', requestId)
@@ -2004,7 +1779,7 @@ const db = {
 
     async getUserChapterRequests(userId) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('chapter_request')
                 .select('*')
                 .eq('user_id', userId)
@@ -2017,8 +1792,6 @@ const db = {
             throw error;
         }
     }
-           
-  
 }
 
 // Export for use in other files
@@ -2029,12 +1802,12 @@ window.testDatabaseConnection = async function() {
     try {
         console.log('Testing database connection...')
         
-        if (!supabase) {
+        if (!supabaseClient) {
             console.error('❌ Supabase client not initialized');
             return false;
         }
         
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('users')
             .select('count')
             .limit(1)
@@ -2050,8 +1823,6 @@ window.testDatabaseConnection = async function() {
         console.error('❌ Database connection failed:', error)
         return false
     }
-
-    
 }
 
 // Initialize connection test on load
@@ -2059,17 +1830,9 @@ if (typeof window !== 'undefined') {
     window.addEventListener('load', function() {
         // Small delay to ensure everything is loaded
         setTimeout(() => {
-            async function testDatabaseConnection() {
-                const { data, error } = await supabase.from('users').select('*').limit(1);
-                if (error) {
-                    console.error('Connection test failed:', error);
-                } else {
-                    console.log('Database connection working. Sample data:', data);
-                }
+            if (window.testDatabaseConnection) {
+                window.testDatabaseConnection();
             }
-
-            window.testDatabaseConnection = testDatabaseConnection;
-
         }, 1000);
     });
 }
