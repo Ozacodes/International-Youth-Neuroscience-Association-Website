@@ -15,16 +15,16 @@ if (!window.supabase) {
     };
 }
 
-// Initialize Supabase client
-let supabase;
+// Initialize Supabase client using a different variable name
+let supabaseClient;
 try {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     // Expose client globally in a consistent name
-    window.supabaseClient = supabase;
+    window.supabaseClient = supabaseClient;
     console.log('✅ Supabase client initialized successfully');
 } catch (error) {
     console.error('❌ Failed to initialize Supabase client:', error);
-    supabase = null;
+    supabaseClient = null;
     window.supabaseClient = null;
 }
 
