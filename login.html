@@ -357,12 +357,13 @@
 
                         // Wait for database to be ready
                         let attempts = 0;
-                        while (!window.db && attempts < 50) {
+                        while ((!window.db || !window.supabaseClient) && attempts < 100) {
                             await new Promise(resolve => setTimeout(resolve, 100));
                             attempts++;
                         }
 
-                        if (!window.db) {
+                        if (!window.db || !window.supabaseClient) {
+                            console.error('Database not ready. window.db:', window.db, 'window.supabaseClient:', window.supabaseClient);
                             throw new Error('Database connection not available. Please refresh and try again.');
                         }
 
