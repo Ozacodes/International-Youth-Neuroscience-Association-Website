@@ -405,11 +405,9 @@
 
             <!-- Navigation placeholder - will be loaded by JavaScript -->
             <div id="nav-placeholder"></div>
-              
-            
 
             <!-- HERO SECTION -->
-                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+            <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
               
                 <div class="container" style="z-index: 2; position: relative;">
                   <div class="row">
@@ -428,1325 +426,1077 @@
                     </div>
                   </div>
                 </div>
-              </section>
+            </section>
               
-                <!-- TIMELINE SECTION -->
-              <style>
-                    .timeline-container {
-                        max-width: 1200px;
-                        margin: 0 auto;
-                        padding: 0;
-                        background: #fff;
-                    }
-                    .timeline-title {
-                        font-size: 2.5rem;
-                        font-weight: 700;
-                        margin-bottom: 60px;
-                        color: #1B4965;
-                        text-align: center;
-                    }
-                    .timeline {
-                        position: relative;
-                        padding: 20px 0;
-                        min-height: 700px;
-                    }
-                    .timeline::before {
-                        content: '';
-                        position: absolute;
-                        left: 50%;
-                        top: 0;
-                        bottom: 0;
-                        width: 3px;
-                        background-color: #1B4965;
-                        transform: translateX(-50%);
-                        z-index: 0;
-                    }
-                    .timeline-item {
-                        position: relative;
-                        margin-bottom: 80px;
-                        width: 100%;
-                        z-index: 1;
-                        min-height: 140px;
-                    }
-                    .timeline-item.left .timeline-card {
-                        position: absolute;
-                        left: 0;
-                        width: calc(50% - 30px);
-                        margin-right: 30px;
-                    }
-                    .timeline-item.right .timeline-card {
-                        position: absolute;
-                        right: 0;
-                        width: calc(50% - 30px);
-                        margin-left: 30px;
-                    }
+            <!-- TIMELINE SECTION -->
+            <style>
+                .timeline-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 0;
+                    background: #fff;
+                }
+                .timeline-title {
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    margin-bottom: 60px;
+                    color: #1B4965;
+                    text-align: center;
+                }
+                .timeline {
+                    position: relative;
+                    padding: 20px 0;
+                    min-height: 700px;
+                }
+                .timeline::before {
+                    content: '';
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    bottom: 0;
+                    width: 3px;
+                    background-color: #1B4965;
+                    transform: translateX(-50%);
+                    z-index: 0;
+                }
+                .timeline-item {
+                    position: relative;
+                    margin-bottom: 80px;
+                    width: 100%;
+                    z-index: 1;
+                    min-height: 140px;
+                }
+                .timeline-item.left .timeline-card {
+                    position: absolute;
+                    left: 0;
+                    width: calc(50% - 30px);
+                    margin-right: 30px;
+                }
+                .timeline-item.right .timeline-card {
+                    position: absolute;
+                    right: 0;
+                    width: calc(50% - 30px);
+                    margin-left: 30px;
+                }
+                .timeline-card {
+                    display: flex;
+                    align-items: stretch;
+                    background: #ECF1F4;
+                    border-radius: 24px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+                    padding: 32px 40px;
+                    min-width: 480px;
+                    max-width: 600px;
+                    width: 100%;
+                    position: relative;
+                }
+                .timeline-date-block {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 24px;
+                    min-width: 120px;
+                    height: 100%;
+                    align-self: center;
+                }
+                .timeline-date-block .date-main {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    color: #111;
+                    line-height: 1;
+                    margin-bottom: 4px;
+                    display: block;
+                }
+                .timeline-date-block .date-year {
+                    font-size: 1.2rem;
+                    color: #222;
+                    font-weight: 400;
+                    display: block;
+                }
+                .timeline-divider {
+                    width: 2px;
+                    background: #20495e;
+                    margin: 0 32px;
+                    height: auto;
+                }
+                .timeline-content-block {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    height: 100%;
+                }
+                .timeline-content-block .event-title {
+                    font-size: 1.6rem;
+                    font-weight: 700;
+                    color: #111;
+                    margin-bottom: 8px;
+                }
+                .timeline-content-block .event-description {
+                    font-size: 1.1rem;
+                    color: #222;
+                    line-height: 1.5;
+                }
+                @media (max-width: 900px) {
                     .timeline-card {
-                        display: flex;
-                        align-items: stretch;
-                        background: #ECF1F4;
-                        border-radius: 24px;
-                        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-                        padding: 32px 40px;
-                        min-width: 480px;
-                        max-width: 600px;
-                        width: 100%;
-                        position: relative;
-                    }
-                    .timeline-date-block {
-                        display: flex;
                         flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        margin-right: 24px;
-                        min-width: 120px;
-                        height: 100%;
-                        align-self: center;
+                        min-width: 0;
+                        max-width: 100%;
+                        padding: 24px 12px;
+                        position: relative !important;
+                        left: 20px !important;
+                        right: 20px !important;
+                        margin: 0 !important;
                     }
-                    .timeline-date-block .date-main {
-                        font-size: 2rem;
-                        font-weight: 700;
-                        color: #111;
-                        line-height: 1;
-                        margin-bottom: 4px;
-                        display: block;
-                    }
-                    .timeline-date-block .date-year {
-                        font-size: 1.2rem;
-                        color: #222;
-                        font-weight: 400;
-                        display: block;
+                    .timeline-circle {
+                        margin: 0 0 16px 0 !important;
                     }
                     .timeline-divider {
-                        width: 2px;
-                        background: #20495e;
-                        margin: 0 32px;
-                        height: auto;
+                        height: 32px;
+                        margin: 16px 0;
                     }
-                    .timeline-content-block {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: flex-start;
-                        justify-content: center;
-                        height: 100%;
+                    .timeline-item {
+                        min-height: auto !important;
                     }
-                    .timeline-content-block .event-title {
-                        font-size: 1.6rem;
-                        font-weight: 700;
-                        color: #111;
-                        margin-bottom: 8px;
-                    }
-                    .timeline-content-block .event-description {
-                        font-size: 1.1rem;
-                        color: #222;
-                        line-height: 1.5;
-                    }
-                    @media (max-width: 900px) {
-                        .timeline-card {
-                            flex-direction: column;
-                            min-width: 0;
-                            max-width: 100%;
-                            padding: 24px 12px;
-                            position: relative !important;
-                            left: 20px !important;
-                            right: 20px !important;
-                            margin: 0 !important;
-                        }
-                        .timeline-circle {
-                            margin: 0 0 16px 0 !important;
-                        }
-                        .timeline-divider {
-                            height: 32px;
-                            margin: 16px 0;
-                        }
-                        .timeline-item {
-                            min-height: auto !important;
-                        }
-                    }
-                </style>
-                <div class="timeline-container" style="padding: 80px 0;">
-                    <h2 class="timeline-title">Program Timeline</h2>
-                    <div class="timeline">
-                        <!-- Timeline Item 1 - Applications Open -->
-                        <div class="timeline-item left">
-                            <div class="timeline-card">
-                                <div class="timeline-date-block">
-                                    <div class="date-main">Mar 01</div>
-                                    <div class="date-year">2026</div>
-                                </div>
-                                <div class="timeline-divider"></div>
-                                <div class="timeline-content-block">
-                                    <div class="event-title">Applications Open</div>
-                                    <div class="event-description">Summer program applications are now available. Start your journey into neuroscience with IYNA's comprehensive summer program.</div>
-                                </div>
+                }
+            </style>
+            <div class="timeline-container" style="padding: 80px 0;">
+                <h2 class="timeline-title">Program Timeline</h2>
+                <div class="timeline">
+                    <!-- Timeline Item 1 - Applications Open -->
+                    <div class="timeline-item left">
+                        <div class="timeline-card">
+                            <div class="timeline-date-block">
+                                <div class="date-main">Mar 01</div>
+                                <div class="date-year">2026</div>
+                            </div>
+                            <div class="timeline-divider"></div>
+                            <div class="timeline-content-block">
+                                <div class="event-title">Applications Open</div>
+                                <div class="event-description">Summer program applications are now available. Start your journey into neuroscience with IYNA's comprehensive summer program.</div>
                             </div>
                         </div>
-                        <!-- Timeline Item 2 - Application Deadline -->
-                        <div class="timeline-item right">
-                            <div class="timeline-card">
-                                <div class="timeline-date-block">
-                                    <div class="date-main">May 15</div>
-                                    <div class="date-year">2026</div>
-                                </div>
-                                <div class="timeline-divider"></div>
-                                <div class="timeline-content-block">
-                                    <div class="event-title">Application Deadline</div>
-                                    <div class="event-description">All applications must be submitted by 11:59 PM EST. Late submissions will not be considered.</div>
-                                </div>
+                    </div>
+                    <!-- Timeline Item 2 - Application Deadline -->
+                    <div class="timeline-item right">
+                        <div class="timeline-card">
+                            <div class="timeline-date-block">
+                                <div class="date-main">May 15</div>
+                                <div class="date-year">2026</div>
+                            </div>
+                            <div class="timeline-divider"></div>
+                            <div class="timeline-content-block">
+                                <div class="event-title">Application Deadline</div>
+                                <div class="event-description">All applications must be submitted by 11:59 PM EST. Late submissions will not be considered.</div>
                             </div>
                         </div>
-                        <!-- Timeline Item 3 - Acceptance Notifications -->
-                        <div class="timeline-item left">
-                            <div class="timeline-card">
-                                <div class="timeline-date-block">
-                                    <div class="date-main">May 30</div>
-                                    <div class="date-year">2026</div>
-                                </div>
-                                <div class="timeline-divider"></div>
-                                <div class="timeline-content-block">
-                                    <div class="event-title">Acceptance Notifications</div>
-                                    <div class="event-description">Selected participants will receive acceptance emails with program details and next steps.</div>
-                                </div>
+                    </div>
+                    <!-- Timeline Item 3 - Acceptance Notifications -->
+                    <div class="timeline-item left">
+                        <div class="timeline-card">
+                            <div class="timeline-date-block">
+                                <div class="date-main">May 30</div>
+                                <div class="date-year">2026</div>
+                            </div>
+                            <div class="timeline-divider"></div>
+                            <div class="timeline-content-block">
+                                <div class="event-title">Acceptance Notifications</div>
+                                <div class="event-description">Selected participants will receive acceptance emails with program details and next steps.</div>
                             </div>
                         </div>
-                        <!-- Timeline Item 4 - Program Begins -->
-                        <div class="timeline-item right">
-                            <div class="timeline-card">
-                                <div class="timeline-date-block">
-                                    <div class="date-main">June 22</div>
-                                    <div class="date-year">2026</div>
-                                </div>
-                                <div class="timeline-divider"></div>
-                                <div class="timeline-content-block">
-                                    <div class="event-title">Program Begins</div>
-                                    <div class="event-description">Welcome to the IYNA Summer Program! Join your cohort for the first session and begin your neuroscience journey.</div>
-                                </div>
+                    </div>
+                    <!-- Timeline Item 4 - Program Begins -->
+                    <div class="timeline-item right">
+                        <div class="timeline-card">
+                            <div class="timeline-date-block">
+                                <div class="date-main">June 22</div>
+                                <div class="date-year">2026</div>
+                            </div>
+                            <div class="timeline-divider"></div>
+                            <div class="timeline-content-block">
+                                <div class="event-title">Program Begins</div>
+                                <div class="event-description">Welcome to the IYNA Summer Program! Join your cohort for the first session and begin your neuroscience journey.</div>
                             </div>
                         </div>
-                        <!-- Timeline Item 5 - Program Ends -->
-                        <div class="timeline-item left">
-                            <div class="timeline-card">
-                                <div class="timeline-date-block">
-                                    <div class="date-main">Aug 01</div>
-                                    <div class="date-year">2026</div>
-                                </div>
-                                <div class="timeline-divider"></div>
-                                <div class="timeline-content-block">
-                                    <div class="event-title">Program Concludes</div>
-                                    <div class="event-description">Final presentations and program wrap-up. Celebrate your achievements and join the IYNA alumni network.</div>
-                                </div>
+                    </div>
+                    <!-- Timeline Item 5 - Program Ends -->
+                    <div class="timeline-item left">
+                        <div class="timeline-card">
+                            <div class="timeline-date-block">
+                                <div class="date-main">Aug 01</div>
+                                <div class="date-year">2026</div>
+                            </div>
+                            <div class="timeline-divider"></div>
+                            <div class="timeline-content-block">
+                                <div class="event-title">Program Concludes</div>
+                                <div class="event-description">Final presentations and program wrap-up. Celebrate your achievements and join the IYNA alumni network.</div>
                             </div>
                         </div>
-                        <!-- Timeline Item 6 - IYNA Summer Course Symposium -->
-                        <div class="timeline-item right">
-                            <div class="timeline-card">
-                                <div class="timeline-date-block">
-                                    <div class="date-main">Aug 08</div>
-                                    <div class="date-year">2026</div>
-                                </div>
-                                <div class="timeline-divider"></div>
-                                <div class="timeline-content-block">
-                                    <div class="event-title">IYNA Summer Course Symposium</div>
-                                    <div class="event-description">Celebrate the culmination of the summer with presentations, networking, and recognition of outstanding work from participants across all tracks.</div>
-                                </div>
+                    </div>
+                    <!-- Timeline Item 6 - IYNA Summer Course Symposium -->
+                    <div class="timeline-item right">
+                        <div class="timeline-card">
+                            <div class="timeline-date-block">
+                                <div class="date-main">Aug 08</div>
+                                <div class="date-year">2026</div>
+                            </div>
+                            <div class="timeline-divider"></div>
+                            <div class="timeline-content-block">
+                                <div class="event-title">IYNA Summer Course Symposium</div>
+                                <div class="event-description">Celebrate the culmination of the summer with presentations, networking, and recognition of outstanding work from participants across all tracks.</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- PREVIOUS SUMMER STATS SECTION -->
-                <style>
-                    .stats-section {
-                        background: #1B4965;
-                        color: white;
-                        padding: 80px 0;
-                        text-align: center;
-                    }
-                    
-                    .stats-container {
-                        max-width: 1000px;
-                        margin: 0 auto;
-                        padding: 0 40px;
-                    }
-                    
-                    .stats-title {
-                        font-size: 3rem;
-                        font-weight: bold;
-                        margin-bottom: 80px;
-                        color: white;
-                        letter-spacing: -1px;
-                    }
-                    
-                    .stats-grid {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        gap: 120px;
-                    }
-                    
-                    .stat-item {
-                        text-align: center;
-                    }
-                    
-                    .stat-number {
-                        font-size: 4rem;
-                        font-weight: bold;
-                        color: white;
-                        margin-bottom: 10px;
-                        line-height: 1;
-                    }
-                    
-                    .stat-label {
-                        font-size: 2rem;
-                        color: white;
-                        font-weight: normal;
-                        line-height: 1.2;
-                    }
-                    
-                    @media (max-width: 768px) {
-                        .stats-container {
-                            padding: 0 20px;
-                        }
-                        
-                        .stats-title {
-                            font-size: 2.2rem;
-                            margin-bottom: 60px;
-                        }
-                        
-                        .stats-grid {
-                            flex-direction: column;
-                            gap: 60px;
-                        }
-                        
-                        .stat-number {
-                            font-size: 3rem;
-                        }
-                        
-                        .stat-label {
-                            font-size: 1.5rem;
-                        }
-                    }
-                    
-                    @media (max-width: 480px) {
-                        .stats-title {
-                            font-size: 1.8rem;
-                            margin-bottom: 50px;
-                        }
-                        
-                        .stat-number {
-                            font-size: 2.5rem;
-                        }
-                        
-                        .stat-label {
-                            font-size: 1.2rem;
-                        }
-                    }
-                </style>
-                
-                <section class="stats-section">
-                    <div class="stats-container">
-                        <h2 class="stats-title">Previous Summer By The Numbers</h2>
-                        
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <div class="stat-number">1300+</div>
-                                <div class="stat-label">Applications</div>
-                            </div>
-                            
-                            <div class="stat-item">
-                                <div class="stat-number">400</div>
-                                <div class="stat-label">Capstone Track Acceptances</div>
-                            </div>
+            </div>
+            
+            <!-- PREVIOUS SUMMER STATS SECTION -->
+            <style>
+                .stats-section {
+                    background: #1B4965;
+                    color: white;
+                    padding: 80px 0;
+                    text-align: center;
+                }
+                .stats-container {
+                    max-width: 1000px;
+                    margin: 0 auto;
+                    padding: 0 40px;
+                }
+                .stats-title {
+                    font-size: 3rem;
+                    font-weight: bold;
+                    margin-bottom: 80px;
+                    color: white;
+                    letter-spacing: -1px;
+                }
+                .stats-grid {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 120px;
+                }
+                .stat-item {
+                    text-align: center;
+                }
+                .stat-number {
+                    font-size: 4rem;
+                    font-weight: bold;
+                    color: white;
+                    margin-bottom: 10px;
+                    line-height: 1;
+                }
+                .stat-label {
+                    font-size: 2rem;
+                    color: white;
+                    font-weight: normal;
+                    line-height: 1.2;
+                }
+                @media (max-width: 768px) {
+                    .stats-container { padding: 0 20px; }
+                    .stats-title { font-size: 2.2rem; margin-bottom: 60px; }
+                    .stats-grid { flex-direction: column; gap: 60px; }
+                    .stat-number { font-size: 3rem; }
+                    .stat-label { font-size: 1.5rem; }
+                }
+                @media (max-width: 480px) {
+                    .stats-title { font-size: 1.8rem; margin-bottom: 50px; }
+                    .stat-number { font-size: 2.5rem; }
+                    .stat-label { font-size: 1.2rem; }
+                }
+            </style>
+            
+            <section class="stats-section">
+                <div class="stats-container">
+                    <h2 class="stats-title">Previous Summer By The Numbers</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">1300+</div>
+                            <div class="stat-label">Applications</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">400</div>
+                            <div class="stat-label">Capstone Track Acceptances</div>
                         </div>
                     </div>
-                </section>
-                
-                <!-- TRACK DETAILS SECTION -->
-                <style>
-                    .track-details-section {
-                        background-color: white;
-                        padding: 80px 0;
-                        color: #1B4965;
-                    }
-                    
-                    .track-container {
-                        max-width: 900px;
-                        margin: 0 auto;
-                        padding: 0 20px;
-                    }
-                    
-                    .track-title {
-                        font-size: 2.5rem;
-                        font-weight: 600;
-                        color: #1B4965;
-                        text-align: center;
-                        margin-bottom: 50px;
-                    }
-                    
-                    .track-table-container {
-                        background: white;
-                        border-radius: 12px;
-                        overflow: hidden;
-                        box-shadow: 0 4px 20px rgba(27, 73, 101, 0.1);
-                    }
-                    
-                    .track-table {
-                        width: 100%;
-                        border-collapse: collapse;
-                    }
-                    
-                    .track-table th {
-                        background-color: #BEE9E8;
-                        color: #1B4965;
-                        font-weight: 600;
-                        font-size: 1.3rem;
-                        padding: 30px 40px;
-                        text-align: center;
-                        border-bottom: 2px solid #62B6CB;
-                    }
-                    
-                    .track-table td {
-                        padding: 30px 40px;
-                        vertical-align: top;
-                        background-color: white;
-                    }
-                    
-                    .track-feature-item {
-                        display: flex;
-                        align-items: flex-start;
-                        margin-bottom: 20px;
-                        font-size: 1rem;
-                        color: #1B4965;
-                        line-height: 1.6;
-                    }
-                    
-                    .track-feature-item:last-child {
-                        margin-bottom: 0;
-                    }
-                    
-                    .track-checkmark {
-                        width: 20px;
-                        height: 20px;
-                        background-color: #62B6CB;
-                        border-radius: 50%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        margin-right: 15px;
-                        margin-top: 2px;
-                        flex-shrink: 0;
-                    }
-                    
-                    .track-checkmark::after {
-                        content: '✓';
-                        color: white;
-                        font-size: 12px;
-                        font-weight: 600;
-                    }
-                    
-                    @media (max-width: 768px) {
-                        .track-container {
-                            padding: 0 15px;
-                        }
-                        
-                        .track-title {
-                            font-size: 2rem;
-                            margin-bottom: 40px;
-                        }
-                        
-                        .track-table th {
-                            font-size: 1.1rem;
-                            padding: 25px 20px;
-                        }
-                        
-                        .track-table td {
-                            padding: 25px 20px;
-                        }
-                        
-                        .track-feature-item {
-                            font-size: 0.95rem;
-                            margin-bottom: 15px;
-                        }
-                        
-                        .track-checkmark {
-                            width: 18px;
-                            height: 18px;
-                            margin-right: 12px;
-                        }
-                        
-                        .track-checkmark::after {
-                            font-size: 11px;
-                        }
-                    }
-                </style>
-                
-                <section class="track-details-section">
-                    <div class="track-container">
-                        <h2 class="track-title">Track Details</h2>
-                        
-                        <div class="track-table-container">
-                            <table class="track-table">
-                                <thead>
-                                    <tr>
-                                        <th>Capstone Track</th>
-                                        <th>Participant Track</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="track-feature-item">
-                                                <div class="track-checkmark"></div>
-                                                <span>Flexible attendance</span>
-                                            </div>
-                                            <div class="track-feature-item">
-                                                <div class="track-checkmark"></div>
-                                                <span>No homework required</span>
-                                            </div>
-                                            <div class="track-feature-item">
-                                                <div class="track-checkmark"></div>
-                                                <span>No project component</span>
-                                            </div>
-                                            <div class="track-feature-item">
-                                                <div class="track-checkmark"></div>
-                                                <span>Full Lecture Access</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="track-feature-item">
-                                                <div class="track-checkmark"></div>
-                                                <span>Full summer immersion</span>
-                                            </div>
-                                            <div class="track-feature-item">
-                                                <div class="track-checkmark"></div>
-                                                <span>Mandatory lectures &amp; small-group sessions</span>
-                                            </div>
-                                            <div class="track-feature-item">
-                                                <div class="track-checkmark"></div>
-                                                <span>Regular homework assignments</span>
-                                            </div>
-                                            <div class="track-feature-item">
-                                                <div class="track-checkmark"></div>
-                                                <span>Research-focused capstone project</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                </div>
+            </section>
+            
+            <!-- TRACK DETAILS SECTION -->
+            <style>
+                .track-details-section {
+                    background-color: white;
+                    padding: 80px 0;
+                    color: #1B4965;
+                }
+                .track-container {
+                    max-width: 900px;
+                    margin: 0 auto;
+                    padding: 0 20px;
+                }
+                .track-title {
+                    font-size: 2.5rem;
+                    font-weight: 600;
+                    color: #1B4965;
+                    text-align: center;
+                    margin-bottom: 50px;
+                }
+                .track-table-container {
+                    background: white;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 20px rgba(27, 73, 101, 0.1);
+                }
+                .track-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                .track-table th {
+                    background-color: #BEE9E8;
+                    color: #1B4965;
+                    font-weight: 600;
+                    font-size: 1.3rem;
+                    padding: 30px 40px;
+                    text-align: center;
+                    border-bottom: 2px solid #62B6CB;
+                }
+                .track-table td {
+                    padding: 30px 40px;
+                    vertical-align: top;
+                    background-color: white;
+                }
+                .track-feature-item {
+                    display: flex;
+                    align-items: flex-start;
+                    margin-bottom: 20px;
+                    font-size: 1rem;
+                    color: #1B4965;
+                    line-height: 1.6;
+                }
+                .track-feature-item:last-child { margin-bottom: 0; }
+                .track-checkmark {
+                    width: 20px;
+                    height: 20px;
+                    background-color: #62B6CB;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 15px;
+                    margin-top: 2px;
+                    flex-shrink: 0;
+                }
+                .track-checkmark::after {
+                    content: '✓';
+                    color: white;
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+                @media (max-width: 768px) {
+                    .track-container { padding: 0 15px; }
+                    .track-title { font-size: 2rem; margin-bottom: 40px; }
+                    .track-table th { font-size: 1.1rem; padding: 25px 20px; }
+                    .track-table td { padding: 25px 20px; }
+                    .track-feature-item { font-size: 0.95rem; margin-bottom: 15px; }
+                    .track-checkmark { width: 18px; height: 18px; margin-right: 12px; }
+                    .track-checkmark::after { font-size: 11px; }
+                }
+            </style>
+            
+            <section class="track-details-section">
+                <div class="track-container">
+                    <h2 class="track-title">Track Details</h2>
+                    <div class="track-table-container">
+                        <table class="track-table">
+                            <thead>
+                                <tr>
+                                    <th>Capstone Track</th>
+                                    <th>Participant Track</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="track-feature-item">
+                                            <div class="track-checkmark"></div>
+                                            <span>Flexible attendance</span>
+                                        </div>
+                                        <div class="track-feature-item">
+                                            <div class="track-checkmark"></div>
+                                            <span>No homework required</span>
+                                        </div>
+                                        <div class="track-feature-item">
+                                            <div class="track-checkmark"></div>
+                                            <span>No project component</span>
+                                        </div>
+                                        <div class="track-feature-item">
+                                            <div class="track-checkmark"></div>
+                                            <span>Full Lecture Access</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="track-feature-item">
+                                            <div class="track-checkmark"></div>
+                                            <span>Full summer immersion</span>
+                                        </div>
+                                        <div class="track-feature-item">
+                                            <div class="track-checkmark"></div>
+                                            <span>Mandatory lectures &amp; small-group sessions</span>
+                                        </div>
+                                        <div class="track-feature-item">
+                                            <div class="track-checkmark"></div>
+                                            <span>Regular homework assignments</span>
+                                        </div>
+                                        <div class="track-feature-item">
+                                            <div class="track-checkmark"></div>
+                                            <span>Research-focused capstone project</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </section>
-                
-                <!-- OFFERED COURSES SECTION -->
-                <section class="courses-section" style="background-color: #f5f5f5; padding: 80px 0; color: #333;">
-  <div class="courses-container" style="max-width: 1200px; margin: 0 auto; padding: 0 30px;">
-    <h2 class="courses-title" style="font-size: 2.8rem; font-weight: bold; margin-bottom: 60px; color: #333; text-align: center;">Offered Courses</h2>
-    <div class="courses-cards" style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
-      <!-- Card 1: Neuroscience I - Beginner -->
-      <div class="course-card-content" style="background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(27, 73, 101, 0.07); border-left: 8px solid #62B6CB; max-width: 350px; flex: 1 1 320px; padding: 32px 28px 28px 32px; display: flex; flex-direction: column;">
-        <div class="course-card-title">Neuroscience I</div>
-        <div style="color: #222; margin-bottom: 18px;">This beginner-friendly course covers core principles of neuroscience:</div>
-        <ul style="padding-left: 18px; margin-bottom: 0; color: #1B4965;">
-          <li>Cell biology of the nervous system</li>
-          <li>Nervous system signaling</li>
-          <li>Sensory systems</li>
-        </ul>
-      </div>
-      <!-- Card 2: Neuroscience II - Advanced -->
-      <div class="course-card-content" style="background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(27, 73, 101, 0.07); border-left: 8px solid #62B6CB; max-width: 350px; flex: 1 1 320px; padding: 32px 28px 28px 32px; display: flex; flex-direction: column;">
-        <div class="course-card-title">Neuroscience II</div>
-        <div style="color: #222; margin-bottom: 18px;">For students with prior experience—explore advanced topics like:</div>
-        <ul style="padding-left: 18px; margin-bottom: 0; color: #1B4965;">
-          <li>Neurodevelopment</li>
-          <li>Cognition</li>
-          <li>Neurological diseases</li>
-        </ul>
-        <div style="color: #62B6CB; font-weight: 600; margin-top: 18px;">Includes reading and analyzing journal articles.</div>
-      </div>
-      <!-- Card 3: Dual Enrollment -->
-      <div class="course-card-content" style="background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(27, 73, 101, 0.07); border-left: 8px solid #62B6CB; max-width: 350px; flex: 1 1 320px; padding: 32px 28px 28px 32px; display: flex; flex-direction: column;">
-        <div class="course-card-title">Dual Enrollment</div>
-        <div style="color: #222; margin-bottom: 18px;">Enroll in both Neuroscience I &amp; II with mixed tracks. You can be in Capstone Track in one course and Participant Track in the other—but not Capstone in both simultaneously.</div>
-        <ul style="padding-left: 18px; margin-bottom: 0; color: #1B4965;">
-          <li>Capstone Track in Neuro I + Participant Track in Neuro II</li>
-          <li>Participant Track in Neuro I + Capstone Track in Neuro II</li>
-          <li>Strong time commitment required</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-                
-                <!-- TESTIMONIALS SECTION -->
-                <style>
-                    .testimonials-section {
-                        background-color: #1B4965;
-                        padding: 80px 0;
-                        color: #1B4965;
-                    }
+                </div>
+            </section>
+            
+            <!-- OFFERED COURSES SECTION -->
+            <section class="courses-section" style="background-color: #f5f5f5; padding: 80px 0; color: #333;">
+              <div class="courses-container" style="max-width: 1200px; margin: 0 auto; padding: 0 30px;">
+                <h2 class="courses-title" style="font-size: 2.8rem; font-weight: bold; margin-bottom: 60px; color: #333; text-align: center;">Offered Courses</h2>
+                <div class="courses-cards" style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
+                  <!-- Card 1: Neuroscience I - Beginner -->
+                  <div class="course-card-content" style="background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(27, 73, 101, 0.07); border-left: 8px solid #62B6CB; max-width: 350px; flex: 1 1 320px; padding: 32px 28px 28px 32px; display: flex; flex-direction: column;">
+                    <div class="course-card-title">Neuroscience I</div>
+                    <div style="color: #222; margin-bottom: 18px;">This beginner-friendly course covers core principles of neuroscience:</div>
+                    <ul style="padding-left: 18px; margin-bottom: 0; color: #1B4965;">
+                      <li>Cell biology of the nervous system</li>
+                      <li>Nervous system signaling</li>
+                      <li>Sensory systems</li>
+                    </ul>
+                  </div>
+                  <!-- Card 2: Neuroscience II - Advanced -->
+                  <div class="course-card-content" style="background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(27, 73, 101, 0.07); border-left: 8px solid #62B6CB; max-width: 350px; flex: 1 1 320px; padding: 32px 28px 28px 32px; display: flex; flex-direction: column;">
+                    <div class="course-card-title">Neuroscience II</div>
+                    <div style="color: #222; margin-bottom: 18px;">For students with prior experience—explore advanced topics like:</div>
+                    <ul style="padding-left: 18px; margin-bottom: 0; color: #1B4965;">
+                      <li>Neurodevelopment</li>
+                      <li>Cognition</li>
+                      <li>Neurological diseases</li>
+                    </ul>
+                    <div style="color: #62B6CB; font-weight: 600; margin-top: 18px;">Includes reading and analyzing journal articles.</div>
+                  </div>
+                  <!-- Card 3: Dual Enrollment -->
+                  <div class="course-card-content" style="background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(27, 73, 101, 0.07); border-left: 8px solid #62B6CB; max-width: 350px; flex: 1 1 320px; padding: 32px 28px 28px 32px; display: flex; flex-direction: column;">
+                    <div class="course-card-title">Dual Enrollment</div>
+                    <div style="color: #222; margin-bottom: 18px;">Enroll in both Neuroscience I &amp; II with mixed tracks. You can be in Capstone Track in one course and Participant Track in the other—but not Capstone in both simultaneously.</div>
+                    <ul style="padding-left: 18px; margin-bottom: 0; color: #1B4965;">
+                      <li>Capstone Track in Neuro I + Participant Track in Neuro II</li>
+                      <li>Participant Track in Neuro I + Capstone Track in Neuro II</li>
+                      <li>Strong time commitment required</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
+            <!-- TESTIMONIALS SECTION -->
+            <style>
+                .testimonials-section {
+                    background-color: #1B4965;
+                    padding: 80px 0;
+                    color: #1B4965;
+                }
+                .testimonials-container {
+                    max-width: 1000px;
+                    margin: 0 auto;
+                    padding: 0 20px;
+                }
+                .testimonials-title {
+                    font-size: 2.5rem;
+                    font-weight: 600;
+                    color: white;
+                    text-align: center;
+                    margin-bottom: 50px;
+                }
+                .testimonials-carousel-container {
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 16px;
+                }
+                .testimonials-carousel-wrapper {
+                    display: flex;
+                    transition: transform 0.5s ease-in-out;
+                }
+                .testimonial-card {
+                    min-width: 100%;
+                    background: #ffffff;
+                    padding: 50px;
+                    display: flex;
+                    align-items: center;
+                    gap: 40px;
+                    border-radius: 16px;
+                }
+                .testimonial-content {
+                    flex: 1;
+                }
+                .testimonial-student-name {
+                    font-size: 2rem;
+                    font-weight: 600;
+                    color: #1B4965;
+                    margin-bottom: 5px;
+                }
+                .testimonial-student-program {
+                    font-size: 1rem;
+                    color: #62B6CB;
+                    margin-bottom: 25px;
+                    font-weight: 500;
+                }
+                .testimonial-text {
+                    font-size: 1.1rem;
+                    line-height: 1.6;
+                    color: #1B4965;
+                    font-style: italic;
+                }
+                .testimonials-carousel-controls {
+                    display: flex;
+                    justify-content: center;
+                    gap: 20px;
+                    margin-top: 30px;
+                }
+                .testimonials-control-btn {
+                    width: 50px;
+                    height: 50px;
+                    background-color: #62B6CB;
+                    border: none;
+                    border-radius: 50%;
+                    color: white;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .testimonials-control-btn:hover {
+                    background-color: #1B4965;
+                    transform: scale(1.1);
+                }
+                .testimonials-control-btn:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    transform: scale(1);
+                }
+                .testimonials-dots-container {
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                    margin-top: 20px;
+                }
+                .testimonials-dot {
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    background-color: rgba(98, 182, 203, 0.3);
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                }
+                .testimonials-dot.active {
+                    background-color: #62B6CB;
+                }
+                @media (max-width: 768px) {
+                    .testimonials-container { padding: 0 15px; }
+                    .testimonials-title { font-size: 2rem; margin-bottom: 40px; }
+                    .testimonial-card { flex-direction: column; text-align: center; padding: 40px 30px; gap: 30px; }
+                    .testimonial-student-name { font-size: 1.6rem; }
+                    .testimonial-text { font-size: 1rem; }
+                    .testimonials-control-btn { width: 45px; height: 45px; font-size: 1rem; }
+                }
+            </style>
+            
+            <section class="testimonials-section">
+                <div class="testimonials-container">
+                    <h2 class="testimonials-title">Testimonials</h2>
                     
-                    .testimonials-container {
-                        max-width: 1000px;
-                        margin: 0 auto;
-                        padding: 0 20px;
-                    }
-                    
-                    .testimonials-title {
-                        font-size: 2.5rem;
-                        font-weight: 600;
-                        color: white;
-                        text-align: center;
-                        margin-bottom: 50px;
-                    }
-                    
-                    .testimonials-carousel-container {
-                        position: relative;
-                        overflow: hidden;
-                        border-radius: 16px;
-                    }
-                    
-                    .testimonials-carousel-wrapper {
-                        display: flex;
-                        transition: transform 0.5s ease-in-out;
-                    }
-                    
-                    .testimonial-card {
-                        min-width: 100%;
-                        background: #ffffff;
-                        padding: 50px;
-                        display: flex;
-                        align-items: center;
-                        gap: 40px;
-                        border-radius: 16px;
-                    }
-                    
-                    .testimonial-avatar {
-                        width: 120px;
-                        height: 120px;
-                        background-color: rgba(255, 255, 255, 0.3);
-                        border-radius: 50%;
-                        flex-shrink: 0;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        border: 3px solid rgba(255, 255, 255, 0.5);
-                    }
-                    
-                    .testimonial-avatar-icon {
-                        width: 40px;
-                        height: 40px;
-                        background-color: rgba(27, 73, 101, 0.3);
-                        border-radius: 4px;
-                    }
-                    
-                    .testimonial-content {
-                        flex: 1;
-                    }
-                    
-                    .testimonial-student-name {
-                        font-size: 2rem;
-                        font-weight: 600;
-                        color: #1B4965;
-                        margin-bottom: 5px;
-                    }
-                    
-                    .testimonial-student-program {
-                        font-size: 1rem;
-                        color: #62B6CB;
-                        margin-bottom: 25px;
-                        font-weight: 500;
-                    }
-                    
-                    .testimonial-text {
-                        font-size: 1.1rem;
-                        line-height: 1.6;
-                        color: #1B4965;
-                        font-style: italic;
-                    }
-                    
-                    .testimonials-carousel-controls {
-                        display: flex;
-                        justify-content: center;
-                        gap: 20px;
-                        margin-top: 30px;
-                    }
-                    
-                    .testimonials-control-btn {
-                        width: 50px;
-                        height: 50px;
-                        background-color: #62B6CB;
-                        border: none;
-                        border-radius: 50%;
-                        color: white;
-                        font-size: 1.2rem;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                    
-                    .testimonials-control-btn:hover {
-                        background-color: #1B4965;
-                        transform: scale(1.1);
-                    }
-                    
-                    .testimonials-control-btn:disabled {
-                        opacity: 0.5;
-                        cursor: not-allowed;
-                        transform: scale(1);
-                    }
-                    
-                    .testimonials-dots-container {
-                        display: flex;
-                        justify-content: center;
-                        gap: 10px;
-                        margin-top: 20px;
-                    }
-                    
-                    .testimonials-dot {
-                        width: 12px;
-                        height: 12px;
-                        border-radius: 50%;
-                        background-color: rgba(98, 182, 203, 0.3);
-                        cursor: pointer;
-                        transition: background-color 0.3s ease;
-                    }
-                    
-                    .testimonials-dot.active {
-                        background-color: #62B6CB;
-                    }
-                    
-                    @media (max-width: 768px) {
-                        .testimonials-container {
-                            padding: 0 15px;
-                        }
-                        
-                        .testimonials-title {
-                            font-size: 2rem;
-                            margin-bottom: 40px;
-                        }
-                        
-                        .testimonial-card {
-                            flex-direction: column;
-                            text-align: center;
-                            padding: 40px 30px;
-                            gap: 30px;
-                        }
-                        
-                        .testimonial-avatar {
-                            width: 100px;
-                            height: 100px;
-                        }
-                        
-                        .testimonial-avatar-icon {
-                            width: 30px;
-                            height: 30px;
-                        }
-                        
-                        .testimonial-student-name {
-                            font-size: 1.6rem;
-                        }
-                        
-                        .testimonial-text {
-                            font-size: 1rem;
-                        }
-                        
-                        .testimonials-control-btn {
-                            width: 45px;
-                            height: 45px;
-                            font-size: 1rem;
-                        }
-                    }
-                </style>
-                
-                <section class="testimonials-section">
-                    <div class="testimonials-container">
-                        <h2 class="testimonials-title">Testimonials</h2>
-                        
-                        <div class="testimonials-carousel-container">
-                            <div class="testimonials-carousel-wrapper" id="testimonialsCarousel">
-                                <!-- Testimonial 1 -->
-                                <div class="testimonial-card">
-                                    <div class="testimonial-avatar">
-                                        <div class="testimonial-avatar-icon"></div>
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <h3 class="testimonial-student-name">Lauren Kim</h3>
-                                        <p class="testimonial-student-program">Youth Neuroscience '22</p>
-                                        <p class="testimonial-text">
-                                            "I loved Youth Neuroscience 2022 because of how challenging but supportive it was. I had no previous exposure or exploration when I first entered the course, but the weekly TA sessions were such a huge help in bonding with fellow students and learning the material on a deeper level."
-                                        </p>
-                                    </div>
-                                </div>
+                    <div class="testimonials-carousel-container">
+                        <div class="testimonials-carousel-wrapper" id="testimonialsCarousel">
 
-                                <!-- Testimonial 2 - 2025 student on elements enjoyed -->
-                                <div class="testimonial-card">
-                                    <div class="testimonial-avatar">
-                                        <div class="testimonial-avatar-icon"></div>
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
-                                        <p class="testimonial-student-program">IYNA Summer Course '25</p>
-                                        <p class="testimonial-text">
-                                            "The lectures and capstone assignments dramatically increased my ability to do research, understand academic papers without needing to look things up constantly, and my ability to engage in discussion—even in topics outside my area of interest."
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- Testimonial 3 - 2025 student on professionalism -->
-                                <div class="testimonial-card">
-                                    <div class="testimonial-avatar">
-                                        <div class="testimonial-avatar-icon"></div>
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
-                                        <p class="testimonial-student-program">IYNA Summer Course '25</p>
-                                        <p class="testimonial-text">
-                                            "The lectures were highly engaging, and the mentors were always exceptionally well prepared. Overall, I found the course to be extremely professional."
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- Testimonial 4 - 2025 student on community -->
-                                <div class="testimonial-card">
-                                    <div class="testimonial-avatar">
-                                        <div class="testimonial-avatar-icon"></div>
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
-                                        <p class="testimonial-student-program">IYNA Summer Course '25</p>
-                                        <p class="testimonial-text">
-                                            "Being in a cohort of peers was invaluable. By participating in this summer course I got to realize that there is a place for me in the scientific community."
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- Testimonial 5 - 2025 student gratitude -->
-                                <div class="testimonial-card">
-                                    <div class="testimonial-avatar">
-                                        <div class="testimonial-avatar-icon"></div>
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
-                                        <p class="testimonial-student-program">IYNA Summer Course '25</p>
-                                        <p class="testimonial-text">
-                                            "THANKS FOR ALL THE EFFORT PUT INTO THE SUMMER COURSE!!! I absolutely love how so much was provided—from lecture recordings, to assistance through Discord, and even the homework—all of it for free for the sake of passion. I cannot emphasize enough how difficult it is to find such a comprehensive and reliable course that does not cost hundreds or thousands."
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- Testimonial 6 - 2025 student on scientist lecture -->
-                                <div class="testimonial-card">
-                                    <div class="testimonial-avatar">
-                                        <div class="testimonial-avatar-icon"></div>
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
-                                        <p class="testimonial-student-program">IYNA Summer Course '25</p>
-                                        <p class="testimonial-text">
-                                            "I especially appreciate the lecture 'What it means to be a scientist.' It helped a lot with understanding what the job of a neuroscientist entails and what aspiring neuroscientists can focus on or look for in the future."
-                                        </p>
-                                    </div>
+                            <!-- Testimonial 1 - 2025 student on elements enjoyed -->
+                            <div class="testimonial-card">
+                                <div class="testimonial-content">
+                                    <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
+                                    <p class="testimonial-student-program">IYNA Summer Course '25</p>
+                                    <p class="testimonial-text">
+                                        "The lectures and capstone assignments dramatically increased my ability to do research, understand academic papers without needing to look things up constantly, and my ability to engage in discussion—even in topics outside my area of interest."
+                                    </p>
                                 </div>
                             </div>
+
+                            <!-- Testimonial 2 - 2025 student on professionalism -->
+                            <div class="testimonial-card">
+                                <div class="testimonial-content">
+                                    <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
+                                    <p class="testimonial-student-program">IYNA Summer Course '25</p>
+                                    <p class="testimonial-text">
+                                        "The lectures were highly engaging, and the mentors were always exceptionally well prepared. Overall, I found the course to be extremely professional."
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Testimonial 3 - 2025 student on community -->
+                            <div class="testimonial-card">
+                                <div class="testimonial-content">
+                                    <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
+                                    <p class="testimonial-student-program">IYNA Summer Course '25</p>
+                                    <p class="testimonial-text">
+                                        "Being in a cohort of peers was invaluable. By participating in this summer course I got to realize that there is a place for me in the scientific community."
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Testimonial 4 - 2025 student gratitude -->
+                            <div class="testimonial-card">
+                                <div class="testimonial-content">
+                                    <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
+                                    <p class="testimonial-student-program">IYNA Summer Course '25</p>
+                                    <p class="testimonial-text">
+                                        "THANKS FOR ALL THE EFFORT PUT INTO THE SUMMER COURSE!!! I absolutely love how so much was provided—from lecture recordings, to assistance through Discord, and even the homework—all of it for free for the sake of passion. I cannot emphasize enough how difficult it is to find such a comprehensive and reliable course that does not cost hundreds or thousands."
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Testimonial 5 - 2025 student on scientist lecture -->
+                            <div class="testimonial-card">
+                                <div class="testimonial-content">
+                                    <h3 class="testimonial-student-name">Summer 2025 Participant</h3>
+                                    <p class="testimonial-student-program">IYNA Summer Course '25</p>
+                                    <p class="testimonial-text">
+                                        "I especially appreciate the lecture 'What it means to be a scientist.' It helped a lot with understanding what the job of a neuroscientist entails and what aspiring neuroscientists can focus on or look for in the future."
+                                    </p>
+                                </div>
+                            </div>
+
                         </div>
-                        
-                        <div class="testimonials-carousel-controls">
-                            <button class="testimonials-control-btn" id="testimonialsPrevBtn">&#8249;</button>
-                            <button class="testimonials-control-btn" id="testimonialsNextBtn">&#8250;</button>
-                        </div>
-                        
-                        <div class="testimonials-dots-container" id="testimonialsDotsContainer"></div>
                     </div>
-                </section>
-                
-                <script>
-                    class TestimonialsCarousel {
-                        constructor() {
-                            this.carousel = document.getElementById('testimonialsCarousel');
-                            this.prevBtn = document.getElementById('testimonialsPrevBtn');
-                            this.nextBtn = document.getElementById('testimonialsNextBtn');
-                            this.dotsContainer = document.getElementById('testimonialsDotsContainer');
-                            
-                            this.testimonials = this.carousel.children;
-                            this.currentIndex = 0;
-                            this.totalSlides = this.testimonials.length;
-                            
-                            this.init();
-                        }
+                    
+                    <div class="testimonials-carousel-controls">
+                        <button class="testimonials-control-btn" id="testimonialsPrevBtn">&#8249;</button>
+                        <button class="testimonials-control-btn" id="testimonialsNextBtn">&#8250;</button>
+                    </div>
+                    
+                    <div class="testimonials-dots-container" id="testimonialsDotsContainer"></div>
+                </div>
+            </section>
+            
+            <script>
+                class TestimonialsCarousel {
+                    constructor() {
+                        this.carousel = document.getElementById('testimonialsCarousel');
+                        this.prevBtn = document.getElementById('testimonialsPrevBtn');
+                        this.nextBtn = document.getElementById('testimonialsNextBtn');
+                        this.dotsContainer = document.getElementById('testimonialsDotsContainer');
                         
-                        init() {
-                            this.createDots();
-                            this.updateCarousel();
-                            this.bindEvents();
-                            this.startAutoPlay();
-                        }
+                        this.testimonials = this.carousel.children;
+                        this.currentIndex = 0;
+                        this.totalSlides = this.testimonials.length;
                         
-                        createDots() {
-                            for (let i = 0; i < this.totalSlides; i++) {
-                                const dot = document.createElement('div');
-                                dot.className = 'testimonials-dot';
-                                if (i === 0) dot.classList.add('active');
-                                dot.addEventListener('click', () => this.goToSlide(i));
-                                this.dotsContainer.appendChild(dot);
-                            }
+                        this.init();
+                    }
+                    
+                    init() {
+                        this.createDots();
+                        this.updateCarousel();
+                        this.bindEvents();
+                        this.startAutoPlay();
+                    }
+                    
+                    createDots() {
+                        for (let i = 0; i < this.totalSlides; i++) {
+                            const dot = document.createElement('div');
+                            dot.className = 'testimonials-dot';
+                            if (i === 0) dot.classList.add('active');
+                            dot.addEventListener('click', () => this.goToSlide(i));
+                            this.dotsContainer.appendChild(dot);
                         }
-                        
-                        updateCarousel() {
-                            const translateX = -this.currentIndex * 100;
-                            this.carousel.style.transform = `translateX(${translateX}%)`;
-                            
-                            // Update dots
-                            const dots = this.dotsContainer.children;
-                            for (let i = 0; i < dots.length; i++) {
-                                dots[i].classList.toggle('active', i === this.currentIndex);
-                            }
+                    }
+                    
+                    updateCarousel() {
+                        const translateX = -this.currentIndex * 100;
+                        this.carousel.style.transform = `translateX(${translateX}%)`;
+                        const dots = this.dotsContainer.children;
+                        for (let i = 0; i < dots.length; i++) {
+                            dots[i].classList.toggle('active', i === this.currentIndex);
                         }
-                        
-                        goToSlide(index) {
-                            this.currentIndex = index;
-                            this.updateCarousel();
+                    }
+                    
+                    goToSlide(index) {
+                        this.currentIndex = index;
+                        this.updateCarousel();
+                        this.resetAutoPlay();
+                    }
+                    
+                    nextSlide() {
+                        this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+                        this.updateCarousel();
+                    }
+                    
+                    prevSlide() {
+                        this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+                        this.updateCarousel();
+                    }
+                    
+                    bindEvents() {
+                        this.nextBtn.addEventListener('click', () => {
+                            this.nextSlide();
                             this.resetAutoPlay();
-                        }
+                        });
+                        this.prevBtn.addEventListener('click', () => {
+                            this.prevSlide();
+                            this.resetAutoPlay();
+                        });
                         
-                        nextSlide() {
-                            this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
-                            this.updateCarousel();
-                        }
+                        let startX = 0;
+                        let isDragging = false;
                         
-                        prevSlide() {
-                            this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
-                            this.updateCarousel();
-                        }
-                        
-                        bindEvents() {
-                            this.nextBtn.addEventListener('click', () => {
-                                this.nextSlide();
+                        this.carousel.addEventListener('touchstart', (e) => {
+                            startX = e.touches[0].clientX;
+                            isDragging = true;
+                        });
+                        this.carousel.addEventListener('touchmove', (e) => {
+                            if (!isDragging) return;
+                            e.preventDefault();
+                        });
+                        this.carousel.addEventListener('touchend', (e) => {
+                            if (!isDragging) return;
+                            isDragging = false;
+                            const endX = e.changedTouches[0].clientX;
+                            const diff = startX - endX;
+                            if (Math.abs(diff) > 50) {
+                                if (diff > 0) { this.nextSlide(); } else { this.prevSlide(); }
                                 this.resetAutoPlay();
-                            });
-                            
-                            this.prevBtn.addEventListener('click', () => {
-                                this.prevSlide();
-                                this.resetAutoPlay();
-                            });
-                            
-                            // Touch/swipe support
-                            let startX = 0;
-                            let isDragging = false;
-                            
-                            this.carousel.addEventListener('touchstart', (e) => {
-                                startX = e.touches[0].clientX;
-                                isDragging = true;
-                            });
-                            
-                            this.carousel.addEventListener('touchmove', (e) => {
-                                if (!isDragging) return;
-                                e.preventDefault();
-                            });
-                            
-                            this.carousel.addEventListener('touchend', (e) => {
-                                if (!isDragging) return;
-                                isDragging = false;
-                                
-                                const endX = e.changedTouches[0].clientX;
-                                const diff = startX - endX;
-                                
-                                if (Math.abs(diff) > 50) {
-                                    if (diff > 0) {
-                                        this.nextSlide();
-                                    } else {
-                                        this.prevSlide();
-                                    }
-                                    this.resetAutoPlay();
-                                }
-                            });
-                            
-                            // Keyboard navigation
-                            document.addEventListener('keydown', (e) => {
-                                if (e.key === 'ArrowLeft') {
-                                    this.prevSlide();
-                                    this.resetAutoPlay();
-                                } else if (e.key === 'ArrowRight') {
-                                    this.nextSlide();
-                                    this.resetAutoPlay();
-                                }
-                            });
-                        }
+                            }
+                        });
                         
-                        startAutoPlay() {
-                            this.autoPlayInterval = setInterval(() => {
-                                this.nextSlide();
-                            }, 5000);
-                        }
-                        
-                        resetAutoPlay() {
-                            clearInterval(this.autoPlayInterval);
-                            this.startAutoPlay();
-                        }
-                        
-                        stopAutoPlay() {
-                            clearInterval(this.autoPlayInterval);
-                        }
+                        document.addEventListener('keydown', (e) => {
+                            if (e.key === 'ArrowLeft') { this.prevSlide(); this.resetAutoPlay(); }
+                            else if (e.key === 'ArrowRight') { this.nextSlide(); this.resetAutoPlay(); }
+                        });
                     }
                     
-                    // Initialize carousel when page loads
-                    document.addEventListener('DOMContentLoaded', () => {
-                        new TestimonialsCarousel();
-                    });
-                </script>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ Section</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .faq-container {
-            font-family: 'Work Sans', sans-serif;
-            background-color: #f7fafd;
-            padding: 60px 20px;
-            color: #1B4965;
-        }
-
-        .faq-wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1B4965;
-            margin-bottom: 40px;
-            font-family: 'Work Sans', sans-serif;
-        }
-
-        .faq-item {
-            background-color: #fff;
-            border-radius: 14px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 16px rgba(27, 73, 101, 0.07);
-            overflow: hidden;
-            border-left: 6px solid #62B6CB;
-            transition: box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-
-        .faq-item:hover {
-            box-shadow: 0 8px 24px rgba(27, 73, 101, 0.13);
-            border-left: 6px solid #1B4965;
-        }
-
-        .faq-question {
-            padding: 24px 32px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: transparent;
-            border: none;
-            width: 100%;
-            text-align: left;
-            font-family: inherit;
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: #1B4965;
-            transition: background-color 0.3s ease;
-        }
-
-        .faq-question:hover {
-            background-color: #f2f8fa;
-        }
-
-        .faq-arrow {
-            font-size: 1.2rem;
-            color: #62B6CB;
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .faq-item.active .faq-arrow {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background-color: #fff;
-        }
-
-        .faq-answer.active {
-            max-height: 500px;
-        }
-
-        .faq-answer-content {
-            padding: 0 32px 24px 32px;
-            color: #1B4965;
-            line-height: 1.6;
-            font-size: 1.05rem;
-            font-family: 'Work Sans', sans-serif;
-        }
-
-        .answer-list {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
-        .answer-list li {
-            margin-bottom: 5px;
-            color: #1B4965;
-            font-size: 1.05rem;
-            font-family: 'Work Sans', sans-serif;
-        }
-
-        .highlight {
-            font-weight: 600;
-            color: #62B6CB;
-        }
-
-        @media (max-width: 768px) {
-            .faq-container {
-                padding: 40px 10px;
-            }
-            .faq-title {
-                font-size: 1.6rem;
-                margin-bottom: 30px;
-            }
-            .faq-question {
-                padding: 18px 16px;
-                font-size: 1rem;
-            }
-            .faq-answer-content {
-                padding: 0 16px 18px 16px;
-                font-size: 0.98rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="faq-container">
-        <div class="faq-wrapper">
-            <h2 class="faq-title">
-                Frequently Asked Questions
-            </h2>
-
-            <!-- Q1 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    What is the application process?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        The application for this program launches at the beginning of March and the due date is <span class="highlight">May 15th, 2026, at 11:59PM EST</span>. Notices of acceptance or rejection will be sent out in early June. Students must confirm participation in the program and submit initial registration materials by <span class="highlight">June 15th</span>.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q2 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    When is the program?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        <span class="highlight">June 22nd, 2026 to July 31st</span>, with an optional Symposium on <span class="highlight">August 8th</span>.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q3 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    When will I be notified of the results?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Notices of acceptance or rejection will be sent out in <span class="highlight">early June</span>. See "What is the application process?" above for full timeline details.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q4 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    Is there a limit on how many people will be accepted?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        There is no limit on the number of people we accept on the <span class="highlight">Participant Track</span>—we will accept any number of curious applicants that indicate a passion for neuroscience. However, due to faculty limitations, we will only be able to accept a limited number of applicants onto the <span class="highlight">Capstone Track</span> for both Neuroscience I and Neuroscience II.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q5 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    What if English isn't my native language?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Please note that we currently are unable to translate lectures, and recitations will be conducted in English. On the Capstone Track, students are required to participate in recitations and lectures, which will be most helpful if your English is proficient. As a collaborative program, we recommend having proficient English (speaking and writing) to maximize the value of peer-to-peer interactions. All homework and assignments must be submitted in English. <span class="highlight">Any use of AI-based translation software is banned and will result in removal from the course.</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q6 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    Where can I find out more?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Visit our website! If you have any additional questions, please refer to "If I have any additional questions, where should I direct them?" below.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q7 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    If I participated last year, can I participate again?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Absolutely! If you participated in Neuroscience I the previous summer, we highly recommend moving forward to <span class="highlight">Neuroscience II</span>, which will rely heavily on skills gained during Neuroscience I. However, if you have already completed Neuroscience II, we do not recommend repeating the coursework again.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q8 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    I am participating in other summer activities. Should I apply?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        On the <span class="highlight">Capstone Track</span>, the full schedule of classes and recitations is expected to span <span class="highlight">20–25 hours per week</span>. If you can balance your other activities with this schedule, we recommend the Capstone Track. If you'd prefer a more relaxed schedule with no attendance, recitation, or final project requirements, we recommend the <span class="highlight">Participant Track</span>.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q9 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    What are the prerequisites for this program?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        A basic understanding of <span class="highlight">high school biology</span> is essential for Neuroscience I. We highly recommend completing Neuroscience I before moving onto Neuroscience II.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q10 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    Could I enroll in both Neuroscience I and Neuroscience II?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Yes, in a limited capacity. Dual enrollment means you may be on <span class="highlight">Participant Track in one course and Capstone Track in the other</span>—for example, Neuroscience I Capstone Track and Neuroscience II Participant Track. <span class="highlight">You cannot be in both Capstone Tracks at the same time.</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q11 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    Could I use ChatGPT or other AI tools on my application?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        We respectfully ask that applicants refrain from receiving assistance from large language models or AI tools. <span class="highlight">We will thoroughly check all received applications for use of artificial intelligence.</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q12 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    If I have any additional questions, where should I direct them?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Before contacting our team, please make sure you have thoroughly read through this FAQ. If you have more detailed questions about what the course entails, this will be included in the <span class="highlight">Student Handbook</span>, which you will receive if you are accepted. For other questions, please direct them to our team at <span class="highlight">iyna_students@youthneuro.org</span> or the <span class="highlight">#youth-neuroscience-questions</span> channel in our Discord Server. During high volume periods, responses may take up to 48–72 hours.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Q13 -->
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    How do I prove that I have fully read this FAQ?
-                    <span class="faq-arrow">▼</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Paste the word <span class="highlight">"ASTROGLIA"</span> at the beginning of your "why do you want to participate in our summer course?" essay in your application. Applications that do not contain this word will not be considered for the Capstone Track.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function toggleFAQ(element) {
-            const faqItem = element.parentElement;
-            const answer = faqItem.querySelector('.faq-answer');
-            const isActive = faqItem.classList.contains('active');
-
-            // Close all other FAQs
-            document.querySelectorAll('.faq-item').forEach(item => {
-                if (item !== faqItem) {
-                    item.classList.remove('active');
-                    item.querySelector('.faq-answer').classList.remove('active');
+                    startAutoPlay() {
+                        this.autoPlayInterval = setInterval(() => { this.nextSlide(); }, 5000);
+                    }
+                    
+                    resetAutoPlay() {
+                        clearInterval(this.autoPlayInterval);
+                        this.startAutoPlay();
+                    }
+                    
+                    stopAutoPlay() {
+                        clearInterval(this.autoPlayInterval);
+                    }
                 }
-            });
-
-            // Toggle current FAQ
-            if (isActive) {
-                faqItem.classList.remove('active');
-                answer.classList.remove('active');
-            } else {
-                faqItem.classList.add('active');
-                answer.classList.add('active');
-            }
-        }
-
-        // Add keyboard support
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleFAQ(this);
-                }
-            });
-        });
-    </script>
-</body>
-</html>
                 
+                document.addEventListener('DOMContentLoaded', () => { new TestimonialsCarousel(); });
+            </script>
+
+            <!-- FAQ SECTION -->
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+                .faq-container {
+                    font-family: 'Work Sans', sans-serif;
+                    background-color: #f7fafd;
+                    padding: 60px 20px;
+                    color: #1B4965;
+                }
+                .faq-wrapper {
+                    max-width: 800px;
+                    margin: 0 auto;
+                }
+                .faq-title {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    color: #1B4965;
+                    margin-bottom: 40px;
+                    font-family: 'Work Sans', sans-serif;
+                }
+                .faq-item {
+                    background-color: #fff;
+                    border-radius: 14px;
+                    margin-bottom: 24px;
+                    box-shadow: 0 4px 16px rgba(27, 73, 101, 0.07);
+                    overflow: hidden;
+                    border-left: 6px solid #62B6CB;
+                    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+                }
+                .faq-item:hover {
+                    box-shadow: 0 8px 24px rgba(27, 73, 101, 0.13);
+                    border-left: 6px solid #1B4965;
+                }
+                .faq-question {
+                    padding: 24px 32px;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: transparent;
+                    border: none;
+                    width: 100%;
+                    text-align: left;
+                    font-family: inherit;
+                    font-size: 1.15rem;
+                    font-weight: 600;
+                    color: #1B4965;
+                    transition: background-color 0.3s ease;
+                }
+                .faq-question:hover { background-color: #f2f8fa; }
+                .faq-arrow {
+                    font-size: 1.2rem;
+                    color: #62B6CB;
+                    transition: transform 0.3s ease;
+                    flex-shrink: 0;
+                }
+                .faq-item.active .faq-arrow { transform: rotate(180deg); }
+                .faq-answer {
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.3s ease;
+                    background-color: #fff;
+                }
+                .faq-answer.active { max-height: 500px; }
+                .faq-answer-content {
+                    padding: 0 32px 24px 32px;
+                    color: #1B4965;
+                    line-height: 1.6;
+                    font-size: 1.05rem;
+                    font-family: 'Work Sans', sans-serif;
+                }
+                .answer-list { margin: 10px 0; padding-left: 20px; }
+                .answer-list li {
+                    margin-bottom: 5px;
+                    color: #1B4965;
+                    font-size: 1.05rem;
+                    font-family: 'Work Sans', sans-serif;
+                }
+                .highlight { font-weight: 600; color: #62B6CB; }
+                @media (max-width: 768px) {
+                    .faq-container { padding: 40px 10px; }
+                    .faq-title { font-size: 1.6rem; margin-bottom: 30px; }
+                    .faq-question { padding: 18px 16px; font-size: 1rem; }
+                    .faq-answer-content { padding: 0 16px 18px 16px; font-size: 0.98rem; }
+                }
+            </style>
+
+            <div class="faq-container">
+                <div class="faq-wrapper">
+                    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+                    <!-- Q1 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            What is the application process?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                The application for this program launches at the beginning of March and the due date is <span class="highlight">May 15th, 2026, at 11:59PM EST</span>. Notices of acceptance or rejection will be sent out in early June. Students must confirm participation in the program and submit initial registration materials by <span class="highlight">June 15th</span>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            When is the program?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <span class="highlight">June 22nd, 2026 to July 31st</span>, with an optional Symposium on <span class="highlight">August 8th</span>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            When will I be notified of the results?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Notices of acceptance or rejection will be sent out in <span class="highlight">early June</span>. See "What is the application process?" above for full timeline details.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Is there a limit on how many people will be accepted?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                There is no limit on the number of people we accept on the <span class="highlight">Participant Track</span>—we will accept any number of curious applicants that indicate a passion for neuroscience. However, due to faculty limitations, we will only be able to accept a limited number of applicants onto the <span class="highlight">Capstone Track</span> for both Neuroscience I and Neuroscience II.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            What if English isn't my native language?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Please note that we currently are unable to translate lectures, and recitations will be conducted in English. On the Capstone Track, students are required to participate in recitations and lectures, which will be most helpful if your English is proficient. As a collaborative program, we recommend having proficient English (speaking and writing) to maximize the value of peer-to-peer interactions. All homework and assignments must be submitted in English. <span class="highlight">Any use of AI-based translation software is banned and will result in removal from the course.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Where can I find out more?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Visit our website! If you have any additional questions, please refer to "If I have any additional questions, where should I direct them?" below.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            If I participated last year, can I participate again?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Absolutely! If you participated in Neuroscience I the previous summer, we highly recommend moving forward to <span class="highlight">Neuroscience II</span>, which will rely heavily on skills gained during Neuroscience I. However, if you have already completed Neuroscience II, we do not recommend repeating the coursework again.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q8 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            I am participating in other summer activities. Should I apply?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                On the <span class="highlight">Capstone Track</span>, the full schedule of classes and recitations is expected to span <span class="highlight">20–25 hours per week</span>. If you can balance your other activities with this schedule, we recommend the Capstone Track. If you'd prefer a more relaxed schedule with no attendance, recitation, or final project requirements, we recommend the <span class="highlight">Participant Track</span>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q9 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            What are the prerequisites for this program?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                A basic understanding of <span class="highlight">high school biology</span> is essential for Neuroscience I. We highly recommend completing Neuroscience I before moving onto Neuroscience II.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q10 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Could I enroll in both Neuroscience I and Neuroscience II?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Yes, in a limited capacity. Dual enrollment means you may be on <span class="highlight">Participant Track in one course and Capstone Track in the other</span>—for example, Neuroscience I Capstone Track and Neuroscience II Participant Track. <span class="highlight">You cannot be in both Capstone Tracks at the same time.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q11 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Could I use ChatGPT or other AI tools on my application?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                We respectfully ask that applicants refrain from receiving assistance from large language models or AI tools. <span class="highlight">We will thoroughly check all received applications for use of artificial intelligence.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q12 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            If I have any additional questions, where should I direct them?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Before contacting our team, please make sure you have thoroughly read through this FAQ. If you have more detailed questions about what the course entails, this will be included in the <span class="highlight">Student Handbook</span>, which you will receive if you are accepted. For other questions, please direct them to our team at <span class="highlight">iyna_students@youthneuro.org</span> or the <span class="highlight">#youth-neuroscience-questions</span> channel in our Discord Server. During high volume periods, responses may take up to 48–72 hours.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q13 -->
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            How do I prove that I have fully read this FAQ?
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Paste the word <span class="highlight">"ASTROGLIA"</span> at the beginning of your "why do you want to participate in our summer course?" essay in your application. Applications that do not contain this word will not be considered for the Capstone Track.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function toggleFAQ(element) {
+                    const faqItem = element.parentElement;
+                    const answer = faqItem.querySelector('.faq-answer');
+                    const isActive = faqItem.classList.contains('active');
+
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        if (item !== faqItem) {
+                            item.classList.remove('active');
+                            item.querySelector('.faq-answer').classList.remove('active');
+                        }
+                    });
+
+                    if (isActive) {
+                        faqItem.classList.remove('active');
+                        answer.classList.remove('active');
+                    } else {
+                        faqItem.classList.add('active');
+                        answer.classList.add('active');
+                    }
+                }
+
+                document.querySelectorAll('.faq-question').forEach(button => {
+                    button.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleFAQ(this);
+                        }
+                    });
+                });
+            </script>
+
+        </main>
+        
         <!-- Footer placeholder - will be loaded by JavaScript -->
         <div id="footer-placeholder"></div>
         <script src="js/load-footer.js"></script>
