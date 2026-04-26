@@ -202,6 +202,19 @@
             }
           }
 
+          /* Chapter validation styles */
+          .chapter-validation {
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+          }
+
+          .chapter-validation span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+
           .tooltip-popup::before {
             content: '';
             position: absolute;
@@ -523,7 +536,10 @@
                         
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-icons.css" rel="stylesheet">
-        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+
+        <!-- EmailJS -->
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     </head>
     
     <body id="top">
@@ -532,105 +548,169 @@
 
             <!-- NAVIGATION -->
             <nav class="navbar navbar-expand-lg" style="background-color: #6db9c3;">
-                <div class="container">
-              
-                  <!-- Logo and Brand (single line) -->
-                  <a class="navbar-brand d-flex align-items-center" href="home.html">
+                <a class="navbar-brand d-flex align-items-center" href="home.html" style="padding-left: 1rem;">
                     <img src="images/iyna-logo.png" alt="IYNA Logo" style="height: 36px; margin-right: 10px;">
                     <span class="fw-bold text-dark" style="font-size: 1.1rem; letter-spacing: 0.01em; line-height: 1.05;">International Youth<br>Neuroscience Association</span>
-                  </a>
+                </a>
               
-                  <!-- Toggler for mobile -->
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-              
-                  <!-- Nav Links -->
-                  <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
-                    <ul class="navbar-nav align-items-center">
-                      <li class="nav-item mx-1">
-                        <a class="nav-link text-dark fw-semibold" href="events_landing.html">Events&nbsp;&rsaquo;</a>
-                      </li>
-                      <li class="nav-item mx-1">
-                        <a class="nav-link text-dark fw-semibold" href="home.html#journal">Journal&nbsp;&rsaquo;</a>
-                      </li>
-                      <li class="nav-item mx-1">
-                        <a class="nav-link text-dark fw-semibold" href="home.html#chapters">Chapters&nbsp;&rsaquo;</a>
-                      </li>
-                      <li class="nav-item mx-1">
-                        <a class="nav-link text-dark fw-semibold" href="home.html#about-iyna">About Us&nbsp;&rsaquo;</a>
-                      </li>
-                      <li class="nav-item mx-1">
-                        <a class="nav-link text-dark fw-semibold" href="home.html#donate">Support Us&nbsp;&rsaquo;</a>
-                      </li>
-              
-                      <!-- Login & Sign Up -->
-                      <li class="nav-item mx-1">
-                        <a class="nav-link text-dark fw-semibold" href="login.html">Login&nbsp;&rsaquo;</a>
-                      </li>
-                      <li class="nav-item ms-2">
-                        <a class="btn" href="signup.html" style="background-color: #b8e9e5; color: #153e56; font-weight: 600; border-radius: 8px; padding: 0.4rem 1.1rem; font-size: 1rem;">Sign up&nbsp;&rsaquo;</a>
-                      </li>
-                    </ul>
-                  </div>
+                <div class="toggler-wrapper">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                 </div>
-              </nav>
+              
+                <div class="collapse navbar-collapse w-100" id="mainNavbar">
+                    <ul class="navbar-nav mx-auto align-items-center">
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-dark fw-semibold" href="events_landing.html">Events&nbsp;&rsaquo;</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-dark fw-semibold" href="home.html#journal">Journal&nbsp;&rsaquo;</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-dark fw-semibold" href="home.html#chapters">Chapters&nbsp;&rsaquo;</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-dark fw-semibold" href="home.html#about-iyna">About Us&nbsp;&rsaquo;</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-dark fw-semibold" href="supportus.html">Support Us</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto align-items-center pe-3 login-signup-nav">
+                        <li class="nav-item mx-1" id="login-nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="login.html">Login</a>
+                        </li>
+                        <li class="nav-item ms-2" id="signup-nav-item">
+                            <a class="btn" href="signup.html" style="background-color: #b8e9e5; color: #153e56; font-weight: 600; border-radius: 8px; padding: 0.4rem 1.1rem; font-size: 1rem;">Sign up</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <script>
+            if (typeof window !== 'undefined') {
+                document.querySelectorAll('.navbar .dropdown-toggle').forEach(function(link) {
+                    link.addEventListener('click', function(e) {
+                        var parent = this.parentElement;
+                        if (parent.classList.contains('show')) {
+                            window.location = this.getAttribute('href');
+                        }
+                    });
+                });
+            }
+            </script>
+            <style>
+            .toggler-wrapper {
+                margin-left: 40px;
+            }
+            @media (max-width: 991.98px) {
+                .navbar-toggler {
+                    margin-right: 0 !important;
+                    margin-left: 0 !important;
+                }
+                .toggler-wrapper {
+                    margin-left: 40px !important;
+                }
+                nav.navbar {
+                    padding-left: 15px !important;
+                    padding-right: 16px !important;
+                }
+                .navbar-brand {
+                    padding-left: 0 !important;
+                    margin-left: 0 !important;
+                }
+                .navbar-collapse {
+                    background: #f8f9fa;
+                    width: 100vw;
+                    left: 0;
+                    top: 56px;
+                    position: absolute;
+                    z-index: 1050;
+                    padding: 1.5rem 1rem 2rem 1rem;
+                    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+                    max-height: 80vh;
+                    overflow-y: auto;
+                }
+                .navbar-nav {
+                    flex-direction: column !important;
+                    align-items: flex-start !important;
+                    width: 100%;
+                    gap: 0.5rem;
+                }
+                .navbar-nav .nav-item {
+                    width: 100%;
+                    margin: 0.2rem 0 !important;
+                }
+                .navbar-nav .nav-link, .navbar-nav .btn {
+                    width: 100%;
+                    text-align: left;
+                    padding: 0.9rem 1rem;
+                    font-size: 1.1rem;
+                    border-radius: 8px;
+                    margin-bottom: 0.2rem;
+                }
+                .login-signup-nav {
+                    margin-bottom: 1.2rem;
+                    width: 100%;
+                }
+            }
+            </style>
 
             <!-- SIGNUP FORM SECTION -->
             <section class="signup-container">
-                            <div class="signup-form">
-                                <h1>Sign Up</h1>
-                                <form id="signupForm">
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="firstName">First Name*</label>
-                                            <input type="text" class="form-control" id="firstName" name="firstName" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="lastName">Last Name*</label>
-                                            <input type="text" class="form-control" id="lastName" name="lastName" required>
-                                        </div>
-                                    </div>
+                <div class="signup-form">
+                    <h1>Sign Up</h1>
+                    <form id="signupForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name*</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name*</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
 
-                                    <div class="form-group">
-                                        <label for="email">Email*</label>
-                                        <input type="email" class="form-control" id="email" name="email" required>
-                                    </div>
+                        <div class="form-group">
+                            <label for="email">Email*</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
 
-                                    <div class="form-group chapter-field">
-                                        <label for="chapterId">
-                                            Chapter ID
-                                            <span class="help-icon" id="chapterHelp">?</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="chapterId" name="chapterId" placeholder="Optional">
-                                        
-                                        <!-- Tooltip Popup -->
-                                        <div class="tooltip-popup" id="chapterTooltip">
-                                            <p>Already in a chapter? Input your chapter code to join.</p>
-                                            <p>Not in a chapter? No worries, you can disregard this box and join one later!</p>
-                                        </div>
-                                    </div>
+                        <div class="form-group chapter-field">
+                            <label for="chapterId">
+                                Chapter ID
+                                <span class="help-icon" id="chapterHelp">?</span>
+                            </label>
+                            <input type="text" class="form-control" id="chapterId" name="chapterId" placeholder="Optional" onblur="validateChapterCode()">
+                            <div class="chapter-validation" id="chapterValidation" style="display: none; margin-top: 0.5rem; font-size: 0.9rem;"></div>
+                            
+                            <div class="tooltip-popup" id="chapterTooltip">
+                                <p>Already in a chapter? Input your chapter code to join.</p>
+                                <p>Not in a chapter? No worries, you can disregard this box and join one later!</p>
+                            </div>
+                        </div>
 
-                                    <div class="form-group">
-                                        <label for="password">Password*</label>
-                                        <input type="password" class="form-control" id="password" name="password" required minlength="8">
-                                        <div class="error-message" id="passwordError"></div>
-                                    </div>
+                        <div class="form-group">
+                            <label for="password">Password*</label>
+                            <input type="password" class="form-control" id="password" name="password" required minlength="8">
+                            <div class="error-message" id="passwordError"></div>
+                        </div>
 
-                                    <div class="form-group">
-                                        <label for="confirmPassword">Confirm Password*</label>
-                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-                                        <div class="error-message" id="confirmPasswordError"></div>
-                                    </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password*</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            <div class="error-message" id="confirmPasswordError"></div>
+                        </div>
 
-                                    <button type="submit" class="btn btn-signup" id="signupBtn">Sign Up</button>
-                                    <div class="success-message" id="successMessage"></div>
-                                    <div class="error-message" id="generalError"></div>
-                                </form>
-                                
-                                <div class="auth-links">
-                                    <p>Already have an account? <a href="login.html">Sign In</a></p>
-                                    <p>Want to start a chapter at your school? <a href="#start-chapter">Start a chapter now</a></p>
+                        <button type="submit" class="btn btn-signup" id="signupBtn">Sign Up</button>
+                        <div class="success-message" id="successMessage"></div>
+                        <div class="error-message" id="generalError"></div>
+                    </form>
+                    
+                    <div class="auth-links">
+                        <p>Already have an account? <a href="login.html">Sign In</a></p>
+                        <p>Want to start a chapter at your school? <a href="chapters.html">Start a chapter now</a></p>
                     </div>
                 </div>
             </section>
@@ -655,13 +735,7 @@
                     <form class="discord-form" id="discordForm">
                         <div class="discord-input-group">
                             <label class="discord-input-label" for="discordUsername">Discord Username (Optional)</label>
-                            <input 
-                                type="text" 
-                                id="discordUsername" 
-                                name="discordUsername" 
-                                class="discord-input" 
-                                placeholder="e.g., YourName#1234 or @yourname"
-                            >
+                            <input type="text" id="discordUsername" name="discordUsername" class="discord-input" placeholder="e.g., YourName#1234 or @yourname">
                         </div>
 
                         <div class="discord-invite-section">
@@ -676,68 +750,49 @@
                     </form>
 
                     <div class="discord-buttons">
-                        <button type="button" class="discord-btn discord-btn-primary" onclick="submitDiscordInfo()">
-                            Continue
-                        </button>
-                        <button type="button" class="discord-btn discord-btn-secondary" onclick="skipDiscordModal()">
-                            Skip for Now
-                        </button>
+                        <button type="button" class="discord-btn discord-btn-primary" onclick="submitDiscordInfo()">Continue</button>
+                        <button type="button" class="discord-btn discord-btn-secondary" onclick="skipDiscordModal()">Skip for Now</button>
                     </div>
 
-                    <p class="discord-note">
-                        Don't worry, you can always join later from your profile settings.
-                    </p>
+                    <p class="discord-note">Don't worry, you can always join later from your profile settings.</p>
                 </div>
             </div>
 
             <!-- FOOTER -->
             <footer class="py-5 text-dark" style="background-color: #62B6CB;">
                 <div class="container">
-                  <div class="row align-items-start">
-            
-                    <!-- Left: Logo + Description -->
-                    <div class="col-md-6 mb-4 mb-md-0">
-                      <div class="d-flex align-items-center mb-3">
-                        <img src="images/iyna-logo.png" alt="IYNA Logo" style="height: 40px; margin-right: 10px;">
-                        <h5 class="mb-0 fw-bold">International Youth<br>Neuroscience Association</h5>
-                      </div>
-                      <p style="color: #1B4965; font-size: 0.9rem;">
-                        Dedicated to connecting, educating, and inspiring the next<br>generation of neuroscientists by making the field of<br>neuroscience accessible to all.
-                      </p>
-                      <p class="mt-5" style="color: #1B4965; font-size: 0.9rem; white-space: nowrap;">&copy; 2025 International Youth Neuroscience Association, a 501(c)(3) nonprofit organization. All Rights Reserved.</p>
+                    <div class="row align-items-start">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="images/iyna-logo.png" alt="IYNA Logo" style="height: 40px; margin-right: 10px;">
+                                <h5 class="mb-0 fw-bold">International Youth<br>Neuroscience Association</h5>
+                            </div>
+                            <p style="color: #1B4965; font-size: 0.9rem;">
+                                Dedicated to connecting, educating, and inspiring the next<br>generation of neuroscientists by making the field of<br>neuroscience accessible to all.
+                            </p>
+                            <p class="mt-5" style="color: #1B4965; font-size: 0.9rem; white-space: nowrap;">&copy; 2025 International Youth Neuroscience Association, a 501(c)(3) nonprofit organization. All Rights Reserved.</p>
+                        </div>
+                        <div class="col-md-6 text-md-end text-center">
+                            <a href="https://www.paypal.com/paypalme/iynaofficial" class="btn mb-4" style="background-color: #b8e9e5; color: black; font-weight: 600; border-radius: 8px;">Donate Now&nbsp;&rsaquo;</a>
+                            <h6 class="fw-bold">OUR PARTNERS</h6>
+                            <div class="d-flex justify-content-md-end justify-content-center flex-wrap align-items-center gap-3 my-3">
+                                <img src="images/partners/alzheimers.png" alt="Alzheimer's Association" style="height: 40px;">
+                                <img src="images/partners/neuroethics.png" alt="Neuroethics Society" style="height: 40px;">
+                                <img src="images/partners/brainbee.png" alt="Brain Bee" style="height: 40px;">
+                            </div>
+                            <div class="d-flex justify-content-md-end justify-content-center gap-3 mt-4">
+                                <a href="https://www.tiktok.com/" target="_blank"><img src="images/icons/tiktok.png" alt="TikTok" style="height: 28px;"></a>
+                                <a href="https://www.instagram.com/" target="_blank"><img src="images/icons/instagram.png" alt="Instagram" style="height: 28px;"></a>
+                                <a href="https://www.linkedin.com/" target="_blank"><img src="images/icons/linkedin.png" alt="LinkedIn" style="height: 28px;"></a>
+                            </div>
+                        </div>
                     </div>
-            
-                    <!-- Right: Partners + Donation + Social -->
-                    <div class="col-md-6 text-md-end text-center">
-                      <a href="https://www.paypal.com/paypalme/iynaofficial" class="btn mb-4" style="background-color: #b8e9e5; color: black; font-weight: 600; border-radius: 8px;">Donate Now&nbsp;&rsaquo;</a>
-            
-                      <h6 class="fw-bold">OUR PARTNERS</h6>
-                      <div class="d-flex justify-content-md-end justify-content-center flex-wrap align-items-center gap-3 my-3">
-                        <img src="images/partners/alzheimers.png" alt="Alzheimer's Association" style="height: 40px;">
-                        <img src="images/partners/neuroethics.png" alt="Neuroethics Society" style="height: 40px;">
-                        <img src="images/partners/brainbee.png" alt="Brain Bee" style="height: 40px;">
-                      </div>
-            
-                      <div class="d-flex justify-content-md-end justify-content-center gap-3 mt-4">
-                        <a href="https://www.tiktok.com/" target="_blank">
-                          <img src="images/icons/tiktok.png" alt="TikTok" style="height: 28px;">
-                        </a>
-                        <a href="https://www.instagram.com/" target="_blank">
-                          <img src="images/icons/instagram.png" alt="Instagram" style="height: 28px;">
-                        </a>
-                        <a href="https://www.linkedin.com/" target="_blank">
-                          <img src="images/icons/linkedin.png" alt="LinkedIn" style="height: 28px;">
-                        </a>
-                      </div>
-                    </div>
-            
-                  </div>
                 </div>
-              </footer>
+            </footer>
 
         </main>
 
-        <!-- SCRIPTS - Load in correct order -->
+        <!-- SCRIPTS -->
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script src="js/database.js"></script>
         <script src="js/jquery.min.js"></script>
@@ -750,19 +805,147 @@
 
         <!-- SIGNUP SPECIFIC SCRIPTS -->
         <script>
-            let newUserData = null; // Store new user data for Discord modal
+            // -------------------------------------------------------
+            // EmailJS Initialization — fill in your values below
+            // -------------------------------------------------------
+            emailjs.init("YOUR_PUBLIC_KEY"); // ← replace with your EmailJS public key
+
+            let newUserData = null;
+            let validatedChapterData = null;
+
+            async function validateChapterCode() {
+                const chapterInput = document.getElementById('chapterId');
+                const validationDiv = document.getElementById('chapterValidation');
+                const chapterCode = chapterInput.value.trim();
+                
+                if (!chapterCode) {
+                    validationDiv.style.display = 'none';
+                    validatedChapterData = null;
+                    return;
+                }
+                
+                try {
+                    if (!window.db || !window.supabaseClient) {
+                        validationDiv.innerHTML = '<span style="color: #6c757d;">Database not ready, validation will occur during signup</span>';
+                        validationDiv.style.display = 'block';
+                        return;
+                    }
+                    
+                    const { data: chaptersArray, error } = await window.supabaseClient
+                        .from('chapters')
+                        .select('*')
+                        .eq('chapter_code', chapterCode.toUpperCase());
+                    
+                    const chapters = chaptersArray && chaptersArray.length > 0 ? chaptersArray[0] : null;
+                    
+                    if (error) {
+                        validationDiv.innerHTML = `<span style="color: #dc3545;">Database error: ${error.message || 'Unknown error'}</span>`;
+                        validationDiv.style.display = 'block';
+                        validatedChapterData = null;
+                        chapterInput.style.borderColor = '#dc3545';
+                        return;
+                    }
+                    
+                    if (!chapters) {
+                        validationDiv.innerHTML = '<span style="color: #dc3545;">Chapter code not found. Please check the code or leave blank.</span>';
+                        validationDiv.style.display = 'block';
+                        validatedChapterData = null;
+                        chapterInput.style.borderColor = '#dc3545';
+                    } else {
+                        const displayName = chapters.chapter_code || 'Unknown Chapter';
+                        const schoolName = chapters.school_name || chapters.school || 'Unknown School';
+                        validationDiv.innerHTML = `<span style="color: #28a745;">A chapter join request will be sent to ${displayName} at ${schoolName}</span>`;
+                        validationDiv.style.display = 'block';
+                        validatedChapterData = chapters;
+                        chapterInput.style.borderColor = '#28a745';
+                    }
+                } catch (error) {
+                    validationDiv.innerHTML = '<span style="color: #6c757d;">Validation error, will check during signup</span>';
+                    validationDiv.style.display = 'block';
+                    validatedChapterData = null;
+                }
+            }
+
+            async function testChaptersTable() {
+                try {
+                    if (!window.supabaseClient) return false;
+                    const { data, error } = await window.supabaseClient.from('chapters').select('*').limit(1);
+                    if (error) return false;
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            }
+
+            async function verifyJoinRequestCreated(userId, chapterId) {
+                try {
+                    if (!window.supabaseClient) return false;
+                    const { data, error } = await window.supabaseClient
+                        .from('chapter_join_request')
+                        .select('*')
+                        .eq('user_id', userId)
+                        .eq('chapter_id', chapterId)
+                        .eq('status', 'pending');
+                    if (error) return false;
+                    return data && data.length > 0;
+                } catch (error) {
+                    return false;
+                }
+            }
+
+            async function testChapterJoinRequestTable() {
+                try {
+                    if (!window.supabaseClient) return false;
+                    const { data, error } = await window.supabaseClient.from('chapter_join_request').select('*').limit(0);
+                    if (error) return false;
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            }
+
+            async function sendChapterJoinRequest(userId, chapterData) {
+                try {
+                    if (!window.supabaseClient) throw new Error('Supabase client not available');
+                    
+                    const tableExists = await testChapterJoinRequestTable();
+                    if (!tableExists) throw new Error('chapter_join_request table does not exist or is not accessible');
+                    
+                    const { data: joinRequest, error } = await window.supabaseClient
+                        .from('chapter_join_request')
+                        .insert({
+                            user_id: userId,
+                            chapter_id: chapterData.id,
+                            user_name: `${newUserData.first_name} ${newUserData.last_name}`,
+                            user_email: newUserData.email,
+                            user_school: '',
+                            user_grade_level: '',
+                            join_reason: 'User joined during signup with valid chapter code',
+                            status: 'pending'
+                        })
+                        .select()
+                        .single();
+                    
+                    if (error) throw error;
+                    return joinRequest;
+                } catch (error) {
+                    throw error;
+                }
+            }
 
             document.addEventListener('DOMContentLoaded', function() {
-                console.log('Signup page loaded');
+
+                setTimeout(async () => {
+                    await testChaptersTable();
+                    await testChapterJoinRequestTable();
+                }, 2000);
                 
-                // Chapter ID help tooltip functionality
                 const chapterHelp = document.getElementById('chapterHelp');
                 const chapterTooltip = document.getElementById('chapterTooltip');
                 
                 chapterHelp.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    
                     if (chapterTooltip.classList.contains('show')) {
                         chapterTooltip.classList.remove('show');
                         setTimeout(() => chapterTooltip.style.display = 'none', 200);
@@ -772,7 +955,6 @@
                     }
                 });
 
-                // Hide tooltip when clicking outside
                 document.addEventListener('click', function(e) {
                     if (!e.target.closest('.chapter-field')) {
                         chapterTooltip.classList.remove('show');
@@ -780,7 +962,6 @@
                     }
                 });
 
-                // Prevent tooltip from closing when clicking inside it
                 chapterTooltip.addEventListener('click', function(e) {
                     e.stopPropagation();
                 });
@@ -794,24 +975,25 @@
                 const successMessage = document.getElementById('successMessage');
                 const signupBtn = document.getElementById('signupBtn');
 
-                // Clear error messages when user starts typing
                 document.querySelectorAll('.form-control').forEach(input => {
                     input.addEventListener('input', function() {
                         const errorElement = this.parentNode.querySelector('.error-message');
                         if (errorElement) errorElement.style.display = 'none';
                         errorElements.general.style.display = 'none';
                         successMessage.style.display = 'none';
+                        if (this.id === 'chapterId') {
+                            const validationDiv = this.parentNode.querySelector('.chapter-validation');
+                            if (validationDiv) validationDiv.style.display = 'none';
+                            this.style.borderColor = '#b8e9e5';
+                        }
                     });
                 });
 
-                // Real-time password validation
                 const passwordInput = document.getElementById('password');
                 const confirmPasswordInput = document.getElementById('confirmPassword');
 
                 passwordInput.addEventListener('input', function() {
-                    const password = this.value;
-                    
-                    if (password.length > 0 && password.length < 8) {
+                    if (this.value.length > 0 && this.value.length < 8) {
                         this.style.borderColor = '#dc3545';
                         errorElements.password.textContent = 'Password must be at least 8 characters long.';
                         errorElements.password.style.display = 'block';
@@ -822,10 +1004,7 @@
                 });
 
                 confirmPasswordInput.addEventListener('input', function() {
-                    const password = passwordInput.value;
-                    const confirmPassword = this.value;
-                    
-                    if (confirmPassword && password !== confirmPassword) {
+                    if (this.value && passwordInput.value !== this.value) {
                         this.style.borderColor = '#dc3545';
                         errorElements.confirmPassword.textContent = 'Passwords do not match.';
                         errorElements.confirmPassword.style.display = 'block';
@@ -835,32 +1014,27 @@
                     }
                 });
 
-                // Handle form submission
                 signupForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     
-                    // Clear previous messages
                     Object.values(errorElements).forEach(el => el.style.display = 'none');
                     successMessage.style.display = 'none';
                     
-                    // Get form data
                     const formData = {
                         firstName: document.getElementById('firstName').value.trim(),
                         lastName: document.getElementById('lastName').value.trim(),
                         email: document.getElementById('email').value.trim(),
-                        chapterId: document.getElementById('chapterId').value.trim(),
+                        chapterId: document.getElementById('chapterId').value.trim() || null,
                         password: document.getElementById('password').value,
                         confirmPassword: document.getElementById('confirmPassword').value
                     };
                     
-                    // Validate required fields
                     if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.confirmPassword) {
                         errorElements.general.textContent = 'Please fill in all required fields.';
                         errorElements.general.style.display = 'block';
                         return;
                     }
                     
-                    // Validate email format
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!emailRegex.test(formData.email)) {
                         errorElements.general.textContent = 'Please enter a valid email address.';
@@ -868,14 +1042,12 @@
                         return;
                     }
                     
-                    // Validate password strength
                     if (formData.password.length < 8) {
                         errorElements.password.textContent = 'Password must be at least 8 characters long.';
                         errorElements.password.style.display = 'block';
                         return;
                     }
                     
-                    // Validate passwords match
                     if (formData.password !== formData.confirmPassword) {
                         errorElements.confirmPassword.textContent = 'Passwords do not match.';
                         errorElements.confirmPassword.style.display = 'block';
@@ -883,11 +1055,9 @@
                     }
                     
                     try {
-                        // Show loading state
                         signupBtn.textContent = 'Creating Account...';
                         signupBtn.disabled = true;
                         
-                        // Wait for database to be ready
                         let attempts = 0;
                         while (!window.db && attempts < 50) {
                             await new Promise(resolve => setTimeout(resolve, 100));
@@ -898,44 +1068,73 @@
                             throw new Error('Database connection not available. Please refresh the page and try again.');
                         }
                         
-                        console.log('Creating user account...');
-                        
-                        // Create user in database
                         const newUser = await window.db.createUser({
                             email: formData.email,
                             password: formData.password,
                             firstName: formData.firstName,
                             lastName: formData.lastName,
-                            chapterId: formData.chapterId || null,
+                            chapterId: validatedChapterData ? validatedChapterData.id.toString() : null,
                             role: 'member'
                         });
-                        
-                        console.log('User created in database:', newUser.email);
 
-                        // Store user data for Discord modal
                         newUserData = newUser;
 
-                        // Create Supabase auth session
+                        // -------------------------------------------------------
+                        // Send welcome confirmation email via EmailJS
+                        // -------------------------------------------------------
+                        try {
+                            await emailjs.send(
+                                "YOUR_SERVICE_ID",   // ← replace with your EmailJS service ID
+                                "YOUR_TEMPLATE_ID",  // ← replace with your EmailJS template ID
+                                {
+                                    to_name: formData.firstName + " " + formData.lastName,
+                                    to_email: formData.email
+                                }
+                            );
+                            console.log("Welcome email sent successfully");
+                        } catch (emailError) {
+                            console.error("Email send failed (non-blocking):", emailError);
+                            // Email failure does not block the signup flow
+                        }
+
+                        if (validatedChapterData && formData.chapterId && formData.chapterId.trim() !== '') {
+                            try {
+                                await sendChapterJoinRequest(newUser.id, validatedChapterData);
+                                setTimeout(async () => {
+                                    await verifyJoinRequestCreated(newUser.id, validatedChapterData.id);
+                                }, 1000);
+                                const chapterDisplayName = validatedChapterData.chapter_code || 'Unknown Chapter';
+                                successMessage.innerHTML = `
+                                    <div style="text-align: center;">
+                                        <div style="color: #28a745; font-weight: 600; margin-bottom: 0.5rem;">Account created successfully! Welcome to IYNA!</div>
+                                        <div style="color: #28a745; font-size: 0.9rem;">Join request successfully sent to ${chapterDisplayName} chapter! The chapter director will review your request.</div>
+                                        <div style="color: #6c757d; font-size: 0.8rem; margin-top: 0.5rem;">You can now log in to your account.</div>
+                                    </div>`;
+                            } catch (joinError) {
+                                successMessage.innerHTML = `
+                                    <div style="text-align: center;">
+                                        <div style="color: #28a745; font-weight: 600; margin-bottom: 0.5rem;">Account created successfully! Welcome to IYNA!</div>
+                                        <div style="color: #ffc107; font-size: 0.9rem;">Note: Could not send join request to chapter. You can request to join later from your dashboard.</div>
+                                    </div>`;
+                            }
+                        } else {
+                            successMessage.textContent = 'Account created successfully! Welcome to IYNA!';
+                        }
+
                         try {
                             const { data: signUpData, error: authError } = await supabase.auth.signUp({
                                 email: formData.email,
                                 password: formData.password
                             });
-
-                            if (authError) {
+                            if (authError && authError.message !== 'User already registered') {
                                 console.log('Supabase auth error (continuing anyway):', authError);
-                            } else {
-                                console.log('Supabase session created successfully');
                             }
                         } catch (authError) {
                             console.log('Supabase auth failed (continuing anyway):', authError);
                         }
                         
-                        // Show success message
-                        successMessage.textContent = 'Account created successfully! Welcome to IYNA!';
                         successMessage.style.display = 'block';
                         
-                        // Show Discord modal after successful registration
                         setTimeout(() => {
                             showDiscordModal();
                         }, 1000);
@@ -943,9 +1142,7 @@
                     } catch (error) {
                         console.error('Error creating account:', error);
                         
-                        // Handle specific errors
                         let errorMessage = 'An error occurred while creating your account. Please try again.';
-                        
                         if (error.message.includes('duplicate key') || error.message.includes('already exists') || error.code === '23505') {
                             errorMessage = 'An account with this email already exists. Please use a different email or try logging in.';
                         } else if (error.message.includes('invalid email')) {
@@ -960,18 +1157,15 @@
                         errorElements.general.style.display = 'block';
                         
                     } finally {
-                        // Reset button
                         signupBtn.textContent = 'Sign Up';
                         signupBtn.disabled = false;
                     }
                 });
 
-                // Test database connection
                 setTimeout(async () => {
                     try {
                         if (window.testDatabaseConnection) {
-                            const connected = await window.testDatabaseConnection();
-                            console.log('Database connection test:', connected ? 'Success' : 'Failed');
+                            await window.testDatabaseConnection();
                         }
                     } catch (error) {
                         console.error('Connection test failed:', error);
@@ -979,68 +1173,40 @@
                 }, 1000);
             });
 
-            // Discord Modal Functions
             function showDiscordModal() {
                 document.getElementById('discordModal').classList.add('show');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                document.body.style.overflow = 'hidden';
             }
 
             function closeDiscordModal() {
                 document.getElementById('discordModal').classList.remove('show');
-                document.body.style.overflow = ''; // Restore scrolling
+                document.body.style.overflow = '';
             }
 
             async function submitDiscordInfo() {
                 const username = document.getElementById('discordUsername').value.trim();
-                
                 try {
-                    // Save discord username if provided and we have the new user data
                     if (username && newUserData && window.db) {
-                        await window.db.updateUser(newUserData.id, { 
-                            discord_username: username 
-                        });
-                        console.log('Discord username saved:', username);
+                        await window.db.updateUser(newUserData.id, { discord_username: username });
                     }
                 } catch (error) {
                     console.error('Error saving Discord username:', error);
-                    // Don't let this stop the flow
                 }
-                
                 closeDiscordModal();
-                
-                // Show thank you message
                 const successMessage = document.getElementById('successMessage');
-                if (username) {
-                    successMessage.textContent = 'Thanks for joining our Discord community! Redirecting to dashboard...';
-                } else {
-                    successMessage.textContent = 'Account created successfully! Redirecting to dashboard...';
-                }
-                
-                // Wait and redirect to appropriate dashboard
+                successMessage.textContent = username ? 'Thanks for joining our Discord community! Redirecting to dashboard...' : 'Account created successfully! Redirecting to dashboard...';
                 setTimeout(() => {
                     if (newUserData) {
-                        // Store user session
                         sessionStorage.setItem('iyna_user', JSON.stringify(newUserData));
-                        
                         switch (newUserData.role) {
-                            case 'chapter_lead':
-                                window.location.href = 'chapter_lead_dash.html';
-                                break;
+                            case 'chapter_lead': window.location.href = 'chapter_lead_dash.html'; break;
                             case 'deputy_chapter_lead':
                             case 'regional_lead':
-                            case 'admin':
-                                window.location.href = 'chapter_team_dash.html';
-                                break;
-                            case 'chapter_director':
-                                window.location.href = 'chapter_director_dash.html';
-                                break;
-                            case 'member':
-                            default:
-                                window.location.href = 'personal_dash.html';
-                                break;
+                            case 'admin': window.location.href = 'chapter_team_dash.html'; break;
+                            case 'chapter_director': window.location.href = 'chapter_director_dash.html'; break;
+                            default: window.location.href = 'personal_dash.html'; break;
                         }
                     } else {
-                        // Fallback
                         window.location.href = 'personal_dash.html';
                     }
                 }, 1500);
@@ -1048,53 +1214,31 @@
 
             function skipDiscordModal() {
                 closeDiscordModal();
-                
-                // Show redirect message
                 const successMessage = document.getElementById('successMessage');
                 successMessage.textContent = 'Account created successfully! Redirecting to dashboard...';
-                
-                // Wait and redirect to appropriate dashboard
                 setTimeout(() => {
                     if (newUserData) {
-                        // Store user session
                         sessionStorage.setItem('iyna_user', JSON.stringify(newUserData));
-                        
                         switch (newUserData.role) {
-                            case 'chapter_lead':
-                                window.location.href = 'chapter_lead_dash.html';
-                                break;
+                            case 'chapter_lead': window.location.href = 'chapter_lead_dash.html'; break;
                             case 'deputy_chapter_lead':
                             case 'regional_lead':
-                            case 'admin':
-                                window.location.href = 'chapter_team_dash.html';
-                                break;
-                            case 'chapter_director':
-                                window.location.href = 'chapter_director_dash.html';
-                                break;
-                            case 'member':
-                            default:
-                                window.location.href = 'personal_dash.html';
-                                break;
+                            case 'admin': window.location.href = 'chapter_team_dash.html'; break;
+                            case 'chapter_director': window.location.href = 'chapter_director_dash.html'; break;
+                            default: window.location.href = 'personal_dash.html'; break;
                         }
                     } else {
-                        // Fallback
                         window.location.href = 'personal_dash.html';
                     }
                 }, 1500);
             }
 
-            // Close modal when clicking outside
             document.getElementById('discordModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeDiscordModal();
-                }
+                if (e.target === this) closeDiscordModal();
             });
 
-            // Close modal with Escape key
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeDiscordModal();
-                }
+                if (e.key === 'Escape') closeDiscordModal();
             });
         </script>
 
