@@ -3,2039 +3,798 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IYNA - Our Mission</title>
-    
-    <!-- CSS FILES -->        
+    <title>IYNA - Chapters</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-      body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+      body, h1, h2, h3, h4, h5, h6, button, input, textarea, select {
         font-family: 'Work Sans', sans-serif !important;
       }
-      /* Prevent nav links from breaking into two lines and reduce spacing */
-      .navbar .nav-link {
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { line-height: 1.6; }
+
+      /* ── Rankings Section ── */
+      .rankings-section {
+        background-color: #f5f5f5;
+        padding: 80px 0;
+      }
+      .rankings-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .announcement-banner {
+        background-color: #BEE9E8;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .announcement-content { display: flex; align-items: center; gap: 15px; }
+      .announcement-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+      .announcement-icon img { width: 40px; height: 40px; object-fit: contain; display: block; }
+      .announcement-text { color: #1B4965; font-size: 16px; font-weight: 500; }
+
+      .rankings-title { font-size: 32px; font-weight: 700; color: #1B4965; margin-bottom: 30px; }
+
+      /* Chapter of the Season */
+      .chapter-highlight {
+        background-color: #1B4965;
+        color: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .chapter-star { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+      .chapter-star img { width: 80px; height: 80px; object-fit: contain; display: block; }
+      .chapter-info { flex: 1; }
+      .chapter-label { font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px; }
+      .chapter-name { font-size: 24px; font-weight: 700; margin-bottom: 5px; }
+      .chapter-code { font-size: 14px; opacity: 0.8; }
+
+      /* Search + Filter */
+      .search-filter-section {
+        background-color: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: relative;
+      }
+      .search-filter-row { display: flex; align-items: center; gap: 15px; margin-bottom: 0; }
+      .search-input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+      }
+      .search-input:focus { outline: none; border-color: #62B6CB; }
+      .filter-button {
+        background-color: #BEE9E8;
+        color: #1B4965;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
         white-space: nowrap;
       }
-      .navbar .nav-item {
-        margin-left: 0.3rem !important;
-        margin-right: 0.3rem !important;
+      .filter-button:hover { background-color: #62B6CB; color: white; }
+
+      /* Dropdown */
+      .filter-dropdown {
+        position: absolute;
+        top: 68px;
+        right: 20px;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+        padding: 28px 28px 20px 28px;
+        min-width: 240px;
+        z-index: 100;
+        display: none;
+        flex-direction: column;
+        gap: 6px;
       }
-              .outline-blue-btn:hover {
-            background-color: #1B4965 !important;
-            color: #fff !important;
-            border-color: #1B4965 !important;
-            transition: background 0.2s, color 0.2s;
-        }
+      .filter-dropdown.open { display: flex; }
+      .dropdown-section-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: #888;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        margin: 10px 0 4px;
+      }
+      .dropdown-section-title:first-child { margin-top: 0; }
+      .dropdown-option {
+        font-size: 16px;
+        color: #222;
+        font-weight: 400;
+        padding: 4px 0 4px 20px;
+        cursor: pointer;
+        border: none;
+        background: none;
+        text-align: left;
+        outline: none;
+        transition: color 0.15s;
+        border-radius: 6px;
+        position: relative;
+      }
+      .dropdown-option:hover { color: #1B4965; }
+      .dropdown-option.selected { color: #1B4965; font-weight: 600; }
+      .dropdown-option.selected::before { content: "✓"; position: absolute; left: 2px; color: #62B6CB; }
+      .dropdown-option.filter-active { color: #62B6CB; font-weight: 600; }
+      .dropdown-option.filter-active::before { content: "✓"; position: absolute; left: 2px; color: #62B6CB; }
+      .dropdown-reset {
+        margin-top: 14px;
+        background: #F1F5F9;
+        color: #222;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        align-self: flex-end;
+        transition: background 0.15s;
+      }
+      .dropdown-reset:hover { background: #e2e8f0; }
 
-        /* Start New Chapter Section */
-        .start-chapter-section {
-            margin-top: 3rem;
-            padding: 2.5rem;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid #dee2e6;
-        }
+      /* Active filter pills */
+      .selected-filters-bar { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+      .selected-filter-btn {
+        background: #F1F5F9;
+        color: #222;
+        border: none;
+        border-radius: 20px;
+        padding: 6px 14px;
+        font-size: 13px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .selected-filter-btn:hover { background: #e2e8f0; }
+      .remove-x { font-size: 14px; color: #888; line-height: 1; }
 
-        .start-chapter-content h3 {
-            color: #1B4965;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
+      /* Rankings List */
+      .rankings-list {
+        background-color: white;
+        border-radius: 12px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        max-height: 520px;
+        min-height: 200px;
+      }
+      .ranking-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        gap: 0;
+      }
+      .ranking-item:last-child { border-bottom: none; }
+      .ranking-number { font-size: 20px; font-weight: 700; color: #1B4965; width: 48px; text-align: center; flex-shrink: 0; }
+      .ranking-info { flex: 1; margin-left: 12px; }
+      .team-name { font-size: 16px; font-weight: 600; color: #1B4965; }
+      .team-details { font-size: 13px; color: #888; margin-top: 2px; }
+      .chapter-id { font-family: monospace; }
+      .join-button {
+        background-color: #BEE9E8;
+        color: #1B4965;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.15s, color 0.15s;
+      }
+      .join-button:hover { background-color: #62B6CB; color: white; }
 
-        .start-chapter-content p {
-            color: #6c757d;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            line-height: 1.5;
-        }
+      .empty-state { padding: 50px 20px; text-align: center; color: #888; }
+      .empty-state h3 { color: #1B4965; margin-bottom: 8px; }
 
-        .start-chapter-btn {
-            background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(27, 73, 101, 0.3);
-        }
+      /* Start New Chapter */
+      .start-chapter-section {
+        margin-top: 3rem;
+        padding: 2.5rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 16px;
+        text-align: center;
+        border: 1px solid #dee2e6;
+      }
+      .start-chapter-content h3 { color: #1B4965; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
+      .start-chapter-content p { color: #6c757d; font-size: 1.1rem; margin-bottom: 2rem; }
+      .start-chapter-btn {
+        background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(27, 73, 101, 0.3);
+      }
+      .start-chapter-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(27, 73, 101, 0.4); }
 
-        .start-chapter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(27, 73, 101, 0.4);
-        }
-    </style>
-                        
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
-    
-    <!-- Load shared navigation -->
-    <script src="js/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/database.js"></script>
-    <script src="js/load-nav.js"></script>
-    
-    <script>
-        // Initialize Supabase client
-        const supabase = window.supabase.createClient(
-            'https://jxhkjdbcubmzprkhaoqb.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aGtqZGJjdWJtenBya2hhb3FiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyNzU5MDAsImV4cCI6MjA2Nzg1MTkwMH0.t0dp1yH7wU32Xuq987rlR-boIGHy9id4oi6g1KSdt2o'
-        );
-    </script>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      /* Map section */
+      .map-section { height: 600px; padding: 80px 60px; display: flex; align-items: center; justify-content: center; }
+      .map-section iframe { width: 100%; height: 100%; border: 0; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
 
-        body {
-            font-family: 'Work Sans', sans-serif;
-            line-height: 1.6;
-        }
+      /* Results count */
+      .results-count { font-size: 13px; color: #888; margin-top: 10px; padding: 0 4px; }
 
-
-
-        /* Rankings Section Styles */
-        .rankings-section {
-            background-color: #f5f5f5;
-            padding: 80px 0;
-        }
-
-        .rankings-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .announcement-banner {
-            background-color: #BEE9E8;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .announcement-content {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .announcement-icon,
-        .chapter-star {
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .announcement-icon img,
-        .chapter-star img {
-          width: 40px;
-          height: 40px;
-          object-fit: contain;
-          display: block;
-        }
-
-        .announcement-text {
-            color: #1B4965;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .view-all {
-            color: #1B4965;
-            font-size: 14px;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .view-all:after {
-            content: " >";
-            margin-left: 5px;
-        }
-
-        .rankings-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1B4965;
-            margin-bottom: 30px;
-        }
-
-        .chapter-highlight {
-            background-color: #1B4965;
-            color: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .chapter-star {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #62B6CB;
-        }
-        .chapter-star img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            display: block;
-        }
-
-        .chapter-info {
-            flex: 1;
-        }
-
-        .chapter-label {
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-
-        .chapter-name {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .chapter-code {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        .search-filter-section {
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .search-filter-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: 'Work Sans', sans-serif;
-            font-size: 14px;
-            background-color: #f9f9f9;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #62B6CB;
-        }
-
-        .filter-button {
-            background-color: #BEE9E8;
-            color: #1B4965;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-family: 'Work Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .filter-button:hover {
-            background-color: #62B6CB;
-            color: white;
-        }
-
-        .filter-tags {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-tag {
-            background-color: #BEE9E8;
-            color: #1B4965;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .remove-filter {
-            background-color: #1B4965;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .rankings-list {
-            background-color: white;
-            border-radius: 12px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-height: 500px;
-            min-height: 300px;
-        }
-
-        .ranking-item {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .ranking-item:last-child {
-            border-bottom: none;
-        }
-
-        .ranking-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1B4965;
-            width: 50px;
-            text-align: center;
-        }
-
-        .ranking-info {
-            flex: 1;
-            margin-left: 20px;
-        }
-
-        .team-name {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1B4965;
-            margin-bottom: 2px;
-        }
-
-        .team-details {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .points-section {
-            text-align: right;
-            margin-right: 20px;
-        }
-
-        .points-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1B4965;
-            margin-bottom: 2px;
-        }
-
-        .points-label {
-            font-size: 12px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .join-button {
-            background-color: #BEE9E8;
-            color: #1B4965;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-family: 'Work Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .join-button:hover {
-            background-color: #62B6CB;
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            .hero-content {
-                margin-left: 0px;
-                margin-right: 40px;
-                max-width: none;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-description {
-                font-size: 1.1rem;
-            }
-
-            .flags-container {
-                left: 40px;
-                bottom: 30px;
-            }
-
-            .flag {
-                width: 35px;
-                height: 22px;
-            }
-
-            .rankings-section {
-                padding: 40px 0;
-            }
-
-            .rankings-container {
-                padding: 0 15px;
-            }
-
-            .search-filter-row {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .search-input {
-                width: 100%;
-            }
-
-            .ranking-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .ranking-number {
-                font-size: 20px;
-            }
-
-            .points-section {
-                text-align: left;
-                margin-right: 0;
-            }
-        }
-        .filter-dropdown {
-            position: absolute;
-            top: 60px;
-            left: 0;
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-            padding: 32px 32px 24px 32px;
-            min-width: 260px;
-            z-index: 100;
-            display: none;
-            flex-direction: column;
-            gap: 18px;
-        }
-        .filter-dropdown .dropdown-section-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #222;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-        .filter-dropdown .dropdown-option {
-            font-size: 20px;
-            color: #222;
-            font-weight: 400;
-            padding: 2px 0;
-            cursor: pointer;
-            border: none;
-            background: none;
-            text-align: left;
-            outline: none;
-            transition: color 0.2s;
-            margin-bottom: 2px;
-        }
-        .filter-dropdown .dropdown-option.selected {
-            color: #62B6CB;
-            font-weight: 600;
-            position: relative;
-        }
-        .filter-dropdown .dropdown-option.selected:before {
-            content: "↓ ";
-            color: #62B6CB;
-            font-size: 20px;
-            position: absolute;
-            left: -22px;
-        }
-        .filter-dropdown .dropdown-reset {
-            margin-top: 18px;
-            background: #F1F5F9;
-            color: #222;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 18px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s;
-            align-self: flex-end;
-        }
-        .filter-dropdown .dropdown-reset:hover {
-            background: #e2e8f0;
-        }
-        .selected-filters-bar {
-            display: flex;
-            gap: 10px;
-            margin-top: 18px;
-            flex-wrap: wrap;
-        }
-        .selected-filter-btn {
-            background: #F1F5F9;
-            color: #222;
-            border: none;
-            border-radius: 18px;
-            padding: 8px 18px;
-            font-size: 15px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .selected-filter-btn .remove-x {
-            font-size: 18px;
-            color: #888;
-            margin-left: 4px;
-            cursor: pointer;
-        }
-        .selected-filter-btn:hover {
-            background: #e2e8f0;
-        }
-        iframe {
-            width: 65%;
-            height: 100%;
-            margin: auto auto;
-            background-color: #777;
-            display: block;
-            margin-top: 5%;
-            margin-bottom: 5%;
-        }
+      @media (max-width: 768px) {
+        .rankings-section { padding: 40px 0; }
+        .search-filter-row { flex-direction: column; gap: 10px; }
+        .search-input { width: 100%; }
+        .ranking-item { flex-wrap: wrap; gap: 8px; }
+        .join-button { width: 100%; }
+        .map-section { padding: 40px 20px; height: 400px; }
+      }
     </style>
 </head>
 <body>
-    <div id="nav-placeholder"></div>
-    
-    <!-- HERO SECTION -->
-                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
-                
-                <div class="container" style="z-index: 2; position: relative;">
-                  <div class="row">
-                    <div class="col-lg-7 col-12">
-                      <h1 style="font-size: 2.8rem; font-weight: 700; line-height: 1.2; color: white; margin-bottom: 1.5rem; font-family: 'Work Sans', sans-serif;">
-                        Connecting, Educating,<br> and Inspiring the Next<br> Generation of <span style="color: white;">Neuroscientists</span>
-                      </h1>
-                      <p style="font-size: 1.1rem; color: white; margin-bottom: 2rem; line-height: 1.6; font-weight: 400; max-width: 600px;">
-                        Discover the wonders of the brain through cutting-edge research, innovative competitions, and collaborative projects. Start your neuroscience journey today with expert-led programs designed for ambitious students worldwide.
-                      </p>
-                      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <a href="signup.html" class="btn" style="background: #62B6CB; color: white; padding: 1rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(98, 182, 203, 0.3); border: none;">
-                          Join IYNA &nbsp;&rsaquo;
-                        </a>
-                        <a href="#about-iyna" class="btn" style="background: transparent; color: white; padding: 1rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; border: 2px solid white; transition: all 0.3s ease;" onclick="scrollToSection('about-iyna')">
-                          Learn More
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
 
-    <!-- RANKINGS SECTION -->
-    <section class="rankings-section">
-        <div class="rankings-container">
-            <div class="announcement-banner">
-                <div class="announcement-content">
-                    <div class="announcement-icon">
-                      <img src="images/icons/speaker.png" alt="Speaker Icon" />
-                    </div>
-                    <div class="announcement-text">Season 7 has begun! This season will end on September 1st, 2025</div>
-                </div>
-            </div>
+<!-- ══════════════════════════════════════════════
+     RANKINGS SECTION
+══════════════════════════════════════════════ -->
+<section class="rankings-section">
+  <div class="rankings-container">
 
-            <h1 class="rankings-title">Rankings</h1>
-
-            <div class="chapter-highlight">
-                <div class="chapter-star">
-                  <img src="images/icons/solar_star-bold-duotone.png" alt="Star Icon" />
-                </div>
-                <div class="chapter-info">
-                    <div class="chapter-label">Chapter of the Season</div>
-                    <div class="chapter-name">Gharbiya STEM High School</div>
-                    <div class="chapter-code">EGY004 • Led by Islam Hani</div>
-                </div>
-            </div>
-
-            <div class="search-filter-section" style="position: relative;">
-              <div class="search-filter-row">
-                <input type="text" class="search-input" placeholder="Search">
-                <button class="filter-button" id="filterDropdownBtn" type="button">
-                  <span>≡</span> Filter
-                </button>
-              </div>
-              <div class="filter-dropdown" id="filterDropdownMenu">
-                <div class="dropdown-section-title">Sort By</div>
-                <button class="dropdown-option selected" data-sort="points">Points</button>
-                <button class="dropdown-option" data-sort="chapterid">ChapterID</button>
-                <button class="dropdown-option" data-sort="country">Country</button>
-                <div class="dropdown-section-title" style="margin-top: 18px;">Filter</div>
-                <button class="dropdown-option" data-filter="college">College Chapters</button>
-                <button class="dropdown-option" data-filter="highschool">High School Chapters</button>
-                <button class="dropdown-reset" id="resetFiltersBtn">Reset</button>
-              </div>
-              <div class="selected-filters-bar" id="selectedFiltersBar">
-                <!-- Selected filters will appear here -->
-              </div>
-            </div>
-
-            <div class="rankings-list">
-              <div class="ranking-item">
-                <div class="ranking-number">1</div>
-                <div class="ranking-info">
-                  <div class="team-name">Canyon Crest Academy</div>
-                  <div class="team-details"><span class="chapter-id">USA076</span></div>
-                </div>
-                <div class="points-section">
-                  <div class="points-number">60</div>
-                  <div class="points-label">Points</div>
-                </div>
-                <button class="join-button">Request to Join</button>
-              </div>
-              <div class="ranking-item">
-                <div class="ranking-number">2</div>
-                <div class="ranking-info">
-                  <div class="team-name">Stratford Girls' Grammar School</div>
-                  <div class="team-details"><span class="chapter-id">GBR002</span></div>
-                </div>
-                <div class="points-section">
-                  <div class="points-number">60</div>
-                  <div class="points-label">Points</div>
-                </div>
-                <button class="join-button">Request to Join</button>
-              </div>
-              <div class="ranking-item">
-                <div class="ranking-number">3</div>
-                <div class="ranking-info">
-                  <div class="team-name">Gharbiya STEM high school</div>
-                  <div class="team-details"><span class="chapter-id">EGY004</span></div>
-                </div>
-                <div class="points-section">
-                  <div class="points-number">0</div>
-                  <div class="points-label">Points</div>
-                </div>
-                <button class="join-button">Request to Join</button>
-              </div>
-              <div class="ranking-item">
-                <div class="ranking-number">4</div>
-                <div class="ranking-info">
-                  <div class="team-name">Interlake High School</div>
-                  <div class="team-details"><span class="chapter-id">USA042</span></div>
-                </div>
-                <div class="points-section">
-                  <div class="points-number">0</div>
-                  <div class="points-label">Points</div>
-                </div>
-                <button class="join-button">Request to Join</button>
-              </div>
-              <div class="ranking-item">
-                <div class="ranking-number">5</div>
-                <div class="ranking-info">
-                  <div class="team-name">FCS Innovation Academy</div>
-                  <div class="team-details"><span class="chapter-id">USA062</span></div>
-                </div>
-                <div class="points-section">
-                  <div class="points-number">0</div>
-                  <div class="points-label">Points</div>
-                </div>
-                <button class="join-button">Request to Join</button>
-              </div>
-              <!-- ... repeat for all 174 chapters from the Google Sheet ... -->
-            </div>
-            
-            <!-- Start New Chapter Section -->
-            <div class="start-chapter-section">
-                <div class="start-chapter-content">
-                    <h3>Don't see your school?</h3>
-                    <p>Start a new IYNA chapter at your school and become a chapter director.</p>
-                    <button class="start-chapter-btn" onclick="window.open('https://forms.gle/FKn9xFWh1FrowNpi7', '_blank')">
-                        Start New Chapter
-                    </button>
-                </div>
-            </div>
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+      <div class="announcement-content">
+        <div class="announcement-icon">
+          <img src="images/icons/speaker.png" alt="Announcement"
+               onerror="this.style.display='none';this.parentElement.innerHTML='📢'">
         </div>
-    </section>
-
-    <section>
-        <div style="height: 600px !important; padding: 80px 60px; display: flex; align-items: center; justify-content: center;">
-            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1OI4zPrHntxtt8FiYgliT10WkC8G4c48&ehbc=2E312F&ll=-3.81666561775622e-14%2C26.06885245000001&z=1" style="width: 100%; height: 100%; border: 0; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);"></iframe>
-        </div>
-    </section>
-
-    <!-- Footer placeholder - will be loaded by JavaScript -->
-    <div id="footer-placeholder"></div>
-    <script src="js/load-footer.js"></script>
-
-    <!-- JavaScript Files -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery.sticky.js"></script>
-    <script src="js/click-scroll.js"></script>
-    <script src="js/custom.js"></script>
-    <script>
-        // Global variables
-        let chaptersData = [];
-
-        // Wait for DOM and database to be ready
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Chapters page loaded, initializing...');
-            
-            // Initialize UI elements first
-            initializeUIElements();
-            
-            // Wait for database to be ready
-            let attempts = 0;
-            function waitForDatabase() {
-                if (window.db) {
-                    console.log('Database ready, loading chapter data...');
-                    loadPageData();
-                } else if (attempts < 50) {
-                    attempts++;
-                    setTimeout(waitForDatabase, 200);
-                } else {
-                    console.error('Database not available after waiting');
-                    showErrorMessage('Unable to connect to database. Please refresh the page.');
-                }
-            }
-            
-            waitForDatabase();
-        });
-
-        // Main function to load all page data from database
-        async function loadPageData() {
-            try {
-                console.log('Starting to load data from database...');
-                
-                // Show loading state
-                showLoadingState();
-                
-                // Test database connection using existing function
-                console.log('Testing database connection...');
-                const testConnection = await window.testDatabaseConnection();
-                console.log('Database connection test result:', testConnection);
-                
-                // Load chapters using existing database functions
-                console.log('Loading chapters from database...');
-                const chapters = await loadChaptersFromDatabase();
-                console.log('Loaded chapters:', chapters);
-                
-                // Load announcements using existing function
-                console.log('Loading announcements...');
-                const announcements = await loadAnnouncements();
-                console.log('Announcements loaded:', announcements);
-                
-                // Update UI with the data
-                console.log('Updating UI with loaded data...');
-                updateAnnouncementsBanner(announcements);
-                updateChapterOfSeason(chapters);
-                await updateRankingsList(chapters);
-                
-                // Store chapters data globally
-                chaptersData = chapters;
-                
-                // Update Start New Chapter section based on user status
-                updateStartNewChapterSection();
-                
-                console.log('All data loaded successfully. Total chapters:', chapters.length);
-                
-            } catch (error) {
-                console.error('Error loading page data:', error);
-                showErrorMessage(`Error loading chapter data: ${error.message}`);
-            }
-        }
-
-        // Load chapters using existing database functions
-        async function loadChaptersFromDatabase() {
-    // Hardcoded active schools from "Chapter_Registry_supabase (1).csv" initialized at 0 points
-    return [
-  { "name": "Benemérita Universidad Autónoma de Puebla", "chapter_id": "MEX001", "points": 0 },
-  { "name": "William Mason High School", "chapter_id": "USA001", "points": 0 },
-  { "name": "Bergen County Academies", "chapter_id": "USA002", "points": 0 },
-  { "name": "Bridgeland High School", "chapter_id": "USA003", "points": 0 },
-  { "name": "Tesoro High School", "chapter_id": "USA004", "points": 0 },
-  { "name": "Adrian Wilcox High School", "chapter_id": "USA005", "points": 0 },
-  { "name": "Zakariya Public School", "chapter_id": "PAK001", "points": 0 },
-  { "name": "American Heritage School Broward", "chapter_id": "USA006", "points": 0 },
-  { "name": "Walton High School", "chapter_id": "USA007", "points": 0 },
-  { "name": "El-Sadat STEM School", "chapter_id": "EGY001", "points": 0 },
-  { "name": "Shanghai High School International Division", "chapter_id": "CHN001", "points": 0 },
-  { "name": "Woodlawn School", "chapter_id": "USA008", "points": 0 },
-  { "name": "University of North Carolina at Charlotte", "chapter_id": "USA009", "points": 0 },
-  { "name": "Arnold O. Beckman High School", "chapter_id": "USA010", "points": 0 },
-  { "name": "Glendora High School", "chapter_id": "USA011", "points": 0 },
-  { "name": "South Forsyth High School", "chapter_id": "USA012", "points": 0 },
-  { "name": "Del Norte High School", "chapter_id": "USA013", "points": 0 },
-  { "name": "North Carolina School of Science and Mathematics - Morganton", "chapter_id": "USA014", "points": 0 },
-  { "name": "Cypress High School", "chapter_id": "USA015", "points": 0 },
-  { "name": "Leigh High School", "chapter_id": "USA016", "points": 0 },
-  { "name": "Assiut STEM School", "chapter_id": "EGY002", "points": 0 },
-  { "name": "Springville High School", "chapter_id": "USA017", "points": 0 },
-  { "name": "Stuyvesant High School", "chapter_id": "USA018", "points": 0 },
-  { "name": "Westlake Academy", "chapter_id": "USA019", "points": 0 },
-  { "name": "Amity Institute of Biotechnology, Amity university, Noida", "chapter_id": "IND001", "points": 0 },
-  { "name": "Centennial High School", "chapter_id": "USA020", "points": 0 },
-  { "name": "Orange County School of the Arts", "chapter_id": "USA022", "points": 0 },
-  { "name": "Rio Americano", "chapter_id": "USA023", "points": 0 },
-  { "name": "St. Francis Xavier Secondary School", "chapter_id": "CAN001", "points": 0 },
-  { "name": "Kafr El-sheikh STEM High School", "chapter_id": "EGY003", "points": 0 },
-  { "name": "Central Catholic High School", "chapter_id": "USA024", "points": 0 },
-  { "name": "Ridley College", "chapter_id": "CAN002", "points": 0 },
-  { "name": "University of Brasília", "chapter_id": "BRA001", "points": 0 },
-  { "name": "John Fraser Secondary School", "chapter_id": "CAN003", "points": 0 },
-  { "name": "Tenafly High School", "chapter_id": "USA025", "points": 0 },
-  { "name": "Thayer Academy", "chapter_id": "USA026", "points": 0 },
-  { "name": "Mission Vista High School", "chapter_id": "USA027", "points": 0 },
-  { "name": "Chinese International School (CIS)   ESF King George V School (KGV)   ESF Island School   ESF South Island School   ESF West Island School   ESF Sha Tin College   German Swiss International School (GSIS)   G.T. (Ellen Yeung) College   Harrow International School Hong Kong   Hong Kong International School (HKIS)   International Christian School (ICS)   Kellett School   La Salle College   Malvern College Hong Kong (MCHK)   Sacred Heart Canossian College   St. Francis' Canossian College   St. Paul's Co-Educational College (SPCC)", "chapter_id": "HKG001", "points": 0 },
-  { "name": "William Lyon Mackenzie Collegiate Institute", "chapter_id": "CAN004", "points": 0 },
-  { "name": "Chiles High School", "chapter_id": "USA028", "points": 0 },
-  { "name": "University of Michigan Ann Arbor's Neuroscience Student Association", "chapter_id": "USA029", "points": 0 },
-  { "name": "Phillips Exeter Academy", "chapter_id": "USA030", "points": 0 },
-  { "name": "Cheongshim International Academy", "chapter_id": "KOR001", "points": 0 },
-  { "name": "Horace Mann School", "chapter_id": "USA031", "points": 0 },
-  { "name": "Scripps Ranch High School", "chapter_id": "USA032", "points": 0 },
-  { "name": "Bridgewater Raritan High School", "chapter_id": "USA033", "points": 0 },
-  { "name": "Jordan High School", "chapter_id": "USA034", "points": 0 },
-  { "name": "Green Level High School", "chapter_id": "USA035", "points": 0 },
-  { "name": "North Carolina School of Science and Mathematics - Durham", "chapter_id": "USA036", "points": 0 },
-  { "name": "Hebron High School", "chapter_id": "USA037", "points": 0 },
-  { "name": "Coppell High School", "chapter_id": "USA038", "points": 0 },
-  { "name": "Livingston High School", "chapter_id": "USA039", "points": 0 },
-  { "name": "Farmington High School", "chapter_id": "USA040", "points": 0 },
-  { "name": "The Hyderabad Public School, Ramanthapur", "chapter_id": "IND002", "points": 0 },
-  { "name": "Suleyman Demirel Lyceum", "chapter_id": "KAZ001", "points": 0 },
-  { "name": "Miklós Radnóti Experimental High School in Szeged", "chapter_id": "HUN001", "points": 0 },
-  { "name": "Lincoln High School", "chapter_id": "USA041", "points": 0 },
-  { "name": "Private Rüzgar Anatolian High School", "chapter_id": "TUR001", "points": 0 },
-  { "name": "MM junior college", "chapter_id": "IND003", "points": 0 },
-  { "name": "Interlake High School", "chapter_id": "USA042", "points": 0 },
-  { "name": "Hillcrest High School", "chapter_id": "USA043", "points": 0 },
-  { "name": "Crofton High School", "chapter_id": "USA044", "points": 0 },
-  { "name": "Vincent Massey High School", "chapter_id": "CAN005", "points": 0 },
-  { "name": "Texas Academy of Math and Sciences", "chapter_id": "USA045", "points": 0 },
-  { "name": "Vista del Lago High School", "chapter_id": "USA046", "points": 0 },
-  { "name": "Turkistan Bilim Innovation Lyceum", "chapter_id": "KAZ002", "points": 0 },
-  { "name": "Westwood High School", "chapter_id": "USA047", "points": 0 },
-  { "name": "University of Alabama at Birmingham", "chapter_id": "USA048", "points": 0 },
-  { "name": "Nurorda School-Lyceum", "chapter_id": "KAZ003", "points": 0 },
-  { "name": "Almaty Bilim-Innovation Lyceum", "chapter_id": "KAZ004", "points": 0 },
-  { "name": "Gharbiya STEM high school", "chapter_id": "EGY004", "points": 0 },
-  { "name": "Wayzata High School", "chapter_id": "USA050", "points": 0 },
-  { "name": "International School Bellevue", "chapter_id": "USA051", "points": 0 },
-  { "name": "STEM High School for Boys-6th of October", "chapter_id": "EGY005", "points": 0 },
-  { "name": "Pine View School", "chapter_id": "USA052", "points": 0 },
-  { "name": "Health4US", "chapter_id": "USA053", "points": 0 },
-  { "name": "Homestead High School", "chapter_id": "USA054", "points": 0 },
-  { "name": "The Awty International School", "chapter_id": "USA055", "points": 0 },
-  { "name": "Astana Bilim Innovation Lyceum for gifted boys", "chapter_id": "KAZ005", "points": 0 },
-  { "name": "Çakır High School", "chapter_id": "TUR002", "points": 0 },
-  { "name": "Hanover High School", "chapter_id": "USA056", "points": 0 },
-  { "name": "North Hollywood High School", "chapter_id": "USA057", "points": 0 },
-  { "name": "Rice University", "chapter_id": "USA058", "points": 0 },
-  { "name": "Eastlake High School", "chapter_id": "USA059", "points": 0 },
-  { "name": "Diamond Bar High School", "chapter_id": "USA060", "points": 0 },
-  { "name": "Maadi STEM High School for Girls", "chapter_id": "EGY006", "points": 0 },
-  { "name": "Maynard Holbrook Jackson High School", "chapter_id": "USA061", "points": 0 },
-  { "name": "Illinois Mathematics and Science Academy", "chapter_id": "USA049", "points": 0 },
-  { "name": "FCS Innovation Academy", "chapter_id": "USA062", "points": 0 },
-  { "name": "Alexandria STEM School", "chapter_id": "EGY007", "points": 0 },
-  { "name": "Government Medical College Srinagar", "chapter_id": "IND004", "points": 0 },
-  { "name": "Taipei American School", "chapter_id": "TWN001", "points": 0 },
-  { "name": "North Fort Myers High School", "chapter_id": "USA063", "points": 0 },
-  { "name": "Solon High School", "chapter_id": "USA064", "points": 0 },
-  { "name": "STEM Qena School", "chapter_id": "EGY009", "points": 0 },
-  { "name": "School for Advanced Studies - South", "chapter_id": "USA065", "points": 0 },
-  { "name": "Cox Mill High School", "chapter_id": "USA066", "points": 0 },
-  { "name": "Naperville Central High School", "chapter_id": "USA068", "points": 0 },
-  { "name": "Carlmont High School", "chapter_id": "USA069", "points": 0 },
-  { "name": "Parul University", "chapter_id": "IND005", "points": 0 },
-  { "name": "Marc Garneau Collegiate Institute", "chapter_id": "CAN006", "points": 0 },
-  { "name": "Dougherty Valley High School", "chapter_id": "USA070", "points": 0 },
-  { "name": "Metkenana secondary school", "chapter_id": "EGY010", "points": 0 },
-  { "name": "Culver City High School", "chapter_id": "USA071", "points": 0 },
-  { "name": "Obour stem school", "chapter_id": "EGY011", "points": 0 },
-  { "name": "Luxor stem school", "chapter_id": "EGY012", "points": 0 },
-  { "name": "Whitney High School", "chapter_id": "USA072", "points": 0 },
-  { "name": "El Pez Volador / The Flying Fish", "chapter_id": "ARG001", "points": 0 },
-  { "name": "Atascocita High School", "chapter_id": "USA074", "points": 0 },
-  { "name": "Ismailia STEM Highschool", "chapter_id": "EGY013", "points": 0 },
-  { "name": "Victoria Shanghai Academy", "chapter_id": "HKG002", "points": 0 },
-  { "name": "Tesla STEM High School", "chapter_id": "USA075", "points": 0 },
-  { "name": "Seventh - Day Adventist Senior High School", "chapter_id": "GHA001", "points": 0 },
-  { "name": "University of Lagos, Nigeria.", "chapter_id": "NGA001", "points": 0 },
-  { "name": "Jumeriah English Speaking School", "chapter_id": "UAE001", "points": 0 },
-  { "name": "Motafawkeen Ain shams high school for boys", "chapter_id": "EGY014", "points": 0 },
-  { "name": "Canyon Crest Academy", "chapter_id": "USA076", "points": 0 },
-  { "name": "GMERS Medical College Rajpipla", "chapter_id": "IND006", "points": 0 },
-  { "name": "Oak Park High School", "chapter_id": "USA077", "points": 0 },
-  { "name": "Montfort Senior Secondary School", "chapter_id": "IND007", "points": 0 },
-  { "name": "Dakahlia STEM School", "chapter_id": "EGY015", "points": 0 },
-  { "name": "Benha National University", "chapter_id": "EGY016", "points": 0 },
-  { "name": "Lausanne Collegiate School", "chapter_id": "USA079", "points": 0 },
-  { "name": "Skyline High School", "chapter_id": "USA080", "points": 0 },
-  { "name": "Mission Bay High School", "chapter_id": "USA081", "points": 0 },
-  { "name": "Bedford Girls’ School", "chapter_id": "GBR001", "points": 0 },
-  { "name": "La Salle High School", "chapter_id": "JPN001", "points": 0 },
-  { "name": "Decatur High School", "chapter_id": "USA082", "points": 0 },
-  { "name": "Victoria Park Collegiate Institute", "chapter_id": "CAN007", "points": 0 },
-  { "name": "Stratford Girls' Grammar School", "chapter_id": "GBR002", "points": 0 },
-  { "name": "West Career and Technical Academy", "chapter_id": "USA083", "points": 0 },
-  { "name": "Pierre Elliott Trudeau High School", "chapter_id": "CAN008", "points": 0 },
-  { "name": "Louise-Henriette Gymnasium", "chapter_id": "GER001", "points": 0 },
-  { "name": "Lauremont School (formerly TMS School)", "chapter_id": "CAN009", "points": 0 },
-  { "name": "Royal Latin School", "chapter_id": "GBR003", "points": 0 },
-  { "name": "East Chapel Hill High School", "chapter_id": "USA084", "points": 0 },
-  { "name": "Marvin Ridge Highschool", "chapter_id": "USA085", "points": 0 },
-  { "name": "Rock Hill High School", "chapter_id": "USA086", "points": 0 },
-  { "name": "Hiroo Gakuen Senior High School", "chapter_id": "JPN002", "points": 0 },
-  { "name": "University of Illinois Chicago", "chapter_id": "USA087", "points": 0 },
-  { "name": "Woodgrove High School", "chapter_id": "USA088", "points": 0 },
-  { "name": "Huron Highschool", "chapter_id": "USA089", "points": 0 },
-  { "name": "School-lyceum BINOM School named after Kadyr Myrza Ali", "chapter_id": "KAZ006", "points": 0 },
-  { "name": "St Cuthberts College", "chapter_id": "NZL001", "points": 0 },
-  { "name": "Alexandria University", "chapter_id": "EGY017", "points": 0 },
-  { "name": "Juanita High School", "chapter_id": "USA090", "points": 0 },
-  { "name": "Lake Washington High School", "chapter_id": "USA091", "points": 0 },
-  { "name": "Johannes Kepler Grammar School", "chapter_id": "CZE001", "points": 0 },
-  { "name": "University of Lethbridge", "chapter_id": "CAN010", "points": 0 },
-  { "name": "Folsom High School", "chapter_id": "USA092", "points": 0 },
-  { "name": "Hillsborough High School", "chapter_id": "USA093", "points": 0 },
-  { "name": "Independent Schools Foundation Academy", "chapter_id": "HKG003", "points": 0 },
-  { "name": "University of Kansas", "chapter_id": "USA094", "points": 0 },
-  { "name": "Forest Ridge School of the Sacred Heart", "chapter_id": "USA095", "points": 0 },
-  { "name": "Archimedean Upper Conservatory", "chapter_id": "USA096", "points": 0 },
-  { "name": "Northwestern University", "chapter_id": "USA097", "points": 0 },
-  { "name": "STEM October 11th district High School", "chapter_id": "EGY018", "points": 0 },
-  { "name": "Foundation World School", "chapter_id": "IND008", "points": 0 },
-  { "name": "Little Rock Central High School", "chapter_id": "USA098", "points": 0 },
-  { "name": "Ruamrudee International School", "chapter_id": "THA001", "points": 0 },
-  { "name": "Janashakti College", "chapter_id": "NPL001", "points": 0 },
-  { "name": "Hangzhou International School", "chapter_id": "CHN002", "points": 0 },
-  { "name": "Middleton High School", "chapter_id": "USA099", "points": 0 },
-  { "name": "Faculty of Arts, Department of Psychology, Ain Shams University", "chapter_id": "EGY019", "points": 0 },
-  { "name": "Columbus High School", "chapter_id": "USA100", "points": 0 },
-  { "name": "Greenhills School", "chapter_id": "USA101", "points": 0 },
-  { "name": "Universidad Autónoma de Nuevo León", "chapter_id": "MEX002", "points": 0 },
-  { "name": "EL Husinia Private School", "chapter_id": "EGY020", "points": 0 },
-  { "name": "Virginia Commonwealth University", "chapter_id": "USA102", "points": 0 },
-  { "name": "Qingdao City Malvern College Qingdao", "chapter_id": "CHN003", "points": 0 },
-  { "name": "Harmony School of Innovation - Sugarland", "chapter_id": "USA103", "points": 0 },
-  { "name": "Bangladesh International Tutorial", "chapter_id": "BGD001", "points": 0 },
-  { "name": "Heritage High School", "chapter_id": "USA104", "points": 0 },
-  { "name": "Gwinnett School of Mathematics, Science, and Technology", "chapter_id": "USA105", "points": 0 },
-  { "name": "Williamsville East High School", "chapter_id": "USA106", "points": 0 },
-  { "name": "West Cabarrus High School", "chapter_id": "USA107", "points": 0 },
-  { "name": "Oakridge International School, Bangalore", "chapter_id": "IND009", "points": 0 },
-  { "name": "Oakridge International School, Bangalore", "chapter_id": "N/A", "points": 0 },
-  { "name": "Alpharetta High School", "chapter_id": "USA108", "points": 0 },
-  { "name": "Spring Lake Park High School", "chapter_id": "USA109", "points": 0 },
-  { "name": "The Buckley School", "chapter_id": "USA110", "points": 0 },
-  { "name": "Olentangy Berlin High School", "chapter_id": "USA111", "points": 0 },
-  { "name": "Cary Academy", "chapter_id": "USA112", "points": 0 },
-  { "name": "John F. Kennedy Memorial High School", "chapter_id": "USA113", "points": 0 },
-  { "name": "Northview High School", "chapter_id": "USA114", "points": 0 },
-  { "name": "Pleasant View School", "chapter_id": "USA115", "points": 0 },
-  { "name": "Carl Sandburg High School", "chapter_id": "USA116", "points": 0 },
-  { "name": "Merivale High School", "chapter_id": "CAN011", "points": 0 },
-  { "name": "Saugus High School", "chapter_id": "USA117", "points": 0 },
-  { "name": "Obafemi Awolowo University, Ile Ife, Nigeria", "chapter_id": "NGA002", "points": 0 },
-  { "name": "Camberwell Grammar School", "chapter_id": "AUS001", "points": 0 },
-  { "name": "Dhulikona  not in-person... discuss later?", "chapter_id": "N/A", "points": 0 },
-  { "name": "Hopkinton High School", "chapter_id": "USA118", "points": 0 },
-  { "name": "Panther Creek High School", "chapter_id": "USA119", "points": 0 },
-  { "name": "Chattahoochee Highschool", "chapter_id": "USA120", "points": 0 },
-  { "name": "Uplift North Hills Preparatory", "chapter_id": "USA121", "points": 0 },
-  { "name": "Saratoga High School", "chapter_id": "USA122", "points": 0 },
-  { "name": "Chapel Hill High School", "chapter_id": "USA123", "points": 0 },
-  { "name": "Basis International School Shekou Shenzhen", "chapter_id": "CHN004", "points": 0 },
-  { "name": "Ladue Horton Watkins High School", "chapter_id": "USA124", "points": 0 },
-  { "name": "Centro de Estudos Professor Edgar Santos", "chapter_id": "BRA002", "points": 0 },
-  { "name": "St. Rita's Public General Secondary School", "chapter_id": "POL001", "points": 0 },
-  { "name": "Cushing Academy", "chapter_id": "USA125", "points": 0 },
-  { "name": "St. Edmund Campion Secondary School", "chapter_id": "CAN012", "points": 0 },
-  { "name": "Independence High School", "chapter_id": "USA126", "points": 0 },
-  { "name": "Harold M. Brathwaite Secondary School", "chapter_id": "CAN013", "points": 0 },
-  { "name": "West Carleton Secondary School", "chapter_id": "CAN014", "points": 0 },
-  { "name": "University of Washington", "chapter_id": "USA127", "points": 0 },
-  { "name": "University of the People / Stardust Academy (Student-Led Initiative)", "chapter_id": "LKA001", "points": 0 },
-  { "name": "MTs Masjid Al Akbar Surabaya", "chapter_id": "IDN001", "points": 0 },
-  { "name": "Canadian International School Astana", "chapter_id": "KAZ007", "points": 0 },
-  { "name": "Rock Canyon High School", "chapter_id": "USA128", "points": 0 },
-  { "name": "SMA Islamic International School PSM Magetan", "chapter_id": "IDN002", "points": 0 },
-  { "name": "Collège Jean-de-Brébeuf", "chapter_id": "CAN015", "points": 0 },
-  { "name": "Los Altos High School", "chapter_id": "USA129", "points": 0 },
-  { "name": "Egypt Japan University of Science and Technology", "chapter_id": "EGY021", "points": 0 },
-  { "name": "Government College of Pharmacy", "chapter_id": "IND010", "points": 0 },
-  { "name": "Savitribai Phule Pune University", "chapter_id": "IND011", "points": 0 },
-  { "name": "Zagazig University", "chapter_id": "EGY022", "points": 0 },
-  { "name": "Westminster Academy", "chapter_id": "PAK002", "points": 0 },
-  { "name": "Tyler Legacy High School", "chapter_id": "USA131", "points": 0 },
-  { "name": "Univesity of Girona", "chapter_id": "ESP001", "points": 0 },
-  { "name": "Universitat de Barcelona", "chapter_id": "ESP002", "points": 0 },
-  { "name": "Universitat Pompeu Fabra (UPF)", "chapter_id": "ESP003", "points": 0 },
-  { "name": "Mahatma Gandhi Mission’s Institute of Health Sciences, Kamothe", "chapter_id": "IND012", "points": 0 },
-  { "name": "St. Roch Catholic Secondary School", "chapter_id": "CAN016", "points": 0 },
-  { "name": "Hankuk Academy of Foreign Studies", "chapter_id": "KOR002", "points": 0 },
-  { "name": "Francis Lewis High School", "chapter_id": "USA132", "points": 0 },
-  { "name": "West Windsor Plainsboro High School South", "chapter_id": "USA133", "points": 0 },
-  { "name": "Hwa Chong Institution", "chapter_id": "SGP001", "points": 0 },
-  { "name": "Abu Ali ibn Sino Specialized School", "chapter_id": "UZB001", "points": 0 },
-  { "name": "Istituto Istruzione Superiore ‘Galilei Pacinotti’", "chapter_id": "ITA001", "points": 0 },
-  { "name": "Cheongna Dalton School", "chapter_id": "KOR003", "points": 0 },
-  { "name": "William H. Hall High School", "chapter_id": "USA134", "points": 0 },
-  { "name": "Basis Independent Silicon Valley", "chapter_id": "USA135", "points": 0 },
-  { "name": "North Gwinnett High School", "chapter_id": "USA136", "points": 0 },
-  { "name": "Benowa State High School", "chapter_id": "AUS002", "points": 0 },
-  { "name": "Jose Marti STEM Academy", "chapter_id": "USA137", "points": 0 }
-    ];
-}
-
-        // Load announcements using existing function
-        async function loadAnnouncements() {
-            try {
-                if (window.db.getAnnouncements) {
-                    const announcements = await window.db.getAnnouncements();
-                    return announcements || [];
-                } else {
-                    console.log('getAnnouncements function not available');
-                    return [];
-                }
-            } catch (error) {
-                console.error('Error loading announcements:', error);
-                return [];
-            }
-        }
-
-        // Show loading state
-        function showLoadingState() {
-            const rankingsList = document.querySelector('.rankings-list');
-            if (rankingsList) {
-                rankingsList.innerHTML = `
-                    <div style="padding: 40px; text-align: center; color: #666;">
-                        <div style="margin-bottom: 20px;">
-                            <div style="width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #1B4965; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
-                        </div>
-                        <p>Loading chapter rankings...</p>
-                    </div>
-                    <style>
-                        @keyframes spin {
-                            0% { transform: rotate(0deg); }
-                            100% { transform: rotate(360deg); }
-                        }
-                    </style>
-                `;
-            }
-        }
-
-        // Update announcements banner
-        function updateAnnouncementsBanner(announcements) {
-            const announcementBanner = document.querySelector('.announcement-banner');
-            
-            if (!announcements.length) {
-                console.log('No announcements found, keeping default');
-                return;
-            }
-
-            const latestAnnouncement = announcements[0];
-            const announcementText = announcementBanner.querySelector('.announcement-text');
-            
-            if (announcementText) {
-                announcementText.textContent = latestAnnouncement.message;
-                console.log('Updated announcement banner with:', latestAnnouncement.message);
-            }
-
-
-        }
-
-        // Update "Chapter of the Season" section with real data
-        function updateChapterOfSeason(chaptersWithPoints) {
-            const chapterHighlight = document.querySelector('.chapter-highlight');
-            
-            if (!chaptersWithPoints || chaptersWithPoints.length === 0) {
-                console.log('No chapters found, hiding chapter of the season');
-                if (chapterHighlight) {
-                    chapterHighlight.style.display = 'none';
-                }
-                return;
-            }
-
-            // Show the section and update with top chapter
-            if (chapterHighlight) {
-                chapterHighlight.style.display = 'flex';
-            }
-
-            const topChapter = chaptersWithPoints[0];
-            console.log('Chapter of the season:', topChapter);
-            
-            const chapterName = chapterHighlight.querySelector('.chapter-name');
-            const chapterCode = chapterHighlight.querySelector('.chapter-code');
-            
-            if (chapterName) {
-                chapterName.textContent = topChapter.name || topChapter.school_name;
-            }
-            
-            if (chapterCode) {
-                chapterCode.textContent = `${topChapter.chapter_code} • Led by ${topChapter.leadName} • ${topChapter.totalPoints} points`;
-            }
-            
-            console.log('Updated chapter of the season section');
-        }
-
-        // Update rankings list with real data
-  async function updateRankingsList(chaptersWithPoints) {
-    const rankingsList = document.querySelector('.rankings-list');
-    
-    if (!rankingsList) {
-        console.error('Rankings list element not found');
-        return;
-    }
-
-    if (!chaptersWithPoints || chaptersWithPoints.length === 0) {
-        console.log('No chapters to display, showing empty state');
-        rankingsList.innerHTML = `
-            <div style="padding: 40px; text-align: center; color: #666;">
-                <h3 style="color: #1B4965; margin-bottom: 10px;">No Chapters Yet</h3>
-                <p>Be the first to start a chapter in your community!</p>
-                <a href="#chapter-registration-section" style="color: #1B4965; text-decoration: underline;">Register your chapter now</a>
-            </div>
-        `;
-        return;
-    }
-
-    // --- CONTINUATION: Render the schools if data exists ---
-    
-    // 1. Clear out any existing placeholder HTML cards
-    rankingsList.innerHTML = ''; 
-
-    // 2. Loop through the array and append each school card
-    chaptersWithPoints.forEach((chapter, index) => {
-        const itemHtml = `
-            <div class="ranking-item" style="display: flex; align-items: center; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee;">
-                <div class="ranking-number" style="font-weight: bold; margin-right: 15px;">${index + 1}</div>
-                <div class="ranking-info" style="flex-grow: 1;">
-                    <div class="team-name" style="font-weight: 600; color: #1B4965;">${chapter.name}</div>
-                    <div class="team-details" style="font-size: 0.85em; color: #666;">
-                        <span class="chapter-id">${chapter.chapter_id || 'N/A'}</span>
-                    </div>
-                </div>
-                <div class="points-section" style="text-align: right; margin-right: 20px;">
-                    <div class="points-number" style="font-size: 1.2em; font-weight: bold; color: #1B4965;">${chapter.points}</div>
-                    <div class="points-label" style="font-size: 0.8em; color: #888;">Points</div>
-                </div>
-                <button class="join-button" style="background-color: #1B4965; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">Request to Join</button>
-            </div>
-        `;
-        rankingsList.insertAdjacentHTML('beforeend', itemHtml);
-    });
-}
-
-            console.log(`Displaying ${chaptersWithPoints.length} chapters in rankings`);
-
-            // Clear existing items
-            rankingsList.innerHTML = '';
-
-            // Add each chapter to the rankings
-            for (let i = 0; i < chaptersWithPoints.length; i++) {
-                const chapter = chaptersWithPoints[i];
-                const rankingItem = document.createElement('div');
-                rankingItem.className = 'ranking-item';
-                rankingItem.setAttribute('data-chapter-id', chapter.id);
-                rankingItem.setAttribute('data-points', chapter.totalPoints);
-                rankingItem.setAttribute('data-name', chapter.name || chapter.school_name);
-                rankingItem.setAttribute('data-code', chapter.chapter_code);
-                rankingItem.setAttribute('data-country', chapter.chapter_code ? chapter.chapter_code.substring(0, 3) : '');
-
-                const chapterName = chapter.name || chapter.school_name;
-                const safeName = chapterName.replace(/'/g, "\\'");
-
-                // Check user's status for this chapter
-                const userStatus = await checkUserJoinRequestStatus(chapter.id);
-                
-                let buttonText = 'Request to Join';
-                let buttonStyle = '';
-                let buttonDisabled = false;
-                let buttonOnClick = `requestToJoinChapter('${chapter.id}', '${safeName}')`;
-
-                if (userStatus === 'member') {
-                    // No button shown for existing members, admins, or directors
-                    buttonText = '';
-                    buttonStyle = 'display: none;';
-                    buttonDisabled = true;
-                    buttonOnClick = '';
-                } else if (userStatus === 'pending') {
-                    // Show yellow "Requested" button for pending requests
-                    buttonText = 'Requested';
-                    buttonStyle = 'background: #ffc107; color: #212529; cursor: not-allowed;';
-                    buttonDisabled = true;
-                    buttonOnClick = '';
-                } else if (userStatus === 'approved') {
-                    // If approved, user should be a member - hide all buttons
-                    buttonText = '';
-                    buttonStyle = 'display: none;';
-                    buttonDisabled = true;
-                    buttonOnClick = '';
-                } else if (userStatus === 'denied' || userStatus === 'rejected') {
-                    // Allow re-request after rejection; show default Request to Join
-                    // Keep default values (already set above)
-                }
-
-                rankingItem.innerHTML = `
-                    <div class="ranking-number">${i + 1}</div>
-                    <div class="ranking-info">
-                        <div class="team-name">${chapterName}</div>
-                        <div class="team-details">
-                            <span class="chapter-id">${chapter.chapter_code}</span>
-                            ${chapter.leadName !== 'No lead assigned' ? ` • Led by ${chapter.leadName}` : ''}
-                        </div>
-                    </div>
-                    <div class="points-section">
-                        <div class="points-number">${chapter.totalPoints}</div>
-                        <div class="points-label">Points</div>
-                    </div>
-                    <button class="join-button" ${buttonOnClick ? `onclick="${buttonOnClick}"` : ''} 
-                            id="join-btn-${chapter.id}" ${buttonDisabled ? 'disabled' : ''} 
-                            style="${buttonStyle}">
-                        ${buttonText}
-                    </button>
-                `;
-
-                rankingsList.appendChild(rankingItem);
-            }
-
-            console.log(`Successfully displayed ${chaptersWithPoints.length} chapters in rankings`);
-        }
-
-        // Check if user has a pending join request for a specific chapter
-        // Batch cache of current user's join requests to avoid per-chapter calls
-        let cachedJoinRequestsByChapter = null;
-        
-        // Function to clear the join request cache
-        function clearJoinRequestCache() {
-            cachedJoinRequestsByChapter = null;
-        }
-        async function checkUserJoinRequestStatus(chapterId) {
-            try {
-                const userData = sessionStorage.getItem('iyna_user');
-                if (!userData) return null;
-                const currentUser = JSON.parse(userData);
-                
-                // If user is admin, chapter_director, or chapter_lead - no buttons shown
-                if (currentUser.role === 'chapter_lead' || currentUser.role === 'admin' || currentUser.role === 'chapter_director') {
-                    return 'member'; // Treat as member to hide buttons
-                }
-                
-                // If user already in a chapter, treat as member (no request UI)
-                if (currentUser.chapter_id) return 'member';
-                
-                // Load all requests once per page load
-                if (!cachedJoinRequestsByChapter) {
-                    const { data, error } = await supabase
-                        .from('chapter_join_request')
-                        .select('chapter_id, status')
-                        .eq('user_id', currentUser.id);
-                    if (error) {
-                        console.warn('Join request fetch failed; suppressing per-chapter errors:', error);
-                        cachedJoinRequestsByChapter = {};
-                    } else {
-                        cachedJoinRequestsByChapter = (data || []).reduce((acc, r) => { acc[r.chapter_id] = r.status; return acc; }, {});
-                    }
-                }
-                const status = cachedJoinRequestsByChapter[parseInt(chapterId)] || null;
-                // If user is not in any chapter, allow re-request even if a past request was approved or rejected
-                if (!currentUser.chapter_id) {
-                    if (status === 'approved' || status === 'rejected' || status === 'denied') {
-                        return null; // show default "Request to Join"
-                    }
-                }
-                return status;
-            } catch (error) {
-                console.error('Error checking join request status:', error);
-                return null;
-            }
-        }
-
-        // Handle chapter join request
-        window.requestToJoinChapter = async function(chapterId, chapterName) {
-            const joinBtn = document.getElementById(`join-btn-${chapterId}`);
-            
-            try {
-                // Check if user is logged in using sessionStorage
-                const userData = sessionStorage.getItem('iyna_user');
-                if (!userData) {
-                    alert('Please log in to request to join a chapter.');
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                const currentUser = JSON.parse(userData);
-                if (currentUser.chapter_id) {
-                    alert('You are already a member of a chapter. Contact an administrator to change chapters.');
-                    return;
-                }
-
-                // Show join confirmation modal
-                showJoinChapterModal(chapterId, chapterName, currentUser);
-                
-            } catch (error) {
-                console.error('Error checking user status:', error);
-                alert('Error checking user status. Please try again.');
-            }
-        };
-
-        // Show join chapter confirmation modal
-        function showJoinChapterModal(chapterId, chapterName, currentUser) {
-            // Create modal HTML
-            const modalHTML = `
-                <div class="modal-overlay" id="joinChapterModal" style="display: flex;">
-                    <div class="modal-content" style="max-width: 600px; max-height: 90vh; text-align: left; background: white; border-radius: 16px; padding: 0; overflow: hidden; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); display: flex; flex-direction: column;">
-                        <!-- Modal Header -->
-                        <div style="background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%); padding: 2rem 2rem 1.5rem 2rem; color: white; flex-shrink: 0;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                <h3 style="margin: 0; font-size: 1.8rem; font-weight: 700; color: white;">Join Chapter</h3>
-                                <button onclick="closeJoinChapterModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">&times;</button>
-                            </div>
-                            <p style="margin: 0; font-size: 1rem; opacity: 0.9; font-weight: 400;">Confirm your information to join "${chapterName}"</p>
-                        </div>
-                        
-                        <!-- Modal Body -->
-                        <div style="padding: 2rem; overflow-y: auto; flex: 1;">
-                            <!-- User Information Display -->
-                            <div style="background: #f8f9fa; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
-                                <h4 style="color: #1B4965; margin-bottom: 1rem; font-size: 1.1rem;">Your Information</h4>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.95rem;">
-                                    <div>
-                                        <strong style="color: #666;">Name:</strong><br>
-                                        <span style="color: #1B4965;">${currentUser.first_name} ${currentUser.last_name}</span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #666;">Email:</strong><br>
-                                        <span style="color: #1B4965;">${currentUser.email}</span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #666;">School:</strong><br>
-                                        <span style="color: #1B4965;">${currentUser.school || 'Not specified'}</span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #666;">Grade Level:</strong><br>
-                                        <span style="color: #1B4965;">${currentUser.grade_level || 'Not specified'}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Chapter Information -->
-                            <div style="background: #e8f4f8; border-left: 4px solid #1B4965; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
-                                <p style="margin: 0; color: #1B4965; font-size: 0.95rem; line-height: 1.5; font-weight: 500;">
-                                    <strong>Chapter:</strong> ${chapterName}
-                                </p>
-                            </div>
-                            
-                            <!-- Reason for Joining -->
-                            <div class="form-group" style="margin-bottom: 1.5rem;">
-                                <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">Why do you want to join this chapter? *</label>
-                                <textarea 
-                                    id="joinReason" 
-                                    class="form-control"
-                                    placeholder="Please explain your interest in joining this chapter. What do you hope to contribute and learn?"
-                                    style="width: 100%; min-height: 120px; resize: vertical; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;"
-                                    required></textarea>
-                                <small style="color: #6c757d; font-size: 0.9rem;">Be specific about your motivation and what you can bring to the chapter.</small>
-                            </div>
-                        </div>
-                        
-                        <!-- Modal Footer -->
-                        <div style="background: #f8f9fa; padding: 1.5rem 2rem; border-top: 1px solid #e9ecef; display: flex; gap: 1rem; justify-content: flex-end; flex-shrink: 0;">
-                            <button onclick="closeJoinChapterModal()" style="background: #6c757d; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 500; transition: background-color 0.2s; font-size: 0.95rem;" onmouseover="this.style.background='#5a6268'" onmouseout="this.style.background='#6c757d'">Cancel</button>
-                            <button id="confirmJoinBtn" onclick="confirmJoinChapter('${chapterId}', '${chapterName}')" style="background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 0.95rem; box-shadow: 0 2px 8px rgba(27, 73, 101, 0.3);" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(27, 73, 101, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(27, 73, 101, 0.3)'">Join Chapter</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Add modal to body
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-        }
-
-        // Close join chapter modal
-        function closeJoinChapterModal() {
-            const modal = document.getElementById('joinChapterModal');
-            if (modal) {
-                modal.remove();
-            }
-        }
-
-        // Confirm and process chapter join
-        async function confirmJoinChapter(chapterId, chapterName) {
-            const joinBtn = document.getElementById(`confirmJoinBtn`);
-            const reason = document.getElementById('joinReason').value.trim();
-            
-            if (!reason) {
-                alert('Please provide a reason for joining this chapter.');
-                return;
-            }
-            
-            try {
-                    if (joinBtn) {
-                    joinBtn.textContent = 'Processing...';
-                        joinBtn.disabled = true;
-                    }
-                
-                // Get current user from sessionStorage
-                const userData = sessionStorage.getItem('iyna_user');
-                if (!userData) {
-                    alert('Please log in to request to join a chapter.');
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                const currentUser = JSON.parse(userData);
-
-                // Insert join request into chapter_join_request table (DO NOT update user's chapter_id yet)
-                try {
-                    const { data, error } = await supabase
-                        .from('chapter_join_request')
-                        .insert([{
-                            user_id: currentUser.id,
-                            chapter_id: parseInt(chapterId),
-                            user_name: `${currentUser.first_name} ${currentUser.last_name}`,
-                            user_email: currentUser.email,
-                            user_school: currentUser.school || 'Not specified',
-                            user_grade_level: currentUser.grade_level || 'Not specified',
-                            join_reason: reason,
-                            status: 'pending',
-                            requested_at: new Date().toISOString()
-                        }]);
-                    
-                    if (error) {
-                        console.error('Error creating join request:', error);
-                        throw error; // Don't continue if join request fails
-                    }
-                } catch (error) {
-                    console.error('Error inserting join request:', error);
-                    throw error; // Re-throw to show error to user
-                }
-
-                // Update session storage with join request info (but NOT chapter_id)
-                currentUser.pending_chapter_request = {
-                    chapter_id: parseInt(chapterId),
-                    chapter_name: chapterName,
-                    join_reason: reason,
-                    requested_at: new Date().toISOString()
-                };
-                sessionStorage.setItem('iyna_user', JSON.stringify(currentUser));
-
-                // Close modal
-                closeJoinChapterModal();
-                
-                alert(`Join request submitted for "${chapterName}"! Your request will be reviewed by the chapter director.`);
-                
-                // Refresh the rankings list to show updated button states
-                if (window.chaptersData) {
-                    await updateRankingsList(window.chaptersData);
-                }
-                
-                // Also refresh button states to ensure consistency
-                await refreshChapterButtonStates();
-                
-            } catch (error) {
-                console.error('Error joining chapter:', error);
-                alert('Error joining chapter. Please try again.');
-            } finally {
-                if (joinBtn && joinBtn.textContent === 'Processing...') {
-                    joinBtn.textContent = 'Join Chapter';
-                    joinBtn.disabled = false;
-                }
-            }
-        }
-
-        // Update Start New Chapter section based on user status
-        function updateStartNewChapterSection() {
-            try {
-                const userData = sessionStorage.getItem('iyna_user');
-                if (!userData) {
-                    // User not logged in - show default message
-                    return;
-                }
-
-                const currentUser = JSON.parse(userData);
-                const startChapterSection = document.querySelector('.start-chapter-section');
-                
-                if (!startChapterSection) return;
-
-                if (currentUser.chapter_id) {
-                    // User is already in a chapter
-                    startChapterSection.innerHTML = `
-                        <div class="start-chapter-content">
-                            <h3>Already in a Chapter</h3>
-                            <p>You are currently a member of an IYNA chapter. You cannot start a new chapter while being part of an existing one.</p>
-                            <div style="background: #e8f4f8; border-left: 4px solid #1B4965; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left;">
-                                <p style="margin: 0; color: #1B4965; font-size: 0.95rem; line-height: 1.5;">
-                                    <strong>Note:</strong> If you need to change chapters, please contact an IYNA administrator.
-                                </p>
-                            </div>
-                        </div>
-                    `;
-                } else if (window.chaptersData && currentUser.school) {
-                    // Check if user's school already has a chapter
-                    const existingChapter = window.chaptersData.find(chapter => 
-                        chapter.school_name && 
-                        chapter.school_name.toLowerCase() === currentUser.school.toLowerCase()
-                    );
-                    
-                    if (existingChapter) {
-                        // User's school already has a chapter
-                        startChapterSection.innerHTML = `
-                            <div class="start-chapter-content">
-                                <h3>Chapter Already Exists</h3>
-                                <p>Your school (${currentUser.school}) already has an IYNA chapter: <strong>"${existingChapter.name || existingChapter.school_name}"</strong></p>
-                                <div style="background: #e8f4f8; border-left: 4px solid #1B4965; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-                                    <p style="margin: 0; color: #1B4965; font-size: 0.95rem; line-height: 1.5;">
-                                        <strong>Note:</strong> You cannot start a new chapter at a school that already has one. Consider joining the existing chapter instead.
-                                    </p>
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        // User can start a new chapter
-                        startChapterSection.innerHTML = `
-                            <div class="start-chapter-content">
-                                <h3>Don't see your school?</h3>
-                                <p>Start a new IYNA chapter at your school and become a chapter director.</p>
-                                <button class="start-chapter-btn" onclick="showNewChapterModal().catch(error => console.error('Error:', error))">
-                                    Start New Chapter
-                                </button>
-                            </div>
-                        `;
-                    }
-                } else {
-                    // User not logged in or no school info - show default
-                    startChapterSection.innerHTML = `
-                        <div class="start-chapter-content">
-                            <h3>Don't see your school?</h3>
-                            <p>Start a new IYNA chapter at your school and become a chapter director.</p>
-                            <button class="start-chapter-btn" onclick="showNewChapterModal().catch(error => console.error('Error:', error))">
-                                Start New Chapter
-                            </button>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                console.error('Error updating start new chapter section:', error);
-            }
-        }
-
-        // Refresh button states for all chapters based on user's current status
-        async function refreshChapterButtonStates() {
-            if (!window.chaptersData) return;
-            
-            // Clear cached join requests to get fresh data
-            cachedJoinRequestsByChapter = null;
-            
-            for (const chapter of window.chaptersData) {
-                const button = document.getElementById(`join-btn-${chapter.id}`);
-                if (!button) continue;
-                
-                const userStatus = await checkUserJoinRequestStatus(chapter.id);
-                
-                let buttonText = 'Request to Join';
-                let buttonStyle = '';
-                let buttonDisabled = false;
-                let buttonOnClick = `requestToJoinChapter('${chapter.id}', '${chapter.name || chapter.school_name}')`;
-
-                if (userStatus === 'member') {
-                    // No button shown for existing members, admins, or directors
-                    buttonText = '';
-                    buttonStyle = 'display: none;';
-                    buttonDisabled = true;
-                    buttonOnClick = '';
-                } else if (userStatus === 'pending') {
-                    // Show yellow "Requested" button for pending requests
-                    buttonText = 'Requested';
-                    buttonStyle = 'background: #ffc107; color: #212529; cursor: not-allowed;';
-                    buttonDisabled = true;
-                    buttonOnClick = '';
-                } else if (userStatus === 'approved') {
-                    // If approved, user should be a member - hide all buttons
-                    buttonText = '';
-                    buttonStyle = 'display: none;';
-                    buttonDisabled = true;
-                    buttonOnClick = '';
-                } else if (userStatus === 'denied' || userStatus === 'rejected') {
-                    // Allow re-request after rejection; show default Request to Join
-                    // Keep default values (already set above)
-                }
-
-                button.textContent = buttonText;
-                button.style = buttonStyle;
-                button.disabled = buttonDisabled;
-                if (buttonOnClick) {
-                    button.onclick = () => eval(buttonOnClick);
-                } else {
-                    button.onclick = null;
-                }
-            }
-        }
-
-        // Initialize UI elements
-        function initializeUIElements() {
-            // Dropdown toggle
-            const filterBtn = document.getElementById('filterDropdownBtn');
-            const dropdownMenu = document.getElementById('filterDropdownMenu');
-            
-            if (filterBtn && dropdownMenu) {
-                document.addEventListener('click', function(e) {
-                    if (filterBtn.contains(e.target)) {
-                        dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
-                    } else if (!dropdownMenu.contains(e.target)) {
-                        dropdownMenu.style.display = 'none';
-                    }
-                });
-            }
-
-            initializeSortOptions();
-            initializeFilterOptions();
-            initializeSearch();
-            
-            // Set up periodic refresh of button states
-            setInterval(refreshChapterButtonStates, 10000); // Refresh every 10 seconds
-            
-            // Refresh button states when page becomes visible
-            document.addEventListener('visibilitychange', function() {
-                if (!document.hidden) {
-                    refreshChapterButtonStates();
-                    updateStartNewChapterSection();
-                }
-            });
-        }
-
-        // Initialize sort options
-        function initializeSortOptions() {
-            const sortOptions = document.querySelectorAll('.dropdown-option[data-sort]');
-            sortOptions.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    sortOptions.forEach(b => b.classList.remove('selected'));
-                    this.classList.add('selected');
-                    
-                    const sortBy = this.getAttribute('data-sort');
-                    sortRankings(sortBy);
-                });
-            });
-        }
-
-        // Initialize filter options  
-        function initializeFilterOptions() {
-            const filterOptions = document.querySelectorAll('.dropdown-option[data-filter]');
-            const selectedFiltersBar = document.getElementById('selectedFiltersBar');
-            let selectedFilters = [];
-            
-            function renderSelectedFilters() {
-                selectedFiltersBar.innerHTML = '';
-                selectedFilters.forEach(f => {
-                    const btn = document.createElement('button');
-                    btn.className = 'selected-filter-btn';
-                    btn.innerHTML = `${f.label} <span class="remove-x">✕</span>`;
-                    btn.onclick = () => {
-                        selectedFilters = selectedFilters.filter(x => x.value !== f.value);
-                        renderSelectedFilters();
-                        filterRankings(selectedFilters);
-                    };
-                    selectedFiltersBar.appendChild(btn);
-                });
-                
-                if (selectedFilters.length > 0) {
-                    const removeAllBtn = document.createElement('button');
-                    removeAllBtn.className = 'selected-filter-btn';
-                    removeAllBtn.innerHTML = '✕ Remove all filters';
-                    removeAllBtn.onclick = () => {
-                        selectedFilters = [];
-                        renderSelectedFilters();
-                        filterRankings([]);
-                    };
-                    selectedFiltersBar.appendChild(removeAllBtn);
-                }
-            }
-            
-            filterOptions.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const value = this.getAttribute('data-filter');
-                    const label = this.textContent;
-                    if (!selectedFilters.some(f => f.value === value)) {
-                        selectedFilters.push({ value, label });
-                        renderSelectedFilters();
-                        filterRankings(selectedFilters);
-                    }
-                });
-            });
-            
-            const resetBtn = document.getElementById('resetFiltersBtn');
-            if (resetBtn) {
-                resetBtn.onclick = () => {
-                    selectedFilters = [];
-                    renderSelectedFilters();
-                    filterRankings([]);
-                    
-                    const sortOptions = document.querySelectorAll('.dropdown-option[data-sort]');
-                    sortOptions.forEach(b => b.classList.remove('selected'));
-                    sortOptions[0].classList.add('selected');
-                    sortRankings('points');
-                };
-            }
-        }
-
-        // Initialize search
-        function initializeSearch() {
-            const searchInput = document.querySelector('.search-input');
-            if (searchInput) {
-                searchInput.addEventListener('input', function(e) {
-                    searchChapters(e.target.value);
-                });
-            }
-        }
-
-        // Sorting function
-        function sortRankings(by) {
-            const rankingsList = document.querySelector('.rankings-list');
-            const items = Array.from(rankingsList.querySelectorAll('.ranking-item'));
-            let sorted;
-            
-            if (by === 'points') {
-                sorted = items.sort((a, b) => {
-                    const aPoints = parseInt(a.getAttribute('data-points') || '0', 10);
-                    const bPoints = parseInt(b.getAttribute('data-points') || '0', 10);
-                    return bPoints - aPoints;
-                });
-            } else if (by === 'chapterid') {
-                sorted = items.sort((a, b) => {
-                    const aCode = a.getAttribute('data-code') || '';
-                    const bCode = b.getAttribute('data-code') || '';
-                    return aCode.localeCompare(bCode);
-                });
-            } else if (by === 'country') {
-                sorted = items.sort((a, b) => {
-                    const aCountry = a.getAttribute('data-country') || '';
-                    const bCountry = b.getAttribute('data-country') || '';
-                    return aCountry.localeCompare(bCountry);
-                });
-            }
-            
-            rankingsList.innerHTML = '';
-            sorted.forEach((item, index) => {
-                const rankingNumber = item.querySelector('.ranking-number');
-                if (rankingNumber) {
-                    rankingNumber.textContent = index + 1;
-                }
-                rankingsList.appendChild(item);
-            });
-        }
-
-        // Filter function
-        function filterRankings(filters) {
-            const rankingsList = document.querySelector('.rankings-list');
-            const items = Array.from(rankingsList.querySelectorAll('.ranking-item'));
-            
-            items.forEach(item => {
-                let shouldShow = true;
-                item.style.display = shouldShow ? 'flex' : 'none';
-            });
-            
-            const visibleItems = items.filter(item => item.style.display !== 'none');
-            visibleItems.forEach((item, index) => {
-                const rankingNumber = item.querySelector('.ranking-number');
-                if (rankingNumber) {
-                    rankingNumber.textContent = index + 1;
-                }
-            });
-        }
-
-        // Search function
-        function searchChapters(searchTerm) {
-            const rankingsList = document.querySelector('.rankings-list');
-            const items = Array.from(rankingsList.querySelectorAll('.ranking-item'));
-            
-            items.forEach(item => {
-                const name = (item.getAttribute('data-name') || '').toLowerCase();
-                const code = (item.getAttribute('data-code') || '').toLowerCase();
-                const searchText = `${name} ${code}`;
-                
-                if (searchText.includes(searchTerm.toLowerCase()) || searchTerm === '') {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-            
-            const visibleItems = items.filter(item => item.style.display !== 'none');
-            visibleItems.forEach((item, index) => {
-                const rankingNumber = item.querySelector('.ranking-number');
-                if (rankingNumber) {
-                    rankingNumber.textContent = index + 1;
-                }
-            });
-        }
-
-        // Error message function
-        function showErrorMessage(message) {
-            const rankingsList = document.querySelector('.rankings-list');
-            if (rankingsList) {
-                rankingsList.innerHTML = `
-                    <div style="padding: 40px; text-align: center; color: #dc3545;">
-                        <h3 style="color: #dc3545; margin-bottom: 10px;">Error Loading Data</h3>
-                        <p>${message}</p>
-                        <button onclick="location.reload()" style="margin-top: 15px; padding: 10px 20px; background: #1B4965; color: white; border: none; border-radius: 5px; cursor: pointer; font-family: 'Work Sans', sans-serif;">
-                            Try Again
-                        </button>
-                    </div>
-                `;
-            }
-        }
-
-        // Start New Chapter functionality
-        async function showNewChapterModal() {
-            try {
-                // Check if user is logged in
-                const userData = sessionStorage.getItem('iyna_user');
-                if (!userData) {
-                    alert('Please log in to start a new chapter.');
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                const currentUser = JSON.parse(userData);
-                
-                // Check if user is already part of a chapter
-                if (currentUser.chapter_id) {
-                    alert('You can only create a chapter if you are not already part of a chapter, and your school doesn\'t have an IYNA chapter yet.\n\nYou are currently a member of a chapter, so you cannot start a new one.');
-                    return;
-                }
-
-                // Check if user's school already has a chapter
-                if (window.chaptersData && currentUser.school) {
-                    const existingChapter = window.chaptersData.find(chapter => 
-                        chapter.school_name && 
-                        chapter.school_name.toLowerCase() === currentUser.school.toLowerCase()
-                    );
-                    
-                    if (existingChapter) {
-                        alert(`Your school (${currentUser.school}) already has an IYNA chapter: "${existingChapter.name || existingChapter.school_name}".\n\nYou cannot start a new chapter at a school that already has one.`);
-                        return;
-                    }
-                }
-
-                const confirmNewChapter = confirm(
-                    "Do you want to start a new chapter?\n\n" +
-                    "This will:\n" +
-                    "• Allow you to create a new IYNA chapter\n" +
-                    "• Make you the director of the new chapter\n" +
-                    "• Require approval from IYNA administrators\n\n" +
-                    "Continue to the chapter request form?"
-                );
-                
-                if (confirmNewChapter) {
-                    document.getElementById('startChapterModal').style.display = 'flex';
-                    // Autofill and lock name/email from session user
-                    const firstName = currentUser.first_name || currentUser.user?.first_name || '';
-                    const lastName = currentUser.last_name || currentUser.user?.last_name || '';
-                    const emailVal = currentUser.email || currentUser.user?.email || '';
-                    const fullName = `${firstName} ${lastName}`.trim();
-                    const nameInput = document.getElementById('chapterRequestName');
-                    const emailInput = document.getElementById('chapterRequestEmail');
-                    if (nameInput) { nameInput.value = fullName; }
-                    if (emailInput) { emailInput.value = emailVal; }
-                }
-            } catch (error) {
-                console.error('Error checking user status for new chapter:', error);
-                alert('Error checking your eligibility. Please try again.');
-            }
-        }
-
-        function closeStartChapterModal() {
-            document.getElementById('startChapterModal').style.display = 'none';
-            // Reset form
-            document.getElementById('chapterRequestName').value = '';
-            document.getElementById('chapterRequestEmail').value = '';
-            document.getElementById('chapterRequestSchool').value = '';
-            document.getElementById('chapterRequestReason').value = '';
-        }
-
-        async function submitChapterRequest() {
-            const name = document.getElementById('chapterRequestName').value.trim();
-            const email = document.getElementById('chapterRequestEmail').value.trim();
-            const school = document.getElementById('chapterRequestSchool').value.trim();
-            const reason = document.getElementById('chapterRequestReason').value.trim();
-
-            if (!name || !email || !school || !reason) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-
-            const submitBtn = document.getElementById('submitChapterBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
-
-            try {
-                // Ensure Supabase client is available
-                if (!window.supabase) {
-                    throw new Error('Supabase client not initialized.');
-                }
-
-                // Get current user from session
-                const userData = sessionStorage.getItem('iyna_user');
-                if (!userData) {
-                    alert('Please log in to submit a chapter request.');
-                    window.location.href = 'login.html';
-                    return;
-                }
-                const currentUser = JSON.parse(userData);
-
-                // Insert chapter request into Supabase
-                const { data, error } = await supabase
-                    .from('chapter_request')
-                    .insert({
-                        user_id: currentUser.id || currentUser.user?.id,
-                        user_name: name,
-                        user_email: email,
-                        school_name: school,
-                        reason: reason,
-                        status: 'pending',
-                        requested_at: new Date().toISOString()
-                    })
-                    .select()
-                    .single();
-
-                if (error) {
-                    console.error('Supabase insert error:', error);
-                    throw error;
-                }
-
-                alert('Chapter request submitted successfully! We will review your application and get back to you soon.');
-                closeStartChapterModal();
-                // Refresh UI to reflect requested state
-                if (typeof updateStartNewChapterSection === 'function') {
-                    await updateStartNewChapterSection();
-                }
-            } catch (error) {
-                console.error('Error submitting chapter request:', error);
-                alert('Failed to submit chapter request. Please try again.');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Request';
-            }
-        }
-    </script>
-
-    <!-- Start New Chapter Modal -->
-    <div class="modal-overlay" id="startChapterModal" style="display: none;">
-        <div class="modal-content" style="max-width: 600px; max-height: 90vh; text-align: left; background: white; border-radius: 16px; padding: 0; overflow: hidden; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); display: flex; flex-direction: column;">
-            <!-- Modal Header -->
-            <div style="background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%); padding: 2rem 2rem 1.5rem 2rem; color: white; flex-shrink: 0;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                    <h3 style="margin: 0; font-size: 1.8rem; font-weight: 700; color: white;">Start a New Chapter</h3>
-                    <button onclick="closeStartChapterModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">&times;</button>
-                </div>
-                <p style="margin: 0; font-size: 1rem; opacity: 0.9; font-weight: 400;">Create a new IYNA chapter at your school</p>
-            </div>
-            
-            <!-- Modal Body -->
-            <div style="padding: 2rem; overflow-y: auto; flex: 1;">
-                <!-- Information Alert -->
-                <div style="background: #e8f4f8; border-left: 4px solid #1B4965; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
-                    <p style="margin: 0; color: #1B4965; font-size: 0.95rem; line-height: 1.5; font-weight: 500;">
-                        <strong>Important:</strong> You can only start a chapter if one does not already exist at your school. We'll verify this before approving your request.
-                    </p>
-                </div>
-                
-                <!-- Form -->
-                <form id="startChapterForm">
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">Your Full Name *</label>
-                        <input type="text" id="chapterRequestName" class="form-control" placeholder="Enter your full name" required style="width: 100%; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;" readonly>
-                </div>
-                
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">Your Email *</label>
-                        <input type="email" id="chapterRequestEmail" class="form-control" placeholder="Enter your email address" required style="width: 100%; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;" readonly>
-            </div>
-            
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">School Name *</label>
-                        <input type="text" id="chapterRequestSchool" class="form-control" placeholder="Enter your school name" required style="width: 100%; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;">
-                </div>
-                
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B4965;">Reason for Starting a Chapter *</label>
-                        <textarea 
-                            id="chapterRequestReason" 
-                            class="form-control"
-                            placeholder="Please explain why you want to start a new chapter at your school. Include details about student interest, faculty support, and your vision for the chapter..."
-                            style="width: 100%; min-height: 120px; resize: vertical; padding: 0.75rem; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;"
-                            required></textarea>
-                        <small style="color: #6c757d; font-size: 0.9rem;">Be detailed and specific about your motivation and plans for the chapter.</small>
-            </div>
-                </form>
-            </div>
-            
-            <!-- Modal Footer -->
-            <div style="background: #f8f9fa; padding: 1.5rem 2rem; border-top: 1px solid #e9ecef; display: flex; gap: 1rem; justify-content: flex-end; flex-shrink: 0;">
-                <button onclick="closeStartChapterModal()" style="background: #6c757d; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 500; transition: background-color 0.2s; font-size: 0.95rem;" onmouseover="this.style.background='#5a6268'" onmouseout="this.style.background='#6c757d'">Cancel</button>
-                <button id="submitChapterBtn" onclick="submitChapterRequest()" style="background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 0.95rem; box-shadow: 0 2px 8px rgba(27, 73, 101, 0.3);" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(27, 73, 101, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(27, 73, 101, 0.3)'">Submit Request</button>
-            </div>
-        </div>
+        <div class="announcement-text">Season 7 has begun! This season will end on September 1st, 2025</div>
+      </div>
     </div>
 
-    <!-- Modal Overlay Styles -->
-    <style>
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-    </style>
+    <h1 class="rankings-title">Rankings</h1>
 
+    <!-- Chapter of the Season -->
+    <div class="chapter-highlight" id="chapterOfSeason">
+      <div class="chapter-star">
+        <img src="images/icons/solar_star-bold-duotone.png" alt="Star"
+             onerror="this.style.display='none';this.parentElement.innerHTML='⭐'">
+      </div>
+      <div class="chapter-info">
+        <div class="chapter-label">Chapter of the Season</div>
+        <div class="chapter-name" id="cotName">Gharbiya STEM High School</div>
+        <div class="chapter-code" id="cotCode">EGY004</div>
+      </div>
+    </div>
+
+    <!-- Search + Filter -->
+    <div class="search-filter-section">
+      <div class="search-filter-row">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search by name or chapter ID…">
+        <button class="filter-button" id="filterDropdownBtn" type="button">
+          <span>☰</span> Filter / Sort
+        </button>
+      </div>
+
+      <div class="filter-dropdown" id="filterDropdownMenu">
+        <div class="dropdown-section-title">Sort By</div>
+        <button class="dropdown-option selected" data-sort="alpha">A → Z (Name)</button>
+        <button class="dropdown-option" data-sort="chapterid">Chapter ID</button>
+        <button class="dropdown-option" data-sort="country">Country Code</button>
+
+        <div class="dropdown-section-title">Filter</div>
+        <button class="dropdown-option" data-filter="college">College Chapters</button>
+        <button class="dropdown-option" data-filter="highschool">High School Chapters</button>
+        <button class="dropdown-option" data-filter="usa">USA Only</button>
+
+        <button class="dropdown-reset" id="resetFiltersBtn">Reset all</button>
+      </div>
+
+      <div class="selected-filters-bar" id="selectedFiltersBar"></div>
+      <div class="results-count" id="resultsCount"></div>
+    </div>
+
+    <!-- Rankings List -->
+    <div class="rankings-list" id="rankingsList"></div>
+
+    <!-- Start New Chapter -->
+    <div class="start-chapter-section">
+      <div class="start-chapter-content">
+        <h3>Don't see your school?</h3>
+        <p>Start a new IYNA chapter at your school and become a chapter director.</p>
+        <button class="start-chapter-btn"
+                onclick="window.open('https://forms.gle/FKn9xFWh1FrowNpi7', '_blank')">
+          Start New Chapter
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Map -->
+<section>
+  <div class="map-section">
+    <iframe
+      src="https://www.google.com/maps/d/u/0/embed?mid=1OI4zPrHntxtt8FiYgliT10WkC8G4c48&ehbc=2E312F&ll=-3.81666561775622e-14%2C26.06885245000001&z=1"
+      allowfullscreen></iframe>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     DATA + LOGIC
+══════════════════════════════════════════════ -->
+<script>
+// ── 1. Master data ────────────────────────────────────────────────────────────
+const ALL_CHAPTERS = [
+  { name: "Benemérita Universidad Autónoma de Puebla", id: "MEX001" },
+  { name: "William Mason High School", id: "USA001" },
+  { name: "Bergen County Academies", id: "USA002" },
+  { name: "Bridgeland High School", id: "USA003" },
+  { name: "Tesoro High School", id: "USA004" },
+  { name: "Adrian Wilcox High School", id: "USA005" },
+  { name: "Zakariya Public School", id: "PAK001" },
+  { name: "American Heritage School Broward", id: "USA006" },
+  { name: "Walton High School", id: "USA007" },
+  { name: "El-Sadat STEM School", id: "EGY001" },
+  { name: "Shanghai High School International Division", id: "CHN001" },
+  { name: "Woodlawn School", id: "USA008" },
+  { name: "University of North Carolina at Charlotte", id: "USA009" },
+  { name: "Arnold O. Beckman High School", id: "USA010" },
+  { name: "Glendora High School", id: "USA011" },
+  { name: "South Forsyth High School", id: "USA012" },
+  { name: "Del Norte High School", id: "USA013" },
+  { name: "NC School of Science & Mathematics – Morganton", id: "USA014" },
+  { name: "Cypress High School", id: "USA015" },
+  { name: "Leigh High School", id: "USA016" },
+  { name: "Assiut STEM School", id: "EGY002" },
+  { name: "Springville High School", id: "USA017" },
+  { name: "Stuyvesant High School", id: "USA018" },
+  { name: "Westlake Academy", id: "USA019" },
+  { name: "Amity Institute of Biotechnology, Amity University Noida", id: "IND001" },
+  { name: "Centennial High School", id: "USA020" },
+  { name: "Orange County School of the Arts", id: "USA022" },
+  { name: "Rio Americano", id: "USA023" },
+  { name: "St. Francis Xavier Secondary School", id: "CAN001" },
+  { name: "Kafr El-sheikh STEM High School", id: "EGY003" },
+  { name: "Central Catholic High School", id: "USA024" },
+  { name: "Ridley College", id: "CAN002" },
+  { name: "University of Brasília", id: "BRA001" },
+  { name: "John Fraser Secondary School", id: "CAN003" },
+  { name: "Tenafly High School", id: "USA025" },
+  { name: "Thayer Academy", id: "USA026" },
+  { name: "Mission Vista High School", id: "USA027" },
+  { name: "Hong Kong International Schools (HKG001)", id: "HKG001" },
+  { name: "William Lyon Mackenzie Collegiate Institute", id: "CAN004" },
+  { name: "Chiles High School", id: "USA028" },
+  { name: "University of Michigan Ann Arbor – Neuroscience Student Association", id: "USA029" },
+  { name: "Phillips Exeter Academy", id: "USA030" },
+  { name: "Cheongshim International Academy", id: "KOR001" },
+  { name: "Horace Mann School", id: "USA031" },
+  { name: "Scripps Ranch High School", id: "USA032" },
+  { name: "Bridgewater Raritan High School", id: "USA033" },
+  { name: "Jordan High School", id: "USA034" },
+  { name: "Green Level High School", id: "USA035" },
+  { name: "NC School of Science & Mathematics – Durham", id: "USA036" },
+  { name: "Hebron High School", id: "USA037" },
+  { name: "Coppell High School", id: "USA038" },
+  { name: "Livingston High School", id: "USA039" },
+  { name: "Farmington High School", id: "USA040" },
+  { name: "The Hyderabad Public School, Ramanthapur", id: "IND002" },
+  { name: "Suleyman Demirel Lyceum", id: "KAZ001" },
+  { name: "Miklós Radnóti Experimental High School in Szeged", id: "HUN001" },
+  { name: "Lincoln High School", id: "USA041" },
+  { name: "Private Rüzgar Anatolian High School", id: "TUR001" },
+  { name: "MM Junior College", id: "IND003" },
+  { name: "Interlake High School", id: "USA042" },
+  { name: "Hillcrest High School", id: "USA043" },
+  { name: "Crofton High School", id: "USA044" },
+  { name: "Vincent Massey High School", id: "CAN005" },
+  { name: "Texas Academy of Math and Sciences", id: "USA045" },
+  { name: "Vista del Lago High School", id: "USA046" },
+  { name: "Turkistan Bilim Innovation Lyceum", id: "KAZ002" },
+  { name: "Westwood High School", id: "USA047" },
+  { name: "University of Alabama at Birmingham", id: "USA048" },
+  { name: "Nurorda School-Lyceum", id: "KAZ003" },
+  { name: "Almaty Bilim-Innovation Lyceum", id: "KAZ004" },
+  { name: "Gharbiya STEM High School", id: "EGY004" },
+  { name: "Wayzata High School", id: "USA050" },
+  { name: "International School Bellevue", id: "USA051" },
+  { name: "STEM High School for Boys – 6th of October", id: "EGY005" },
+  { name: "Pine View School", id: "USA052" },
+  { name: "Health4US", id: "USA053" },
+  { name: "Homestead High School", id: "USA054" },
+  { name: "The Awty International School", id: "USA055" },
+  { name: "Astana Bilim Innovation Lyceum for Gifted Boys", id: "KAZ005" },
+  { name: "Çakır High School", id: "TUR002" },
+  { name: "Hanover High School", id: "USA056" },
+  { name: "North Hollywood High School", id: "USA057" },
+  { name: "Rice University", id: "USA058" },
+  { name: "Eastlake High School", id: "USA059" },
+  { name: "Diamond Bar High School", id: "USA060" },
+  { name: "Maadi STEM High School for Girls", id: "EGY006" },
+  { name: "Maynard Holbrook Jackson High School", id: "USA061" },
+  { name: "Illinois Mathematics and Science Academy", id: "USA049" },
+  { name: "FCS Innovation Academy", id: "USA062" },
+  { name: "Alexandria STEM School", id: "EGY007" },
+  { name: "Government Medical College Srinagar", id: "IND004" },
+  { name: "Taipei American School", id: "TWN001" },
+  { name: "North Fort Myers High School", id: "USA063" },
+  { name: "Solon High School", id: "USA064" },
+  { name: "STEM Qena School", id: "EGY009" },
+  { name: "School for Advanced Studies – South", id: "USA065" },
+  { name: "Cox Mill High School", id: "USA066" },
+  { name: "Naperville Central High School", id: "USA068" },
+  { name: "Carlmont High School", id: "USA069" },
+  { name: "Parul University", id: "IND005" },
+  { name: "Marc Garneau Collegiate Institute", id: "CAN006" },
+  { name: "Dougherty Valley High School", id: "USA070" },
+  { name: "Metkenana Secondary School", id: "EGY010" },
+  { name: "Culver City High School", id: "USA071" },
+  { name: "Obour STEM School", id: "EGY011" },
+  { name: "Luxor STEM School", id: "EGY012" },
+  { name: "Whitney High School", id: "USA072" },
+  { name: "El Pez Volador / The Flying Fish", id: "ARG001" },
+  { name: "Atascocita High School", id: "USA074" },
+  { name: "Ismailia STEM High School", id: "EGY013" },
+  { name: "Victoria Shanghai Academy", id: "HKG002" },
+  { name: "Tesla STEM High School", id: "USA075" },
+  { name: "Seventh-Day Adventist Senior High School", id: "GHA001" },
+  { name: "University of Lagos", id: "NGA001" },
+  { name: "Jumeirah English Speaking School", id: "UAE001" },
+  { name: "Motafawkeen Ain Shams High School for Boys", id: "EGY014" },
+  { name: "Canyon Crest Academy", id: "USA076" },
+  { name: "GMERS Medical College Rajpipla", id: "IND006" },
+  { name: "Oak Park High School", id: "USA077" },
+  { name: "Montfort Senior Secondary School", id: "IND007" },
+  { name: "Dakahlia STEM School", id: "EGY015" },
+  { name: "Benha National University", id: "EGY016" },
+  { name: "Lausanne Collegiate School", id: "USA079" },
+  { name: "Skyline High School", id: "USA080" },
+  { name: "Mission Bay High School", id: "USA081" },
+  { name: "Bedford Girls' School", id: "GBR001" },
+  { name: "La Salle High School", id: "JPN001" },
+  { name: "Decatur High School", id: "USA082" },
+  { name: "Victoria Park Collegiate Institute", id: "CAN007" },
+  { name: "Stratford Girls' Grammar School", id: "GBR002" },
+  { name: "West Career and Technical Academy", id: "USA083" },
+  { name: "Pierre Elliott Trudeau High School", id: "CAN008" },
+  { name: "Louise-Henriette Gymnasium", id: "GER001" },
+  { name: "Lauremont School (formerly TMS School)", id: "CAN009" },
+  { name: "Royal Latin School", id: "GBR003" },
+  { name: "East Chapel Hill High School", id: "USA084" },
+  { name: "Marvin Ridge High School", id: "USA085" },
+  { name: "Rock Hill High School", id: "USA086" },
+  { name: "Hiroo Gakuen Senior High School", id: "JPN002" },
+  { name: "University of Illinois Chicago", id: "USA087" },
+  { name: "Woodgrove High School", id: "USA088" },
+  { name: "Huron High School", id: "USA089" },
+  { name: "School-lyceum BINOM – Kadyr Myrza Ali", id: "KAZ006" },
+  { name: "St Cuthbert's College", id: "NZL001" },
+  { name: "Alexandria University", id: "EGY017" },
+  { name: "Juanita High School", id: "USA090" },
+  { name: "Lake Washington High School", id: "USA091" },
+  { name: "Johannes Kepler Grammar School", id: "CZE001" },
+  { name: "University of Lethbridge", id: "CAN010" },
+  { name: "Folsom High School", id: "USA092" },
+  { name: "Hillsborough High School", id: "USA093" },
+  { name: "Independent Schools Foundation Academy", id: "HKG003" },
+  { name: "University of Kansas", id: "USA094" },
+  { name: "Forest Ridge School of the Sacred Heart", id: "USA095" },
+  { name: "Archimedean Upper Conservatory", id: "USA096" },
+  { name: "Northwestern University", id: "USA097" },
+  { name: "STEM October 11th District High School", id: "EGY018" },
+  { name: "Foundation World School", id: "IND008" },
+  { name: "Little Rock Central High School", id: "USA098" },
+  { name: "Ruamrudee International School", id: "THA001" },
+  { name: "Janashakti College", id: "NPL001" },
+  { name: "Hangzhou International School", id: "CHN002" },
+  { name: "Middleton High School", id: "USA099" },
+  { name: "Faculty of Arts – Psychology, Ain Shams University", id: "EGY019" },
+  { name: "Columbus High School", id: "USA100" },
+  { name: "Greenhills School", id: "USA101" },
+  { name: "Universidad Autónoma de Nuevo León", id: "MEX002" },
+  { name: "EL Husinia Private School", id: "EGY020" },
+  { name: "Virginia Commonwealth University", id: "USA102" },
+  { name: "Malvern College Qingdao", id: "CHN003" },
+  { name: "Harmony School of Innovation – Sugarland", id: "USA103" },
+  { name: "Bangladesh International Tutorial", id: "BGD001" },
+  { name: "Heritage High School", id: "USA104" },
+  { name: "Gwinnett School of Mathematics, Science, and Technology", id: "USA105" },
+  { name: "Williamsville East High School", id: "USA106" },
+  { name: "West Cabarrus High School", id: "USA107" },
+  { name: "Oakridge International School Bangalore", id: "IND009" },
+  { name: "Alpharetta High School", id: "USA108" },
+  { name: "Spring Lake Park High School", id: "USA109" },
+  { name: "The Buckley School", id: "USA110" },
+  { name: "Olentangy Berlin High School", id: "USA111" },
+  { name: "Cary Academy", id: "USA112" },
+  { name: "John F. Kennedy Memorial High School", id: "USA113" },
+  { name: "Northview High School", id: "USA114" },
+  { name: "Pleasant View School", id: "USA115" },
+  { name: "Carl Sandburg High School", id: "USA116" },
+  { name: "Merivale High School", id: "CAN011" },
+  { name: "Saugus High School", id: "USA117" },
+  { name: "Obafemi Awolowo University, Ile Ife", id: "NGA002" },
+  { name: "Camberwell Grammar School", id: "AUS001" },
+  { name: "Hopkinton High School", id: "USA118" },
+  { name: "Panther Creek High School", id: "USA119" },
+  { name: "Chattahoochee High School", id: "USA120" },
+  { name: "Uplift North Hills Preparatory", id: "USA121" },
+  { name: "Saratoga High School", id: "USA122" },
+  { name: "Chapel Hill High School", id: "USA123" },
+  { name: "Basis International School Shekou Shenzhen", id: "CHN004" },
+  { name: "Ladue Horton Watkins High School", id: "USA124" },
+  { name: "Centro de Estudos Professor Edgar Santos", id: "BRA002" },
+  { name: "St. Rita's Public General Secondary School", id: "POL001" },
+  { name: "Cushing Academy", id: "USA125" },
+  { name: "St. Edmund Campion Secondary School", id: "CAN012" },
+  { name: "Independence High School", id: "USA126" },
+  { name: "Harold M. Brathwaite Secondary School", id: "CAN013" },
+  { name: "West Carleton Secondary School", id: "CAN014" },
+  { name: "University of Washington", id: "USA127" },
+  { name: "University of the People / Stardust Academy", id: "LKA001" },
+  { name: "MTs Masjid Al Akbar Surabaya", id: "IDN001" },
+  { name: "Canadian International School Astana", id: "KAZ007" },
+  { name: "Rock Canyon High School", id: "USA128" },
+  { name: "SMA Islamic International School PSM Magetan", id: "IDN002" },
+  { name: "Collège Jean-de-Brébeuf", id: "CAN015" },
+  { name: "Los Altos High School", id: "USA129" },
+  { name: "Egypt Japan University of Science and Technology", id: "EGY021" },
+  { name: "Government College of Pharmacy", id: "IND010" },
+  { name: "Savitribai Phule Pune University", id: "IND011" },
+  { name: "Zagazig University", id: "EGY022" },
+  { name: "Westminster Academy", id: "PAK002" },
+  { name: "Tyler Legacy High School", id: "USA131" },
+  { name: "University of Girona", id: "ESP001" },
+  { name: "Universitat de Barcelona", id: "ESP002" },
+  { name: "Universitat Pompeu Fabra (UPF)", id: "ESP003" },
+  { name: "Mahatma Gandhi Mission's Institute of Health Sciences", id: "IND012" },
+  { name: "St. Roch Catholic Secondary School", id: "CAN016" },
+  { name: "Hankuk Academy of Foreign Studies", id: "KOR002" },
+  { name: "Francis Lewis High School", id: "USA132" },
+  { name: "West Windsor Plainsboro High School South", id: "USA133" },
+  { name: "Hwa Chong Institution", id: "SGP001" },
+  { name: "Abu Ali ibn Sino Specialized School", id: "UZB001" },
+  { name: "Istituto Istruzione Superiore 'Galilei Pacinotti'", id: "ITA001" },
+  { name: "Cheongna Dalton School", id: "KOR003" },
+  { name: "William H. Hall High School", id: "USA134" },
+  { name: "Basis Independent Silicon Valley", id: "USA135" },
+  { name: "North Gwinnett High School", id: "USA136" },
+  { name: "Benowa State High School", id: "AUS002" },
+  { name: "Jose Marti STEM Academy", id: "USA137" }
+];
+
+// ── 2. State ──────────────────────────────────────────────────────────────────
+let currentSort = 'alpha';     // 'alpha' | 'chapterid' | 'country'
+let activeFilters = new Set(); // 'college' | 'highschool' | 'usa'
+let searchTerm = '';
+
+// ── 3. Helpers ────────────────────────────────────────────────────────────────
+function getCountryCode(id) {
+  return id.replace(/\d/g, '').toUpperCase(); // e.g. "USA042" → "USA"
+}
+
+function isCollegeChapter(ch) {
+  const college = ['university','college','universitat','universidad','universite',
+                   'universidad autónoma','savitribai','parul university','amity institute',
+                   'government medical','alexandria university','benha national'];
+  return college.some(kw => ch.name.toLowerCase().includes(kw));
+}
+
+function isHighSchoolChapter(ch) {
+  return !isCollegeChapter(ch);
+}
+
+// ── 4. Filter + sort pipeline ─────────────────────────────────────────────────
+function getVisible() {
+  let list = [...ALL_CHAPTERS];
+
+  // search
+  if (searchTerm) {
+    const q = searchTerm.toLowerCase();
+    list = list.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      c.id.toLowerCase().includes(q)
+    );
+  }
+
+  // filters (OR within same type, AND across types – but here only one group)
+  if (activeFilters.size > 0) {
+    list = list.filter(c => {
+      if (activeFilters.has('college') && isCollegeChapter(c)) return true;
+      if (activeFilters.has('highschool') && isHighSchoolChapter(c)) return true;
+      if (activeFilters.has('usa') && getCountryCode(c.id) === 'USA') return true;
+      return false;
+    });
+  }
+
+  // sort
+  list.sort((a, b) => {
+    if (currentSort === 'alpha')     return a.name.localeCompare(b.name);
+    if (currentSort === 'chapterid') return a.id.localeCompare(b.id);
+    if (currentSort === 'country')   return getCountryCode(a.id).localeCompare(getCountryCode(b.id));
+    return 0;
+  });
+
+  return list;
+}
+
+// ── 5. Render ─────────────────────────────────────────────────────────────────
+function render() {
+  const list = getVisible();
+  const container = document.getElementById('rankingsList');
+  const count = document.getElementById('resultsCount');
+
+  count.textContent = `Showing ${list.length} of ${ALL_CHAPTERS.length} chapters`;
+
+  if (list.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <h3>No chapters found</h3>
+        <p>Try a different search term or clear the filters.</p>
+      </div>`;
+    return;
+  }
+
+  const html = list.map((ch, i) => `
+    <div class="ranking-item">
+      <div class="ranking-number">${i + 1}</div>
+      <div class="ranking-info">
+        <div class="team-name">${escHtml(ch.name)}</div>
+        <div class="team-details">
+          <span class="chapter-id">${ch.id}</span>
+          &nbsp;·&nbsp;${escHtml(getCountryCode(ch.id))}
+        </div>
+      </div>
+      <button class="join-button"
+              onclick="window.open('https://forms.gle/FKn9xFWh1FrowNpi7','_blank')">
+        Request to Join
+      </button>
+    </div>
+  `).join('');
+
+  container.innerHTML = html;
+}
+
+function escHtml(str) {
+  return str
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ── 6. Filter-pill bar ────────────────────────────────────────────────────────
+const FILTER_LABELS = { college: 'College Chapters', highschool: 'High School Chapters', usa: 'USA Only' };
+
+function renderFilterPills() {
+  const bar = document.getElementById('selectedFiltersBar');
+  if (activeFilters.size === 0) { bar.innerHTML = ''; return; }
+
+  let html = '';
+  activeFilters.forEach(f => {
+    html += `<button class="selected-filter-btn" onclick="removeFilter('${f}')">
+               ${FILTER_LABELS[f]} <span class="remove-x">✕</span>
+             </button>`;
+  });
+  html += `<button class="selected-filter-btn" onclick="clearAllFilters()">
+             ✕ Remove all filters
+           </button>`;
+  bar.innerHTML = html;
+}
+
+function removeFilter(f) {
+  activeFilters.delete(f);
+  renderFilterPills();
+  syncDropdownHighlights();
+  render();
+}
+
+function clearAllFilters() {
+  activeFilters.clear();
+  renderFilterPills();
+  syncDropdownHighlights();
+  render();
+}
+
+function syncDropdownHighlights() {
+  // sort buttons
+  document.querySelectorAll('[data-sort]').forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.sort === currentSort);
+  });
+  // filter buttons
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.classList.toggle('filter-active', activeFilters.has(btn.dataset.filter));
+  });
+}
+
+// ── 7. Event wiring ───────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Initial render
+  render();
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchTerm = e.target.value.trim();
+    render();
+  });
+
+  // Dropdown toggle
+  const filterBtn = document.getElementById('filterDropdownBtn');
+  const dropdownMenu = document.getElementById('filterDropdownMenu');
+
+  filterBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    dropdownMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', e => {
+    if (!dropdownMenu.contains(e.target) && e.target !== filterBtn) {
+      dropdownMenu.classList.remove('open');
+    }
+  });
+
+  // Sort options
+  document.querySelectorAll('[data-sort]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentSort = btn.dataset.sort;
+      syncDropdownHighlights();
+      render();
+    });
+  });
+
+  // Filter options (toggle)
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      if (activeFilters.has(f)) {
+        activeFilters.delete(f);
+      } else {
+        activeFilters.add(f);
+      }
+      renderFilterPills();
+      syncDropdownHighlights();
+      render();
+    });
+  });
+
+  // Reset
+  document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+    currentSort = 'alpha';
+    activeFilters.clear();
+    searchTerm = '';
+    document.getElementById('searchInput').value = '';
+    renderFilterPills();
+    syncDropdownHighlights();
+    render();
+    dropdownMenu.classList.remove('open');
+  });
+
+  // Chapter of the Season (hardcoded – no DB)
+  document.getElementById('cotName').textContent = 'Gharbiya STEM High School';
+  document.getElementById('cotCode').textContent = 'EGY004';
+});
+</script>
 </body>
 </html>
