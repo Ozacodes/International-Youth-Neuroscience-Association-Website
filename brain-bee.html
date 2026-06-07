@@ -1,878 +1,798 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="IYNA Chapter Rankings – find and join a neuroscience chapter near you.">
-    <title>IYNA – Chapters &amp; Rankings</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <!-- Site CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+        <title>Brain Bee Bootcamp 2025-2026 - IYNA</title>
 
-    <!-- Supabase + shared scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/database.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/nav-login-state.js"></script>
-    <script src="js/load-nav.js"></script>
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <style>
-      /* ── Global font override ── */
-      body, h1, h2, h3, h4, h5, h6,
-      .btn, .navbar-brand, .nav-link,
-      .accordion-button, .custom-block, .custom-btn,
-      .site-footer, .site-footer-link, .copyright-text,
-      button, input, textarea, select {
-        font-family: 'Work Sans', sans-serif !important;
-      }
-
-      html, body { max-width: 100vw; overflow-x: hidden !important; }
-      img, section { max-width: 100%; height: auto; }
-
-      .navbar .nav-link { white-space: nowrap; }
-      .navbar .nav-item { margin-left: .3rem !important; margin-right: .3rem !important; }
-
-      /* ════════════════════════════════════════
-         HERO — matches Brain Bee hero exactly
-      ════════════════════════════════════════ */
-      .hero-section {
-        position: relative;
-        background: url('images/hero-squeezed (1).png') center center / cover no-repeat;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-      }
-      .hero-section .container { z-index: 2; position: relative; }
-      .hero-section h1 {
-        font-size: 3rem;
-        font-weight: 700;
-        line-height: 1.1;
-        color: #fff;
-        margin-bottom: 1rem;
-      }
-      .hero-section p {
-        font-size: 1.15rem;
-        margin-bottom: 1.5rem;
-        color: #fff;
-        max-width: 600px;
-      }
-      .hero-section .btn {
-        background-color: #1B4965;
-        color: #fff;
-        font-weight: 600;
-        border-radius: 8px;
-        padding: .75rem 1.5rem;
-        font-size: 1.1rem;
-      }
-
-      /* ════════════════════════════════════════
-         ANNOUNCEMENT SECTION — #f7fafd bg
-      ════════════════════════════════════════ */
-      .announcement-section {
-        background: #f7fafd;
-        padding: 48px 0 36px;
-      }
-      .announcement-inner {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-      .announcement-card {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(27,42,65,.07);
-        padding: 28px 36px 28px 24px;
-        border-left: 6px solid #62B6CB;
-        display: flex;
-        align-items: center;
-        gap: 18px;
-      }
-      .announcement-icon img {
-        width: 36px; height: 36px; object-fit: contain;
-      }
-      .announcement-text { color: #1B2A41; font-size: 1.05rem; font-weight: 500; }
-
-      /* ════════════════════════════════════════
-         RANKINGS SECTION — white bg
-      ════════════════════════════════════════ */
-      .rankings-section {
-        background: #ffffff;
-        padding: 60px 0;
-      }
-      .rankings-container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-      .rankings-title {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #1B4965;
-        margin-bottom: 28px;
-        text-align: left;
-      }
-
-      /* Chapter of the Season — styled like a detail card */
-      .chapter-highlight {
-        background: #1B4965;
-        border-radius: 12px;
-        padding: 32px 36px;
-        margin-bottom: 32px;
-        display: flex;
-        align-items: center;
-        gap: 22px;
-        box-shadow: 0 2px 12px rgba(27,42,65,.15);
-      }
-      .chapter-star img { width: 56px; height: 56px; object-fit: contain; display: block; }
-      .chapter-label { font-size: 10px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 4px; }
-      .chapter-name { font-size: 1.4rem; font-weight: 600; color: #fff; margin-bottom: 4px; }
-      .chapter-code { font-size: 13px; color: rgba(255,255,255,.75); }
-
-      /* Search + Filter */
-      .search-filter-section {
-        background: #f7fafd;
-        border-radius: 12px;
-        padding: 20px 24px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 10px rgba(0,0,0,.06);
-        position: relative;
-        border-left: 6px solid #1B4965;
-      }
-      .search-filter-row { display: flex; align-items: center; gap: 12px; }
-      .search-input {
-        flex: 1;
-        padding: 11px 15px;
-        border: 2px solid #e0e0e0;
-        border-radius: 8px;
-        font-size: 14px;
-        background: #fff;
-        transition: border-color .15s;
-        font-family: 'Work Sans', sans-serif;
-      }
-      .search-input:focus { outline: none; border-color: #62B6CB; }
-      .filter-button {
-        background-color: #1B4965;
-        color: #fff;
-        border: none;
-        padding: 11px 18px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        white-space: nowrap;
-        transition: background .15s;
-        font-family: 'Work Sans', sans-serif;
-      }
-      .filter-button:hover { background-color: #62B6CB; }
-
-      /* Dropdown */
-      .filter-dropdown {
-        position: absolute;
-        top: calc(100% + 6px);
-        right: 24px;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 6px 28px rgba(0,0,0,.13);
-        padding: 24px 26px 18px;
-        min-width: 230px;
-        z-index: 200;
-        display: none;
-        flex-direction: column;
-        gap: 4px;
-        border-top: 4px solid #1B4965;
-      }
-      .filter-dropdown.open { display: flex; }
-      .dropdown-section-title {
-        font-size: 10px; font-weight: 700; color: #aaa;
-        letter-spacing: 1.3px; text-transform: uppercase;
-        margin: 12px 0 5px; padding-left: 18px;
-      }
-      .dropdown-section-title:first-child { margin-top: 0; }
-      .dropdown-option {
-        font-size: 15px; color: #333; font-weight: 400;
-        padding: 5px 6px 5px 22px;
-        cursor: pointer; border: none; background: none;
-        text-align: left; border-radius: 6px; position: relative;
-        transition: color .12s, background .12s;
-        font-family: 'Work Sans', sans-serif;
-      }
-      .dropdown-option:hover { color: #1B4965; background: #f0f9fa; }
-      .dropdown-option.selected { color: #1B4965; font-weight: 600; }
-      .dropdown-option.selected::before,
-      .dropdown-option.filter-active::before {
-        content: "✓"; position: absolute; left: 4px; color: #62B6CB; font-weight: 700;
-      }
-      .dropdown-option.filter-active { color: #1B4965; font-weight: 600; }
-      .dropdown-reset {
-        margin-top: 14px; background: #f7fafd; color: #333;
-        border: none; border-radius: 8px; padding: 7px 14px;
-        font-size: 13px; font-weight: 500; cursor: pointer;
-        align-self: flex-end; transition: background .15s;
-        font-family: 'Work Sans', sans-serif;
-      }
-      .dropdown-reset:hover { background: #e2e8f0; }
-
-      /* Filter pills */
-      .selected-filters-bar { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-      .selected-filter-btn {
-        background: #BEE9E8; color: #1B4965;
-        border: none; border-radius: 20px; padding: 5px 13px;
-        font-size: 13px; font-weight: 500;
-        display: flex; align-items: center; gap: 6px;
-        cursor: pointer; transition: background .15s;
-        font-family: 'Work Sans', sans-serif;
-      }
-      .selected-filter-btn:hover { background: #62B6CB; color: #fff; }
-      .remove-x { font-size: 13px; }
-      .results-count { font-size: 12px; color: #aaa; margin-top: 8px; padding-left: 2px; }
-
-      /* Rankings list */
-      .rankings-list {
-        background: #fff;
-        border-radius: 12px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        box-shadow: 0 2px 12px rgba(27,42,65,.07);
-        max-height: 560px;
-        min-height: 200px;
-        border-left: 6px solid #1B4965;
-      }
-      .ranking-item {
-        display: flex;
-        align-items: center;
-        padding: 16px 20px;
-        border-bottom: 1px solid #f2f2f2;
-        gap: 0;
-        transition: background .1s;
-      }
-      .ranking-item:last-child { border-bottom: none; }
-      .ranking-item:hover { background: #f7fafd; }
-      .ranking-number {
-        font-size: 18px; font-weight: 700; color: #1B4965;
-        width: 46px; text-align: center; flex-shrink: 0;
-      }
-      .ranking-info { flex: 1; margin-left: 14px; }
-      .team-name { font-size: 15px; font-weight: 600; color: #1B4965; }
-      .team-details { font-size: 12px; color: #999; margin-top: 2px; }
-      .chapter-id-badge {
-        font-family: 'Courier New', monospace;
-        font-size: 11px; background: #f0f9fa;
-        color: #1B4965; padding: 2px 6px; border-radius: 4px;
-      }
-      .join-button {
-        background-color: #BEE9E8; color: #1B4965;
-        border: none; padding: 8px 16px; border-radius: 8px;
-        font-size: 13px; font-weight: 600; cursor: pointer;
-        flex-shrink: 0; transition: background .15s, color .15s;
-        white-space: nowrap; font-family: 'Work Sans', sans-serif;
-      }
-      .join-button:hover { background-color: #62B6CB; color: #fff; }
-
-      .empty-state { padding: 56px 20px; text-align: center; color: #aaa; }
-      .empty-state h3 { color: #1B4965; margin-bottom: 8px; font-size: 1.2rem; }
-
-      /* ════════════════════════════════════════
-         START CHAPTER CTA — #f7fafd bg
-      ════════════════════════════════════════ */
-      .start-chapter-section {
-        background: #f7fafd;
-        padding: 60px 0;
-      }
-      .start-chapter-inner {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-      .start-chapter-card {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(27,42,65,.07);
-        padding: 36px 36px 28px 24px;
-        border-left: 6px solid #1B4965;
-        text-align: left;
-      }
-      .start-chapter-card h3 {
-        color: #1B4965; font-size: 1.7rem; font-weight: 700; margin-bottom: .8rem;
-      }
-      .start-chapter-card p {
-        color: #1B2A41; font-size: 1.05rem; margin-bottom: 1.5rem; line-height: 1.6;
-      }
-      .start-chapter-btn {
-        background-color: #1B4965;
-        color: #fff; border: none;
-        padding: .75rem 1.5rem; border-radius: 8px;
-        font-size: 1.05rem; font-weight: 600; cursor: pointer;
-        transition: background .2s;
-        font-family: 'Work Sans', sans-serif;
-        display: inline-block;
-        text-decoration: none;
-      }
-      .start-chapter-btn:hover { background-color: #62B6CB; color: #fff; }
-
-      /* ════════════════════════════════════════
-         MAP — white bg
-      ════════════════════════════════════════ */
-      .map-section {
-        background: #ffffff;
-        padding: 60px 0;
-      }
-      .map-inner {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-      .map-inner h2 {
-        font-size: 2.2rem; font-weight: 700; color: #1B4965;
-        margin-bottom: 28px; text-align: left;
-      }
-      .map-inner iframe {
-        width: 100%; height: 500px; border: 0;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(27,42,65,.1);
-      }
-
-      /* ── Mobile ── */
-      @media (max-width: 768px) {
-        .hero-section {
-          background: #DFE7EC !important;
-          background-image: none !important;
-          min-height: 80vh;
-          height: auto;
-          padding: 120px 0 60px;
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+        
+        <style>
+          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+            font-family: 'Work Sans', sans-serif !important;
+          }
+          #about-iyna {
+            padding-top: 6rem !important;
+            padding-bottom: 6rem !important;
+          }
+          /* Prevent nav links from breaking into two lines and reduce spacing */
+          .navbar .nav-link {
+            white-space: nowrap;
+          }
+          .navbar .nav-item {
+            margin-left: 0.3rem !important;
+            margin-right: 0.3rem !important;
+          }
+        </style>
+        <!-- Append mobile hero section CSS for override -->
+        <style>
+        /* Responsive hero section for mobile (match home page) */
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            font-size: 1.7rem !important;
+            line-height: 1.2 !important;
+            text-align: left !important;
+            padding: 0 10px !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: 100% !important;
+            max-width: 250px !important;
+            margin: 0 auto !important;
+            display: block !important;
+          }
+          .hero-section {
+            padding: 220px 0 !important;
+            min-height: 80vh !important;
+          }
         }
-        .hero-section h1 { font-size: 1.7rem !important; padding-left: 24px; }
-        .hero-section p { padding-left: 24px; }
-        .hero-section .btn { margin-left: 24px; }
-        .chapter-highlight { flex-direction: column; text-align: center; }
-        .search-filter-row { flex-direction: column; }
-        .search-input { width: 100%; }
-        .ranking-item { flex-wrap: wrap; gap: 10px; }
-        .join-button { width: 100%; text-align: center; }
-        .map-inner iframe { height: 340px; }
-        .announcement-card { flex-direction: column; text-align: center; }
-        .row { margin-left: 0 !important; margin-right: 0 !important; }
-        .container, .container-fluid { padding-left: 10px !important; padding-right: 10px !important; }
-      }
-    </style>
-</head>
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            text-align: left !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+          }
+          .hero-section .btn {
+            font-size: 1rem !important;
+            padding: 0.7rem 1.2rem !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 180px !important;
+            margin: 0 !important;
+            display: inline-block !important;
+            text-align: left !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+          .container, .container-fluid {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section background color override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section {
+            background: #DFE7EC !important;
+            background-image: none !important;
+          }
+          .hero-section .overlay {
+            display: none !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section h1 {
+            padding-left: 18px !important;
+            padding-right: 10px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section h1 and paragraph alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .col-lg-8, .hero-section .col-12 {
+            padding-left: 0 !important;
+          }
+          .hero-section h1 {
+            padding-left: 24px !important;
+            padding-right: 10px !important;
+            margin-left: 0 !important;
+          }
+          .hero-section p {
+            padding-left: 24px !important;
+            margin-left: 0 !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button alignment override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            margin-left: 24px !important;
+            display: block !important;
+            width: auto !important;
+            min-width: 120px !important;
+            max-width: 250px !important;
+            text-align: left !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button size override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            max-width: 160px !important;
+          }
+        }
+        </style>
+        <!-- Mobile hero section button even shorter override -->
+        <style>
+        @media (max-width: 768px) {
+          .hero-section .btn {
+            padding-left: 0.7rem !important;
+            padding-right: 0.7rem !important;
+            max-width: 110px !important;
+          }
+        }
+        </style>
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<body id="top">
-<main>
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Nav (loaded by load-nav.js) -->
-    <div id="nav-placeholder"></div>
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        
+        <!-- Load shared navigation -->
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+    </head>
+    
+    <body id="top">
 
-    <!-- ════════════════════════════════════════
-         HERO — matches Brain Bee exactly
-    ════════════════════════════════════════ -->
-    <section class="hero-section d-flex align-items-center" id="section_1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-12">
-                    <h1>Chapters &amp; Rankings</h1>
-                    <p>Browse all active IYNA chapters across the globe, track seasonal rankings, and find — or start — the chapter at your school.</p>
-                    <a href="#rankings" class="btn">Explore Chapters&nbsp;&rsaquo;</a>
+        <main>
+
+            <!-- Navigation placeholder - will be loaded by JavaScript -->
+            <div id="nav-placeholder"></div>
+              
+            
+
+            <!-- HERO SECTION -->
+                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+              
+                <div class="container" style="z-index: 2; position: relative;">
+                  <div class="row">
+                    <div class="col-lg-8 col-12">
+                      <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
+                          Brain Bee Bootcamp 2025-2026
+                      </h1>
+                      <p style="font-size: 1.15rem; margin-bottom: 1.5rem; color: white; max-width: 600px;">
+                          A 16-week online journey through neuroscience — where young minds explore the wonders of the brain and prepare for the prestigious International Brain Bee competition.
+                      </p>
+                      <a href="#about" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem;">Learn More&nbsp;&rsaquo;</a>
+                    </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </section>
+              </section>
+              
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Lecturers Section</title>
+                  <style>
+                      @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+              
+                      .lecturers-section {
+                          font-family: 'Work Sans', sans-serif;
+                          background-color: white;
+                          padding: 60px 20px;
+                          color: #333;
+                      }
+              
+                      .lecturers-container {
+                          max-width: 750px;
+                          margin: 0 auto;
+                      }
+              
+                      .lecturers-title {
+                          font-size: 2.5rem;
+                          font-weight: 600;
+                          color: #333;
+                          margin-bottom: 50px;
+                          text-align: left;
+                      }
+              
+                      .lecturer-item {
+                          display: flex;
+                          align-items: flex-start;
+                          gap: 25px;
+                          margin-bottom: 60px;
+                      }
+              
+                      .lecturer-item:last-child {
+                          margin-bottom: 0;
+                      }
+              
+                      .lecturer-photo {
+                          width: 180px;
+                          height: 230px;
+                          background-color: #d3d3d3;
+                          flex-shrink: 0;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: #666;
+                          font-size: 0.7rem;
+                          text-align: center;
+                      }
+              
+                      .lecturer-content {
+                          flex: 1;
+                      }
+              
+                      .lecturer-name {
+                          font-size: 1.4rem;
+                          font-weight: 600;
+                          color: #333;
+                          margin-bottom: 5px;
+                      }
+              
+                      .lecturer-title-subtitle {
+                          font-size: 0.8rem;
+                          color: #666;
+                          text-transform: uppercase;
+                          letter-spacing: 0.5px;
+                          margin-bottom: 15px;
+                          font-weight: 500;
+                      }
+              
+                      .lecturer-bio {
+                          font-size: 0.9rem;
+                          color: #333;
+                          line-height: 1.5;
+                      }
+              
+                      @media (max-width: 768px) {
+                          .lecturers-section {
+                              padding: 40px 15px;
+                          }
+              
+                          .lecturers-title {
+                              font-size: 2rem;
+                              margin-bottom: 40px;
+                          }
+              
+                          .lecturer-item {
+                              margin-bottom: 50px;
+                              gap: 20px;
+                          }
+              
+                          .lecturer-photo {
+                              width: 150px;
+                              height: 190px;
+                          }
+              
+                          .lecturer-name {
+                              font-size: 1.2rem;
+                          }
+              
+                          .lecturer-title-subtitle {
+                              font-size: 0.75rem;
+                          }
+              
+                          .lecturer-bio {
+                              font-size: 0.85rem;
+                          }
+                      }
+              
+                      @media (max-width: 480px) {
+                          .lecturer-item {
+                              flex-direction: column;
+                              text-align: center;
+                              gap: 15px;
+                          }
+              
+                          .lecturer-photo {
+                              align-self: center;
+                              width: 120px;
+                              height: 150px;
+                          }
+              
+                          .lecturer-name {
+                              font-size: 1.1rem;
+                          }
+              
+                          .lecturer-bio {
+                              font-size: 0.8rem;
+                              text-align: left;
+                          }
+                      }
+                  </style>
+              </head>
+              <body>
+                
+<!-- ABOUT THE BOOTCAMP SECTION -->
+<section id="about" style="background: #f7fafd; padding: 60px 0;">
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+    <h2 style="font-size: 2.2rem; font-weight: 700; color: #1B4965; margin-bottom: 28px; text-align: left;">About the Bootcamp</h2>
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+      <div style="margin-bottom: 1.2em; color: #1B2A41; font-size: 1.05rem;">
+        The <strong>Brain Bee Bootcamp</strong> is an official program of the <strong>International Brain Bee (IBB)</strong> and <strong>IYNA</strong> designed to provide participants at any level—local, regional, national, or international—with intensive preparation for Brain Bee competitions worldwide.
+      </div>
+      <div style="margin-bottom: 1.2em; color: #1B2A41;">
+        This <strong>16-week online program</strong> (December 2025 - March 2026) takes students on a comprehensive journey through the <em>Brain Facts</em> book and beyond, combining:
+      </div>
+      <ul style="margin: 0 0 1.2em 1.5em; padding-left: 1em; font-size: 1rem; color: #1B2A41; line-height: 1.8;">
+        <li>Application-based questions and relevant informational content</li>
+        <li>Interactive learning and clinical reasoning exercises</li>
+        <li>Expert mentorship from neuroscience professionals</li>
+        <li>Guest speakers including previous International Brain Bee finalists</li>
+      </ul>
+      <div style="margin-bottom: 1.2em; color: #1B2A41;">
+        The bootcamp follows the structure of National and International Brain Bee competitions, covering:
+      </div>
+      <ul style="margin: 0 0 1.2em 1.5em; padding-left: 1em; font-size: 1.05rem; color: #1B4965;">
+        <li>Written exam preparation</li>
+        <li>Patient diagnosis</li>
+        <li>Neuroanatomy</li>
+        <li>Neurohistology</li>
+      </ul>
+      <div style="color: #1B2A41;">
+        The program culminates with a <strong>mock exam</strong> to help you assess your readiness and build confidence for competition day.
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END ABOUT SECTION -->
 
-    <!-- ════════════════════════════════════════
-         ANNOUNCEMENT — #f7fafd
-    ════════════════════════════════════════ -->
-    <section class="announcement-section">
-        <div class="announcement-inner">
-            <div class="announcement-card">
-                <div class="announcement-icon">
-                    <img src="images/icons/speaker.png" alt=""
-                         onerror="this.outerHTML='📢'">
-                </div>
-                <div class="announcement-text">
-                    Season 7 has begun! This season will end on September 1st, 2025
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ════════════════════════════════════════
-         RANKINGS — white
-    ════════════════════════════════════════ -->
-    <section class="rankings-section" id="rankings">
-        <div class="rankings-container">
-
-            <h2 class="rankings-title">Rankings</h2>
-
-            <!-- Chapter of the Season -->
-            <div class="chapter-highlight">
-                <div class="chapter-star">
-                    <img src="images/icons/solar_star-bold-duotone.png" alt="⭐"
-                         onerror="this.outerHTML='⭐'">
-                </div>
-                <div class="chapter-info">
-                    <div class="chapter-label">Chapter of the Season</div>
-                    <div class="chapter-name" id="cotName">Gharbiya STEM High School</div>
-                    <div class="chapter-code" id="cotCode">EGY004</div>
-                </div>
-            </div>
-
-            <!-- Search + Filter -->
-            <div class="search-filter-section">
-                <div class="search-filter-row">
-                    <input type="text" class="search-input" id="searchInput"
-                           placeholder="Search by school name or chapter ID…">
-                    <button class="filter-button" id="filterDropdownBtn" type="button">
-                        ☰&nbsp; Filter / Sort
-                    </button>
-                </div>
-
-                <div class="filter-dropdown" id="filterDropdownMenu">
-                    <div class="dropdown-section-title">Sort By</div>
-                    <button class="dropdown-option selected" data-sort="alpha">A → Z (Name)</button>
-                    <button class="dropdown-option" data-sort="chapterid">Chapter ID</button>
-                    <button class="dropdown-option" data-sort="country">Country Code</button>
-                    <div class="dropdown-section-title">Filter</div>
-                    <button class="dropdown-option" data-filter="college">College Chapters</button>
-                    <button class="dropdown-option" data-filter="highschool">High School Chapters</button>
-                    <button class="dropdown-option" data-filter="usa">USA Only</button>
-                    <button class="dropdown-reset" id="resetFiltersBtn">Reset all</button>
-                </div>
-
-                <div class="selected-filters-bar" id="selectedFiltersBar"></div>
-                <div class="results-count" id="resultsCount"></div>
-            </div>
-
-            <!-- List -->
-            <div class="rankings-list" id="rankingsList"></div>
-
-        </div>
-    </section>
-
-    <!-- ════════════════════════════════════════
-         START A CHAPTER — #f7fafd
-    ════════════════════════════════════════ -->
-    <section class="start-chapter-section">
-        <div class="start-chapter-inner">
-            <div class="start-chapter-card">
-                <h3>Don't see your school?</h3>
-                <p>Start a new IYNA chapter at your school and become a chapter director. Join a global community of students passionate about neuroscience.</p>
-                <a class="start-chapter-btn"
-                   href="https://forms.gle/FKn9xFWh1FrowNpi7" target="_blank">
-                    Start New Chapter&nbsp;&rsaquo;
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ════════════════════════════════════════
-         MAP — white
-    ════════════════════════════════════════ -->
-    <section class="map-section">
-        <div class="map-inner">
-            <h2>Global Chapter Map</h2>
-            <iframe
-                src="https://www.google.com/maps/d/u/0/embed?mid=1OI4zPrHntxtt8FiYgliT10WkC8G4c48&ehbc=2E312F&ll=-3.81666561775622e-14%2C26.06885245000001&z=1"
-                allowfullscreen loading="lazy"
-                title="IYNA Chapters World Map"></iframe>
-        </div>
-    </section>
-
-</main>
-
-<!-- Footer -->
-<div id="footer-placeholder"></div>
-<script src="js/load-footer.js"></script>
-
-<!-- Bootstrap + site scripts -->
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/jquery.sticky.js"></script>
-<script src="js/click-scroll.js"></script>
-<script src="js/custom.js"></script>
-
-<!-- ════════════════════════════════════════
-     CHAPTERS DATA + LOGIC
-════════════════════════════════════════ -->
-<script>
-const ALL_CHAPTERS = [
-  { name: "Benemérita Universidad Autónoma de Puebla", id: "MEX001" },
-  { name: "William Mason High School", id: "USA001" },
-  { name: "Bergen County Academies", id: "USA002" },
-  { name: "Bridgeland High School", id: "USA003" },
-  { name: "Tesoro High School", id: "USA004" },
-  { name: "Adrian Wilcox High School", id: "USA005" },
-  { name: "Zakariya Public School", id: "PAK001" },
-  { name: "American Heritage School Broward", id: "USA006" },
-  { name: "Walton High School", id: "USA007" },
-  { name: "El-Sadat STEM School", id: "EGY001" },
-  { name: "Shanghai High School International Division", id: "CHN001" },
-  { name: "Woodlawn School", id: "USA008" },
-  { name: "University of North Carolina at Charlotte", id: "USA009" },
-  { name: "Arnold O. Beckman High School", id: "USA010" },
-  { name: "Glendora High School", id: "USA011" },
-  { name: "South Forsyth High School", id: "USA012" },
-  { name: "Del Norte High School", id: "USA013" },
-  { name: "NC School of Science & Mathematics – Morganton", id: "USA014" },
-  { name: "Cypress High School", id: "USA015" },
-  { name: "Leigh High School", id: "USA016" },
-  { name: "Assiut STEM School", id: "EGY002" },
-  { name: "Springville High School", id: "USA017" },
-  { name: "Stuyvesant High School", id: "USA018" },
-  { name: "Westlake Academy", id: "USA019" },
-  { name: "Amity Institute of Biotechnology, Amity University Noida", id: "IND001" },
-  { name: "Centennial High School", id: "USA020" },
-  { name: "Orange County School of the Arts", id: "USA022" },
-  { name: "Rio Americano", id: "USA023" },
-  { name: "St. Francis Xavier Secondary School", id: "CAN001" },
-  { name: "Kafr El-sheikh STEM High School", id: "EGY003" },
-  { name: "Central Catholic High School", id: "USA024" },
-  { name: "Ridley College", id: "CAN002" },
-  { name: "University of Brasília", id: "BRA001" },
-  { name: "John Fraser Secondary School", id: "CAN003" },
-  { name: "Tenafly High School", id: "USA025" },
-  { name: "Thayer Academy", id: "USA026" },
-  { name: "Mission Vista High School", id: "USA027" },
-  { name: "Hong Kong International Schools (HKG001)", id: "HKG001" },
-  { name: "William Lyon Mackenzie Collegiate Institute", id: "CAN004" },
-  { name: "Chiles High School", id: "USA028" },
-  { name: "University of Michigan Ann Arbor – Neuroscience Student Association", id: "USA029" },
-  { name: "Phillips Exeter Academy", id: "USA030" },
-  { name: "Cheongshim International Academy", id: "KOR001" },
-  { name: "Horace Mann School", id: "USA031" },
-  { name: "Scripps Ranch High School", id: "USA032" },
-  { name: "Bridgewater Raritan High School", id: "USA033" },
-  { name: "Jordan High School", id: "USA034" },
-  { name: "Green Level High School", id: "USA035" },
-  { name: "NC School of Science & Mathematics – Durham", id: "USA036" },
-  { name: "Hebron High School", id: "USA037" },
-  { name: "Coppell High School", id: "USA038" },
-  { name: "Livingston High School", id: "USA039" },
-  { name: "Farmington High School", id: "USA040" },
-  { name: "The Hyderabad Public School, Ramanthapur", id: "IND002" },
-  { name: "Suleyman Demirel Lyceum", id: "KAZ001" },
-  { name: "Miklós Radnóti Experimental High School in Szeged", id: "HUN001" },
-  { name: "Lincoln High School", id: "USA041" },
-  { name: "Private Rüzgar Anatolian High School", id: "TUR001" },
-  { name: "MM Junior College", id: "IND003" },
-  { name: "Interlake High School", id: "USA042" },
-  { name: "Hillcrest High School", id: "USA043" },
-  { name: "Crofton High School", id: "USA044" },
-  { name: "Vincent Massey High School", id: "CAN005" },
-  { name: "Texas Academy of Math and Sciences", id: "USA045" },
-  { name: "Vista del Lago High School", id: "USA046" },
-  { name: "Turkistan Bilim Innovation Lyceum", id: "KAZ002" },
-  { name: "Westwood High School", id: "USA047" },
-  { name: "University of Alabama at Birmingham", id: "USA048" },
-  { name: "Nurorda School-Lyceum", id: "KAZ003" },
-  { name: "Almaty Bilim-Innovation Lyceum", id: "KAZ004" },
-  { name: "Gharbiya STEM High School", id: "EGY004" },
-  { name: "Wayzata High School", id: "USA050" },
-  { name: "International School Bellevue", id: "USA051" },
-  { name: "STEM High School for Boys – 6th of October", id: "EGY005" },
-  { name: "Pine View School", id: "USA052" },
-  { name: "Health4US", id: "USA053" },
-  { name: "Homestead High School", id: "USA054" },
-  { name: "The Awty International School", id: "USA055" },
-  { name: "Astana Bilim Innovation Lyceum for Gifted Boys", id: "KAZ005" },
-  { name: "Çakır High School", id: "TUR002" },
-  { name: "Hanover High School", id: "USA056" },
-  { name: "North Hollywood High School", id: "USA057" },
-  { name: "Rice University", id: "USA058" },
-  { name: "Eastlake High School", id: "USA059" },
-  { name: "Diamond Bar High School", id: "USA060" },
-  { name: "Maadi STEM High School for Girls", id: "EGY006" },
-  { name: "Maynard Holbrook Jackson High School", id: "USA061" },
-  { name: "Illinois Mathematics and Science Academy", id: "USA049" },
-  { name: "FCS Innovation Academy", id: "USA062" },
-  { name: "Alexandria STEM School", id: "EGY007" },
-  { name: "Government Medical College Srinagar", id: "IND004" },
-  { name: "Taipei American School", id: "TWN001" },
-  { name: "North Fort Myers High School", id: "USA063" },
-  { name: "Solon High School", id: "USA064" },
-  { name: "STEM Qena School", id: "EGY009" },
-  { name: "School for Advanced Studies – South", id: "USA065" },
-  { name: "Cox Mill High School", id: "USA066" },
-  { name: "Naperville Central High School", id: "USA068" },
-  { name: "Carlmont High School", id: "USA069" },
-  { name: "Parul University", id: "IND005" },
-  { name: "Marc Garneau Collegiate Institute", id: "CAN006" },
-  { name: "Dougherty Valley High School", id: "USA070" },
-  { name: "Metkenana Secondary School", id: "EGY010" },
-  { name: "Culver City High School", id: "USA071" },
-  { name: "Obour STEM School", id: "EGY011" },
-  { name: "Luxor STEM School", id: "EGY012" },
-  { name: "Whitney High School", id: "USA072" },
-  { name: "El Pez Volador / The Flying Fish", id: "ARG001" },
-  { name: "Atascocita High School", id: "USA074" },
-  { name: "Ismailia STEM High School", id: "EGY013" },
-  { name: "Victoria Shanghai Academy", id: "HKG002" },
-  { name: "Tesla STEM High School", id: "USA075" },
-  { name: "Seventh-Day Adventist Senior High School", id: "GHA001" },
-  { name: "University of Lagos", id: "NGA001" },
-  { name: "Jumeirah English Speaking School", id: "UAE001" },
-  { name: "Motafawkeen Ain Shams High School for Boys", id: "EGY014" },
-  { name: "Canyon Crest Academy", id: "USA076" },
-  { name: "GMERS Medical College Rajpipla", id: "IND006" },
-  { name: "Oak Park High School", id: "USA077" },
-  { name: "Montfort Senior Secondary School", id: "IND007" },
-  { name: "Dakahlia STEM School", id: "EGY015" },
-  { name: "Benha National University", id: "EGY016" },
-  { name: "Lausanne Collegiate School", id: "USA079" },
-  { name: "Skyline High School", id: "USA080" },
-  { name: "Mission Bay High School", id: "USA081" },
-  { name: "Bedford Girls' School", id: "GBR001" },
-  { name: "La Salle High School", id: "JPN001" },
-  { name: "Decatur High School", id: "USA082" },
-  { name: "Victoria Park Collegiate Institute", id: "CAN007" },
-  { name: "Stratford Girls' Grammar School", id: "GBR002" },
-  { name: "West Career and Technical Academy", id: "USA083" },
-  { name: "Pierre Elliott Trudeau High School", id: "CAN008" },
-  { name: "Louise-Henriette Gymnasium", id: "GER001" },
-  { name: "Lauremont School (formerly TMS School)", id: "CAN009" },
-  { name: "Royal Latin School", id: "GBR003" },
-  { name: "East Chapel Hill High School", id: "USA084" },
-  { name: "Marvin Ridge High School", id: "USA085" },
-  { name: "Rock Hill High School", id: "USA086" },
-  { name: "Hiroo Gakuen Senior High School", id: "JPN002" },
-  { name: "University of Illinois Chicago", id: "USA087" },
-  { name: "Woodgrove High School", id: "USA088" },
-  { name: "Huron High School", id: "USA089" },
-  { name: "School-lyceum BINOM – Kadyr Myrza Ali", id: "KAZ006" },
-  { name: "St Cuthbert's College", id: "NZL001" },
-  { name: "Alexandria University", id: "EGY017" },
-  { name: "Juanita High School", id: "USA090" },
-  { name: "Lake Washington High School", id: "USA091" },
-  { name: "Johannes Kepler Grammar School", id: "CZE001" },
-  { name: "University of Lethbridge", id: "CAN010" },
-  { name: "Folsom High School", id: "USA092" },
-  { name: "Hillsborough High School", id: "USA093" },
-  { name: "Independent Schools Foundation Academy", id: "HKG003" },
-  { name: "University of Kansas", id: "USA094" },
-  { name: "Forest Ridge School of the Sacred Heart", id: "USA095" },
-  { name: "Archimedean Upper Conservatory", id: "USA096" },
-  { name: "Northwestern University", id: "USA097" },
-  { name: "STEM October 11th District High School", id: "EGY018" },
-  { name: "Foundation World School", id: "IND008" },
-  { name: "Little Rock Central High School", id: "USA098" },
-  { name: "Ruamrudee International School", id: "THA001" },
-  { name: "Janashakti College", id: "NPL001" },
-  { name: "Hangzhou International School", id: "CHN002" },
-  { name: "Middleton High School", id: "USA099" },
-  { name: "Faculty of Arts – Psychology, Ain Shams University", id: "EGY019" },
-  { name: "Columbus High School", id: "USA100" },
-  { name: "Greenhills School", id: "USA101" },
-  { name: "Universidad Autónoma de Nuevo León", id: "MEX002" },
-  { name: "EL Husinia Private School", id: "EGY020" },
-  { name: "Virginia Commonwealth University", id: "USA102" },
-  { name: "Malvern College Qingdao", id: "CHN003" },
-  { name: "Harmony School of Innovation – Sugarland", id: "USA103" },
-  { name: "Bangladesh International Tutorial", id: "BGD001" },
-  { name: "Heritage High School", id: "USA104" },
-  { name: "Gwinnett School of Mathematics, Science, and Technology", id: "USA105" },
-  { name: "Williamsville East High School", id: "USA106" },
-  { name: "West Cabarrus High School", id: "USA107" },
-  { name: "Oakridge International School Bangalore", id: "IND009" },
-  { name: "Alpharetta High School", id: "USA108" },
-  { name: "Spring Lake Park High School", id: "USA109" },
-  { name: "The Buckley School", id: "USA110" },
-  { name: "Olentangy Berlin High School", id: "USA111" },
-  { name: "Cary Academy", id: "USA112" },
-  { name: "John F. Kennedy Memorial High School", id: "USA113" },
-  { name: "Northview High School", id: "USA114" },
-  { name: "Pleasant View School", id: "USA115" },
-  { name: "Carl Sandburg High School", id: "USA116" },
-  { name: "Merivale High School", id: "CAN011" },
-  { name: "Saugus High School", id: "USA117" },
-  { name: "Obafemi Awolowo University, Ile Ife", id: "NGA002" },
-  { name: "Camberwell Grammar School", id: "AUS001" },
-  { name: "Hopkinton High School", id: "USA118" },
-  { name: "Panther Creek High School", id: "USA119" },
-  { name: "Chattahoochee High School", id: "USA120" },
-  { name: "Uplift North Hills Preparatory", id: "USA121" },
-  { name: "Saratoga High School", id: "USA122" },
-  { name: "Chapel Hill High School", id: "USA123" },
-  { name: "Basis International School Shekou Shenzhen", id: "CHN004" },
-  { name: "Ladue Horton Watkins High School", id: "USA124" },
-  { name: "Centro de Estudos Professor Edgar Santos", id: "BRA002" },
-  { name: "St. Rita's Public General Secondary School", id: "POL001" },
-  { name: "Cushing Academy", id: "USA125" },
-  { name: "St. Edmund Campion Secondary School", id: "CAN012" },
-  { name: "Independence High School", id: "USA126" },
-  { name: "Harold M. Brathwaite Secondary School", id: "CAN013" },
-  { name: "West Carleton Secondary School", id: "CAN014" },
-  { name: "University of Washington", id: "USA127" },
-  { name: "University of the People / Stardust Academy", id: "LKA001" },
-  { name: "MTs Masjid Al Akbar Surabaya", id: "IDN001" },
-  { name: "Canadian International School Astana", id: "KAZ007" },
-  { name: "Rock Canyon High School", id: "USA128" },
-  { name: "SMA Islamic International School PSM Magetan", id: "IDN002" },
-  { name: "Collège Jean-de-Brébeuf", id: "CAN015" },
-  { name: "Los Altos High School", id: "USA129" },
-  { name: "Egypt Japan University of Science and Technology", id: "EGY021" },
-  { name: "Government College of Pharmacy", id: "IND010" },
-  { name: "Savitribai Phule Pune University", id: "IND011" },
-  { name: "Zagazig University", id: "EGY022" },
-  { name: "Westminster Academy", id: "PAK002" },
-  { name: "Tyler Legacy High School", id: "USA131" },
-  { name: "University of Girona", id: "ESP001" },
-  { name: "Universitat de Barcelona", id: "ESP002" },
-  { name: "Universitat Pompeu Fabra (UPF)", id: "ESP003" },
-  { name: "Mahatma Gandhi Mission's Institute of Health Sciences", id: "IND012" },
-  { name: "St. Roch Catholic Secondary School", id: "CAN016" },
-  { name: "Hankuk Academy of Foreign Studies", id: "KOR002" },
-  { name: "Francis Lewis High School", id: "USA132" },
-  { name: "West Windsor Plainsboro High School South", id: "USA133" },
-  { name: "Hwa Chong Institution", id: "SGP001" },
-  { name: "Abu Ali ibn Sino Specialized School", id: "UZB001" },
-  { name: "Istituto Istruzione Superiore 'Galilei Pacinotti'", id: "ITA001" },
-  { name: "Cheongna Dalton School", id: "KOR003" },
-  { name: "William H. Hall High School", id: "USA134" },
-  { name: "Basis Independent Silicon Valley", id: "USA135" },
-  { name: "North Gwinnett High School", id: "USA136" },
-  { name: "Benowa State High School", id: "AUS002" },
-  { name: "Jose Marti STEM Academy", id: "USA137" }
-];
-
-let currentSort   = 'alpha';
-let activeFilters = new Set();
-let searchTerm    = '';
-
-function getCountryCode(id) { return id.replace(/\d/g,'').toUpperCase(); }
-
-const COLLEGE_KEYWORDS = [
-  'university','college','universitat','universidad','université',
-  'savitribai','parul univ','amity institute',
-  'government medical','alexandria university','benha national',
-  'virginia commonwealth','university of','northwestern','rice university',
-  'university of lethbridge','university of lagos','university of kansas',
-  'university of washington','university of illinois','university of michigan',
-  'university of north carolina','university of brasília','egypt japan university',
-  'zagazig','obafemi awolowo','janashakti college','mm junior college',
-  'government college of pharmacy'
-];
-function isCollege(ch) {
-  const n = ch.name.toLowerCase();
-  return COLLEGE_KEYWORDS.some(kw => n.includes(kw));
-}
-
-function getVisible() {
-  let list = [...ALL_CHAPTERS];
-  if (searchTerm) {
-    const q = searchTerm.toLowerCase();
-    list = list.filter(c => c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q));
-  }
-  if (activeFilters.size > 0) {
-    list = list.filter(c => {
-      if (activeFilters.has('college')    && isCollege(c))                    return true;
-      if (activeFilters.has('highschool') && !isCollege(c))                   return true;
-      if (activeFilters.has('usa')        && getCountryCode(c.id)==='USA')    return true;
-      return false;
-    });
-  }
-  list.sort((a,b) => {
-    if (currentSort === 'alpha')     return a.name.localeCompare(b.name);
-    if (currentSort === 'chapterid') return a.id.localeCompare(b.id);
-    if (currentSort === 'country')   return getCountryCode(a.id).localeCompare(getCountryCode(b.id));
-    return 0;
-  });
-  return list;
-}
-
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function render() {
-  const list      = getVisible();
-  const container = document.getElementById('rankingsList');
-  const countEl   = document.getElementById('resultsCount');
-  countEl.textContent = `Showing ${list.length} of ${ALL_CHAPTERS.length} chapters`;
-  if (list.length === 0) {
-    container.innerHTML = `<div class="empty-state"><h3>No chapters found</h3><p>Try a different search term or clear the active filters.</p></div>`;
-    return;
-  }
-  container.innerHTML = list.map((ch, i) => `
-    <div class="ranking-item">
-      <div class="ranking-number">${i + 1}</div>
-      <div class="ranking-info">
-        <div class="team-name">${escHtml(ch.name)}</div>
-        <div class="team-details">
-          <span class="chapter-id-badge">${ch.id}</span>
-          &nbsp;·&nbsp;${escHtml(getCountryCode(ch.id))}
+<!-- PROGRAM DETAILS SECTION -->
+<section style="background: #ffffff; padding: 60px 0;">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+    <h2 style="font-size: 2.2rem; font-weight: 700; color: #1B4965; margin-bottom: 48px; text-align: center;">Program Details</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 900px; margin: 0 auto;">
+      <!-- Eligibility Card -->
+      <div style="background: #1B4965; border-radius: 8px; padding: 40px 36px; text-align: left;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; color: white; margin-bottom: 16px;">Who Can Join</h3>
+        <div style="color: rgba(255,255,255,0.9); line-height: 1.7; font-size: 1rem;">
+          High school students between ages 13-19 who are passionate about neuroscience and interested in Brain Bee competitions.
         </div>
       </div>
-      <button class="join-button" onclick="window.open('https://forms.gle/FKn9xFWh1FrowNpi7','_blank')">
-        Request to Join
-      </button>
+      
+      <!-- Time Commitment Card -->
+      <div style="background: #1B4965; border-radius: 8px; padding: 40px 36px; text-align: left;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; color: white; margin-bottom: 16px;">Time Commitment</h3>
+        <div style="color: rgba(255,255,255,0.9); line-height: 1.7; font-size: 1rem;">
+          3-4 hours per week for 16 weeks (December 2025 - March 2026)
+        </div>
+      </div>
+
+      <!-- Format Card -->
+      <div style="background: #1B4965; border-radius: 8px; padding: 40px 36px; text-align: left;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; color: white; margin-bottom: 16px;">Format</h3>
+        <div style="color: rgba(255,255,255,0.9); line-height: 1.7; font-size: 1rem;">
+          Fully online via Discord and Google Classroom—accessible from anywhere in the world
+        </div>
+      </div>
+      
+      <!-- Cost Card -->
+      <div style="background: #1B4965; border-radius: 8px; padding: 40px 36px; text-align: left;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; color: white; margin-bottom: 16px;">Cost</h3>
+        <div style="color: white; font-size: 1.8rem; font-weight: 700; line-height: 1.2;">
+          100% FREE
+        </div>
+      </div>
     </div>
-  `).join('');
-}
+  </div>
+</section>
+<!-- END PROGRAM DETAILS SECTION -->
 
-const FILTER_LABELS = { college:'College Chapters', highschool:'High School Chapters', usa:'USA Only' };
+<!-- REGISTRATION & TIMELINE SECTION -->
+<section style="background: #f7fafd; padding: 60px 0;">
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+    <h2 style="font-size: 2.2rem; font-weight: 700; color: #1B4965; margin-bottom: 28px; text-align: left;">Registration & Timeline</h2>
+    
+    <!-- Registration Info Box -->
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left; margin-bottom: 36px;">
+      <div style="font-size: 1.15rem; color: #1B2A41; margin-bottom: 0.8em;">
+        <b>Rolling Registration:</b> Applications are accepted on an ongoing basis until the end of the bootcamp (March 2026).
+      </div>
+      <div style="font-size: 1rem; color: #1B2A41; margin-bottom: 1em;">
+        Don't wait—secure your spot early to get the most out of the full 16-week program!
+      </div>
+      <div style="margin-top: 20px;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf1GB7FMc49cdC4j1wGNeA7qnNben2dq5Zjaski9PfQ85SGxg/viewform?usp=header" target="_blank" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.05rem; text-decoration: none; display: inline-block;">Register Now&nbsp;&rsaquo;</a>
+      </div>
+    </div>
 
-function renderPills() {
-  const bar = document.getElementById('selectedFiltersBar');
-  if (activeFilters.size === 0) { bar.innerHTML = ''; return; }
-  let h = '';
-  activeFilters.forEach(f => {
-    h += `<button class="selected-filter-btn" onclick="removeFilter('${f}')">${FILTER_LABELS[f]}<span class="remove-x">✕</span></button>`;
-  });
-  h += `<button class="selected-filter-btn" onclick="clearFilters()">✕ Remove all</button>`;
-  bar.innerHTML = h;
-}
+    <!-- Timeline -->
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+      <h3 style="font-size: 1.5rem; font-weight: 600; color: #1B4965; margin-bottom: 24px;">Important Dates</h3>
+      
+      <div style="display: flex; gap: 20px; margin-bottom: 20px; align-items: flex-start;">
+        <div style="min-width: 120px; font-weight: 600; color: #1B4965; font-size: 0.95rem;">Dec 1, 2025</div>
+        <div style="flex: 1; color: #1B2A41;">Bootcamp begins - First assignment distributed</div>
+      </div>
+      
+      <div style="display: flex; gap: 20px; margin-bottom: 20px; align-items: flex-start;">
+        <div style="min-width: 120px; font-weight: 600; color: #1B4965; font-size: 0.95rem;">Dec 2025 - Mar 2026</div>
+        <div style="flex: 1; color: #1B2A41;">16 weeks of interactive learning and assignments</div>
+      </div>
+      
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div style="min-width: 120px; font-weight: 600; color: #1B4965; font-size: 0.95rem;">March 2026</div>
+        <div style="flex: 1; color: #1B2A41;">Mock exam and program completion</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END REGISTRATION & TIMELINE SECTION -->
 
-function removeFilter(f) { activeFilters.delete(f); renderPills(); syncHighlights(); render(); }
-function clearFilters()  { activeFilters.clear();   renderPills(); syncHighlights(); render(); }
+<!-- WEEKLY CURRICULUM SECTION -->
+<section style="background: #ffffff; padding: 60px 0;">
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+    <h2 style="font-size: 2.2rem; font-weight: 700; color: #1B4965; margin-bottom: 28px; text-align: left;">Weekly Curriculum</h2>
+    
+    <div style="background: #f7fafd; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 28px 24px; text-align: left; margin-bottom: 24px;">
+      <p style="color: #1B2A41; margin-bottom: 1em;">
+        Our curriculum is based on the <strong>Brain Facts</strong> book, with each week building upon the previous to create a comprehensive understanding of neuroscience. Weekly assignments help reinforce learning and prepare you for competition-style questions.
+      </p>
+    </div>
 
-function syncHighlights() {
-  document.querySelectorAll('[data-sort]').forEach(b =>
-    b.classList.toggle('selected', b.dataset.sort === currentSort));
-  document.querySelectorAll('[data-filter]').forEach(b =>
-    b.classList.toggle('filter-active', activeFilters.has(b.dataset.filter)));
-}
+    <!-- Week 1 -->
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 32px 28px; border-left: 6px solid #1B4965; text-align: left; margin-bottom: 24px;">
+      <h3 style="font-size: 1.4rem; font-weight: 600; color: #1B4965; margin-bottom: 16px;">Week 1: Basics of the Brain</h3>
+      <p style="color: #1B2A41; margin-bottom: 12px;"><em>Foundation Chapter - Brain Facts Book</em></p>
+      <div style="color: #1B2A41; margin-bottom: 12px;">Master the fundamental building blocks of neuroscience:</div>
+      <ul style="margin: 0 0 0 1.5em; padding-left: 1em; color: #1B2A41; line-height: 1.8;">
+        <li>Neuron structure and types</li>
+        <li>Action potential mechanisms</li>
+        <li>Neurotransmission and synaptic communication</li>
+        <li>Parts of the brain and their functions</li>
+      </ul>
+    </div>
 
-document.addEventListener('DOMContentLoaded', () => {
-  render();
-  syncHighlights();
+    <!-- Week 2 -->
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 32px 28px; border-left: 6px solid #1B4965; text-align: left; margin-bottom: 24px;">
+      <h3 style="font-size: 1.4rem; font-weight: 600; color: #1B4965; margin-bottom: 16px;">Week 2: Senses & Perception</h3>
+      <p style="color: #1B2A41; margin-bottom: 12px;"><em>Chapter 2: Senses and Perception - Brain Facts Book</em></p>
+      <p style="color: #666; font-size: 0.9rem; font-style: italic; margin-bottom: 12px;">Covered by Rishi</p>
+      <div style="color: #1B2A41; margin-bottom: 12px;">Explore how your brain interprets the world:</div>
+      <ul style="margin: 0 0 0 1.5em; padding-left: 1em; color: #1B2A41; line-height: 1.8;">
+        <li>Visual, auditory, and gustatory pathways</li>
+        <li>Perception of touch and pain</li>
+        <li>Pain management mechanisms</li>
+      </ul>
+    </div>
 
-  document.getElementById('searchInput').addEventListener('input', e => {
-    searchTerm = e.target.value.trim(); render();
-  });
+    <!-- Week 3 -->
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 32px 28px; border-left: 6px solid #1B4965; text-align: left; margin-bottom: 24px;">
+      <h3 style="font-size: 1.4rem; font-weight: 600; color: #1B4965; margin-bottom: 16px;">Week 3: Movement</h3>
+      <p style="color: #1B2A41; margin-bottom: 12px;"><em>Chapter 3: Movement - Brain Facts Book</em></p>
+      <div style="color: #1B2A41; margin-bottom: 12px;">Understand the neuroscience of motion:</div>
+      <ul style="margin: 0 0 0 1.5em; padding-left: 1em; color: #1B2A41; line-height: 1.8;">
+        <li>Motor units and the role of muscles</li>
+        <li>Reflexes and involuntary movements</li>
+        <li>Function of the cerebellum</li>
+        <li>Abnormal movements and movement disorders</li>
+      </ul>
+    </div>
 
-  const btn  = document.getElementById('filterDropdownBtn');
-  const menu = document.getElementById('filterDropdownMenu');
-  btn.addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('open'); });
-  document.addEventListener('click', e => {
-    if (!menu.contains(e.target) && e.target !== btn) menu.classList.remove('open');
-  });
+    <!-- Week 4 -->
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 32px 28px; border-left: 6px solid #1B4965; text-align: left; margin-bottom: 24px;">
+      <h3 style="font-size: 1.4rem; font-weight: 600; color: #1B4965; margin-bottom: 16px;">Week 4: Learning, Memory & Emotions</h3>
+      <p style="color: #1B2A41; margin-bottom: 12px;"><em>Chapter 4: Learning, Memory & Emotions - Brain Facts Book</em></p>
+      <p style="color: #666; font-size: 0.9rem; font-style: italic; margin-bottom: 12px;">Covered by Rishi</p>
+      <div style="color: #1B2A41; margin-bottom: 12px;">Dive into the neuroscience of cognition and emotion:</div>
+      <ul style="margin: 0 0 0 1.5em; padding-left: 1em; color: #1B2A41; line-height: 1.8;">
+        <li>Types of memories (short-term, long-term, working memory)</li>
+        <li>Long-term potentiation (LTP)</li>
+        <li>Processing of emotions</li>
+        <li>Reward pathways in the brain</li>
+      </ul>
+    </div>
 
-  document.querySelectorAll('[data-sort]').forEach(b => {
-    b.addEventListener('click', () => { currentSort = b.dataset.sort; syncHighlights(); render(); });
-  });
+    <!-- Continuing Weeks -->
+    <div style="background: #f7fafd; border-radius: 12px; padding: 24px; text-align: center;">
+      <p style="color: #1B4965; font-size: 1.1rem; font-weight: 600; margin: 0;">
+        Weeks 5-16: Advanced topics, patient diagnosis practice, neuroanatomy, neurohistology, and mock exams
+      </p>
+    </div>
+  </div>
+</section>
+<!-- END WEEKLY CURRICULUM SECTION -->
 
-  document.querySelectorAll('[data-filter]').forEach(b => {
-    b.addEventListener('click', () => {
-      const f = b.dataset.filter;
-      activeFilters.has(f) ? activeFilters.delete(f) : activeFilters.add(f);
-      renderPills(); syncHighlights(); render();
-    });
-  });
+                  <section class="lecturers-section">
+                      <div class="lecturers-container">
+                          <h2 class="lecturers-title">Lecturers</h2>
+                          
+                          <!-- Dr. Marta Casquero-Veiga -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/marta.jpg" alt="Dr. Marta Casquero-Veiga" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Marta Casquero-Veiga</h3>
+                                  <p class="lecturer-title-subtitle">POSTDOC - CNR</p>
+                                  <p class="lecturer-bio">
+                                      Marta obtained her Bachelor's Degree in Biology in 2014 from Universidad Complutense de Madrid (UCM) and her Master's Degree in Biochemistry, Molecular Biology and Biomedicine in 2016. In 2021, she received her PhD in Biomedical Research from Instituto de investigación biomédica de Neuropsychiatric disorders and neurodegenerative diseases.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Mark -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo">PHOTO</div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Mark</h3>
+                                  <p class="lecturer-title-subtitle">UNDERGRADUATE STUDENT - UNIVERSITY OF MANITOBA</p>
+                                  <p class="lecturer-bio">
+                                      Mark is a second-year undergraduate student at the University of Manitoba. In 2023, he achieved 8th place in one of the prestigious Science fairs. Passionate about neuroscience, he spent his summer researching a rare monogenetic neurodevelopmental disorder, further cementing his dedication to the field.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Avi Singh -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/avi.jpg" alt="Dr. Avi Singh" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Avi Singh</h3>
+                                  <p class="lecturer-title-subtitle">FACULTY NEUROLOGY AND MEDICAL INFORMATICS</p>
+                                  <p class="lecturer-bio">
+                                      Dr. Avi Singh is currently pursuing his neurology residency at Emory University, USA. With exceptional academic achievements, including an All India Rank of 37 in AFMC and 69 in AIIMS, Dr. Singh is also the past Vice President of AMSA India and a Chapter Representative for the Journal of AMSA International. Additionally, he was a national level hockey player and has volunteered in rural locations, showcasing his diverse experience. In addition to his passion for medical education and neurology, he runs a YouTube channel, Medically Meditative By Avi, and is a talented poet in four languages, as well as an ardent film buff enthusiast.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Sotiria Moza -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/sotiria moza_2022.jpg" alt="Dr. Sotiria Moza" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Sotiria Moza</h3>
+                                  <p class="lecturer-title-subtitle">POSTDOC-SUPERVISOR</p>
+                                  <p class="lecturer-bio">
+                                      Sotiria holds a Bachelor's in Psychology and is a PhD candidate at Aristotle University of Thessaloniki. She is the scientific coordinator of Noema Cognitive Center & Tech Solutions, with expertise in cognitive psychology, neuroscience, and cognitive assessment. Her research interests focus on numerous research and professional roles.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Ian Stevens -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/ianstevens.jpeg" alt="Dr. Ian Stevens" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Ian Stevens</h3>
+                                  <p class="lecturer-title-subtitle"></p>
+                                  <p class="lecturer-bio">
+                                      Ian is a Project Manager & Research Assistant at The Hastings Center, with a background in philosophy and bioethics. He has published extensively on ethical dilemmas in neurotechnology and plans to begin medical school in 2025.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Manas Ranjan Sahu -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/manas.jpg" alt="Dr. Manas Ranjan Sahu" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Manas Ranjan Sahu</h3>
+                                  <p class="lecturer-title-subtitle">PRINCIPAL SCIENTIST-CHEMISTRY</p>
+                                  <p class="lecturer-bio">
+                                      Dr. Sahu's research on the Hippo signaling pathway in Alzheimer's disease has contributed significantly to understanding neurodegeneration. He has published extensively in top-tier journals and received numerous academic honors.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Dr. Hotzman -->
+                          <div class="lecturer-item">
+                              <div class="lecturer-photo"><img src="images/lecturers/hotzman.png" alt="Dr. Hotzman" style="width:100%;height:100%;object-fit:cover;"></div>
+                              <div class="lecturer-content">
+                                  <h3 class="lecturer-name">Dr. Hotzman</h3>
+                                  <p class="lecturer-title-subtitle">FACULTY, WASHINGTON UNIVERSITY SCHOOL OF MEDICINE</p>
+                                  <p class="lecturer-bio">
+                                      Dr. Hotzman holds a bachelor's degree in Anthropology from the University of Southern Mississippi and completed the Masters and Doctorate in Anthropology at the University of Florida. With a background in forensic anthropology since 2015, he served as a faculty member at Duke University. He has spent over a decade teaching gross anatomy, embryology, and neuroscience in medical schools in Mississippi and Idaho. Currently, she directs the human dissection and anatomy lab and teaches gross anatomy and clinical anatomy courses.
+                                  </p>
+                              </div>
+                          </div>
+              
+                          <!-- Reese Chadwick -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/reese.jpg" alt="Reese Chadwick" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Reese Chadwick</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: COGNITIVE AND BEHAVIORAL NEUROSCIENCE</p>
+                              <p class="lecturer-bio">
+                                Reese Chadwick is a senior undergraduate student at the University of Florida majoring in Cognitive and Behavioral Neuroscience with a minor in Statistics. She is currently completing her senior thesis in Dr. Natalie Ebner's Social–Cognitive and Affective Development Lab, investigating how gaze and emotional facial cues influence trustworthiness perceptions in younger versus older adults. Post-graduation, Reese plans to pursue a gap year for additional research experience before applying to PhD programs in lifespan development.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dr. Mutyala -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/Mutyala.jpg" alt="Dr. Mutyala" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dr. Mutyala</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: MULTIPLE SCLEROSIS</p>
+                              <p class="lecturer-bio">
+                                A graduate from Gandhi Medical College, Hyderabad, India, currently on her USMLE journey, Dr. Mutyala is keen to pursue a Residency in Neurology. She has completed desired Neurology electives, and her passion for Neurology and research was amplified after three of her abstracts were accepted at Mayo Clinic conferences. In addition to academic pursuits, Dr. Mutyala enjoys writing, music, public speaking, dance, and more.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Chun Hei Tai -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/chun.jpeg" alt="Chun Hei Tai" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Chun Hei Tai</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: MULTIPLE SCLEROSIS</p>
+                              <p class="lecturer-bio">
+                                Chun Hei Tai is a freshman at Stanford University, studying bioengineering and physics. With a broad range of interests across the sciences, Chun Hei developed a particular passion for neuroscience during high school. In 2023, he was honored to be named the World Champion of the International Brain Bee. He is excited to explore how his interdisciplinary studies can contribute to advancements in neuroscience, molecular biology, and translational research.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Jeanelle Ariza Torres -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/jeanelle.png" alt="Jeanelle Ariza Torres" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Jeanelle Ariza Torres</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEURO-HISTOLOGY AND MOLECULAR BIOLOGY</p>
+                              <p class="lecturer-bio">
+                                Jeanelle Ariza Torres is a Biologist with over 20 years of experience in neuro-histology and molecular biology. Currently serving as a Lab Manager at the Allen Institute for Brain Science, she oversees teams working on tissue sectioning, staining, and reagent preparation for critical research initiatives. Jeanelle has developed protocols for brain sample analysis across species and has extensive expertise in histological techniques, microscopy, and imaging software. She holds a Bachelor of Science in Biology and a Post-Baccalaureate in Forensic Anthropology, and she is fluent in English and Spanish.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Julia Nakoneczna -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/julia_IBB.jpg" alt="Julia Nakoneczna" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Julia Nakoneczna</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEUROSCIENCE AND MEDICAL EDUCATION</p>
+                              <p class="lecturer-bio">
+                                Julia Nakoneczna is a Polish medical student and a three-time Brain Bee laureate at the national and international levels. She has completed internships at the Nencki Institute of Experimental Biology PAS and actively participates in conferences. Julia's extracurricular pursuits include martial arts, tracking dog guidance, and windsurfing. She is also a passionate organizer, having spearheaded a cardiology symposium during her first year of medical studies.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dev Desai -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/Dev.jpeg" alt="Dev Desai" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dev Desai</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEUROLOGY CASE STUDY</p>
+                              <p class="lecturer-bio">
+                                Dev Desai is a third-year medical student at GCS Medical College, Ahmedabad. He was selected for the prestigious ICMR Short-Term Studentship (STS), for his research on public health. He has also been actively involved in various awareness campaigns aimed at improving healthcare knowledge in the community. His dedication to medical research and education is reflected in his commitment to fostering awareness and contributing to the betterment of healthcare practices.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dr. Elizabeth Engler-Chiurazzi -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/elizabeth.jpg" alt="Dr. Elizabeth Engler-Chiurazzi" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dr. Elizabeth Engler-Chiurazzi</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEUROIMMUN. COMMUNICATION</p>
+                              <p class="lecturer-bio">
+                                Dr. Engler-Chiurazzi is a behavioral neuroscientist at Tulane University. Her NIH-funded research explores the intersection of the nervous and immune systems in brain aging, injury, and disease. She has a strong track record in public outreach and neuroscience education.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dr. Lauren Bojarski -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/lauren.jpg" alt="Dr. Lauren Bojarski" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dr. Lauren Bojarski</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: PATIENT ADVOCACY</p>
+                              <p class="lecturer-bio">
+                                Dr. Bojarski is a neurodegenerative fellow and board-certified neurologist at the University of Kentucky. Her research focuses on advocacy, education, and dispelling neurophobia through innovative methods.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Professor Charles Watson -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/charles.png" alt="Professor Charles Watson" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Professor Charles Watson</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: BRAIN MAPPING, CORTEX MAPPING</p>
+                              <p class="lecturer-bio">
+                                Professor Charles Watson is an eminent neurobiologist and public health physician with over 35 years' experience teaching anatomy to medical and science students. During his tenure as chief health officer of Western Australia from 1984 to 1994, he established campaigns for quit, HIV/AIDS, and breast cancer screening and was appointed their Chief Health Officer in 1993. Charles holds an emeritus professorial position at Curtin University and has authored or co-authored 25 books on neuroscience, including his renowned atlas of the rat brain, cited over 10,000 times. He has published over 100 journal articles and was made a Member of the Order of Australia in 2004 for his contributions to brain research and public health.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Ms. Lucy Core -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/lucy.png" alt="Ms. Lucy Core" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Ms. Lucy Core</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: READING, MECHANISMS OF LEARNING AND EDUCATION</p>
+                              <p class="lecturer-bio">
+                                Ms. Lucy Core is a PhD student in Prof. Jason Warren's Brain Behaviour Group at the UCL Dementia Research Centre, investigating the neural mechanisms underlying musical object processing in Alzheimer's disease and frontotemporal dementia. She uses methodologies such as functional MRI, pupillometry, and neuropsychology. Lucy completed an MSc in Cognitive Neuroscience at UCL, researching working memory in hearing and deaf individuals. In Dr. Vicki Graham's lab, she graduated with First Class Honours in Cognitive Science from Macquarie University, where she worked on projects in auditory cognitive neuroscience and machine learning. She has also contributed to Inuit Sign Language revitalisation and access to healthcare for Deaf individuals. Lucy's research assistant roles at Georgetown University focused on the neural bases of reading and math in children with learning disabilities.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Prof. Bindu Menon -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/Bindu.png" alt="Prof. Bindu Menon" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Prof. Bindu Menon</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: NEUROLOGY AND PUBLIC HEALTH</p>
+                              <p class="lecturer-bio">
+                                Prof. Menon has over 100 publications and numerous awards, including the Mridha Spirit of Neurology award. She pioneered "Neurology on Wheels" and developed several health apps to aid patients with neurological disorders.
+                              </p>
+                            </div>
+                          </div>
+              
+                          <!-- Dr. Vasudha Anil -->
+                          <div class="lecturer-item">
+                            <div class="lecturer-photo"><img src="images/lecturers/Vasudha.png" alt="Dr. Vasudha Anil" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="lecturer-content">
+                              <h3 class="lecturer-name">Dr. Vasudha Anil</h3>
+                              <p class="lecturer-title-subtitle">FOCUS: ANATOMY, DISSECTION TRAINING</p>
+                              <p class="lecturer-bio">
+                                Dr. Anil specializes in anatomical education and is recognized for her contributions to medical training and dissections. She leads workshops to enhance hands-on skills in anatomical studies.
+                              </p>
+                            </div>
+                          </div>
+                      </div>
+                  </section>
 
-  document.getElementById('resetFiltersBtn').addEventListener('click', () => {
-    currentSort = 'alpha'; activeFilters.clear(); searchTerm = '';
-    document.getElementById('searchInput').value = '';
-    renderPills(); syncHighlights(); render();
-    menu.classList.remove('open');
-  });
-});
-</script>
-</body>
+<!-- CONTACT SECTION -->
+<section style="background: #f7fafd; padding: 60px 0;">
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+    <h2 style="font-size: 2.2rem; font-weight: 700; color: #1B4965; margin-bottom: 28px; text-align: left;">Questions?</h2>
+    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(27,42,65,0.07); padding: 36px 36px 28px 24px; border-left: 6px solid #1B4965; text-align: left;">
+      <p style="color: #1B2A41; margin-bottom: 1em; font-size: 1.05rem;">
+        If you have any questions about the Brain Bee Bootcamp or need assistance with your registration, please don't hesitate to reach out.
+      </p>
+      <p style="color: #1B2A41; font-size: 1.05rem;">
+        <strong>Contact:</strong> <a href="mailto:rsuresh@youthneuro.org" style="color: #1B4965; text-decoration: underline;">rsuresh@youthneuro.org</a>
+      </p>
+    </div>
+  </div>
+</section>
+<!-- END CONTACT SECTION -->
+
+
+              </body>
+              </html>
+
+              
+        </main>
+
+        <!-- Footer placeholder - will be loaded by JavaScript -->
+        <div id="footer-placeholder"></div>
+        <script src="js/load-footer.js"></script>
+        
+        <!-- SCRIPTS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+    </body>
 </html>
