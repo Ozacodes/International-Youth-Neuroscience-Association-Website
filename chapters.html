@@ -787,49 +787,248 @@
 
         // Load chapters using existing database functions
         async function loadChaptersFromDatabase() {
-            try {
-                console.log('Getting chapters using existing db functions...');
-                
-                // Use the getChapters function we added to database.js
-                const chapters = await window.db.getChapters();
-                console.log('Raw chapters from database:', chapters);
-
-                if (!chapters || chapters.length === 0) {
-                    console.log('No active chapters found in database');
-                    return [];
-                }
-
-                // Format chapters data with proper lead names and points
-                const formattedChapters = chapters.map(chapter => {
-                    // Determine who the lead is
-                    let leadName = 'No lead assigned';
-                    
-                    if (chapter.lead_user) {
-                        leadName = `${chapter.lead_user.first_name} ${chapter.lead_user.last_name}`;
-                    } else if (chapter.director) {
-                        leadName = `${chapter.director.first_name} ${chapter.director.last_name}`;
-                    } else if (chapter.director_name) {
-                        leadName = chapter.director_name;
-                    }
-
-                    return {
-                        ...chapter,
-                        totalPoints: chapter.points || 0,
-                        leadName: leadName
-                    };
-                });
-
-                // Sort by points descending (already ordered by database but just to be sure)
-                formattedChapters.sort((a, b) => b.totalPoints - a.totalPoints);
-
-                console.log('Formatted chapters with points:', formattedChapters);
-                return formattedChapters;
-                
-            } catch (error) {
-                console.error('Error in loadChaptersFromDatabase:', error);
-                throw error;
-            }
-        }
+    // Hardcoded active schools from "Chapter_Registry_supabase (1).csv" initialized at 0 points
+    return [
+  { "name": "Benemérita Universidad Autónoma de Puebla", "chapter_id": "MEX001", "points": 0 },
+  { "name": "William Mason High School", "chapter_id": "USA001", "points": 0 },
+  { "name": "Bergen County Academies", "chapter_id": "USA002", "points": 0 },
+  { "name": "Bridgeland High School", "chapter_id": "USA003", "points": 0 },
+  { "name": "Tesoro High School", "chapter_id": "USA004", "points": 0 },
+  { "name": "Adrian Wilcox High School", "chapter_id": "USA005", "points": 0 },
+  { "name": "Zakariya Public School", "chapter_id": "PAK001", "points": 0 },
+  { "name": "American Heritage School Broward", "chapter_id": "USA006", "points": 0 },
+  { "name": "Walton High School", "chapter_id": "USA007", "points": 0 },
+  { "name": "El-Sadat STEM School", "chapter_id": "EGY001", "points": 0 },
+  { "name": "Shanghai High School International Division", "chapter_id": "CHN001", "points": 0 },
+  { "name": "Woodlawn School", "chapter_id": "USA008", "points": 0 },
+  { "name": "University of North Carolina at Charlotte", "chapter_id": "USA009", "points": 0 },
+  { "name": "Arnold O. Beckman High School", "chapter_id": "USA010", "points": 0 },
+  { "name": "Glendora High School", "chapter_id": "USA011", "points": 0 },
+  { "name": "South Forsyth High School", "chapter_id": "USA012", "points": 0 },
+  { "name": "Del Norte High School", "chapter_id": "USA013", "points": 0 },
+  { "name": "North Carolina School of Science and Mathematics - Morganton", "chapter_id": "USA014", "points": 0 },
+  { "name": "Cypress High School", "chapter_id": "USA015", "points": 0 },
+  { "name": "Leigh High School", "chapter_id": "USA016", "points": 0 },
+  { "name": "Assiut STEM School", "chapter_id": "EGY002", "points": 0 },
+  { "name": "Springville High School", "chapter_id": "USA017", "points": 0 },
+  { "name": "Stuyvesant High School", "chapter_id": "USA018", "points": 0 },
+  { "name": "Westlake Academy", "chapter_id": "USA019", "points": 0 },
+  { "name": "Amity Institute of Biotechnology, Amity university, Noida", "chapter_id": "IND001", "points": 0 },
+  { "name": "Centennial High School", "chapter_id": "USA020", "points": 0 },
+  { "name": "Orange County School of the Arts", "chapter_id": "USA022", "points": 0 },
+  { "name": "Rio Americano", "chapter_id": "USA023", "points": 0 },
+  { "name": "St. Francis Xavier Secondary School", "chapter_id": "CAN001", "points": 0 },
+  { "name": "Kafr El-sheikh STEM High School", "chapter_id": "EGY003", "points": 0 },
+  { "name": "Central Catholic High School", "chapter_id": "USA024", "points": 0 },
+  { "name": "Ridley College", "chapter_id": "CAN002", "points": 0 },
+  { "name": "University of Brasília", "chapter_id": "BRA001", "points": 0 },
+  { "name": "John Fraser Secondary School", "chapter_id": "CAN003", "points": 0 },
+  { "name": "Tenafly High School", "chapter_id": "USA025", "points": 0 },
+  { "name": "Thayer Academy", "chapter_id": "USA026", "points": 0 },
+  { "name": "Mission Vista High School", "chapter_id": "USA027", "points": 0 },
+  { "name": "Chinese International School (CIS)   ESF King George V School (KGV)   ESF Island School   ESF South Island School   ESF West Island School   ESF Sha Tin College   German Swiss International School (GSIS)   G.T. (Ellen Yeung) College   Harrow International School Hong Kong   Hong Kong International School (HKIS)   International Christian School (ICS)   Kellett School   La Salle College   Malvern College Hong Kong (MCHK)   Sacred Heart Canossian College   St. Francis' Canossian College   St. Paul's Co-Educational College (SPCC)", "chapter_id": "HKG001", "points": 0 },
+  { "name": "William Lyon Mackenzie Collegiate Institute", "chapter_id": "CAN004", "points": 0 },
+  { "name": "Chiles High School", "chapter_id": "USA028", "points": 0 },
+  { "name": "University of Michigan Ann Arbor's Neuroscience Student Association", "chapter_id": "USA029", "points": 0 },
+  { "name": "Phillips Exeter Academy", "chapter_id": "USA030", "points": 0 },
+  { "name": "Cheongshim International Academy", "chapter_id": "KOR001", "points": 0 },
+  { "name": "Horace Mann School", "chapter_id": "USA031", "points": 0 },
+  { "name": "Scripps Ranch High School", "chapter_id": "USA032", "points": 0 },
+  { "name": "Bridgewater Raritan High School", "chapter_id": "USA033", "points": 0 },
+  { "name": "Jordan High School", "chapter_id": "USA034", "points": 0 },
+  { "name": "Green Level High School", "chapter_id": "USA035", "points": 0 },
+  { "name": "North Carolina School of Science and Mathematics - Durham", "chapter_id": "USA036", "points": 0 },
+  { "name": "Hebron High School", "chapter_id": "USA037", "points": 0 },
+  { "name": "Coppell High School", "chapter_id": "USA038", "points": 0 },
+  { "name": "Livingston High School", "chapter_id": "USA039", "points": 0 },
+  { "name": "Farmington High School", "chapter_id": "USA040", "points": 0 },
+  { "name": "The Hyderabad Public School, Ramanthapur", "chapter_id": "IND002", "points": 0 },
+  { "name": "Suleyman Demirel Lyceum", "chapter_id": "KAZ001", "points": 0 },
+  { "name": "Miklós Radnóti Experimental High School in Szeged", "chapter_id": "HUN001", "points": 0 },
+  { "name": "Lincoln High School", "chapter_id": "USA041", "points": 0 },
+  { "name": "Private Rüzgar Anatolian High School", "chapter_id": "TUR001", "points": 0 },
+  { "name": "MM junior college", "chapter_id": "IND003", "points": 0 },
+  { "name": "Interlake High School", "chapter_id": "USA042", "points": 0 },
+  { "name": "Hillcrest High School", "chapter_id": "USA043", "points": 0 },
+  { "name": "Crofton High School", "chapter_id": "USA044", "points": 0 },
+  { "name": "Vincent Massey High School", "chapter_id": "CAN005", "points": 0 },
+  { "name": "Texas Academy of Math and Sciences", "chapter_id": "USA045", "points": 0 },
+  { "name": "Vista del Lago High School", "chapter_id": "USA046", "points": 0 },
+  { "name": "Turkistan Bilim Innovation Lyceum", "chapter_id": "KAZ002", "points": 0 },
+  { "name": "Westwood High School", "chapter_id": "USA047", "points": 0 },
+  { "name": "University of Alabama at Birmingham", "chapter_id": "USA048", "points": 0 },
+  { "name": "Nurorda School-Lyceum", "chapter_id": "KAZ003", "points": 0 },
+  { "name": "Almaty Bilim-Innovation Lyceum", "chapter_id": "KAZ004", "points": 0 },
+  { "name": "Gharbiya STEM high school", "chapter_id": "EGY004", "points": 0 },
+  { "name": "Wayzata High School", "chapter_id": "USA050", "points": 0 },
+  { "name": "International School Bellevue", "chapter_id": "USA051", "points": 0 },
+  { "name": "STEM High School for Boys-6th of October", "chapter_id": "EGY005", "points": 0 },
+  { "name": "Pine View School", "chapter_id": "USA052", "points": 0 },
+  { "name": "Health4US", "chapter_id": "USA053", "points": 0 },
+  { "name": "Homestead High School", "chapter_id": "USA054", "points": 0 },
+  { "name": "The Awty International School", "chapter_id": "USA055", "points": 0 },
+  { "name": "Astana Bilim Innovation Lyceum for gifted boys", "chapter_id": "KAZ005", "points": 0 },
+  { "name": "Çakır High School", "chapter_id": "TUR002", "points": 0 },
+  { "name": "Hanover High School", "chapter_id": "USA056", "points": 0 },
+  { "name": "North Hollywood High School", "chapter_id": "USA057", "points": 0 },
+  { "name": "Rice University", "chapter_id": "USA058", "points": 0 },
+  { "name": "Eastlake High School", "chapter_id": "USA059", "points": 0 },
+  { "name": "Diamond Bar High School", "chapter_id": "USA060", "points": 0 },
+  { "name": "Maadi STEM High School for Girls", "chapter_id": "EGY006", "points": 0 },
+  { "name": "Maynard Holbrook Jackson High School", "chapter_id": "USA061", "points": 0 },
+  { "name": "Illinois Mathematics and Science Academy", "chapter_id": "USA049", "points": 0 },
+  { "name": "FCS Innovation Academy", "chapter_id": "USA062", "points": 0 },
+  { "name": "Alexandria STEM School", "chapter_id": "EGY007", "points": 0 },
+  { "name": "Government Medical College Srinagar", "chapter_id": "IND004", "points": 0 },
+  { "name": "Taipei American School", "chapter_id": "TWN001", "points": 0 },
+  { "name": "North Fort Myers High School", "chapter_id": "USA063", "points": 0 },
+  { "name": "Solon High School", "chapter_id": "USA064", "points": 0 },
+  { "name": "STEM Qena School", "chapter_id": "EGY009", "points": 0 },
+  { "name": "School for Advanced Studies - South", "chapter_id": "USA065", "points": 0 },
+  { "name": "Cox Mill High School", "chapter_id": "USA066", "points": 0 },
+  { "name": "Naperville Central High School", "chapter_id": "USA068", "points": 0 },
+  { "name": "Carlmont High School", "chapter_id": "USA069", "points": 0 },
+  { "name": "Parul University", "chapter_id": "IND005", "points": 0 },
+  { "name": "Marc Garneau Collegiate Institute", "chapter_id": "CAN006", "points": 0 },
+  { "name": "Dougherty Valley High School", "chapter_id": "USA070", "points": 0 },
+  { "name": "Metkenana secondary school", "chapter_id": "EGY010", "points": 0 },
+  { "name": "Culver City High School", "chapter_id": "USA071", "points": 0 },
+  { "name": "Obour stem school", "chapter_id": "EGY011", "points": 0 },
+  { "name": "Luxor stem school", "chapter_id": "EGY012", "points": 0 },
+  { "name": "Whitney High School", "chapter_id": "USA072", "points": 0 },
+  { "name": "El Pez Volador / The Flying Fish", "chapter_id": "ARG001", "points": 0 },
+  { "name": "Atascocita High School", "chapter_id": "USA074", "points": 0 },
+  { "name": "Ismailia STEM Highschool", "chapter_id": "EGY013", "points": 0 },
+  { "name": "Victoria Shanghai Academy", "chapter_id": "HKG002", "points": 0 },
+  { "name": "Tesla STEM High School", "chapter_id": "USA075", "points": 0 },
+  { "name": "Seventh - Day Adventist Senior High School", "chapter_id": "GHA001", "points": 0 },
+  { "name": "University of Lagos, Nigeria.", "chapter_id": "NGA001", "points": 0 },
+  { "name": "Jumeriah English Speaking School", "chapter_id": "UAE001", "points": 0 },
+  { "name": "Motafawkeen Ain shams high school for boys", "chapter_id": "EGY014", "points": 0 },
+  { "name": "Canyon Crest Academy", "chapter_id": "USA076", "points": 0 },
+  { "name": "GMERS Medical College Rajpipla", "chapter_id": "IND006", "points": 0 },
+  { "name": "Oak Park High School", "chapter_id": "USA077", "points": 0 },
+  { "name": "Montfort Senior Secondary School", "chapter_id": "IND007", "points": 0 },
+  { "name": "Dakahlia STEM School", "chapter_id": "EGY015", "points": 0 },
+  { "name": "Benha National University", "chapter_id": "EGY016", "points": 0 },
+  { "name": "Lausanne Collegiate School", "chapter_id": "USA079", "points": 0 },
+  { "name": "Skyline High School", "chapter_id": "USA080", "points": 0 },
+  { "name": "Mission Bay High School", "chapter_id": "USA081", "points": 0 },
+  { "name": "Bedford Girls’ School", "chapter_id": "GBR001", "points": 0 },
+  { "name": "La Salle High School", "chapter_id": "JPN001", "points": 0 },
+  { "name": "Decatur High School", "chapter_id": "USA082", "points": 0 },
+  { "name": "Victoria Park Collegiate Institute", "chapter_id": "CAN007", "points": 0 },
+  { "name": "Stratford Girls' Grammar School", "chapter_id": "GBR002", "points": 0 },
+  { "name": "West Career and Technical Academy", "chapter_id": "USA083", "points": 0 },
+  { "name": "Pierre Elliott Trudeau High School", "chapter_id": "CAN008", "points": 0 },
+  { "name": "Louise-Henriette Gymnasium", "chapter_id": "GER001", "points": 0 },
+  { "name": "Lauremont School (formerly TMS School)", "chapter_id": "CAN009", "points": 0 },
+  { "name": "Royal Latin School", "chapter_id": "GBR003", "points": 0 },
+  { "name": "East Chapel Hill High School", "chapter_id": "USA084", "points": 0 },
+  { "name": "Marvin Ridge Highschool", "chapter_id": "USA085", "points": 0 },
+  { "name": "Rock Hill High School", "chapter_id": "USA086", "points": 0 },
+  { "name": "Hiroo Gakuen Senior High School", "chapter_id": "JPN002", "points": 0 },
+  { "name": "University of Illinois Chicago", "chapter_id": "USA087", "points": 0 },
+  { "name": "Woodgrove High School", "chapter_id": "USA088", "points": 0 },
+  { "name": "Huron Highschool", "chapter_id": "USA089", "points": 0 },
+  { "name": "School-lyceum BINOM School named after Kadyr Myrza Ali", "chapter_id": "KAZ006", "points": 0 },
+  { "name": "St Cuthberts College", "chapter_id": "NZL001", "points": 0 },
+  { "name": "Alexandria University", "chapter_id": "EGY017", "points": 0 },
+  { "name": "Juanita High School", "chapter_id": "USA090", "points": 0 },
+  { "name": "Lake Washington High School", "chapter_id": "USA091", "points": 0 },
+  { "name": "Johannes Kepler Grammar School", "chapter_id": "CZE001", "points": 0 },
+  { "name": "University of Lethbridge", "chapter_id": "CAN010", "points": 0 },
+  { "name": "Folsom High School", "chapter_id": "USA092", "points": 0 },
+  { "name": "Hillsborough High School", "chapter_id": "USA093", "points": 0 },
+  { "name": "Independent Schools Foundation Academy", "chapter_id": "HKG003", "points": 0 },
+  { "name": "University of Kansas", "chapter_id": "USA094", "points": 0 },
+  { "name": "Forest Ridge School of the Sacred Heart", "chapter_id": "USA095", "points": 0 },
+  { "name": "Archimedean Upper Conservatory", "chapter_id": "USA096", "points": 0 },
+  { "name": "Northwestern University", "chapter_id": "USA097", "points": 0 },
+  { "name": "STEM October 11th district High School", "chapter_id": "EGY018", "points": 0 },
+  { "name": "Foundation World School", "chapter_id": "IND008", "points": 0 },
+  { "name": "Little Rock Central High School", "chapter_id": "USA098", "points": 0 },
+  { "name": "Ruamrudee International School", "chapter_id": "THA001", "points": 0 },
+  { "name": "Janashakti College", "chapter_id": "NPL001", "points": 0 },
+  { "name": "Hangzhou International School", "chapter_id": "CHN002", "points": 0 },
+  { "name": "Middleton High School", "chapter_id": "USA099", "points": 0 },
+  { "name": "Faculty of Arts, Department of Psychology, Ain Shams University", "chapter_id": "EGY019", "points": 0 },
+  { "name": "Columbus High School", "chapter_id": "USA100", "points": 0 },
+  { "name": "Greenhills School", "chapter_id": "USA101", "points": 0 },
+  { "name": "Universidad Autónoma de Nuevo León", "chapter_id": "MEX002", "points": 0 },
+  { "name": "EL Husinia Private School", "chapter_id": "EGY020", "points": 0 },
+  { "name": "Virginia Commonwealth University", "chapter_id": "USA102", "points": 0 },
+  { "name": "Qingdao City Malvern College Qingdao", "chapter_id": "CHN003", "points": 0 },
+  { "name": "Harmony School of Innovation - Sugarland", "chapter_id": "USA103", "points": 0 },
+  { "name": "Bangladesh International Tutorial", "chapter_id": "BGD001", "points": 0 },
+  { "name": "Heritage High School", "chapter_id": "USA104", "points": 0 },
+  { "name": "Gwinnett School of Mathematics, Science, and Technology", "chapter_id": "USA105", "points": 0 },
+  { "name": "Williamsville East High School", "chapter_id": "USA106", "points": 0 },
+  { "name": "West Cabarrus High School", "chapter_id": "USA107", "points": 0 },
+  { "name": "Oakridge International School, Bangalore", "chapter_id": "IND009", "points": 0 },
+  { "name": "Oakridge International School, Bangalore", "chapter_id": "N/A", "points": 0 },
+  { "name": "Alpharetta High School", "chapter_id": "USA108", "points": 0 },
+  { "name": "Spring Lake Park High School", "chapter_id": "USA109", "points": 0 },
+  { "name": "The Buckley School", "chapter_id": "USA110", "points": 0 },
+  { "name": "Olentangy Berlin High School", "chapter_id": "USA111", "points": 0 },
+  { "name": "Cary Academy", "chapter_id": "USA112", "points": 0 },
+  { "name": "John F. Kennedy Memorial High School", "chapter_id": "USA113", "points": 0 },
+  { "name": "Northview High School", "chapter_id": "USA114", "points": 0 },
+  { "name": "Pleasant View School", "chapter_id": "USA115", "points": 0 },
+  { "name": "Carl Sandburg High School", "chapter_id": "USA116", "points": 0 },
+  { "name": "Merivale High School", "chapter_id": "CAN011", "points": 0 },
+  { "name": "Saugus High School", "chapter_id": "USA117", "points": 0 },
+  { "name": "Obafemi Awolowo University, Ile Ife, Nigeria", "chapter_id": "NGA002", "points": 0 },
+  { "name": "Camberwell Grammar School", "chapter_id": "AUS001", "points": 0 },
+  { "name": "Dhulikona  not in-person... discuss later?", "chapter_id": "N/A", "points": 0 },
+  { "name": "Hopkinton High School", "chapter_id": "USA118", "points": 0 },
+  { "name": "Panther Creek High School", "chapter_id": "USA119", "points": 0 },
+  { "name": "Chattahoochee Highschool", "chapter_id": "USA120", "points": 0 },
+  { "name": "Uplift North Hills Preparatory", "chapter_id": "USA121", "points": 0 },
+  { "name": "Saratoga High School", "chapter_id": "USA122", "points": 0 },
+  { "name": "Chapel Hill High School", "chapter_id": "USA123", "points": 0 },
+  { "name": "Basis International School Shekou Shenzhen", "chapter_id": "CHN004", "points": 0 },
+  { "name": "Ladue Horton Watkins High School", "chapter_id": "USA124", "points": 0 },
+  { "name": "Centro de Estudos Professor Edgar Santos", "chapter_id": "BRA002", "points": 0 },
+  { "name": "St. Rita's Public General Secondary School", "chapter_id": "POL001", "points": 0 },
+  { "name": "Cushing Academy", "chapter_id": "USA125", "points": 0 },
+  { "name": "St. Edmund Campion Secondary School", "chapter_id": "CAN012", "points": 0 },
+  { "name": "Independence High School", "chapter_id": "USA126", "points": 0 },
+  { "name": "Harold M. Brathwaite Secondary School", "chapter_id": "CAN013", "points": 0 },
+  { "name": "West Carleton Secondary School", "chapter_id": "CAN014", "points": 0 },
+  { "name": "University of Washington", "chapter_id": "USA127", "points": 0 },
+  { "name": "University of the People / Stardust Academy (Student-Led Initiative)", "chapter_id": "LKA001", "points": 0 },
+  { "name": "MTs Masjid Al Akbar Surabaya", "chapter_id": "IDN001", "points": 0 },
+  { "name": "Canadian International School Astana", "chapter_id": "KAZ007", "points": 0 },
+  { "name": "Rock Canyon High School", "chapter_id": "USA128", "points": 0 },
+  { "name": "SMA Islamic International School PSM Magetan", "chapter_id": "IDN002", "points": 0 },
+  { "name": "Collège Jean-de-Brébeuf", "chapter_id": "CAN015", "points": 0 },
+  { "name": "Los Altos High School", "chapter_id": "USA129", "points": 0 },
+  { "name": "Egypt Japan University of Science and Technology", "chapter_id": "EGY021", "points": 0 },
+  { "name": "Government College of Pharmacy", "chapter_id": "IND010", "points": 0 },
+  { "name": "Savitribai Phule Pune University", "chapter_id": "IND011", "points": 0 },
+  { "name": "Zagazig University", "chapter_id": "EGY022", "points": 0 },
+  { "name": "Westminster Academy", "chapter_id": "PAK002", "points": 0 },
+  { "name": "Tyler Legacy High School", "chapter_id": "USA131", "points": 0 },
+  { "name": "Univesity of Girona", "chapter_id": "ESP001", "points": 0 },
+  { "name": "Universitat de Barcelona", "chapter_id": "ESP002", "points": 0 },
+  { "name": "Universitat Pompeu Fabra (UPF)", "chapter_id": "ESP003", "points": 0 },
+  { "name": "Mahatma Gandhi Mission’s Institute of Health Sciences, Kamothe", "chapter_id": "IND012", "points": 0 },
+  { "name": "St. Roch Catholic Secondary School", "chapter_id": "CAN016", "points": 0 },
+  { "name": "Hankuk Academy of Foreign Studies", "chapter_id": "KOR002", "points": 0 },
+  { "name": "Francis Lewis High School", "chapter_id": "USA132", "points": 0 },
+  { "name": "West Windsor Plainsboro High School South", "chapter_id": "USA133", "points": 0 },
+  { "name": "Hwa Chong Institution", "chapter_id": "SGP001", "points": 0 },
+  { "name": "Abu Ali ibn Sino Specialized School", "chapter_id": "UZB001", "points": 0 },
+  { "name": "Istituto Istruzione Superiore ‘Galilei Pacinotti’", "chapter_id": "ITA001", "points": 0 },
+  { "name": "Cheongna Dalton School", "chapter_id": "KOR003", "points": 0 },
+  { "name": "William H. Hall High School", "chapter_id": "USA134", "points": 0 },
+  { "name": "Basis Independent Silicon Valley", "chapter_id": "USA135", "points": 0 },
+  { "name": "North Gwinnett High School", "chapter_id": "USA136", "points": 0 },
+  { "name": "Benowa State High School", "chapter_id": "AUS002", "points": 0 },
+  { "name": "Jose Marti STEM Academy", "chapter_id": "USA137", "points": 0 }
+    ];
+}
 
         // Load announcements using existing function
         async function loadAnnouncements() {
@@ -923,25 +1122,52 @@
         }
 
         // Update rankings list with real data
-        async function updateRankingsList(chaptersWithPoints) {
-            const rankingsList = document.querySelector('.rankings-list');
-            
-            if (!rankingsList) {
-                console.error('Rankings list element not found');
-                return;
-            }
+  async function updateRankingsList(chaptersWithPoints) {
+    const rankingsList = document.querySelector('.rankings-list');
+    
+    if (!rankingsList) {
+        console.error('Rankings list element not found');
+        return;
+    }
 
-            if (!chaptersWithPoints || chaptersWithPoints.length === 0) {
-                console.log('No chapters to display, showing empty state');
-                rankingsList.innerHTML = `
-                    <div style="padding: 40px; text-align: center; color: #666;">
-                        <h3 style="color: #1B4965; margin-bottom: 10px;">No Chapters Yet</h3>
-                        <p>Be the first to start a chapter in your community!</p>
-                        <a href="#chapter-registration-section" style="color: #1B4965; text-decoration: underline;">Register your chapter now</a>
+    if (!chaptersWithPoints || chaptersWithPoints.length === 0) {
+        console.log('No chapters to display, showing empty state');
+        rankingsList.innerHTML = `
+            <div style="padding: 40px; text-align: center; color: #666;">
+                <h3 style="color: #1B4965; margin-bottom: 10px;">No Chapters Yet</h3>
+                <p>Be the first to start a chapter in your community!</p>
+                <a href="#chapter-registration-section" style="color: #1B4965; text-decoration: underline;">Register your chapter now</a>
+            </div>
+        `;
+        return;
+    }
+
+    // --- CONTINUATION: Render the schools if data exists ---
+    
+    // 1. Clear out any existing placeholder HTML cards
+    rankingsList.innerHTML = ''; 
+
+    // 2. Loop through the array and append each school card
+    chaptersWithPoints.forEach((chapter, index) => {
+        const itemHtml = `
+            <div class="ranking-item" style="display: flex; align-items: center; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee;">
+                <div class="ranking-number" style="font-weight: bold; margin-right: 15px;">${index + 1}</div>
+                <div class="ranking-info" style="flex-grow: 1;">
+                    <div class="team-name" style="font-weight: 600; color: #1B4965;">${chapter.name}</div>
+                    <div class="team-details" style="font-size: 0.85em; color: #666;">
+                        <span class="chapter-id">${chapter.chapter_id || 'N/A'}</span>
                     </div>
-                `;
-                return;
-            }
+                </div>
+                <div class="points-section" style="text-align: right; margin-right: 20px;">
+                    <div class="points-number" style="font-size: 1.2em; font-weight: bold; color: #1B4965;">${chapter.points}</div>
+                    <div class="points-label" style="font-size: 0.8em; color: #888;">Points</div>
+                </div>
+                <button class="join-button" style="background-color: #1B4965; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">Request to Join</button>
+            </div>
+        `;
+        rankingsList.insertAdjacentHTML('beforeend', itemHtml);
+    });
+}
 
             console.log(`Displaying ${chaptersWithPoints.length} chapters in rankings`);
 
