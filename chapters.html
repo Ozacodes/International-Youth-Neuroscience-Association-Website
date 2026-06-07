@@ -2,350 +2,506 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IYNA - Chapters</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="IYNA Chapter Rankings – find and join a neuroscience chapter near you.">
+    <title>IYNA – Chapters &amp; Rankings</title>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Site CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+
+    <!-- Supabase + shared scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/database.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/nav-login-state.js"></script>
+    <script src="js/load-nav.js"></script>
+
     <style>
-      body, h1, h2, h3, h4, h5, h6, button, input, textarea, select {
+      /* ── Global font override ── */
+      body, h1, h2, h3, h4, h5, h6,
+      .btn, .navbar-brand, .nav-link,
+      .accordion-button, .custom-block, .custom-btn,
+      .site-footer, .site-footer-link, .copyright-text,
+      button, input, textarea, select {
         font-family: 'Work Sans', sans-serif !important;
       }
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { line-height: 1.6; }
 
-      /* ── Rankings Section ── */
-      .rankings-section {
-        background-color: #f5f5f5;
-        padding: 80px 0;
+      html, body { max-width: 100vw; overflow-x: hidden !important; }
+      img, section { max-width: 100%; height: auto; }
+
+      .navbar .nav-link { white-space: nowrap; }
+      .navbar .nav-item { margin-left: .3rem !important; margin-right: .3rem !important; }
+
+      /* ════════════════════════════════════════
+         HERO — matches Brain Bee hero exactly
+      ════════════════════════════════════════ */
+      .hero-section {
+        position: relative;
+        background: url('images/hero-squeezed (1).png') center center / cover no-repeat;
+        height: 100vh;
+        display: flex;
+        align-items: center;
       }
-      .rankings-container {
-        max-width: 1200px;
+      .hero-section .container { z-index: 2; position: relative; }
+      .hero-section h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.1;
+        color: #fff;
+        margin-bottom: 1rem;
+      }
+      .hero-section p {
+        font-size: 1.15rem;
+        margin-bottom: 1.5rem;
+        color: #fff;
+        max-width: 600px;
+      }
+      .hero-section .btn {
+        background-color: #1B4965;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: .75rem 1.5rem;
+        font-size: 1.1rem;
+      }
+
+      /* ════════════════════════════════════════
+         ANNOUNCEMENT SECTION — #f7fafd bg
+      ════════════════════════════════════════ */
+      .announcement-section {
+        background: #f7fafd;
+        padding: 48px 0 36px;
+      }
+      .announcement-inner {
+        max-width: 900px;
         margin: 0 auto;
         padding: 0 20px;
       }
-      .announcement-banner {
-        background-color: #BEE9E8;
+      .announcement-card {
+        background: #fff;
         border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 30px;
+        box-shadow: 0 2px 12px rgba(27,42,65,.07);
+        padding: 28px 36px 28px 24px;
+        border-left: 6px solid #62B6CB;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 18px;
       }
-      .announcement-content { display: flex; align-items: center; gap: 15px; }
-      .announcement-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
-      .announcement-icon img { width: 40px; height: 40px; object-fit: contain; display: block; }
-      .announcement-text { color: #1B4965; font-size: 16px; font-weight: 500; }
+      .announcement-icon img {
+        width: 36px; height: 36px; object-fit: contain;
+      }
+      .announcement-text { color: #1B2A41; font-size: 1.05rem; font-weight: 500; }
 
-      .rankings-title { font-size: 32px; font-weight: 700; color: #1B4965; margin-bottom: 30px; }
+      /* ════════════════════════════════════════
+         RANKINGS SECTION — white bg
+      ════════════════════════════════════════ */
+      .rankings-section {
+        background: #ffffff;
+        padding: 60px 0;
+      }
+      .rankings-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .rankings-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1B4965;
+        margin-bottom: 28px;
+        text-align: left;
+      }
 
-      /* Chapter of the Season */
+      /* Chapter of the Season — styled like a detail card */
       .chapter-highlight {
-        background-color: #1B4965;
-        color: white;
+        background: #1B4965;
         border-radius: 12px;
-        padding: 30px;
-        margin-bottom: 30px;
+        padding: 32px 36px;
+        margin-bottom: 32px;
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 22px;
+        box-shadow: 0 2px 12px rgba(27,42,65,.15);
       }
-      .chapter-star { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
-      .chapter-star img { width: 80px; height: 80px; object-fit: contain; display: block; }
-      .chapter-info { flex: 1; }
-      .chapter-label { font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px; }
-      .chapter-name { font-size: 24px; font-weight: 700; margin-bottom: 5px; }
-      .chapter-code { font-size: 14px; opacity: 0.8; }
+      .chapter-star img { width: 56px; height: 56px; object-fit: contain; display: block; }
+      .chapter-label { font-size: 10px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 4px; }
+      .chapter-name { font-size: 1.4rem; font-weight: 600; color: #fff; margin-bottom: 4px; }
+      .chapter-code { font-size: 13px; color: rgba(255,255,255,.75); }
 
       /* Search + Filter */
       .search-filter-section {
-        background-color: white;
+        background: #f7fafd;
         border-radius: 12px;
-        padding: 20px;
+        padding: 20px 24px;
         margin-bottom: 20px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0,0,0,.06);
         position: relative;
+        border-left: 6px solid #1B4965;
       }
-      .search-filter-row { display: flex; align-items: center; gap: 15px; margin-bottom: 0; }
+      .search-filter-row { display: flex; align-items: center; gap: 12px; }
       .search-input {
         flex: 1;
-        padding: 12px 16px;
+        padding: 11px 15px;
         border: 2px solid #e0e0e0;
         border-radius: 8px;
         font-size: 14px;
-        background-color: #f9f9f9;
+        background: #fff;
+        transition: border-color .15s;
+        font-family: 'Work Sans', sans-serif;
       }
       .search-input:focus { outline: none; border-color: #62B6CB; }
       .filter-button {
-        background-color: #BEE9E8;
-        color: #1B4965;
+        background-color: #1B4965;
+        color: #fff;
         border: none;
-        padding: 12px 20px;
+        padding: 11px 18px;
         border-radius: 8px;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 600;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 7px;
         white-space: nowrap;
+        transition: background .15s;
+        font-family: 'Work Sans', sans-serif;
       }
-      .filter-button:hover { background-color: #62B6CB; color: white; }
+      .filter-button:hover { background-color: #62B6CB; }
 
       /* Dropdown */
       .filter-dropdown {
         position: absolute;
-        top: 68px;
-        right: 20px;
+        top: calc(100% + 6px);
+        right: 24px;
         background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-        padding: 28px 28px 20px 28px;
-        min-width: 240px;
-        z-index: 100;
+        border-radius: 12px;
+        box-shadow: 0 6px 28px rgba(0,0,0,.13);
+        padding: 24px 26px 18px;
+        min-width: 230px;
+        z-index: 200;
         display: none;
         flex-direction: column;
-        gap: 6px;
+        gap: 4px;
+        border-top: 4px solid #1B4965;
       }
       .filter-dropdown.open { display: flex; }
       .dropdown-section-title {
-        font-size: 11px;
-        font-weight: 700;
-        color: #888;
-        letter-spacing: 1.2px;
-        text-transform: uppercase;
-        margin: 10px 0 4px;
+        font-size: 10px; font-weight: 700; color: #aaa;
+        letter-spacing: 1.3px; text-transform: uppercase;
+        margin: 12px 0 5px; padding-left: 18px;
       }
       .dropdown-section-title:first-child { margin-top: 0; }
       .dropdown-option {
-        font-size: 16px;
-        color: #222;
-        font-weight: 400;
-        padding: 4px 0 4px 20px;
-        cursor: pointer;
-        border: none;
-        background: none;
-        text-align: left;
-        outline: none;
-        transition: color 0.15s;
-        border-radius: 6px;
-        position: relative;
+        font-size: 15px; color: #333; font-weight: 400;
+        padding: 5px 6px 5px 22px;
+        cursor: pointer; border: none; background: none;
+        text-align: left; border-radius: 6px; position: relative;
+        transition: color .12s, background .12s;
+        font-family: 'Work Sans', sans-serif;
       }
-      .dropdown-option:hover { color: #1B4965; }
+      .dropdown-option:hover { color: #1B4965; background: #f0f9fa; }
       .dropdown-option.selected { color: #1B4965; font-weight: 600; }
-      .dropdown-option.selected::before { content: "✓"; position: absolute; left: 2px; color: #62B6CB; }
-      .dropdown-option.filter-active { color: #62B6CB; font-weight: 600; }
-      .dropdown-option.filter-active::before { content: "✓"; position: absolute; left: 2px; color: #62B6CB; }
+      .dropdown-option.selected::before,
+      .dropdown-option.filter-active::before {
+        content: "✓"; position: absolute; left: 4px; color: #62B6CB; font-weight: 700;
+      }
+      .dropdown-option.filter-active { color: #1B4965; font-weight: 600; }
       .dropdown-reset {
-        margin-top: 14px;
-        background: #F1F5F9;
-        color: #222;
-        border: none;
-        border-radius: 8px;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        align-self: flex-end;
-        transition: background 0.15s;
+        margin-top: 14px; background: #f7fafd; color: #333;
+        border: none; border-radius: 8px; padding: 7px 14px;
+        font-size: 13px; font-weight: 500; cursor: pointer;
+        align-self: flex-end; transition: background .15s;
+        font-family: 'Work Sans', sans-serif;
       }
       .dropdown-reset:hover { background: #e2e8f0; }
 
-      /* Active filter pills */
+      /* Filter pills */
       .selected-filters-bar { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
       .selected-filter-btn {
-        background: #F1F5F9;
-        color: #222;
-        border: none;
-        border-radius: 20px;
-        padding: 6px 14px;
-        font-size: 13px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        cursor: pointer;
-        transition: background 0.15s;
+        background: #BEE9E8; color: #1B4965;
+        border: none; border-radius: 20px; padding: 5px 13px;
+        font-size: 13px; font-weight: 500;
+        display: flex; align-items: center; gap: 6px;
+        cursor: pointer; transition: background .15s;
+        font-family: 'Work Sans', sans-serif;
       }
-      .selected-filter-btn:hover { background: #e2e8f0; }
-      .remove-x { font-size: 14px; color: #888; line-height: 1; }
+      .selected-filter-btn:hover { background: #62B6CB; color: #fff; }
+      .remove-x { font-size: 13px; }
+      .results-count { font-size: 12px; color: #aaa; margin-top: 8px; padding-left: 2px; }
 
-      /* Rankings List */
+      /* Rankings list */
       .rankings-list {
-        background-color: white;
+        background: #fff;
         border-radius: 12px;
         overflow-y: auto;
         overflow-x: hidden;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        max-height: 520px;
+        box-shadow: 0 2px 12px rgba(27,42,65,.07);
+        max-height: 560px;
         min-height: 200px;
+        border-left: 6px solid #1B4965;
       }
       .ranking-item {
         display: flex;
         align-items: center;
         padding: 16px 20px;
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid #f2f2f2;
         gap: 0;
+        transition: background .1s;
       }
       .ranking-item:last-child { border-bottom: none; }
-      .ranking-number { font-size: 20px; font-weight: 700; color: #1B4965; width: 48px; text-align: center; flex-shrink: 0; }
-      .ranking-info { flex: 1; margin-left: 12px; }
-      .team-name { font-size: 16px; font-weight: 600; color: #1B4965; }
-      .team-details { font-size: 13px; color: #888; margin-top: 2px; }
-      .chapter-id { font-family: monospace; }
+      .ranking-item:hover { background: #f7fafd; }
+      .ranking-number {
+        font-size: 18px; font-weight: 700; color: #1B4965;
+        width: 46px; text-align: center; flex-shrink: 0;
+      }
+      .ranking-info { flex: 1; margin-left: 14px; }
+      .team-name { font-size: 15px; font-weight: 600; color: #1B4965; }
+      .team-details { font-size: 12px; color: #999; margin-top: 2px; }
+      .chapter-id-badge {
+        font-family: 'Courier New', monospace;
+        font-size: 11px; background: #f0f9fa;
+        color: #1B4965; padding: 2px 6px; border-radius: 4px;
+      }
       .join-button {
-        background-color: #BEE9E8;
-        color: #1B4965;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
-        flex-shrink: 0;
-        transition: background 0.15s, color 0.15s;
+        background-color: #BEE9E8; color: #1B4965;
+        border: none; padding: 8px 16px; border-radius: 8px;
+        font-size: 13px; font-weight: 600; cursor: pointer;
+        flex-shrink: 0; transition: background .15s, color .15s;
+        white-space: nowrap; font-family: 'Work Sans', sans-serif;
       }
-      .join-button:hover { background-color: #62B6CB; color: white; }
+      .join-button:hover { background-color: #62B6CB; color: #fff; }
 
-      .empty-state { padding: 50px 20px; text-align: center; color: #888; }
-      .empty-state h3 { color: #1B4965; margin-bottom: 8px; }
+      .empty-state { padding: 56px 20px; text-align: center; color: #aaa; }
+      .empty-state h3 { color: #1B4965; margin-bottom: 8px; font-size: 1.2rem; }
 
-      /* Start New Chapter */
+      /* ════════════════════════════════════════
+         START CHAPTER CTA — #f7fafd bg
+      ════════════════════════════════════════ */
       .start-chapter-section {
-        margin-top: 3rem;
-        padding: 2.5rem;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        border-radius: 16px;
-        text-align: center;
-        border: 1px solid #dee2e6;
+        background: #f7fafd;
+        padding: 60px 0;
       }
-      .start-chapter-content h3 { color: #1B4965; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
-      .start-chapter-content p { color: #6c757d; font-size: 1.1rem; margin-bottom: 2rem; }
-      .start-chapter-btn {
-        background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%);
-        color: white;
-        border: none;
-        padding: 1rem 2rem;
+      .start-chapter-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .start-chapter-card {
+        background: #fff;
         border-radius: 12px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(27, 73, 101, 0.3);
+        box-shadow: 0 2px 12px rgba(27,42,65,.07);
+        padding: 36px 36px 28px 24px;
+        border-left: 6px solid #1B4965;
+        text-align: left;
       }
-      .start-chapter-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(27, 73, 101, 0.4); }
+      .start-chapter-card h3 {
+        color: #1B4965; font-size: 1.7rem; font-weight: 700; margin-bottom: .8rem;
+      }
+      .start-chapter-card p {
+        color: #1B2A41; font-size: 1.05rem; margin-bottom: 1.5rem; line-height: 1.6;
+      }
+      .start-chapter-btn {
+        background-color: #1B4965;
+        color: #fff; border: none;
+        padding: .75rem 1.5rem; border-radius: 8px;
+        font-size: 1.05rem; font-weight: 600; cursor: pointer;
+        transition: background .2s;
+        font-family: 'Work Sans', sans-serif;
+        display: inline-block;
+        text-decoration: none;
+      }
+      .start-chapter-btn:hover { background-color: #62B6CB; color: #fff; }
 
-      /* Map section */
-      .map-section { height: 600px; padding: 80px 60px; display: flex; align-items: center; justify-content: center; }
-      .map-section iframe { width: 100%; height: 100%; border: 0; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+      /* ════════════════════════════════════════
+         MAP — white bg
+      ════════════════════════════════════════ */
+      .map-section {
+        background: #ffffff;
+        padding: 60px 0;
+      }
+      .map-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .map-inner h2 {
+        font-size: 2.2rem; font-weight: 700; color: #1B4965;
+        margin-bottom: 28px; text-align: left;
+      }
+      .map-inner iframe {
+        width: 100%; height: 500px; border: 0;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(27,42,65,.1);
+      }
 
-      /* Results count */
-      .results-count { font-size: 13px; color: #888; margin-top: 10px; padding: 0 4px; }
-
+      /* ── Mobile ── */
       @media (max-width: 768px) {
-        .rankings-section { padding: 40px 0; }
-        .search-filter-row { flex-direction: column; gap: 10px; }
+        .hero-section {
+          background: #DFE7EC !important;
+          background-image: none !important;
+          min-height: 80vh;
+          height: auto;
+          padding: 120px 0 60px;
+        }
+        .hero-section h1 { font-size: 1.7rem !important; padding-left: 24px; }
+        .hero-section p { padding-left: 24px; }
+        .hero-section .btn { margin-left: 24px; }
+        .chapter-highlight { flex-direction: column; text-align: center; }
+        .search-filter-row { flex-direction: column; }
         .search-input { width: 100%; }
-        .ranking-item { flex-wrap: wrap; gap: 8px; }
-        .join-button { width: 100%; }
-        .map-section { padding: 40px 20px; height: 400px; }
+        .ranking-item { flex-wrap: wrap; gap: 10px; }
+        .join-button { width: 100%; text-align: center; }
+        .map-inner iframe { height: 340px; }
+        .announcement-card { flex-direction: column; text-align: center; }
+        .row { margin-left: 0 !important; margin-right: 0 !important; }
+        .container, .container-fluid { padding-left: 10px !important; padding-right: 10px !important; }
       }
     </style>
 </head>
-<body>
 
-<!-- ══════════════════════════════════════════════
-     RANKINGS SECTION
-══════════════════════════════════════════════ -->
-<section class="rankings-section">
-  <div class="rankings-container">
+<body id="top">
+<main>
 
-    <!-- Announcement Banner -->
-    <div class="announcement-banner">
-      <div class="announcement-content">
-        <div class="announcement-icon">
-          <img src="images/icons/speaker.png" alt="Announcement"
-               onerror="this.style.display='none';this.parentElement.innerHTML='📢'">
+    <!-- Nav (loaded by load-nav.js) -->
+    <div id="nav-placeholder"></div>
+
+    <!-- ════════════════════════════════════════
+         HERO — matches Brain Bee exactly
+    ════════════════════════════════════════ -->
+    <section class="hero-section d-flex align-items-center" id="section_1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12">
+                    <h1>Chapters &amp; Rankings</h1>
+                    <p>Browse all active IYNA chapters across the globe, track seasonal rankings, and find — or start — the chapter at your school.</p>
+                    <a href="#rankings" class="btn">Explore Chapters&nbsp;&rsaquo;</a>
+                </div>
+            </div>
         </div>
-        <div class="announcement-text">Season 7 has begun! This season will end on September 1st, 2025</div>
-      </div>
-    </div>
+    </section>
 
-    <h1 class="rankings-title">Rankings</h1>
+    <!-- ════════════════════════════════════════
+         ANNOUNCEMENT — #f7fafd
+    ════════════════════════════════════════ -->
+    <section class="announcement-section">
+        <div class="announcement-inner">
+            <div class="announcement-card">
+                <div class="announcement-icon">
+                    <img src="images/icons/speaker.png" alt=""
+                         onerror="this.outerHTML='📢'">
+                </div>
+                <div class="announcement-text">
+                    Season 7 has begun! This season will end on September 1st, 2025
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Chapter of the Season -->
-    <div class="chapter-highlight" id="chapterOfSeason">
-      <div class="chapter-star">
-        <img src="images/icons/solar_star-bold-duotone.png" alt="Star"
-             onerror="this.style.display='none';this.parentElement.innerHTML='⭐'">
-      </div>
-      <div class="chapter-info">
-        <div class="chapter-label">Chapter of the Season</div>
-        <div class="chapter-name" id="cotName">Gharbiya STEM High School</div>
-        <div class="chapter-code" id="cotCode">EGY004</div>
-      </div>
-    </div>
+    <!-- ════════════════════════════════════════
+         RANKINGS — white
+    ════════════════════════════════════════ -->
+    <section class="rankings-section" id="rankings">
+        <div class="rankings-container">
 
-    <!-- Search + Filter -->
-    <div class="search-filter-section">
-      <div class="search-filter-row">
-        <input type="text" class="search-input" id="searchInput" placeholder="Search by name or chapter ID…">
-        <button class="filter-button" id="filterDropdownBtn" type="button">
-          <span>☰</span> Filter / Sort
-        </button>
-      </div>
+            <h2 class="rankings-title">Rankings</h2>
 
-      <div class="filter-dropdown" id="filterDropdownMenu">
-        <div class="dropdown-section-title">Sort By</div>
-        <button class="dropdown-option selected" data-sort="alpha">A → Z (Name)</button>
-        <button class="dropdown-option" data-sort="chapterid">Chapter ID</button>
-        <button class="dropdown-option" data-sort="country">Country Code</button>
+            <!-- Chapter of the Season -->
+            <div class="chapter-highlight">
+                <div class="chapter-star">
+                    <img src="images/icons/solar_star-bold-duotone.png" alt="⭐"
+                         onerror="this.outerHTML='⭐'">
+                </div>
+                <div class="chapter-info">
+                    <div class="chapter-label">Chapter of the Season</div>
+                    <div class="chapter-name" id="cotName">Gharbiya STEM High School</div>
+                    <div class="chapter-code" id="cotCode">EGY004</div>
+                </div>
+            </div>
 
-        <div class="dropdown-section-title">Filter</div>
-        <button class="dropdown-option" data-filter="college">College Chapters</button>
-        <button class="dropdown-option" data-filter="highschool">High School Chapters</button>
-        <button class="dropdown-option" data-filter="usa">USA Only</button>
+            <!-- Search + Filter -->
+            <div class="search-filter-section">
+                <div class="search-filter-row">
+                    <input type="text" class="search-input" id="searchInput"
+                           placeholder="Search by school name or chapter ID…">
+                    <button class="filter-button" id="filterDropdownBtn" type="button">
+                        ☰&nbsp; Filter / Sort
+                    </button>
+                </div>
 
-        <button class="dropdown-reset" id="resetFiltersBtn">Reset all</button>
-      </div>
+                <div class="filter-dropdown" id="filterDropdownMenu">
+                    <div class="dropdown-section-title">Sort By</div>
+                    <button class="dropdown-option selected" data-sort="alpha">A → Z (Name)</button>
+                    <button class="dropdown-option" data-sort="chapterid">Chapter ID</button>
+                    <button class="dropdown-option" data-sort="country">Country Code</button>
+                    <div class="dropdown-section-title">Filter</div>
+                    <button class="dropdown-option" data-filter="college">College Chapters</button>
+                    <button class="dropdown-option" data-filter="highschool">High School Chapters</button>
+                    <button class="dropdown-option" data-filter="usa">USA Only</button>
+                    <button class="dropdown-reset" id="resetFiltersBtn">Reset all</button>
+                </div>
 
-      <div class="selected-filters-bar" id="selectedFiltersBar"></div>
-      <div class="results-count" id="resultsCount"></div>
-    </div>
+                <div class="selected-filters-bar" id="selectedFiltersBar"></div>
+                <div class="results-count" id="resultsCount"></div>
+            </div>
 
-    <!-- Rankings List -->
-    <div class="rankings-list" id="rankingsList"></div>
+            <!-- List -->
+            <div class="rankings-list" id="rankingsList"></div>
 
-    <!-- Start New Chapter -->
-    <div class="start-chapter-section">
-      <div class="start-chapter-content">
-        <h3>Don't see your school?</h3>
-        <p>Start a new IYNA chapter at your school and become a chapter director.</p>
-        <button class="start-chapter-btn"
-                onclick="window.open('https://forms.gle/FKn9xFWh1FrowNpi7', '_blank')">
-          Start New Chapter
-        </button>
-      </div>
-    </div>
+        </div>
+    </section>
 
-  </div>
-</section>
+    <!-- ════════════════════════════════════════
+         START A CHAPTER — #f7fafd
+    ════════════════════════════════════════ -->
+    <section class="start-chapter-section">
+        <div class="start-chapter-inner">
+            <div class="start-chapter-card">
+                <h3>Don't see your school?</h3>
+                <p>Start a new IYNA chapter at your school and become a chapter director. Join a global community of students passionate about neuroscience.</p>
+                <a class="start-chapter-btn"
+                   href="https://forms.gle/FKn9xFWh1FrowNpi7" target="_blank">
+                    Start New Chapter&nbsp;&rsaquo;
+                </a>
+            </div>
+        </div>
+    </section>
 
-<!-- Map -->
-<section>
-  <div class="map-section">
-    <iframe
-      src="https://www.google.com/maps/d/u/0/embed?mid=1OI4zPrHntxtt8FiYgliT10WkC8G4c48&ehbc=2E312F&ll=-3.81666561775622e-14%2C26.06885245000001&z=1"
-      allowfullscreen></iframe>
-  </div>
-</section>
+    <!-- ════════════════════════════════════════
+         MAP — white
+    ════════════════════════════════════════ -->
+    <section class="map-section">
+        <div class="map-inner">
+            <h2>Global Chapter Map</h2>
+            <iframe
+                src="https://www.google.com/maps/d/u/0/embed?mid=1OI4zPrHntxtt8FiYgliT10WkC8G4c48&ehbc=2E312F&ll=-3.81666561775622e-14%2C26.06885245000001&z=1"
+                allowfullscreen loading="lazy"
+                title="IYNA Chapters World Map"></iframe>
+        </div>
+    </section>
 
-<!-- ══════════════════════════════════════════════
-     DATA + LOGIC
-══════════════════════════════════════════════ -->
+</main>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+<script src="js/load-footer.js"></script>
+
+<!-- Bootstrap + site scripts -->
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.sticky.js"></script>
+<script src="js/click-scroll.js"></script>
+<script src="js/custom.js"></script>
+
+<!-- ════════════════════════════════════════
+     CHAPTERS DATA + LOGIC
+════════════════════════════════════════ -->
 <script>
-// ── 1. Master data ────────────────────────────────────────────────────────────
 const ALL_CHAPTERS = [
   { name: "Benemérita Universidad Autónoma de Puebla", id: "MEX001" },
   { name: "William Mason High School", id: "USA001" },
@@ -585,215 +741,137 @@ const ALL_CHAPTERS = [
   { name: "Jose Marti STEM Academy", id: "USA137" }
 ];
 
-// ── 2. State ──────────────────────────────────────────────────────────────────
-let currentSort = 'alpha';     // 'alpha' | 'chapterid' | 'country'
-let activeFilters = new Set(); // 'college' | 'highschool' | 'usa'
-let searchTerm = '';
+let currentSort   = 'alpha';
+let activeFilters = new Set();
+let searchTerm    = '';
 
-// ── 3. Helpers ────────────────────────────────────────────────────────────────
-function getCountryCode(id) {
-  return id.replace(/\d/g, '').toUpperCase(); // e.g. "USA042" → "USA"
+function getCountryCode(id) { return id.replace(/\d/g,'').toUpperCase(); }
+
+const COLLEGE_KEYWORDS = [
+  'university','college','universitat','universidad','université',
+  'savitribai','parul univ','amity institute',
+  'government medical','alexandria university','benha national',
+  'virginia commonwealth','university of','northwestern','rice university',
+  'university of lethbridge','university of lagos','university of kansas',
+  'university of washington','university of illinois','university of michigan',
+  'university of north carolina','university of brasília','egypt japan university',
+  'zagazig','obafemi awolowo','janashakti college','mm junior college',
+  'government college of pharmacy'
+];
+function isCollege(ch) {
+  const n = ch.name.toLowerCase();
+  return COLLEGE_KEYWORDS.some(kw => n.includes(kw));
 }
 
-function isCollegeChapter(ch) {
-  const college = ['university','college','universitat','universidad','universite',
-                   'universidad autónoma','savitribai','parul university','amity institute',
-                   'government medical','alexandria university','benha national'];
-  return college.some(kw => ch.name.toLowerCase().includes(kw));
-}
-
-function isHighSchoolChapter(ch) {
-  return !isCollegeChapter(ch);
-}
-
-// ── 4. Filter + sort pipeline ─────────────────────────────────────────────────
 function getVisible() {
   let list = [...ALL_CHAPTERS];
-
-  // search
   if (searchTerm) {
     const q = searchTerm.toLowerCase();
-    list = list.filter(c =>
-      c.name.toLowerCase().includes(q) ||
-      c.id.toLowerCase().includes(q)
-    );
+    list = list.filter(c => c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q));
   }
-
-  // filters (OR within same type, AND across types – but here only one group)
   if (activeFilters.size > 0) {
     list = list.filter(c => {
-      if (activeFilters.has('college') && isCollegeChapter(c)) return true;
-      if (activeFilters.has('highschool') && isHighSchoolChapter(c)) return true;
-      if (activeFilters.has('usa') && getCountryCode(c.id) === 'USA') return true;
+      if (activeFilters.has('college')    && isCollege(c))                    return true;
+      if (activeFilters.has('highschool') && !isCollege(c))                   return true;
+      if (activeFilters.has('usa')        && getCountryCode(c.id)==='USA')    return true;
       return false;
     });
   }
-
-  // sort
-  list.sort((a, b) => {
+  list.sort((a,b) => {
     if (currentSort === 'alpha')     return a.name.localeCompare(b.name);
     if (currentSort === 'chapterid') return a.id.localeCompare(b.id);
     if (currentSort === 'country')   return getCountryCode(a.id).localeCompare(getCountryCode(b.id));
     return 0;
   });
-
   return list;
 }
 
-// ── 5. Render ─────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 function render() {
-  const list = getVisible();
+  const list      = getVisible();
   const container = document.getElementById('rankingsList');
-  const count = document.getElementById('resultsCount');
-
-  count.textContent = `Showing ${list.length} of ${ALL_CHAPTERS.length} chapters`;
-
+  const countEl   = document.getElementById('resultsCount');
+  countEl.textContent = `Showing ${list.length} of ${ALL_CHAPTERS.length} chapters`;
   if (list.length === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <h3>No chapters found</h3>
-        <p>Try a different search term or clear the filters.</p>
-      </div>`;
+    container.innerHTML = `<div class="empty-state"><h3>No chapters found</h3><p>Try a different search term or clear the active filters.</p></div>`;
     return;
   }
-
-  const html = list.map((ch, i) => `
+  container.innerHTML = list.map((ch, i) => `
     <div class="ranking-item">
       <div class="ranking-number">${i + 1}</div>
       <div class="ranking-info">
         <div class="team-name">${escHtml(ch.name)}</div>
         <div class="team-details">
-          <span class="chapter-id">${ch.id}</span>
+          <span class="chapter-id-badge">${ch.id}</span>
           &nbsp;·&nbsp;${escHtml(getCountryCode(ch.id))}
         </div>
       </div>
-      <button class="join-button"
-              onclick="window.open('https://forms.gle/FKn9xFWh1FrowNpi7','_blank')">
+      <button class="join-button" onclick="window.open('https://forms.gle/FKn9xFWh1FrowNpi7','_blank')">
         Request to Join
       </button>
     </div>
   `).join('');
-
-  container.innerHTML = html;
 }
 
-function escHtml(str) {
-  return str
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
-}
+const FILTER_LABELS = { college:'College Chapters', highschool:'High School Chapters', usa:'USA Only' };
 
-// ── 6. Filter-pill bar ────────────────────────────────────────────────────────
-const FILTER_LABELS = { college: 'College Chapters', highschool: 'High School Chapters', usa: 'USA Only' };
-
-function renderFilterPills() {
+function renderPills() {
   const bar = document.getElementById('selectedFiltersBar');
   if (activeFilters.size === 0) { bar.innerHTML = ''; return; }
-
-  let html = '';
+  let h = '';
   activeFilters.forEach(f => {
-    html += `<button class="selected-filter-btn" onclick="removeFilter('${f}')">
-               ${FILTER_LABELS[f]} <span class="remove-x">✕</span>
-             </button>`;
+    h += `<button class="selected-filter-btn" onclick="removeFilter('${f}')">${FILTER_LABELS[f]}<span class="remove-x">✕</span></button>`;
   });
-  html += `<button class="selected-filter-btn" onclick="clearAllFilters()">
-             ✕ Remove all filters
-           </button>`;
-  bar.innerHTML = html;
+  h += `<button class="selected-filter-btn" onclick="clearFilters()">✕ Remove all</button>`;
+  bar.innerHTML = h;
 }
 
-function removeFilter(f) {
-  activeFilters.delete(f);
-  renderFilterPills();
-  syncDropdownHighlights();
-  render();
+function removeFilter(f) { activeFilters.delete(f); renderPills(); syncHighlights(); render(); }
+function clearFilters()  { activeFilters.clear();   renderPills(); syncHighlights(); render(); }
+
+function syncHighlights() {
+  document.querySelectorAll('[data-sort]').forEach(b =>
+    b.classList.toggle('selected', b.dataset.sort === currentSort));
+  document.querySelectorAll('[data-filter]').forEach(b =>
+    b.classList.toggle('filter-active', activeFilters.has(b.dataset.filter)));
 }
 
-function clearAllFilters() {
-  activeFilters.clear();
-  renderFilterPills();
-  syncDropdownHighlights();
-  render();
-}
-
-function syncDropdownHighlights() {
-  // sort buttons
-  document.querySelectorAll('[data-sort]').forEach(btn => {
-    btn.classList.toggle('selected', btn.dataset.sort === currentSort);
-  });
-  // filter buttons
-  document.querySelectorAll('[data-filter]').forEach(btn => {
-    btn.classList.toggle('filter-active', activeFilters.has(btn.dataset.filter));
-  });
-}
-
-// ── 7. Event wiring ───────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-
-  // Initial render
   render();
+  syncHighlights();
 
-  // Search
   document.getElementById('searchInput').addEventListener('input', e => {
-    searchTerm = e.target.value.trim();
-    render();
+    searchTerm = e.target.value.trim(); render();
   });
 
-  // Dropdown toggle
-  const filterBtn = document.getElementById('filterDropdownBtn');
-  const dropdownMenu = document.getElementById('filterDropdownMenu');
-
-  filterBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    dropdownMenu.classList.toggle('open');
-  });
+  const btn  = document.getElementById('filterDropdownBtn');
+  const menu = document.getElementById('filterDropdownMenu');
+  btn.addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('open'); });
   document.addEventListener('click', e => {
-    if (!dropdownMenu.contains(e.target) && e.target !== filterBtn) {
-      dropdownMenu.classList.remove('open');
-    }
+    if (!menu.contains(e.target) && e.target !== btn) menu.classList.remove('open');
   });
 
-  // Sort options
-  document.querySelectorAll('[data-sort]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentSort = btn.dataset.sort;
-      syncDropdownHighlights();
-      render();
+  document.querySelectorAll('[data-sort]').forEach(b => {
+    b.addEventListener('click', () => { currentSort = b.dataset.sort; syncHighlights(); render(); });
+  });
+
+  document.querySelectorAll('[data-filter]').forEach(b => {
+    b.addEventListener('click', () => {
+      const f = b.dataset.filter;
+      activeFilters.has(f) ? activeFilters.delete(f) : activeFilters.add(f);
+      renderPills(); syncHighlights(); render();
     });
   });
 
-  // Filter options (toggle)
-  document.querySelectorAll('[data-filter]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const f = btn.dataset.filter;
-      if (activeFilters.has(f)) {
-        activeFilters.delete(f);
-      } else {
-        activeFilters.add(f);
-      }
-      renderFilterPills();
-      syncDropdownHighlights();
-      render();
-    });
-  });
-
-  // Reset
   document.getElementById('resetFiltersBtn').addEventListener('click', () => {
-    currentSort = 'alpha';
-    activeFilters.clear();
-    searchTerm = '';
+    currentSort = 'alpha'; activeFilters.clear(); searchTerm = '';
     document.getElementById('searchInput').value = '';
-    renderFilterPills();
-    syncDropdownHighlights();
-    render();
-    dropdownMenu.classList.remove('open');
+    renderPills(); syncHighlights(); render();
+    menu.classList.remove('open');
   });
-
-  // Chapter of the Season (hardcoded – no DB)
-  document.getElementById('cotName').textContent = 'Gharbiya STEM High School';
-  document.getElementById('cotCode').textContent = 'EGY004';
 });
 </script>
 </body>
