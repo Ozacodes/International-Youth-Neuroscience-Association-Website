@@ -1,40 +1,839 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="IYNA Chapter Rankings – find and join a neuroscience chapter near you.">
+    <title>IYNA – Chapters &amp; Rankings</title>
 
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        <title>IYNA - International Youth Neuroscience Association</title>
+    <!-- Site CSS (same as index.html) -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
 
-        <!-- CSS FILES -->        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Supabase + shared scripts (nav/footer loaders expect these) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/database.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/nav-login-state.js"></script>
+    <script src="js/load-nav.js"></script>
 
-        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <script src="js/database.js"></script>
-        <script src="js/load-nav.js"></script>
-        
-        <style>
-          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
-            font-family: 'Work Sans', sans-serif !important;
-          }
-          #about-iyna {
-            padding-top: 6rem !important;
-            padding-bottom: 6rem !important;
-          }
-          /* Prevent nav links from breaking into two lines and reduce spacing */
-          .navbar .nav-link {
-            white-space: nowrap;
-          }
-          .navbar .nav-item {
-            margin-left: 0.3rem !important;
-            margin-right: 0.3rem !important;
+    <style>
+      /* ── Global font override (matches index.html) ── */
+      body, h1, h2, h3, h4, h5, h6,
+      .btn, .navbar-brand, .nav-link,
+      .accordion-button, .custom-block, .custom-btn,
+      .site-footer, .site-footer-link, .copyright-text,
+      button, input, textarea, select {
+        font-family: 'Work Sans', sans-serif !important;
+      }
+
+      html, body { max-width: 100vw; overflow-x: hidden !important; }
+      img, section { max-width: 100%; height: auto; }
+
+      /* Prevent nav links from breaking */
+      .navbar .nav-link { white-space: nowrap; }
+      .navbar .nav-item { margin-left: .3rem !important; margin-right: .3rem !important; }
+
+      /* ════════════════════════════════════════
+         HERO
+      ════════════════════════════════════════ */
+      .hero-section {
+        position: relative;
+        background: url('images/hero-squeezed (1).png') center center / cover no-repeat;
+        height: 55vh;
+        min-height: 320px;
+        display: flex;
+        align-items: center;
+      }
+      .hero-section::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,.35);
+      }
+      .hero-section .container { position: relative; z-index: 2; }
+      .hero-section h1 {
+        font-size: 2.6rem;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #fff;
+        margin-bottom: 1rem;
+      }
+      .hero-section p {
+        font-size: 1.05rem;
+        color: rgba(255,255,255,.9);
+        max-width: 560px;
+        line-height: 1.6;
+      }
+
+      /* ════════════════════════════════════════
+         RANKINGS SECTION
+      ════════════════════════════════════════ */
+      .rankings-section {
+        background-color: #f5f5f5;
+        padding: 72px 0 80px;
+      }
+      .rankings-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Announcement */
+      .announcement-banner {
+        background-color: #BEE9E8;
+        border-radius: 12px;
+        padding: 18px 24px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .announcement-icon { font-size: 22px; flex-shrink: 0; }
+      .announcement-text { color: #1B4965; font-size: 15px; font-weight: 500; }
+
+      .rankings-title { font-size: 32px; font-weight: 700; color: #1B4965; margin-bottom: 28px; }
+
+      /* Chapter of the Season */
+      .chapter-highlight {
+        background-color: #1B4965;
+        color: #fff;
+        border-radius: 12px;
+        padding: 28px 32px;
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      .chapter-star { font-size: 42px; flex-shrink: 0; line-height: 1; }
+      .chapter-star img { width: 64px; height: 64px; object-fit: contain; display: block; }
+      .chapter-label { font-size: 11px; font-weight: 600; letter-spacing: 1.1px; text-transform: uppercase; opacity: .75; margin-bottom: 4px; }
+      .chapter-name { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+      .chapter-code { font-size: 13px; opacity: .8; }
+
+      /* Search + Filter bar */
+      .search-filter-section {
+        background: #fff;
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 10px rgba(0,0,0,.08);
+        position: relative;
+      }
+      .search-filter-row { display: flex; align-items: center; gap: 12px; }
+      .search-input {
+        flex: 1;
+        padding: 11px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        background: #f9f9f9;
+        transition: border-color .15s;
+      }
+      .search-input:focus { outline: none; border-color: #62B6CB; background: #fff; }
+      .filter-button {
+        background-color: #BEE9E8;
+        color: #1B4965;
+        border: none;
+        padding: 11px 18px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        white-space: nowrap;
+        transition: background .15s, color .15s;
+      }
+      .filter-button:hover { background-color: #62B6CB; color: #fff; }
+
+      /* Dropdown */
+      .filter-dropdown {
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 20px;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 28px rgba(0,0,0,.13);
+        padding: 24px 26px 18px;
+        min-width: 230px;
+        z-index: 200;
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .filter-dropdown.open { display: flex; }
+      .dropdown-section-title {
+        font-size: 10px; font-weight: 700; color: #aaa;
+        letter-spacing: 1.3px; text-transform: uppercase;
+        margin: 12px 0 5px; padding-left: 18px;
+      }
+      .dropdown-section-title:first-child { margin-top: 0; }
+      .dropdown-option {
+        font-size: 15px; color: #333; font-weight: 400;
+        padding: 5px 6px 5px 22px;
+        cursor: pointer; border: none; background: none;
+        text-align: left; border-radius: 6px; position: relative;
+        transition: color .12s, background .12s;
+      }
+      .dropdown-option:hover { color: #1B4965; background: #f0f9fa; }
+      .dropdown-option.selected { color: #1B4965; font-weight: 600; }
+      .dropdown-option.selected::before,
+      .dropdown-option.filter-active::before {
+        content: "✓"; position: absolute; left: 4px; color: #62B6CB; font-weight: 700;
+      }
+      .dropdown-option.filter-active { color: #1B4965; font-weight: 600; }
+      .dropdown-reset {
+        margin-top: 14px; background: #F1F5F9; color: #333;
+        border: none; border-radius: 8px; padding: 7px 14px;
+        font-size: 13px; font-weight: 500; cursor: pointer;
+        align-self: flex-end; transition: background .15s;
+      }
+      .dropdown-reset:hover { background: #e2e8f0; }
+
+      /* Filter pills */
+      .selected-filters-bar { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+      .selected-filter-btn {
+        background: #F1F5F9; color: #333;
+        border: none; border-radius: 20px; padding: 5px 13px;
+        font-size: 13px; font-weight: 500;
+        display: flex; align-items: center; gap: 6px;
+        cursor: pointer; transition: background .15s;
+      }
+      .selected-filter-btn:hover { background: #e2e8f0; }
+      .remove-x { font-size: 13px; color: #999; }
+
+      .results-count { font-size: 12px; color: #aaa; margin-top: 8px; padding-left: 2px; }
+
+      /* Rankings list */
+      .rankings-list {
+        background: #fff;
+        border-radius: 12px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,.08);
+        max-height: 540px;
+        min-height: 200px;
+      }
+      .ranking-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        border-bottom: 1px solid #f2f2f2;
+        gap: 0;
+        transition: background .1s;
+      }
+      .ranking-item:last-child { border-bottom: none; }
+      .ranking-item:hover { background: #fafcfd; }
+      .ranking-number { font-size: 18px; font-weight: 700; color: #1B4965; width: 46px; text-align: center; flex-shrink: 0; }
+      .ranking-info { flex: 1; margin-left: 14px; }
+      .team-name { font-size: 15px; font-weight: 600; color: #1B4965; }
+      .team-details { font-size: 12px; color: #999; margin-top: 2px; }
+      .chapter-id-badge { font-family: 'Courier New', monospace; font-size: 11px; background: #eef6f8; color: #1B4965; padding: 2px 6px; border-radius: 4px; }
+      .join-button {
+        background-color: #BEE9E8; color: #1B4965;
+        border: none; padding: 8px 15px; border-radius: 8px;
+        font-size: 13px; font-weight: 500; cursor: pointer;
+        flex-shrink: 0; transition: background .15s, color .15s;
+        white-space: nowrap;
+      }
+      .join-button:hover { background-color: #62B6CB; color: #fff; }
+
+      .empty-state { padding: 56px 20px; text-align: center; color: #aaa; }
+      .empty-state h3 { color: #1B4965; margin-bottom: 8px; font-size: 1.2rem; }
+
+      /* Start New Chapter CTA */
+      .start-chapter-section {
+        margin-top: 3rem;
+        padding: 2.5rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 16px;
+        text-align: center;
+        border: 1px solid #dee2e6;
+      }
+      .start-chapter-content h3 { color: #1B4965; font-size: 1.7rem; font-weight: 700; margin-bottom: .9rem; }
+      .start-chapter-content p { color: #6c757d; font-size: 1.05rem; margin-bottom: 1.8rem; line-height: 1.5; }
+      .start-chapter-btn {
+        background: linear-gradient(135deg, #1B4965 0%, #2c5f7a 100%);
+        color: #fff; border: none;
+        padding: .9rem 2rem; border-radius: 12px;
+        font-size: 1.05rem; font-weight: 600; cursor: pointer;
+        transition: all .25s ease;
+        box-shadow: 0 4px 15px rgba(27,73,101,.3);
+      }
+      .start-chapter-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(27,73,101,.4); }
+
+      /* Map */
+      .map-section { padding: 64px 60px; display: flex; align-items: center; justify-content: center; }
+      .map-section iframe { width: 100%; height: 500px; border: 0; border-radius: 14px; box-shadow: 0 8px 28px rgba(0,0,0,.13); }
+
+      /* ── Mobile ── */
+      @media (max-width: 768px) {
+        .hero-section { height: auto; padding: 60px 0 50px; min-height: unset; }
+        .hero-section h1 { font-size: 1.8rem !important; }
+        .rankings-section { padding: 40px 0 56px; }
+        .search-filter-row { flex-direction: column; }
+        .search-input { width: 100%; }
+        .ranking-item { flex-wrap: wrap; gap: 10px; }
+        .join-button { width: 100%; text-align: center; }
+        .map-section { padding: 40px 16px; }
+        .map-section iframe { height: 340px; }
+        .chapter-highlight { flex-direction: column; text-align: center; }
+      }
+    </style>
+</head>
+
+<body id="top">
+<main>
+
+    <!-- ── Nav (loaded by load-nav.js) ── -->
+    <div id="nav-placeholder"></div>
+
+    <!-- ════════════════════════════════════════
+         HERO
+    ════════════════════════════════════════ -->
+    <section class="hero-section" id="section_1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-12">
+                    <h1>Chapters &amp; Rankings</h1>
+                    <p>Browse all active IYNA chapters across the globe, track seasonal rankings, and find — or start — the chapter at your school.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         RANKINGS
+    ════════════════════════════════════════ -->
+    <section class="rankings-section">
+        <div class="rankings-container">
+
+            <!-- Announcement -->
+            <div class="announcement-banner">
+                <div class="announcement-icon">
+                    <img src="images/icons/speaker.png" alt="" style="width:32px;height:32px;object-fit:contain;"
+                         onerror="this.outerHTML='📢'">
+                </div>
+                <div class="announcement-text">
+                    Season 7 has begun! This season will end on September 1st, 2025
+                </div>
+            </div>
+
+            <h1 class="rankings-title">Rankings</h1>
+
+            <!-- Chapter of the Season -->
+            <div class="chapter-highlight">
+                <div class="chapter-star">
+                    <img src="images/icons/solar_star-bold-duotone.png" alt="⭐"
+                         onerror="this.outerHTML='⭐'">
+                </div>
+                <div class="chapter-info">
+                    <div class="chapter-label">Chapter of the Season</div>
+                    <div class="chapter-name" id="cotName">Gharbiya STEM High School</div>
+                    <div class="chapter-code" id="cotCode">EGY004</div>
+                </div>
+            </div>
+
+            <!-- Search + Filter -->
+            <div class="search-filter-section">
+                <div class="search-filter-row">
+                    <input type="text" class="search-input" id="searchInput"
+                           placeholder="Search by school name or chapter ID…">
+                    <button class="filter-button" id="filterDropdownBtn" type="button">
+                        ☰&nbsp; Filter / Sort
+                    </button>
+                </div>
+
+                <!-- Dropdown -->
+                <div class="filter-dropdown" id="filterDropdownMenu">
+                    <div class="dropdown-section-title">Sort By</div>
+                    <button class="dropdown-option selected" data-sort="alpha">A → Z (Name)</button>
+                    <button class="dropdown-option" data-sort="chapterid">Chapter ID</button>
+                    <button class="dropdown-option" data-sort="country">Country Code</button>
+
+                    <div class="dropdown-section-title">Filter</div>
+                    <button class="dropdown-option" data-filter="college">College Chapters</button>
+                    <button class="dropdown-option" data-filter="highschool">High School Chapters</button>
+                    <button class="dropdown-option" data-filter="usa">USA Only</button>
+
+                    <button class="dropdown-reset" id="resetFiltersBtn">Reset all</button>
+                </div>
+
+                <div class="selected-filters-bar" id="selectedFiltersBar"></div>
+                <div class="results-count" id="resultsCount"></div>
+            </div>
+
+            <!-- List -->
+            <div class="rankings-list" id="rankingsList"></div>
+
+            <!-- Start New Chapter CTA -->
+            <div class="start-chapter-section">
+                <div class="start-chapter-content">
+                    <h3>Don't see your school?</h3>
+                    <p>Start a new IYNA chapter at your school and become a chapter director.</p>
+                    <button class="start-chapter-btn"
+                            onclick="window.open('https://forms.gle/FKn9xFWh1FrowNpi7','_blank')">
+                        Start New Chapter
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         MAP
+    ════════════════════════════════════════ -->
+    <section>
+        <div class="map-section">
+            <iframe
+                src="https://www.google.com/maps/d/u/0/embed?mid=1OI4zPrHntxtt8FiYgliT10WkC8G4c48&ehbc=2E312F&ll=-3.81666561775622e-14%2C26.06885245000001&z=1"
+                allowfullscreen loading="lazy"
+                title="IYNA Chapters World Map"></iframe>
+        </div>
+    </section>
+
+</main>
+
+<!-- ── Footer ── -->
+<div id="footer-placeholder"></div>
+<script src="js/load-footer.js"></script>
+
+<!-- Bootstrap + site scripts -->
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.sticky.js"></script>
+<script src="js/click-scroll.js"></script>
+<script src="js/custom.js"></script>
+
+<!-- ════════════════════════════════════════
+     CHAPTERS DATA + LOGIC  (no DB needed)
+════════════════════════════════════════ -->
+<script>
+// ── 1. Data ───────────────────────────────────────────────────────────────────
+const ALL_CHAPTERS = [
+  { name: "Benemérita Universidad Autónoma de Puebla", id: "MEX001" },
+  { name: "William Mason High School", id: "USA001" },
+  { name: "Bergen County Academies", id: "USA002" },
+  { name: "Bridgeland High School", id: "USA003" },
+  { name: "Tesoro High School", id: "USA004" },
+  { name: "Adrian Wilcox High School", id: "USA005" },
+  { name: "Zakariya Public School", id: "PAK001" },
+  { name: "American Heritage School Broward", id: "USA006" },
+  { name: "Walton High School", id: "USA007" },
+  { name: "El-Sadat STEM School", id: "EGY001" },
+  { name: "Shanghai High School International Division", id: "CHN001" },
+  { name: "Woodlawn School", id: "USA008" },
+  { name: "University of North Carolina at Charlotte", id: "USA009" },
+  { name: "Arnold O. Beckman High School", id: "USA010" },
+  { name: "Glendora High School", id: "USA011" },
+  { name: "South Forsyth High School", id: "USA012" },
+  { name: "Del Norte High School", id: "USA013" },
+  { name: "NC School of Science & Mathematics – Morganton", id: "USA014" },
+  { name: "Cypress High School", id: "USA015" },
+  { name: "Leigh High School", id: "USA016" },
+  { name: "Assiut STEM School", id: "EGY002" },
+  { name: "Springville High School", id: "USA017" },
+  { name: "Stuyvesant High School", id: "USA018" },
+  { name: "Westlake Academy", id: "USA019" },
+  { name: "Amity Institute of Biotechnology, Amity University Noida", id: "IND001" },
+  { name: "Centennial High School", id: "USA020" },
+  { name: "Orange County School of the Arts", id: "USA022" },
+  { name: "Rio Americano", id: "USA023" },
+  { name: "St. Francis Xavier Secondary School", id: "CAN001" },
+  { name: "Kafr El-sheikh STEM High School", id: "EGY003" },
+  { name: "Central Catholic High School", id: "USA024" },
+  { name: "Ridley College", id: "CAN002" },
+  { name: "University of Brasília", id: "BRA001" },
+  { name: "John Fraser Secondary School", id: "CAN003" },
+  { name: "Tenafly High School", id: "USA025" },
+  { name: "Thayer Academy", id: "USA026" },
+  { name: "Mission Vista High School", id: "USA027" },
+  { name: "Hong Kong International Schools (HKG001)", id: "HKG001" },
+  { name: "William Lyon Mackenzie Collegiate Institute", id: "CAN004" },
+  { name: "Chiles High School", id: "USA028" },
+  { name: "University of Michigan Ann Arbor – Neuroscience Student Association", id: "USA029" },
+  { name: "Phillips Exeter Academy", id: "USA030" },
+  { name: "Cheongshim International Academy", id: "KOR001" },
+  { name: "Horace Mann School", id: "USA031" },
+  { name: "Scripps Ranch High School", id: "USA032" },
+  { name: "Bridgewater Raritan High School", id: "USA033" },
+  { name: "Jordan High School", id: "USA034" },
+  { name: "Green Level High School", id: "USA035" },
+  { name: "NC School of Science & Mathematics – Durham", id: "USA036" },
+  { name: "Hebron High School", id: "USA037" },
+  { name: "Coppell High School", id: "USA038" },
+  { name: "Livingston High School", id: "USA039" },
+  { name: "Farmington High School", id: "USA040" },
+  { name: "The Hyderabad Public School, Ramanthapur", id: "IND002" },
+  { name: "Suleyman Demirel Lyceum", id: "KAZ001" },
+  { name: "Miklós Radnóti Experimental High School in Szeged", id: "HUN001" },
+  { name: "Lincoln High School", id: "USA041" },
+  { name: "Private Rüzgar Anatolian High School", id: "TUR001" },
+  { name: "MM Junior College", id: "IND003" },
+  { name: "Interlake High School", id: "USA042" },
+  { name: "Hillcrest High School", id: "USA043" },
+  { name: "Crofton High School", id: "USA044" },
+  { name: "Vincent Massey High School", id: "CAN005" },
+  { name: "Texas Academy of Math and Sciences", id: "USA045" },
+  { name: "Vista del Lago High School", id: "USA046" },
+  { name: "Turkistan Bilim Innovation Lyceum", id: "KAZ002" },
+  { name: "Westwood High School", id: "USA047" },
+  { name: "University of Alabama at Birmingham", id: "USA048" },
+  { name: "Nurorda School-Lyceum", id: "KAZ003" },
+  { name: "Almaty Bilim-Innovation Lyceum", id: "KAZ004" },
+  { name: "Gharbiya STEM High School", id: "EGY004" },
+  { name: "Wayzata High School", id: "USA050" },
+  { name: "International School Bellevue", id: "USA051" },
+  { name: "STEM High School for Boys – 6th of October", id: "EGY005" },
+  { name: "Pine View School", id: "USA052" },
+  { name: "Health4US", id: "USA053" },
+  { name: "Homestead High School", id: "USA054" },
+  { name: "The Awty International School", id: "USA055" },
+  { name: "Astana Bilim Innovation Lyceum for Gifted Boys", id: "KAZ005" },
+  { name: "Çakır High School", id: "TUR002" },
+  { name: "Hanover High School", id: "USA056" },
+  { name: "North Hollywood High School", id: "USA057" },
+  { name: "Rice University", id: "USA058" },
+  { name: "Eastlake High School", id: "USA059" },
+  { name: "Diamond Bar High School", id: "USA060" },
+  { name: "Maadi STEM High School for Girls", id: "EGY006" },
+  { name: "Maynard Holbrook Jackson High School", id: "USA061" },
+  { name: "Illinois Mathematics and Science Academy", id: "USA049" },
+  { name: "FCS Innovation Academy", id: "USA062" },
+  { name: "Alexandria STEM School", id: "EGY007" },
+  { name: "Government Medical College Srinagar", id: "IND004" },
+  { name: "Taipei American School", id: "TWN001" },
+  { name: "North Fort Myers High School", id: "USA063" },
+  { name: "Solon High School", id: "USA064" },
+  { name: "STEM Qena School", id: "EGY009" },
+  { name: "School for Advanced Studies – South", id: "USA065" },
+  { name: "Cox Mill High School", id: "USA066" },
+  { name: "Naperville Central High School", id: "USA068" },
+  { name: "Carlmont High School", id: "USA069" },
+  { name: "Parul University", id: "IND005" },
+  { name: "Marc Garneau Collegiate Institute", id: "CAN006" },
+  { name: "Dougherty Valley High School", id: "USA070" },
+  { name: "Metkenana Secondary School", id: "EGY010" },
+  { name: "Culver City High School", id: "USA071" },
+  { name: "Obour STEM School", id: "EGY011" },
+  { name: "Luxor STEM School", id: "EGY012" },
+  { name: "Whitney High School", id: "USA072" },
+  { name: "El Pez Volador / The Flying Fish", id: "ARG001" },
+  { name: "Atascocita High School", id: "USA074" },
+  { name: "Ismailia STEM High School", id: "EGY013" },
+  { name: "Victoria Shanghai Academy", id: "HKG002" },
+  { name: "Tesla STEM High School", id: "USA075" },
+  { name: "Seventh-Day Adventist Senior High School", id: "GHA001" },
+  { name: "University of Lagos", id: "NGA001" },
+  { name: "Jumeirah English Speaking School", id: "UAE001" },
+  { name: "Motafawkeen Ain Shams High School for Boys", id: "EGY014" },
+  { name: "Canyon Crest Academy", id: "USA076" },
+  { name: "GMERS Medical College Rajpipla", id: "IND006" },
+  { name: "Oak Park High School", id: "USA077" },
+  { name: "Montfort Senior Secondary School", id: "IND007" },
+  { name: "Dakahlia STEM School", id: "EGY015" },
+  { name: "Benha National University", id: "EGY016" },
+  { name: "Lausanne Collegiate School", id: "USA079" },
+  { name: "Skyline High School", id: "USA080" },
+  { name: "Mission Bay High School", id: "USA081" },
+  { name: "Bedford Girls' School", id: "GBR001" },
+  { name: "La Salle High School", id: "JPN001" },
+  { name: "Decatur High School", id: "USA082" },
+  { name: "Victoria Park Collegiate Institute", id: "CAN007" },
+  { name: "Stratford Girls' Grammar School", id: "GBR002" },
+  { name: "West Career and Technical Academy", id: "USA083" },
+  { name: "Pierre Elliott Trudeau High School", id: "CAN008" },
+  { name: "Louise-Henriette Gymnasium", id: "GER001" },
+  { name: "Lauremont School (formerly TMS School)", id: "CAN009" },
+  { name: "Royal Latin School", id: "GBR003" },
+  { name: "East Chapel Hill High School", id: "USA084" },
+  { name: "Marvin Ridge High School", id: "USA085" },
+  { name: "Rock Hill High School", id: "USA086" },
+  { name: "Hiroo Gakuen Senior High School", id: "JPN002" },
+  { name: "University of Illinois Chicago", id: "USA087" },
+  { name: "Woodgrove High School", id: "USA088" },
+  { name: "Huron High School", id: "USA089" },
+  { name: "School-lyceum BINOM – Kadyr Myrza Ali", id: "KAZ006" },
+  { name: "St Cuthbert's College", id: "NZL001" },
+  { name: "Alexandria University", id: "EGY017" },
+  { name: "Juanita High School", id: "USA090" },
+  { name: "Lake Washington High School", id: "USA091" },
+  { name: "Johannes Kepler Grammar School", id: "CZE001" },
+  { name: "University of Lethbridge", id: "CAN010" },
+  { name: "Folsom High School", id: "USA092" },
+  { name: "Hillsborough High School", id: "USA093" },
+  { name: "Independent Schools Foundation Academy", id: "HKG003" },
+  { name: "University of Kansas", id: "USA094" },
+  { name: "Forest Ridge School of the Sacred Heart", id: "USA095" },
+  { name: "Archimedean Upper Conservatory", id: "USA096" },
+  { name: "Northwestern University", id: "USA097" },
+  { name: "STEM October 11th District High School", id: "EGY018" },
+  { name: "Foundation World School", id: "IND008" },
+  { name: "Little Rock Central High School", id: "USA098" },
+  { name: "Ruamrudee International School", id: "THA001" },
+  { name: "Janashakti College", id: "NPL001" },
+  { name: "Hangzhou International School", id: "CHN002" },
+  { name: "Middleton High School", id: "USA099" },
+  { name: "Faculty of Arts – Psychology, Ain Shams University", id: "EGY019" },
+  { name: "Columbus High School", id: "USA100" },
+  { name: "Greenhills School", id: "USA101" },
+  { name: "Universidad Autónoma de Nuevo León", id: "MEX002" },
+  { name: "EL Husinia Private School", id: "EGY020" },
+  { name: "Virginia Commonwealth University", id: "USA102" },
+  { name: "Malvern College Qingdao", id: "CHN003" },
+  { name: "Harmony School of Innovation – Sugarland", id: "USA103" },
+  { name: "Bangladesh International Tutorial", id: "BGD001" },
+  { name: "Heritage High School", id: "USA104" },
+  { name: "Gwinnett School of Mathematics, Science, and Technology", id: "USA105" },
+  { name: "Williamsville East High School", id: "USA106" },
+  { name: "West Cabarrus High School", id: "USA107" },
+  { name: "Oakridge International School Bangalore", id: "IND009" },
+  { name: "Alpharetta High School", id: "USA108" },
+  { name: "Spring Lake Park High School", id: "USA109" },
+  { name: "The Buckley School", id: "USA110" },
+  { name: "Olentangy Berlin High School", id: "USA111" },
+  { name: "Cary Academy", id: "USA112" },
+  { name: "John F. Kennedy Memorial High School", id: "USA113" },
+  { name: "Northview High School", id: "USA114" },
+  { name: "Pleasant View School", id: "USA115" },
+  { name: "Carl Sandburg High School", id: "USA116" },
+  { name: "Merivale High School", id: "CAN011" },
+  { name: "Saugus High School", id: "USA117" },
+  { name: "Obafemi Awolowo University, Ile Ife", id: "NGA002" },
+  { name: "Camberwell Grammar School", id: "AUS001" },
+  { name: "Hopkinton High School", id: "USA118" },
+  { name: "Panther Creek High School", id: "USA119" },
+  { name: "Chattahoochee High School", id: "USA120" },
+  { name: "Uplift North Hills Preparatory", id: "USA121" },
+  { name: "Saratoga High School", id: "USA122" },
+  { name: "Chapel Hill High School", id: "USA123" },
+  { name: "Basis International School Shekou Shenzhen", id: "CHN004" },
+  { name: "Ladue Horton Watkins High School", id: "USA124" },
+  { name: "Centro de Estudos Professor Edgar Santos", id: "BRA002" },
+  { name: "St. Rita's Public General Secondary School", id: "POL001" },
+  { name: "Cushing Academy", id: "USA125" },
+  { name: "St. Edmund Campion Secondary School", id: "CAN012" },
+  { name: "Independence High School", id: "USA126" },
+  { name: "Harold M. Brathwaite Secondary School", id: "CAN013" },
+  { name: "West Carleton Secondary School", id: "CAN014" },
+  { name: "University of Washington", id: "USA127" },
+  { name: "University of the People / Stardust Academy", id: "LKA001" },
+  { name: "MTs Masjid Al Akbar Surabaya", id: "IDN001" },
+  { name: "Canadian International School Astana", id: "KAZ007" },
+  { name: "Rock Canyon High School", id: "USA128" },
+  { name: "SMA Islamic International School PSM Magetan", id: "IDN002" },
+  { name: "Collège Jean-de-Brébeuf", id: "CAN015" },
+  { name: "Los Altos High School", id: "USA129" },
+  { name: "Egypt Japan University of Science and Technology", id: "EGY021" },
+  { name: "Government College of Pharmacy", id: "IND010" },
+  { name: "Savitribai Phule Pune University", id: "IND011" },
+  { name: "Zagazig University", id: "EGY022" },
+  { name: "Westminster Academy", id: "PAK002" },
+  { name: "Tyler Legacy High School", id: "USA131" },
+  { name: "University of Girona", id: "ESP001" },
+  { name: "Universitat de Barcelona", id: "ESP002" },
+  { name: "Universitat Pompeu Fabra (UPF)", id: "ESP003" },
+  { name: "Mahatma Gandhi Mission's Institute of Health Sciences", id: "IND012" },
+  { name: "St. Roch Catholic Secondary School", id: "CAN016" },
+  { name: "Hankuk Academy of Foreign Studies", id: "KOR002" },
+  { name: "Francis Lewis High School", id: "USA132" },
+  { name: "West Windsor Plainsboro High School South", id: "USA133" },
+  { name: "Hwa Chong Institution", id: "SGP001" },
+  { name: "Abu Ali ibn Sino Specialized School", id: "UZB001" },
+  { name: "Istituto Istruzione Superiore 'Galilei Pacinotti'", id: "ITA001" },
+  { name: "Cheongna Dalton School", id: "KOR003" },
+  { name: "William H. Hall High School", id: "USA134" },
+  { name: "Basis Independent Silicon Valley", id: "USA135" },
+  { name: "North Gwinnett High School", id: "USA136" },
+  { name: "Benowa State High School", id: "AUS002" },
+  { name: "Jose Marti STEM Academy", id: "USA137" }
+];
+
+// ── 2. State ──────────────────────────────────────────────────────────────────
+let currentSort   = 'alpha';
+let activeFilters = new Set();
+let searchTerm    = '';
+
+// ── 3. Helpers ────────────────────────────────────────────────────────────────
+function getCountryCode(id) {
+  return id.replace(/\d/g, '').toUpperCase();
+}
+const COLLEGE_KEYWORDS = [
+  'university','college','universitat','universidad','université',
+  'savitribai','parul univ','amity institute',
+  'government medical','alexandria university','benha national',
+  'virginia commonwealth','university of','northwestern','rice university',
+  'university of lethbridge','university of lagos','university of kansas',
+  'university of washington','university of illinois','university of michigan',
+  'university of north carolina','university of brasília','egypt japan university',
+  'zagazig','obafemi awolowo','janashakti college','mm junior college',
+  'government college of pharmacy'
+];
+function isCollege(ch) {
+  const n = ch.name.toLowerCase();
+  return COLLEGE_KEYWORDS.some(kw => n.includes(kw));
+}
+
+// ── 4. Pipeline ───────────────────────────────────────────────────────────────
+function getVisible() {
+  let list = [...ALL_CHAPTERS];
+
+  if (searchTerm) {
+    const q = searchTerm.toLowerCase();
+    list = list.filter(c =>
+      c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q)
+    );
+  }
+
+  if (activeFilters.size > 0) {
+    list = list.filter(c => {
+      if (activeFilters.has('college')     && isCollege(c))                        return true;
+      if (activeFilters.has('highschool')  && !isCollege(c))                       return true;
+      if (activeFilters.has('usa')         && getCountryCode(c.id) === 'USA')      return true;
+      return false;
+    });
+  }
+
+  list.sort((a, b) => {
+    if (currentSort === 'alpha')     return a.name.localeCompare(b.name);
+    if (currentSort === 'chapterid') return a.id.localeCompare(b.id);
+    if (currentSort === 'country')   return getCountryCode(a.id).localeCompare(getCountryCode(b.id));
+    return 0;
+  });
+
+  return list;
+}
+
+// ── 5. Render ─────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function render() {
+  const list      = getVisible();
+  const container = document.getElementById('rankingsList');
+  const countEl   = document.getElementById('resultsCount');
+
+  countEl.textContent = `Showing ${list.length} of ${ALL_CHAPTERS.length} chapters`;
+
+  if (list.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <h3>No chapters found</h3>
+        <p>Try a different search term or clear the active filters.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = list.map((ch, i) => `
+    <div class="ranking-item">
+      <div class="ranking-number">${i + 1}</div>
+      <div class="ranking-info">
+        <div class="team-name">${escHtml(ch.name)}</div>
+        <div class="team-details">
+          <span class="chapter-id-badge">${ch.id}</span>
+          &nbsp;·&nbsp;${escHtml(getCountryCode(ch.id))}
+        </div>
+      </div>
+      <button class="join-button"
+              onclick="window.open('https://forms.gle/FKn9xFWh1FrowNpi7','_blank')">
+        Request to Join
+      </button>
+    </div>
+  `).join('');
+}
+
+// ── 6. Filter pills ───────────────────────────────────────────────────────────
+const FILTER_LABELS = {
+  college:    'College Chapters',
+  highschool: 'High School Chapters',
+  usa:        'USA Only'
+};
+
+function renderPills() {
+  const bar = document.getElementById('selectedFiltersBar');
+  if (activeFilters.size === 0) { bar.innerHTML = ''; return; }
+  let h = '';
+  activeFilters.forEach(f => {
+    h += `<button class="selected-filter-btn" onclick="removeFilter('${f}')">
+            ${FILTER_LABELS[f]}<span class="remove-x">✕</span>
+          </button>`;
+  });
+  h += `<button class="selected-filter-btn" onclick="clearFilters()">✕ Remove all</button>`;
+  bar.innerHTML = h;
+}
+
+function removeFilter(f) {
+  activeFilters.delete(f);
+  renderPills(); syncHighlights(); render();
+}
+function clearFilters() {
+  activeFilters.clear();
+  renderPills(); syncHighlights(); render();
+}
+
+function syncHighlights() {
+  document.querySelectorAll('[data-sort]').forEach(b =>
+    b.classList.toggle('selected', b.dataset.sort === currentSort));
+  document.querySelectorAll('[data-filter]').forEach(b =>
+    b.classList.toggle('filter-active', activeFilters.has(b.dataset.filter)));
+}
+
+// ── 7. Bootstrap ──────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  render();
+  syncHighlights();
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchTerm = e.target.value.trim();
+    render();
+  });
+
+  // Dropdown open/close
+  const btn  = document.getElementById('filterDropdownBtn');
+  const menu = document.getElementById('filterDropdownMenu');
+  btn.addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('open'); });
+  document.addEventListener('click', e => {
+    if (!menu.contains(e.target) && e.target !== btn) menu.classList.remove('open');
+  });
+
+  // Sort
+  document.querySelectorAll('[data-sort]').forEach(b => {
+    b.addEventListener('click', () => {
+      currentSort = b.dataset.sort;
+      syncHighlights(); render();
+    });
+  });
+
+  // Filters
+  document.querySelectorAll('[data-filter]').forEach(b => {
+    b.addEventListener('click', () => {
+      const f = b.dataset.filter;
+      activeFilters.has(f) ? activeFilters.delete(f) : activeFilters.add(f);
+      renderPills(); syncHighlights(); render();
+    });
+  });
+
+  // Reset
+  document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+    currentSort = 'alpha'; activeFilters.clear(); searchTerm = '';
+    document.getElementById('searchInput').value = '';
+    renderPills(); syncHighlights(); render();
+    menu.classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>            margin-right: 0.3rem !important;
           }
         </style>
         <style>
