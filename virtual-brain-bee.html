@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="The IYNA Virtual Brain Bee is a free, online international neuroscience competition for high school students in countries without a national Brain Bee, offering a pathway to the International Brain Bee World Championship.">
+        <meta name="author" content="">
+
+        <title>IYNA Virtual Brain Bee 2026</title>
+
+        <!-- CSS FILES -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/database.js"></script>
+        <script src="js/load-nav.js"></script>
+
+        <style>
+          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+            font-family: 'Work Sans', sans-serif !important;
+          }
+          .navbar .nav-link { white-space: nowrap; }
+          .navbar .nav-item { margin-left: 0.3rem !important; margin-right: 0.3rem !important; }
+        </style>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+
+        <!-- Load shared navigation -->
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+
+        <!-- ============================================================
+             PAGE-SPECIFIC STYLES
+             Palette reused from site: #1B4965 primary · #62B6CB accent
+             #BEE9E8 / #CAE9FF light accents · #ECF1F4 / #f7fafd surfaces
+        ============================================================= -->
+        <style>
+            /* ---------- HERO ---------- */
+            .vbb-hero h1 {
+                font-size: 3rem;
+                font-weight: 700;
+                line-height: 1.1;
+                color: #fff;
+                margin-bottom: 1rem;
+            }
+            .vbb-hero p.lead {
+                font-size: 1.15rem;
+                color: #fff;
+                max-width: 600px;
+                margin-bottom: 1.5rem;
+                line-height: 1.55;
+            }
+            .vbb-btn-primary {
+                background-color: #1B4965;
+                color: #fff;
+                font-weight: 600;
+                border-radius: 8px;
+                padding: 0.75rem 1.5rem;
+                font-size: 1.1rem;
+                text-decoration: none;
+                display: inline-block;
+                margin-right: 15px;
+            }
+            .vbb-btn-primary:hover { background-color: #16384f; color: #fff; }
+            .vbb-btn-outline {
+                background-color: #fff;
+                color: #1B4965;
+                font-weight: 600;
+                border-radius: 8px;
+                padding: 0.75rem 1.5rem;
+                font-size: 1.1rem;
+                text-decoration: none;
+                display: inline-block;
+                border: 2px solid #1B4965;
+            }
+            .vbb-btn-outline:hover { background-color: #1B4965; color: #fff; }
+            .vbb-hero-note { margin-top: 1.5rem; color: #fff; font-weight: 500; font-size: 1rem; }
+
+            /* ---------- SECTION SCAFFOLDING ---------- */
+            .vbb-section { padding: 80px 0; }
+            .vbb-section .vbb-inner { max-width: 1000px; margin: 0 auto; padding: 0 30px; }
+            .vbb-section-title {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #1B4965;
+                text-align: center;
+                margin-bottom: 18px;
+            }
+            .vbb-section-sub {
+                font-size: 1.1rem;
+                color: #444;
+                text-align: center;
+                max-width: 720px;
+                margin: 0 auto 50px auto;
+                line-height: 1.6;
+            }
+            .vbb-bg-white { background-color: #fff; }
+            .vbb-bg-light { background-color: #f7fafd; }
+
+            /* ---------- ABOUT / LEAD COPY ---------- */
+            .vbb-lead-copy { font-size: 1.12rem; line-height: 1.75; color: #2b2b2b; max-width: 760px; margin: 0 auto; }
+            .vbb-lead-copy p { margin-bottom: 1.25rem; }
+
+            /* ---------- FACTS BAND ---------- */
+            .vbb-facts { background: #CAE9FF; padding: 56px 0; }
+            .vbb-facts-grid {
+                max-width: 1100px; margin: 0 auto; padding: 0 30px;
+                display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap;
+            }
+            .vbb-fact { flex: 1 1 200px; text-align: center; }
+            .vbb-fact .fact-main { font-size: 1.7rem; font-weight: 700; color: #1B4965; line-height: 1.15; margin-bottom: 4px; }
+            .vbb-fact .fact-label { font-size: 1rem; color: #1B4965; opacity: 0.85; }
+
+            /* ---------- TIMELINE (reused pattern) ---------- */
+            .timeline-container { max-width: 1200px; margin: 0 auto; padding: 0; }
+            .timeline { position: relative; padding: 20px 0; }
+            .timeline::before {
+                content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+                width: 3px; background-color: #1B4965; transform: translateX(-50%); z-index: 0;
+            }
+            .timeline-item { position: relative; margin-bottom: 60px; width: 100%; z-index: 1; min-height: 120px; }
+            .timeline-item.left .timeline-card { position: absolute; left: 0; width: calc(50% - 30px); margin-right: 30px; }
+            .timeline-item.right .timeline-card { position: absolute; right: 0; width: calc(50% - 30px); margin-left: 30px; }
+            .timeline-card {
+                display: flex; align-items: stretch; background: #ECF1F4; border-radius: 24px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.06); padding: 28px 36px;
+                min-width: 440px; max-width: 600px; width: 100%; position: relative;
+            }
+            .timeline-date-block { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-right: 22px; min-width: 110px; align-self: center; }
+            .timeline-date-block .date-main { font-size: 1.8rem; font-weight: 700; color: #111; line-height: 1; margin-bottom: 4px; }
+            .timeline-date-block .date-year { font-size: 1.1rem; color: #222; font-weight: 400; }
+            .timeline-divider { width: 2px; background: #20495e; margin: 0 28px; }
+            .timeline-content-block { display: flex; flex-direction: column; justify-content: center; }
+            .timeline-content-block .event-title { font-size: 1.45rem; font-weight: 700; color: #111; margin-bottom: 8px; }
+            .timeline-content-block .event-description { font-size: 1.05rem; color: #222; line-height: 1.5; }
+            @media (max-width: 900px) {
+                .timeline::before { display: none; }
+                .timeline-item { min-height: auto !important; margin-bottom: 22px; }
+                .timeline-item.left .timeline-card, .timeline-item.right .timeline-card {
+                    position: relative; left: 0 !important; right: 0 !important; width: 92vw !important;
+                    max-width: 95vw !important; min-width: 0 !important; margin: 0 auto !important;
+                }
+                .timeline-card { flex-direction: column; padding: 22px 18px; text-align: center; align-items: center; }
+                .timeline-date-block { margin-right: 0; margin-bottom: 8px; }
+                .timeline-divider { width: 80px; height: 2px; margin: 12px 0; }
+                .timeline-content-block { align-items: center; text-align: center; }
+            }
+
+            /* ---------- PANEL WITH PLAIN BULLETS ---------- */
+            .vbb-panel {
+                background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(27,73,101,0.08);
+                padding: 38px 44px; border-left: 8px solid #62B6CB;
+            }
+            .vbb-panel ul { margin: 0; padding-left: 22px; }
+            .vbb-panel li { font-size: 1.08rem; color: #1B4965; line-height: 1.65; margin-bottom: 16px; }
+            .vbb-panel li:last-child { margin-bottom: 0; }
+
+            /* ---------- CALLOUT (no icon) ---------- */
+            .vbb-callout {
+                background: #1B4965; color: #fff; border-radius: 16px; padding: 30px 36px; margin-top: 28px;
+            }
+            .vbb-callout h4 { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+            .vbb-callout p { font-size: 1.02rem; line-height: 1.65; color: rgba(255,255,255,0.92); margin: 0; }
+            .vbb-callout a { color: #BEE9E8; font-weight: 600; }
+
+            /* ---------- ROUND CARDS ---------- */
+            .vbb-rounds-grid { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+            .vbb-round-card {
+                flex: 1 1 380px; max-width: 460px; background: #fff; border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(27,73,101,0.1); border-left: 8px solid #62B6CB;
+                padding: 36px 34px; display: flex; flex-direction: column;
+            }
+            .vbb-round-eyebrow { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.6px; color: #62B6CB; margin-bottom: 10px; }
+            .vbb-round-card h3 { font-size: 1.5rem; font-weight: 700; color: #1B4965; margin-bottom: 14px; }
+            .vbb-round-card p { color: #333; line-height: 1.65; margin-bottom: 0; }
+            .vbb-round-card .round-date { color: #1B4965; font-weight: 700; margin-top: 18px; }
+
+            /* ---------- MATERIALS CARDS (text only) ---------- */
+            .vbb-materials-grid { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+            .vbb-material-card {
+                flex: 1 1 220px; max-width: 240px; background: #fff; border-radius: 14px;
+                box-shadow: 0 4px 16px rgba(27,73,101,0.07); border-left: 6px solid #62B6CB;
+                padding: 28px 26px;
+            }
+            .vbb-material-card .mat-title { font-size: 1.15rem; font-weight: 700; color: #1B4965; margin-bottom: 8px; }
+            .vbb-material-card .mat-desc { font-size: 0.97rem; color: #555; line-height: 1.55; }
+
+            /* ---------- RULES (dark, text only) ---------- */
+            .vbb-rules-section { background: #1B4965; color: #fff; padding: 80px 0; }
+            .vbb-rules-section .vbb-section-title { color: #fff; }
+            .vbb-rules-section .vbb-section-sub { color: rgba(255,255,255,0.85); }
+            .vbb-rules-grid { display: flex; flex-wrap: wrap; gap: 24px; max-width: 1000px; margin: 0 auto; padding: 0 30px; }
+            .vbb-rule-card {
+                flex: 1 1 280px; background: rgba(255,255,255,0.06); border: 1px solid rgba(190,233,232,0.25);
+                border-radius: 14px; padding: 28px 26px;
+            }
+            .vbb-rule-card h4 { font-size: 1.15rem; font-weight: 700; color: #BEE9E8; margin-bottom: 10px; }
+            .vbb-rule-card p { font-size: 0.98rem; line-height: 1.6; color: rgba(255,255,255,0.88); margin: 0; }
+
+            /* ---------- REGISTRATION STEPS ---------- */
+            .vbb-steps { max-width: 820px; margin: 0 auto; }
+            .vbb-step {
+                display: flex; gap: 24px; align-items: flex-start; background: #fff;
+                border-radius: 16px; box-shadow: 0 4px 16px rgba(27,73,101,0.07);
+                padding: 30px 34px; margin-bottom: 22px; border-left: 8px solid #62B6CB;
+            }
+            .vbb-step-num {
+                flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; background: #1B4965;
+                color: #fff; font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+            }
+            .vbb-step-body h4 { font-size: 1.2rem; font-weight: 700; color: #1B4965; margin-bottom: 6px; }
+            .vbb-step-body p { font-size: 1.02rem; color: #444; line-height: 1.6; margin-bottom: 12px; }
+            .vbb-inline-btn {
+                display: inline-block; background: #1B4965; color: #fff; font-weight: 600; font-size: 0.95rem;
+                padding: 0.55rem 1.2rem; border-radius: 8px; text-decoration: none;
+            }
+            .vbb-inline-btn:hover { background: #16384f; color: #fff; }
+
+            /* ---------- FINAL CTA ---------- */
+            .vbb-final-cta { background: #1B4965; padding: 80px 30px; text-align: center; }
+            .vbb-final-cta h2 { font-size: 2.4rem; font-weight: 700; color: #fff; margin-bottom: 16px; }
+            .vbb-final-cta p { font-size: 1.15rem; color: rgba(255,255,255,0.9); max-width: 600px; margin: 0 auto 30px auto; line-height: 1.6; }
+            .vbb-final-cta .vbb-btn-primary { background-color: #BEE9E8; color: #1B4965; margin-right: 0; }
+            .vbb-final-cta .vbb-btn-primary:hover { background-color: #a6dedd; color: #1B4965; }
+
+            /* ---------- FAQ (reused pattern) ---------- */
+            .faq-container { background-color: #f7fafd; padding: 80px 20px; color: #1B4965; }
+            .faq-wrapper { max-width: 820px; margin: 0 auto; }
+            .faq-title { font-size: 2.5rem; font-weight: 700; color: #1B4965; margin-bottom: 40px; text-align: center; }
+            .faq-item {
+                background-color: #fff; border-radius: 14px; margin-bottom: 18px;
+                box-shadow: 0 4px 16px rgba(27,73,101,0.07); overflow: hidden; border-left: 6px solid #62B6CB;
+                transition: box-shadow 0.3s ease, border-color 0.3s ease;
+            }
+            .faq-item:hover { box-shadow: 0 8px 24px rgba(27,73,101,0.13); border-left: 6px solid #1B4965; }
+            .faq-question {
+                padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+                background-color: transparent; border: none; width: 100%; text-align: left; font-family: inherit;
+                font-size: 1.12rem; font-weight: 600; color: #1B4965; transition: background-color 0.3s ease;
+            }
+            .faq-question:hover { background-color: #f2f8fa; }
+            .faq-arrow { font-size: 1.1rem; color: #62B6CB; transition: transform 0.3s ease; flex-shrink: 0; margin-left: 16px; }
+            .faq-item.active .faq-arrow { transform: rotate(180deg); }
+            .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background-color: #fff; }
+            .faq-answer.active { max-height: 600px; }
+            .faq-answer-content { padding: 0 30px 24px 30px; color: #1B4965; line-height: 1.65; font-size: 1.03rem; }
+            .faq-answer-content a { color: #62B6CB; font-weight: 600; }
+            .highlight { font-weight: 600; color: #62B6CB; }
+
+            /* ---------- RESPONSIVE ---------- */
+            @media (max-width: 768px) {
+                .vbb-hero h1 { font-size: 2.1rem; }
+                .vbb-hero p.lead { font-size: 1.05rem; }
+                .vbb-btn-outline { margin-top: 14px; }
+                .vbb-section { padding: 56px 0; }
+                .vbb-section-title { font-size: 1.9rem; }
+                .faq-title { font-size: 1.9rem; }
+                .vbb-final-cta h2 { font-size: 1.8rem; }
+                .vbb-step { flex-direction: column; gap: 14px; padding: 26px 22px; }
+                .vbb-panel { padding: 28px 24px; }
+            }
+        </style>
+    </head>
+
+    <body id="top">
+
+        <main>
+
+            <!-- Navigation placeholder - loaded by load-nav.js -->
+            <div id="nav-placeholder"></div>
+
+            <!-- ============================= HERO ============================= -->
+            <section class="vbb-hero d-flex align-items-center" id="section_1"
+                     style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
+                <div class="container" style="z-index: 2; position: relative;">
+                    <div class="row" style="margin-top: -3rem;">
+                        <div class="col-lg-8 col-12">
+                            <h1>IYNA Virtual Brain Bee 2026</h1>
+                            <p class="lead">
+                                A free, fully online neuroscience competition for high school students in countries
+                                without a national Brain Bee — and your pathway to the International Brain Bee (IBB)
+                                World Championship. All experience levels are welcome.
+                            </p>
+                            <a href="https://forms.gle/izmk8RYKLc9y84887" class="vbb-btn-primary">Register Now&nbsp;&rsaquo;</a>
+                            <a href="https://youthneuro.org/signup" class="vbb-btn-outline">Become an IYNA Member&nbsp;&rsaquo;</a>
+                            <p class="vbb-hero-note">
+                                Registration closes <strong>July 4, 2026</strong> &nbsp;·&nbsp; Round 1 begins July 25, 2026
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= ABOUT ============================= -->
+            <section class="vbb-section vbb-bg-white">
+                <div class="vbb-inner">
+                    <h2 class="vbb-section-title">About the Competition</h2>
+                    <div class="vbb-lead-copy">
+                        <p>
+                            The IYNA Virtual Brain Bee is an international neuroscience competition built for high
+                            school students in countries that do not yet have an established national Brain Bee. It
+                            gives those students a direct pathway to qualify for the
+                            <strong>International Brain Bee (IBB) World Championship</strong>.
+                        </p>
+                        <p>
+                            Participants are assessed on their knowledge of the brain and nervous system — including
+                            neuroanatomy and neurological disease diagnosis — using official, IBB-aligned study
+                            materials. The competition is designed to inspire careers in neuroscience research and
+                            medicine, and welcomes students at every experience level.
+                        </p>
+                        <p>
+                            The overall first-place winner becomes the official representative for the IBB World
+                            Championship. Every participant receives a certificate of participation.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= FACTS BAND ============================= -->
+            <section class="vbb-facts">
+                <div class="vbb-facts-grid">
+                    <div class="vbb-fact">
+                        <div class="fact-main">Free</div>
+                        <div class="fact-label">No cost to participate</div>
+                    </div>
+                    <div class="vbb-fact">
+                        <div class="fact-main">Fully Online</div>
+                        <div class="fact-label">Compete from anywhere</div>
+                    </div>
+                    <div class="vbb-fact">
+                        <div class="fact-main">Grades 9–12</div>
+                        <div class="fact-label">Ages 13–19</div>
+                    </div>
+                    <div class="vbb-fact">
+                        <div class="fact-main">Two Rounds</div>
+                        <div class="fact-label">Pathway to the IBB Championship</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= TIMELINE ============================= -->
+            <section class="vbb-section vbb-bg-light">
+                <h2 class="vbb-section-title">Program Timeline</h2>
+                <p class="vbb-section-sub">All dates are tentative. Detailed schedules and instructions are shared via email and Discord.</p>
+                <div class="timeline-container">
+                    <div class="timeline">
+                        <div class="timeline-item left">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block"><div class="date-main">April</div><div class="date-year">2026</div></div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Registration Opens</div>
+                                    <div class="event-description">Sign up as an IYNA member, then complete the Virtual Brain Bee registration form.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item right">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block"><div class="date-main">Jul 04</div><div class="date-year">2026</div></div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Registration Closes</div>
+                                    <div class="event-description">Final deadline to register. Late registrations will not be accepted.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item left">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block"><div class="date-main">Jul 25</div><div class="date-year">2026</div></div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Round 1 — Preliminary</div>
+                                    <div class="event-description">A timed, proctored multiple-choice exam open to all registered participants.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item right">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block"><div class="date-main">Aug 01</div><div class="date-year">2026</div></div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Finalists Announced</div>
+                                    <div class="event-description">Top scorers who pass recording review advance to Round 2, about one week after Round 1.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item left">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block"><div class="date-main">Aug 08</div><div class="date-year">2026</div></div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Round 2 — Final</div>
+                                    <div class="event-description">Finalists complete a more advanced, clinical-style exam to determine the winners.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item right">
+                            <div class="timeline-card">
+                                <div class="timeline-date-block"><div class="date-main">Aug 15</div><div class="date-year">2026</div></div>
+                                <div class="timeline-divider"></div>
+                                <div class="timeline-content-block">
+                                    <div class="event-title">Awards Announced</div>
+                                    <div class="event-description">The top 3 finalists are recognized at the closing ceremony, about one week after Round 2.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= ELIGIBILITY ============================= -->
+            <section class="vbb-section vbb-bg-white">
+                <div class="vbb-inner">
+                    <h2 class="vbb-section-title">Who Can Participate</h2>
+                    <p class="vbb-section-sub">To match official IBB eligibility, participants must meet <strong>all</strong> of the criteria below. No exceptions will be made.</p>
+                    <div class="vbb-panel">
+                        <ul>
+                            <li>Be between the <strong>ages of 13 and 19</strong>, currently enrolled in a secondary school (or equivalent) in <strong>grades 9–12</strong> for the 2025–26 school year. The winner who advances to the IBB World Championship must be 19 or younger at the time of the IBB competition in November 2026.</li>
+                            <li>Reside in a <strong>country without an active or planned national Brain Bee</strong> for the 2026 cycle. If your country appears on the IYNA Virtual Brain Bee ineligible countries list, you must qualify through your local and national Brain Bee instead.</li>
+                            <li>Have <strong>not participated in any local, national, or international Brain Bee</strong> competition during the 2025–2026 academic year, regardless of placement or outcome.</li>
+                        </ul>
+                    </div>
+
+                    <div class="vbb-callout">
+                        <h4>Check your eligibility before you register</h4>
+                        <p>
+                            Participants are responsible for confirming their eligibility using the provided country
+                            list and the official IBB website at
+                            <a href="https://www.thebrainbee.org/countries/" target="_blank" rel="noopener">thebrainbee.org/countries</a>.
+                            You may not register for or compete in multiple Brain Bee competitions in the same academic
+                            year. Failure to meet eligibility at any stage of verification results in immediate
+                            disqualification.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= FORMAT / ROUNDS ============================= -->
+            <section class="vbb-section vbb-bg-light">
+                <div class="vbb-inner">
+                    <h2 class="vbb-section-title">Competition Format</h2>
+                    <p class="vbb-section-sub">Two rounds. Your final score is the combined total from both, with extra weight possible on higher-difficulty questions.</p>
+                    <div class="vbb-rounds-grid">
+                        <div class="vbb-round-card">
+                            <div class="vbb-round-eyebrow">ROUND 1 · ALL PARTICIPANTS</div>
+                            <h3>Preliminary Round</h3>
+                            <p>
+                                A timed multiple-choice exam assessing neuroanatomy and neurological conditions, drawn
+                                from the official study materials. The top-performing competitors — after eligibility
+                                and recording review — advance as finalists.
+                            </p>
+                            <div class="round-date">Saturday, July 25, 2026</div>
+                        </div>
+                        <div class="vbb-round-card">
+                            <div class="vbb-round-eyebrow">ROUND 2 · FINALISTS ONLY</div>
+                            <h3>Final Round</h3>
+                            <p>
+                                A second, more advanced multiple-choice exam with higher-difficulty and clinical-style
+                                questions, based on the same study materials. The top 3 finalists are announced at the
+                                closing ceremony.
+                            </p>
+                            <div class="round-date">Saturday, August 8, 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="vbb-callout" style="max-width: 950px; margin: 32px auto 0 auto;">
+                        <h4>What's at stake</h4>
+                        <p>
+                            <strong>First place</strong> becomes the official representative at the IBB World
+                            Championship. <strong>Second and third place</strong> serve as alternates if the winner
+                            cannot attend. Every participant receives a certificate of participation.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= STUDY MATERIALS ============================= -->
+            <section class="vbb-section vbb-bg-white">
+                <div class="vbb-inner">
+                    <h2 class="vbb-section-title">Study Materials</h2>
+                    <p class="vbb-section-sub">All questions are drawn from these official, IBB-aligned resources.</p>
+                    <div class="vbb-materials-grid">
+                        <div class="vbb-material-card">
+                            <div class="mat-title">Brain Facts</div>
+                            <div class="mat-desc">The foundational primer on the brain and nervous system.</div>
+                        </div>
+                        <div class="vbb-material-card">
+                            <div class="mat-title">Open Neuroscience Initiative</div>
+                            <div class="mat-desc">The first 10 chapters of the ONI textbook.</div>
+                        </div>
+                        <div class="vbb-material-card">
+                            <div class="mat-title">Disorders List</div>
+                            <div class="mat-desc">The official list of Disorders for Brain Bee.</div>
+                        </div>
+                        <div class="vbb-material-card">
+                            <div class="mat-title">Neuroanatomy Structures</div>
+                            <div class="mat-desc">The official list of Neuroanatomy Structure.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= RULES & PROCTORING ============================= -->
+            <section class="vbb-rules-section">
+                <h2 class="vbb-section-title">Rules &amp; Proctoring</h2>
+                <p class="vbb-section-sub">All rules are enforced strictly, with no exceptions. Read these carefully and prepare your setup before exam day.</p>
+                <div class="vbb-rules-grid">
+                    <div class="vbb-rule-card">
+                        <h4>Work Independently</h4>
+                        <p>No textbooks, notes, dictionaries, online resources, translation tools, or help from others. Complete every component on your own.</p>
+                    </div>
+                    <div class="vbb-rule-card">
+                        <h4>Back-Facing Camera</h4>
+                        <p>A secondary device (phone or tablet) placed behind you must record video and ambient audio for the full exam, capturing your body and primary device.</p>
+                    </div>
+                    <div class="vbb-rule-card">
+                        <h4>Locked-Down Browser</h4>
+                        <p>The exam runs on secure software (e.g., Safe Exam Browser) with time-limited questions, no pausing, and no tab switching once you begin.</p>
+                    </div>
+                    <div class="vbb-rule-card">
+                        <h4>Submit Your Recording</h4>
+                        <p>Upload your back-camera recording immediately after the exam. Round 1 recordings are reviewed before finalists are confirmed.</p>
+                    </div>
+                    <div class="vbb-rule-card">
+                        <h4>Stable Setup</h4>
+                        <p>You need a computer with reliable internet plus your recording device. An internet drop or browser exit ends your session — progress is not recoverable.</p>
+                    </div>
+                    <div class="vbb-rule-card">
+                        <h4>Mandatory Platform Demo</h4>
+                        <p>Before exam day you must complete a platform demonstration to check device compatibility and practice using the testing system.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= HOW TO REGISTER ============================= -->
+            <section class="vbb-section vbb-bg-white">
+                <div class="vbb-inner">
+                    <h2 class="vbb-section-title">How to Register</h2>
+                    <p class="vbb-section-sub">Three steps — and it's completely free. Registration closes July 4, 2026.</p>
+                    <div class="vbb-steps">
+                        <div class="vbb-step">
+                            <div class="vbb-step-num">1</div>
+                            <div class="vbb-step-body">
+                                <h4>Become an IYNA member</h4>
+                                <p>All participants must be registered IYNA members before signing up for the Brain Bee. Membership is free.</p>
+                                <a href="https://youthneuro.org/signup" class="vbb-inline-btn">Sign Up for IYNA&nbsp;&rsaquo;</a>
+                            </div>
+                        </div>
+                        <div class="vbb-step">
+                            <div class="vbb-step-num">2</div>
+                            <div class="vbb-step-body">
+                                <h4>Register for the Virtual Brain Bee</h4>
+                                <p>Once you're an IYNA member, complete the official Virtual Brain Bee registration form.</p>
+                                <a href="https://forms.gle/izmk8RYKLc9y84887" class="vbb-inline-btn">Open Registration Form&nbsp;&rsaquo;</a>
+                            </div>
+                        </div>
+                        <div class="vbb-step">
+                            <div class="vbb-step-num">3</div>
+                            <div class="vbb-step-body">
+                                <h4>Join the Discord for updates</h4>
+                                <p>Schedules, instructions, and answers to your questions are shared throughout the season on Discord and by email.</p>
+                                <a href="https://discord.gg/T7MJ28kES5" class="vbb-inline-btn">Join the Discord&nbsp;&rsaquo;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= FINAL CTA ============================= -->
+            <section class="vbb-final-cta">
+                <h2>Ready to test your knowledge of the brain?</h2>
+                <p>Join students around the world in the 2026 IYNA Virtual Brain Bee. Free, online, and open to all experience levels.</p>
+                <a href="https://forms.gle/izmk8RYKLc9y84887" class="vbb-btn-primary">Register Now&nbsp;&rsaquo;</a>
+            </section>
+
+            <!-- ============================= FAQ ============================= -->
+            <div class="faq-container">
+                <div class="faq-wrapper">
+                    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">What is the Virtual Brain Bee?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            It's an international neuroscience competition for high school students in countries without an active national Brain Bee, giving them a pathway to qualify for the <span class="highlight">International Brain Bee (IBB) World Championship</span>. It tests knowledge of the brain and nervous system and aims to inspire careers in neuroscience research and medicine.
+                        </div></div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">When does the 2026 Virtual Brain Bee take place?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            The competition is fully online. <span class="highlight">Round 1</span> is tentatively scheduled for Saturday, July 25, and <span class="highlight">Round 2</span> about two weeks later on Saturday, August 8. Finalists are announced roughly one week after Round 1, and award recipients about one week after Round 2.
+                        </div></div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">Is there a cost to participate?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            No. Participation in the IYNA Virtual Brain Bee — and IYNA membership — is <span class="highlight">completely free</span>.
+                        </div></div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">How do I know if I'm eligible?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            You must be <span class="highlight">13–19 years old</span> and enrolled in secondary school in grades 9–12, reside in a country <span class="highlight">without an active or planned national Brain Bee</span>, and not have participated in any other Brain Bee during the 2025–2026 academic year. Check your country on the ineligible list and the <a href="https://www.thebrainbee.org/countries/" target="_blank" rel="noopener">official IBB website</a>. All criteria must be met — no exceptions.
+                        </div></div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">Do I need to be an IYNA member to participate?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            Yes. All participants must first register as an IYNA member (free) at <a href="https://youthneuro.org/signup" target="_blank" rel="noopener">youthneuro.org/signup</a> before completing the Brain Bee registration form.
+                        </div></div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">What prizes are awarded?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            <span class="highlight">First place</span> becomes the official representative at the IBB World Championship. <span class="highlight">Second and third place</span> serve as alternates. Every participant receives a certificate of participation.
+                        </div></div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">What study materials should I use?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            Questions are based on <span class="highlight">Brain Facts</span>, the first 10 chapters of the <span class="highlight">Open Neuroscience Initiative</span> textbook, the <span class="highlight">list of Disorders for Brain Bee</span>, and the <span class="highlight">list of Neuroanatomy Structure</span>.
+                        </div></div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">What technology do I need?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            A computer with a stable internet connection, plus a <span class="highlight">secondary device</span> (phone or tablet) to record your exam session from behind with both video and ambient audio.
+                        </div></div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">How is academic integrity enforced?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            Through a mandatory second-device recording from behind, browser lockdown tools, time-limited questions, and review of all participant recordings by the Organizing Committee. Violations may lead to score invalidation, disqualification, or removal from finalist consideration.
+                        </div></div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">Where can I ask more questions?<span class="faq-arrow">▼</span></button>
+                        <div class="faq-answer"><div class="faq-answer-content">
+                            Join our <a href="https://discord.gg/T7MJ28kES5" target="_blank" rel="noopener">Discord server</a> and post in the <span class="highlight">#virtual-brainbee-questions</span> channel, or email <span class="highlight">virtualbrainbee@youthneuro.org</span>. Information sessions will be hosted and more details released throughout the season.
+                        </div></div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer placeholder - loaded by load-footer.js -->
+        <div id="footer-placeholder"></div>
+        <script src="js/load-footer.js"></script>
+
+        <!-- SCRIPTS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+
+        <!-- FAQ accordion -->
+        <script>
+            function toggleFAQ(element) {
+                const faqItem = element.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const isActive = faqItem.classList.contains('active');
+
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                        item.querySelector('.faq-answer').classList.remove('active');
+                    }
+                });
+
+                if (isActive) {
+                    faqItem.classList.remove('active');
+                    answer.classList.remove('active');
+                } else {
+                    faqItem.classList.add('active');
+                    answer.classList.add('active');
+                }
+            }
+
+            document.querySelectorAll('.faq-question').forEach(button => {
+                button.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleFAQ(this);
+                    }
+                });
+            });
+        </script>
+
+    </body>
+</html>
