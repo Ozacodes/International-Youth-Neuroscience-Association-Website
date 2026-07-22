@@ -4,524 +4,875 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="The 2026 IYNA-INS Neuroethics Essay Contest. Four categories, cash prizes up to $500 USD, open to students worldwide. Essays due August 21, 2026.">
+        <meta name="author" content="International Youth Neuroscience Association">
 
-        <title>Topic Listing Bootstrap 5 Template</title>
+        <title>Neuroethics Essay Contest 2026 | IYNA &amp; INS</title>
 
-        <!-- CSS FILES -->        
+        <!-- CSS FILES -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script src="js/database.js"></script>
-        <script src="js/load-nav.js"></script>
-        
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+
+        <!--
+        ============================================================
+        STILL TO CONFIRM — search this file for "TODO-LINK"
+          A. Essay template .docx — currently points at
+             docs/Essay-2026-SURNAME-CATEGORY.docx. Upload the file to
+             that path or change the href. (hero button + Submission section)
+          B. 2026 pamphlet — the embed at the bottom points at
+             docs/Neuroethics-EssayContest-2026-English.pdf. It will render
+             blank until that file exists.
+          C. Past winners page URL (Topics + Selection sections)
+          D. Hero image path (currently images/hero-squeezed (1).png)
+
+        WIRED UP: submission form, written rubric, video rubric.
+        ============================================================
+        -->
+
         <style>
-          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link, .accordion-button, .custom-block, .custom-btn, .site-footer, .site-footer-link, .copyright-text {
+          /* ---------- Base theme ---------- */
+          body, h1, h2, h3, h4, h5, h6, .btn, .navbar-brand, .nav-link,
+          .accordion-button, .custom-block, .custom-btn, .site-footer,
+          .site-footer-link, .copyright-text {
             font-family: 'Work Sans', sans-serif !important;
           }
-          #about-iyna {
-            padding-top: 6rem !important;
-            padding-bottom: 6rem !important;
-          }
-          /* Prevent nav links from breaking into two lines and reduce spacing */
-          .navbar .nav-link {
-            white-space: nowrap;
-          }
-          .navbar .nav-item {
-            margin-left: 0.3rem !important;
-            margin-right: 0.3rem !important;
-          }
-        </style>
-        <!-- Append mobile hero section CSS for override -->
-        <style>
-        /* Responsive hero section for mobile (match home page) */
-        @media (max-width: 768px) {
-          .hero-section h1 {
-            font-size: 1.7rem !important;
-            line-height: 1.2 !important;
-            text-align: left !important;
-            padding: 0 10px !important;
-          }
-          .hero-section .btn {
-            font-size: 1rem !important;
-            padding: 0.7rem 1.2rem !important;
-            width: 100% !important;
-            max-width: 250px !important;
-            margin: 0 auto !important;
-            display: block !important;
-          }
-          .hero-section {
-            padding: 200px 0 !important;
-            min-height: 80vh !important;
-          }
-        }
-        @media (max-width: 768px) {
-          .hero-section .col-lg-8, .hero-section .col-12 {
-            text-align: left !important;
-            align-items: flex-start !important;
-            justify-content: flex-start !important;
-          }
-          .hero-section .btn {
-            font-size: 1rem !important;
-            padding: 0.7rem 1.2rem !important;
-            width: auto !important;
-            min-width: 120px !important;
-            max-width: 180px !important;
-            margin: 0 !important;
-            display: inline-block !important;
-            text-align: left !important;
-          }
-        }
-        @media (max-width: 768px) {
-          .row {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-          }
-          .container, .container-fluid {
-            padding-left: 10px !important;
-            padding-right: 10px !important;
-          }
-        }
-        </style>
-        <!-- Mobile hero section background color override -->
-        <style>
-        @media (max-width: 768px) {
-          .hero-section {
-            background: #DFE7EC !important;
-            background-image: none !important;
-          }
-          .hero-section .overlay {
-            display: none !important;
-          }
-        }
-        </style>
-        <!-- Mobile hero section h1 alignment override -->
-        <style>
-        @media (max-width: 768px) {
-          .hero-section h1 {
-            padding-left: 18px !important;
-            padding-right: 10px !important;
-          }
-        }
-        </style>
-        <!-- Mobile hero section h1 and paragraph alignment override -->
-        <style>
-        @media (max-width: 768px) {
-          .hero-section .col-lg-8, .hero-section .col-12 {
-            padding-left: 0 !important;
-          }
-          .hero-section h1 {
-            padding-left: 24px !important;
-            padding-right: 10px !important;
-            margin-left: 0 !important;
-          }
-          .hero-section p {
-            padding-left: 24px !important;
-            margin-left: 0 !important;
-          }
-        }
-        </style>
-        <!-- Mobile hero section button alignment override -->
-        <style>
-        @media (max-width: 768px) {
-          .hero-section .btn {
-            margin-left: 24px !important;
-            display: block !important;
-            width: auto !important;
-            min-width: 120px !important;
-            max-width: 250px !important;
-            text-align: left !important;
-          }
-        }
-        </style>
-        <!-- Mobile hero section button size override -->
-        <style>
-        @media (max-width: 768px) {
-          .hero-section .btn {
-            padding-left: 1rem !important;
-            padding-right: 1rem !important;
-            max-width: 160px !important;
-          }
-        }
-        </style>
-        <!-- Mobile hero section button even shorter override -->
-        <style>
-        @media (max-width: 768px) {
-          .hero-section .btn {
-            padding-left: 0.7rem !important;
-            padding-right: 0.7rem !important;
-            max-width: 110px !important;
-          }
-        }
-        </style>
-                        
-        <link href="css/bootstrap.min.css" rel="stylesheet">
 
-        <link href="css/bootstrap-icons.css" rel="stylesheet">
+          .navbar .nav-link { white-space: nowrap; }
+          .navbar .nav-item { margin-left: 0.3rem !important; margin-right: 0.3rem !important; }
 
-        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
-        
-        <!-- Load shared navigation -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/nav-login-state.js"></script>
-        <script src="js/load-nav.js"></script>
+          :root {
+            --ne-deep: #1B4965;
+            --ne-accent: #62B6CB;
+            --ne-ink: #212529;
+            --ne-muted: #6c757d;
+            --ne-wash: #f8fbff;
+          }
+
+          /* ---------- Hero ---------- */
+          .hero-section {
+            position: relative;
+            background: url('images/hero-squeezed (1).png') center center / cover no-repeat; /* TODO-LINK D */
+            min-height: 100vh;
+          }
+          .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: #ffffff;
+            margin-bottom: 1rem;
+          }
+          .hero-eyebrow {
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+          }
+          .hero-section p.hero-lede {
+            font-size: 1.15rem;
+            color: #ffffff;
+            max-width: 620px;
+            margin-bottom: 1.75rem;
+          }
+          .hero-deadline {
+            display: inline-block;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.55);
+            border-radius: 6px;
+            padding: 0.4rem 0.85rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+          }
+          .btn-ne-solid {
+            background-color: var(--ne-deep);
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            margin-right: 15px;
+          }
+          .btn-ne-solid:hover { background-color: #143a50; color: #ffffff; }
+          .btn-ne-ghost {
+            background-color: #ffffff;
+            color: var(--ne-deep);
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--ne-deep);
+          }
+          .btn-ne-ghost:hover { background-color: var(--ne-deep); color: #ffffff; }
+
+          /* ---------- Shared section furniture ---------- */
+          .ne-section { padding: 90px 0; }
+          .ne-section-wash { background: var(--ne-wash); }
+          .ne-section-grey { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+          .ne-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+          .ne-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ne-deep);
+            margin-bottom: 1rem;
+            position: relative;
+          }
+          .ne-heading-center { text-align: center; }
+          .ne-heading-center::after {
+            content: '';
+            position: absolute;
+            bottom: -15px; left: 50%;
+            transform: translateX(-50%);
+            width: 80px; height: 4px;
+            background: linear-gradient(90deg, var(--ne-accent), var(--ne-deep));
+            border-radius: 2px;
+          }
+          .ne-sub {
+            font-size: 1.15rem;
+            color: var(--ne-muted);
+            line-height: 1.6;
+            max-width: 700px;
+          }
+          .ne-heading-center + .ne-sub { margin: 2.5rem auto 0; text-align: center; }
+
+          /* ---------- At a glance ---------- */
+          .ne-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1px;
+            background: #dde5ea;
+            border: 1px solid #dde5ea;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 55px;
+          }
+          .ne-fact { background: #ffffff; padding: 32px 28px; }
+          .ne-fact-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--ne-accent);
+            margin-bottom: 10px;
+          }
+          .ne-fact-value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--ne-deep);
+            line-height: 1.3;
+            margin-bottom: 6px;
+          }
+          .ne-fact-note { font-size: 0.95rem; color: var(--ne-muted); line-height: 1.5; margin: 0; }
+
+          /* ---------- Category cards ---------- */
+          /* Always 2 x 2 on desktop, 1 x 4 stacked below — never a 3 + 1 orphan row */
+          .ne-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+          }
+          .ne-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border: 1px solid rgba(98,182,203,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+          }
+          .ne-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ne-accent), var(--ne-deep));
+          }
+          .ne-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            border-color: rgba(98,182,203,0.2);
+          }
+          .ne-card-title {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--ne-deep);
+            margin-bottom: 6px;
+            line-height: 1.2;
+          }
+          .ne-card-who {
+            font-size: 0.95rem;
+            color: var(--ne-accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 18px;
+          }
+          .ne-card p { font-size: 1.05rem; color: #495057; line-height: 1.7; }
+          .ne-card-specs {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+            border-top: 1px solid #eaeff2;
+            padding-top: 18px;
+          }
+          .ne-card-specs li {
+            font-size: 0.98rem;
+            color: #495057;
+            padding: 5px 0;
+          }
+          .ne-card-specs strong { color: var(--ne-deep); }
+
+          /* ---------- Accordion ---------- */
+          .ne-accordion { margin-top: 55px; }
+          .ne-accordion .accordion-item {
+            border: 1px solid rgba(27,73,101,0.12);
+            border-radius: 12px !important;
+            margin-bottom: 14px;
+            overflow: hidden;
+            background: #ffffff;
+          }
+          .ne-accordion .accordion-button {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ne-deep);
+            background: #ffffff;
+            padding: 22px 24px;
+          }
+          .ne-accordion .accordion-button:not(.collapsed) {
+            background: var(--ne-wash);
+            color: var(--ne-deep);
+            box-shadow: none;
+          }
+          .ne-accordion .accordion-button:focus {
+            box-shadow: 0 0 0 0.2rem rgba(98,182,203,0.35);
+          }
+          .ne-accordion .accordion-body {
+            padding: 8px 24px 28px;
+            font-size: 1.05rem;
+            color: #495057;
+            line-height: 1.75;
+          }
+          .ne-accordion .accordion-body h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ne-deep);
+            margin: 22px 0 8px;
+          }
+          .ne-accordion .accordion-body h4:first-child { margin-top: 0; }
+          .ne-accordion .accordion-body ul { padding-left: 1.2rem; }
+          .ne-accordion .accordion-body li { margin-bottom: 8px; }
+          .ne-accordion .accordion-body a { color: var(--ne-deep); text-decoration: underline; }
+          .ne-accordion .accordion-body a.btn { text-decoration: none; }
+          .ne-accordion .accordion-body a.btn-ne-ghost { color: var(--ne-deep); }
+          .ne-accordion .accordion-body a.btn-ne-ghost:hover { color: #ffffff; }
+          .ne-quote {
+            border-left: 3px solid var(--ne-accent);
+            padding: 4px 0 4px 18px;
+            margin: 14px 0;
+            color: #495057;
+          }
+          .ne-filename {
+            background: var(--ne-wash);
+            border: 1px solid rgba(27,73,101,0.12);
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-size: 0.95rem;
+            color: var(--ne-deep);
+          }
+
+          /* ---------- Contact ---------- */
+          .ne-contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 55px;
+          }
+          .ne-contact {
+            background: #ffffff;
+            border: 1px solid rgba(27,73,101,0.12);
+            border-radius: 16px;
+            padding: 30px;
+          }
+          .ne-contact h3 { font-size: 1.15rem; font-weight: 700; color: var(--ne-deep); margin-bottom: 12px; }
+          .ne-contact a { color: var(--ne-deep); display: block; margin-bottom: 4px; word-break: break-word; }
+
+          /* ---------- Embed ---------- */
+          .ne-embed-wrap { max-width: 900px; margin: 45px auto 0; }
+          .ne-embed {
+            width: 100%;
+            min-height: 700px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(27,73,101,0.08);
+            background: #ffffff;
+          }
+
+          /* ---------- Closing CTA ---------- */
+          .ne-cta { background: var(--ne-deep); padding: 80px 0; text-align: center; }
+          .ne-cta h2 { color: #ffffff; font-size: 2.25rem; font-weight: 700; margin-bottom: 1rem; }
+          .ne-cta p { color: rgba(255,255,255,0.85); font-size: 1.1rem; max-width: 620px; margin: 0 auto 2rem; }
+          .ne-cta .btn-ne-ghost { border-color: #ffffff; }
+          .ne-cta .btn-ne-ghost:hover { background: #ffffff; color: var(--ne-deep); }
+
+          /* ---------- Responsive ---------- */
+          @media (max-width: 992px) {
+            .ne-section { padding: 70px 0; }
+            .ne-embed { min-height: 520px; }
+            .ne-grid { grid-template-columns: 1fr; gap: 28px; margin-top: 45px; }
+          }
+          @media (max-width: 768px) {
+            .hero-section {
+              background: #DFE7EC !important;
+              background-image: none !important;
+              padding: 140px 0;
+              min-height: 80vh;
+            }
+            .hero-section .overlay { display: none !important; }
+            .hero-section h1 { font-size: 1.9rem; color: var(--ne-deep); }
+            .hero-eyebrow { color: var(--ne-deep); }
+            .hero-section p.hero-lede { color: var(--ne-ink); font-size: 1.02rem; }
+            .hero-deadline { color: var(--ne-deep); border-color: rgba(27,73,101,0.4); }
+            .btn-ne-solid, .btn-ne-ghost {
+              font-size: 1rem;
+              padding: 0.7rem 1.1rem;
+              display: inline-block;
+              margin-bottom: 10px;
+            }
+            .ne-heading { font-size: 1.85rem; }
+            .ne-sub { font-size: 1.02rem; }
+            .ne-grid { grid-template-columns: 1fr; gap: 26px; margin-top: 45px; }
+            .ne-card { padding: 28px; }
+            .ne-accordion .accordion-button { font-size: 1.05rem; padding: 18px; }
+            .ne-accordion .accordion-body { padding: 6px 18px 22px; font-size: 1rem; }
+            .ne-fact { padding: 26px 22px; }
+            .ne-embed { min-height: 380px; }
+            .ne-cta h2 { font-size: 1.7rem; }
+          }
+        </style>
     </head>
-    
+
     <body id="top">
 
         <main>
 
             <!-- Navigation placeholder - will be loaded by JavaScript -->
             <div id="nav-placeholder"></div>
-              
-            
 
-            <!-- HERO SECTION -->
-                    <section class="hero-section d-flex align-items-center" id="section_1" style="position: relative; background: url('images/hero-squeezed (1).png') center center / cover no-repeat; height: 100vh;">
-              
-                <div class="container" style="z-index: 2; position: relative;">
-                  <div class="row" style="margin-top: -5rem;">
-                    <div class="col-lg-8 col-12">
-                      <h1 style="font-size: 3rem; font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1rem;">
-                          IYNA-INS Neuroethics Essay Competition
-                      </h1>
-                      <p style="font-size: 1.15rem; margin-bottom: 1.5rem; color: white; max-width: 600px;">
-                          Join a global conversation on neuroethics — submit your work by July 15, 2024. Please fill out both the interest form and the entry form to have your submission considered.
-                      </p>
-                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPXwdMwqpJc6sMQFd8tb6KzrpyxfJv9QR0I4Fu6nWOg8n8Vg/viewform?usp=preview" class="btn" style="background-color: #1B4965; color: #ffffff; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem; margin-right: 15px;">Interest Form&nbsp;&rsaquo;</a>
-                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPXwdMwqpJc6sMQFd8tb6KzrpyxfJv9QR0I4Fu6nWOg8n8Vg/viewform?usp=preview" class="btn" style="background-color: #ffffff; color: #1B4965; font-weight: 600; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1.1rem; border: 2px solid #1B4965;">Entry Form&nbsp;&rsaquo;</a>
+            <!-- ============ HERO ============ -->
+            <section class="hero-section d-flex align-items-center" id="section_1">
+              <div class="container" style="z-index: 2; position: relative;">
+                <div class="row">
+                  <div class="col-lg-8 col-12">
+                    <p class="hero-eyebrow">13th Annual Contest &middot; INS &amp; IYNA</p>
+                    <h1>Neuroethics Essay Contest 2026</h1>
+                    <p class="hero-lede">
+                      Write about a problem at the intersection of the brain sciences, ethics, and law.
+                      Four categories, open to high school, post-secondary, and early-career students
+                      anywhere in the world. Winners receive up to $500 USD and a one-year INS membership.
+                    </p>
+                    <p class="hero-deadline">Essays due August 21, 2026 &middot; 11:30pm PDT</p>
+                    <div>
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLScb5fqy3hN7dwmFluJNH--P8CD5tnKbSuwB1bc2e3UZD92uYg/viewform" target="_blank" rel="noopener" class="btn btn-ne-solid">Submit your essay&nbsp;&rsaquo;</a>
+                      <a href="docs/Essay-2026-SURNAME-CATEGORY.docx" class="btn btn-ne-ghost">Essay template (DOCX)&nbsp;&rsaquo;</a><!-- TODO-LINK A -->
                     </div>
                   </div>
                 </div>
-              </section>
-              
-                            <!-- PROFESSIONAL SPONSORS SECTION -->
-              <style>
-                  .sponsors-section {
-                      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-                      padding: 100px 0;
-                      font-family: 'Work Sans', sans-serif;
-                  }
-                  
-                  .sponsors-container {
-                      max-width: 1200px;
-                      margin: 0 auto;
-                      padding: 0 20px;
-                  }
-                  
-                  .sponsors-header {
-                      text-align: center;
-                      margin-bottom: 80px;
-                  }
-                  
-                  .sponsors-title {
-                      font-size: 3rem;
-                      font-weight: 700;
-                      color: #1B4965;
-                      margin-bottom: 1rem;
-                      position: relative;
-                  }
-                  
-                  .sponsors-title::after {
-                      content: '';
-                      position: absolute;
-                      bottom: -15px;
-                      left: 50%;
-                      transform: translateX(-50%);
-                      width: 80px;
-                      height: 4px;
-                      background: linear-gradient(90deg, #62B6CB, #1B4965);
-                      border-radius: 2px;
-                  }
-                  
-                  .sponsors-subtitle {
-                      font-size: 1.2rem;
-                      color: #6c757d;
-                      font-weight: 400;
-                      max-width: 600px;
-                      margin: 0 auto;
-                      line-height: 1.6;
-                  }
-                  
-                  .sponsors-grid {
-                      display: grid;
-                      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                      gap: 40px;
-                      margin-top: 60px;
-                  }
-                  
-                  .sponsor-card {
-                      background: white;
-                      border-radius: 20px;
-                      padding: 40px;
-                      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-                      border: 1px solid rgba(98, 182, 203, 0.1);
-                      transition: all 0.3s ease;
-                      position: relative;
-                      overflow: hidden;
-                  }
-                  
-                  .sponsor-card::before {
-                      content: '';
-                      position: absolute;
-                      top: 0;
-                      left: 0;
-                      right: 0;
-                      height: 4px;
-                      background: linear-gradient(90deg, #62B6CB, #1B4965);
-                  }
-                  
-                  .sponsor-card:hover {
-                      transform: translateY(-8px);
-                      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-                      border-color: rgba(98, 182, 203, 0.2);
-                  }
-                  
-                                     .sponsor-header {
-                       text-align: center;
-                       margin-bottom: 25px;
-                   }
-                  
-                  .sponsor-name {
-                      font-size: 1.8rem;
-                      font-weight: 700;
-                      color: #1B4965;
-                      margin-bottom: 8px;
-                      line-height: 1.2;
-                  }
-                  
-                  .sponsor-acronym {
-                      font-size: 1rem;
-                      color: #62B6CB;
-                      font-weight: 600;
-                      text-transform: uppercase;
-                      letter-spacing: 0.5px;
-                  }
-                  
-                                     .sponsor-description {
-                       font-size: 1.1rem;
-                       color: #495057;
-                       line-height: 1.7;
-                       margin-top: 20px;
-                       text-align: center;
-                   }
-                  
-                  @media (max-width: 768px) {
-                      .sponsors-section {
-                          padding: 80px 0;
-                      }
-                      
-                      .sponsors-title {
-                          font-size: 2.5rem;
-                      }
-                      
-                      .sponsors-grid {
-                          grid-template-columns: 1fr;
-                          gap: 30px;
-                          margin-top: 50px;
-                      }
-                      
-                      .sponsor-card {
-                          padding: 30px;
-                      }
-                      
-                                             .sponsor-header {
-                           text-align: center;
-                       }
-                  }
-                  
-                  @media (max-width: 480px) {
-                      .sponsors-title {
-                          font-size: 2rem;
-                      }
-                      
-                      .sponsor-card {
-                          padding: 25px;
-                      }
-                      
-                      .sponsor-name {
-                          font-size: 1.5rem;
-                      }
-                  }
-              </style>
-              
-              <section class="sponsors-section">
-                  <div class="sponsors-container">
-                      <div class="sponsors-header">
-                          <h2 class="sponsors-title">Our Partners</h2>
-                          <p class="sponsors-subtitle">Collaborating with leading organizations to advance neuroscience education and research worldwide</p>
-                      </div>
-                      
-                      <div class="sponsors-grid">
-                          <!-- International Neuroethics Society -->
-                          <div class="sponsor-card">
-                              <div class="sponsor-header">
-                                  <h3 class="sponsor-name">International Neuroethics Society</h3>
-                                  <div class="sponsor-acronym">(INS)</div>
-                              </div>
-                              <p class="sponsor-description">
-                                  The INS is an interdisciplinary group of scholars, scientists, clinicians, and professionals dedicated to inspiring research and discussion on the responsible use of advances in brain science.
-                              </p>
-                          </div>
-                          
-                          <!-- International Youth Neuroscience Association -->
-                          <div class="sponsor-card">
-                              <div class="sponsor-header">
-                                  <h3 class="sponsor-name">International Youth Neuroscience Association</h3>
-                                  <div class="sponsor-acronym">(IYNA)</div>
-                              </div>
-                              <p class="sponsor-description">
-                                  The IYNA is a global, youth-led nonprofit promoting neuroscience education. The IYNA Journal publishes articles on neuroethics and neuroscience and supports a worldwide network of over 1,000 members in 126 countries.
-                              </p>
-                          </div>
-                      </div>
+              </div>
+            </section>
+
+            <!-- ============ AT A GLANCE ============ -->
+            <section class="ne-section">
+              <div class="ne-container">
+                <h2 class="ne-heading ne-heading-center">Contest at a Glance</h2>
+                <p class="ne-sub">
+                  Everything you need before you start writing. Full requirements are further down the page &mdash;
+                  read them carefully, because incomplete submissions are not accepted.
+                </p>
+
+                <div class="ne-facts">
+                  <div class="ne-fact">
+                    <p class="ne-fact-label">Deadline</p>
+                    <p class="ne-fact-value">August 21, 2026</p>
+                    <p class="ne-fact-note">11:30pm PDT. The deadline is often extended by 10 days, but that is never guaranteed &mdash; write to the original date.</p>
                   </div>
-              </section>
+                  <div class="ne-fact">
+                    <p class="ne-fact-label">Categories</p>
+                    <p class="ne-fact-value">Four</p>
+                    <p class="ne-fact-note">High School, General Audience, Academic, and Video. Your education level decides which written category you enter.</p>
+                  </div>
+                  <div class="ne-fact">
+                    <p class="ne-fact-label">Prizes</p>
+                    <p class="ne-fact-value">Up to $500 USD</p>
+                    <p class="ne-fact-note">One winner per category, up to eight honorable mentions with a smaller prize. All receive a one-year INS membership.</p>
+                  </div>
+                  <div class="ne-fact">
+                    <p class="ne-fact-label">Results</p>
+                    <p class="ne-fact-value">By November 2026</p>
+                    <p class="ne-fact-note">Every author who submits is emailed the outcome, whether or not their essay places.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
 
-<!-- SUBMISSION DETAILS SECTION -->
-<style>
-.submission-details-section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  height: 40vh;
-  min-height: 350px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0;
-}
-.submission-details-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #111;
-  flex: 1 1 40%;
-  margin: 0;
-  line-height: 1.1;
-}
-.submission-details-text {
-  font-size: 1.3rem;
-  color: #111;
-  flex: 1 1 60%;
-  line-height: 1.6;
-  margin-top: 0.5rem;
-}
-@media (max-width: 900px) {
-  .submission-details-section {
-    flex-direction: column;
-    gap: 24px;
-    height: auto;
-    min-height: 0;
-    padding: 50px 0 30px 0;
-  }
-  .submission-details-title {
-    font-size: 2.2rem;
-    text-align: left;
-  }
-  .submission-details-text {
-    font-size: 1.1rem;
-    text-align: left;
-  }
-}
-@media (max-width: 600px) {
-  .submission-details-section {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-    height: auto;
-    min-height: 0;
-    padding: 32px 16px 24px 16px;
-  }
-  .submission-details-title {
-    font-size: 1.4rem;
-    text-align: left;
-    margin-bottom: 0.5rem;
-    word-break: break-word;
-  }
-  .submission-details-text {
-    font-size: 0.98rem;
-    text-align: left;
-    word-break: break-word;
-  }
-}
-</style>
-<section class="submission-details-section">
-  <h2 class="submission-details-title">Submission Details</h2>
-  <div class="submission-details-text">
-    Complete the Contest Entry Form and upload your final essay via the submission portal.<br>
-    Accepted file formats: .pdf, .doc, .docx, .mp4. Use the provided template to include required cover page info and ensure your essay remains anonymous for review.
-  </div>
-</section>
-<!-- END SUBMISSION DETAILS SECTION -->
+            <!-- ============ CATEGORIES ============ -->
+            <section class="ne-section ne-section-grey">
+              <div class="ne-container">
+                <h2 class="ne-heading ne-heading-center">Choose Your Category</h2>
+                <p class="ne-sub">
+                  High school students enter the High School category only. Post-secondary students and early-career
+                  trainees may enter one essay each in the Academic and General Audience categories. Anyone may add a
+                  video essay. Every essay and video is submitted separately.
+                </p>
 
-<!-- SPONSORSHIP INFORMATION SECTION -->
-<style>
-  .sponsorship-section {
-    background: #f8fbff;
-    padding: 80px 0 60px 0;
-    text-align: center;
-  }
-  .sponsorship-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1B4965;
-    margin-bottom: 40px;
-  }
-  .sponsorship-iframe-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
-    max-width: 900px;
-  }
-  .sponsorship-iframe {
-    width: 100%;
-    min-height: 700px;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(27, 73, 101, 0.08);
-    background: #fff;
-  }
-  @media (max-width: 1000px) {
-    .sponsorship-iframe-container {
-      max-width: 100%;
-      padding: 0 10px;
-    }
-    .sponsorship-iframe {
-      min-height: 500px;
-    }
-  }
-  @media (max-width: 600px) {
-    .sponsorship-title {
-      font-size: 1.5rem;
-    }
-    .sponsorship-iframe {
-      min-height: 350px;
-    }
-  }
-</style>
-<section class="sponsorship-section">
-  <h2 class="sponsorship-title">Learn More About the Competition</h2>
-  <div class="sponsorship-iframe-container">
-    <iframe class="sponsorship-iframe" src="https://drive.google.com/file/d/1E_avL9EGdy20cj0G1dzEY_uHlM4jTQKo/preview" allow="autoplay"></iframe>
-  </div>
-</section>
-<!-- END SPONSORSHIP INFORMATION SECTION -->
+                <div class="ne-grid">
 
-    <!-- Footer placeholder - will be loaded by JavaScript -->
-<div id="footer-placeholder"></div>
-<script src="js/load-footer.js"></script>
-<!-- SCRIPTS -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/jquery.sticky.js"></script>
-<script src="js/click-scroll.js"></script>
-<script src="js/custom.js"></script>
-</body>
+                  <div class="ne-card">
+                    <h3 class="ne-card-title">IYNA-INS High School Essay</h3>
+                    <p class="ne-card-who">High school &amp; secondary students</p>
+                    <p>
+                      Explore the relationship between ethics, neuroscience, and society in plain language written for
+                      the general public. Build your argument on reliable primary and secondary sources &mdash; Wikipedia
+                      and similar sources are not acceptable.
+                    </p>
+                    <ul class="ne-card-specs">
+                      <li><strong>Length:</strong> 1,000 words maximum</li>
+                      <li><strong>Not counted:</strong> abstract and references</li>
+                      <li><strong>Counted:</strong> in-text citations and footnotes</li>
+                      <li><strong>Language:</strong> English, single author</li>
+                    </ul>
+                  </div>
+
+                  <div class="ne-card">
+                    <h3 class="ne-card-title">General Audience Essay</h3>
+                    <p class="ne-card-who">Post-secondary &amp; early career</p>
+                    <p>
+                      Tell a story or unpack a topic at the interface of ethics, neuroscience, and society the way a
+                      magazine or news outlet would for non-specialist readers. Essays written for previous coursework
+                      are eligible if they meet all other requirements.
+                    </p>
+                    <ul class="ne-card-specs">
+                      <li><strong>Length:</strong> 1,000 words maximum</li>
+                      <li><strong>Not counted:</strong> references and disclosures</li>
+                      <li><strong>Language:</strong> English, single author</li>
+                    </ul>
+                  </div>
+
+                  <div class="ne-card">
+                    <h3 class="ne-card-title">Academic Essay</h3>
+                    <p class="ne-card-who">Post-secondary &amp; early career</p>
+                    <p>
+                      Examine a current issue in neuroethics through rigorous, evidence-based argument. Submit a
+                      polished final draft of original, unpublished work &mdash; something you could send to a scholarly
+                      journal in the field.
+                    </p>
+                    <ul class="ne-card-specs">
+                      <li><strong>Length:</strong> 2,000 words maximum</li>
+                      <li><strong>Not counted:</strong> references and disclosures</li>
+                      <li><strong>Language:</strong> English, single author</li>
+                    </ul>
+                  </div>
+
+                  <div class="ne-card">
+                    <h3 class="ne-card-title">Video Essay</h3>
+                    <p class="ne-card-who">Open to all eligible entrants</p>
+                    <p>
+                      The audio-visual equivalent of a creative, arts-based essay. Combine your own footage, voice-over,
+                      still images, music, and text into a narrative or poetic piece. Credit anything you did not
+                      produce yourself. Production quality is not judged.
+                    </p>
+                    <ul class="ne-card-specs">
+                      <li><strong>Length:</strong> 5 to 7 minutes</li>
+                      <li><strong>Format:</strong> mp4 file or a public link</li>
+                      <li><strong>Languages:</strong> English, Spanish, French, German, Telugu, Afrikaans, KiSwahili, isiXhosa, or Yoruba &mdash; English subtitles required</li>
+                      <li><strong>End credits:</strong> references and disclosures, not counted in the run time</li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+
+            <!-- ============ FULL REQUIREMENTS ============ -->
+            <section class="ne-section">
+              <div class="ne-container">
+                <h2 class="ne-heading ne-heading-center">Rules &amp; Requirements</h2>
+                <p class="ne-sub">
+                  Read all of it before you write. Submissions that miss a requirement are not reviewed.
+                </p>
+
+                <div class="accordion ne-accordion" id="rulesAccordion">
+
+                  <!-- Topics -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTopics">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTopics" aria-expanded="true" aria-controls="collapseTopics">
+                        What you can write about
+                      </button>
+                    </h2>
+                    <div id="collapseTopics" class="accordion-collapse collapse show" aria-labelledby="headingTopics" data-bs-parent="#rulesAccordion">
+                      <div class="accordion-body">
+                        <p>
+                          Your essay can cover any topic in neuroethics, and should address a focused problem at the
+                          intersections of the mind and brain sciences, ethics, and law.
+                        </p>
+                        <h4>Example topics</h4>
+                        <p>
+                          Moral philosophy, moral psychology, free will, philosophy of mind, neurology, ethics of
+                          neurodegenerative illness, clinical ethics in psychiatry and neurosurgery, neurogenetics,
+                          neuroimaging, big data and neuroscience, neuro/brain stimulation, brain-computer interfaces,
+                          neuroenhancement, neurotechnology policy and regulation, neurolaw, and military applications
+                          of neurotechnology.
+                        </p>
+                        <p>
+                          There are no restrictions on neuroethical topics, and creative approaches are encouraged.
+                          Reading <a href="#">previous winning and honorable mention essays</a><!-- TODO-LINK C --> is
+                          the fastest way to see what a competitive essay looks like.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sources and AI -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingRefs">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRefs" aria-expanded="false" aria-controls="collapseRefs">
+                        Sources, citations, and AI tools
+                      </button>
+                    </h2>
+                    <div id="collapseRefs" class="accordion-collapse collapse" aria-labelledby="headingRefs" data-bs-parent="#rulesAccordion">
+                      <div class="accordion-body">
+                        <h4>AI tools</h4>
+                        <p>
+                          Large language models and generative AI are acceptable only where the work still involves a
+                          significant and original contribution from you. You may use these tools to help frame your
+                          thoughts, copy edit, translate, and typeset. Do not use them to generate content, and check
+                          carefully for distorted or hallucinated references, concepts, and claims.
+                        </p>
+                        <p>
+                          If you used an AI tool at any point, you must disclose at the end of your text which tool you
+                          used and how. Do not list an AI tool as an author or co-author. AI-generated figures and
+                          tables are not permitted.
+                        </p>
+                        <h4>Citations</h4>
+                        <p>
+                          Original work is the goal, but draw on existing research to get there: primary research
+                          articles, review papers, books, and other scholarly sources. This matters most for Academic
+                          essays. Strong essays show how they relate to existing work &mdash; discussing similarities,
+                          drawing out differences, or synthesizing several sources to support a point.
+                        </p>
+                        <p>
+                          Use any citation style you like, as long as you stay consistent. For example, in APA style,
+                          this source:
+                        </p>
+                        <p class="ne-quote">
+                          Gleeson, P., Cantarelli, M., Marin, B., Quintana, A., Earnshaw, M., Sadeh, S., Piasini, E.,
+                          Birgiolas, J., Cannon, R. C., Cayco-Gajic, N. A., Crook, S., Davison, A. P., Dura-Bernal, S.,
+                          Ecker, A., Hines, M. L., Idili, G., Lanore, F., Larson, S. D., Lytton, W. W., Majumdar, A.,
+                          &hellip; Silver, R. A. (2019). Open Source Brain: A Collaborative Resource for Visualizing,
+                          Analyzing, Simulating, and Developing Standardized Models of Neurons and Circuits.
+                          <em>Neuron, 103</em>(3), 395&ndash;411.e5.
+                          <a href="https://doi.org/10.1016/j.neuron.2019.05.019" target="_blank" rel="noopener">https://doi.org/10.1016/j.neuron.2019.05.019</a>
+                        </p>
+                        <p>could appear in your essay as:</p>
+                        <p class="ne-quote">
+                          Researchers have recently developed the Open Source Brain platform for &ldquo;sharing,
+                          viewing, analyzing, and simulating standardized models from different brain regions and
+                          species&rdquo; (Gleeson et al., 2019).
+                        </p>
+                        <p>
+                          &ldquo;et al.&rdquo; signals that the paper you are citing has multiple authors. We care far
+                          more that you cite your sources than that you follow every rule of a style perfectly.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Eligibility -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingElig">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseElig" aria-expanded="false" aria-controls="collapseElig">
+                        Who can enter
+                      </button>
+                    </h2>
+                    <div id="collapseElig" class="accordion-collapse collapse" aria-labelledby="headingElig" data-bs-parent="#rulesAccordion">
+                      <div class="accordion-body">
+                        <p>
+                          The contest is open to any high school or secondary school student, any post-secondary
+                          student, and any postdoctoral fellow or similar early-career trainee, anywhere in the world.
+                          You must be currently enrolled, accepted to a program for a future term, or preparing to
+                          apply to graduate programs. Your education level determines your category.
+                        </p>
+                        <h4>High school / secondary school students</h4>
+                        <p>
+                          If you were in high school or an equivalent secondary program at any point between January
+                          and July 2026, submit to the High School category.
+                        </p>
+                        <h4>Post-secondary students and early-career trainees</h4>
+                        <p>
+                          Post-secondary students include anyone enrolled in a degree-granting program at the
+                          undergraduate, graduate, or professional level, as well as students at pre-university
+                          institutions such as CEGEPs, sixth form colleges, and lyc&eacute;es. Early-career trainees
+                          include recent graduates in postdoctoral positions, medical residents and fellows,
+                          postbaccs, judicial law clerks and articled students at law firms, research assistants, and
+                          contract or sessional lecturers in their first or second year out of graduate training.
+                        </p>
+                        <p>
+                          If either description fit you at any point between January and July 2026, you may submit to
+                          the Academic or General Audience categories &mdash; up to two essays total, one per category.
+                        </p>
+                        <h4>Breaks, gap years, and applicants</h4>
+                        <p>
+                          Students on a temporary break or gap year, prospective students actively applying to
+                          programs, and students already accepted for an upcoming semester are all eligible. Follow the
+                          guidelines for whichever category best matches your most recent studies. You may not submit
+                          to the High School category if you graduated from high school before January 2026.
+                        </p>
+                        <h4>Professionals and former students</h4>
+                        <p>
+                          Professionals are not eligible. For contest purposes, anyone who is solely an employee and
+                          not currently engaged in a training program counts as a professional.
+                        </p>
+                        <h4>Field of study and membership</h4>
+                        <p>
+                          There are no restrictions on your program or area of study, as long as you meet the education
+                          level requirements and your submission meets all requirements. You do not need to be a member
+                          of the INS or IYNA to enter.
+                        </p>
+                        <p>
+                          Questions about eligibility go to
+                          <a href="mailto:staff@neuroethicssociety.org">staff@neuroethicssociety.org</a>.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Submission -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSubmit">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubmit" aria-expanded="false" aria-controls="collapseSubmit">
+                        How to submit
+                      </button>
+                    </h2>
+                    <div id="collapseSubmit" class="accordion-collapse collapse" aria-labelledby="headingSubmit" data-bs-parent="#rulesAccordion">
+                      <div class="accordion-body">
+                        <p>
+                          All four categories are submitted through the online form. Review every eligibility and
+                          submission requirement before you write, and again before you upload.
+                        </p>
+                        <h4>Written essays</h4>
+                        <ul>
+                          <li>Submit as a <strong>doc, docx, or pdf</strong> file.</li>
+                          <li>
+                            Use the <a href="docs/Essay-2026-SURNAME-CATEGORY.docx">essay format template (docx)</a><!-- TODO-LINK A --> so your cover page
+                            carries all required information and no identifying details appear anywhere else. This is
+                            what allows your essay to be anonymized for review.
+                          </li>
+                          <li>Name your file <span class="ne-filename">Essay-2026-SURNAME-Category.pdf</span></li>
+                        </ul>
+                        <p>
+                          The template's cover page asks for your essay title, name, academic institution,
+                          department or major, and academic level, plus a details block with your word count and
+                          any disclosures. An abstract is optional &mdash; it is not required for the contest, though
+                          the IYNA Journal and some other publications do ask for one, so it is worth drafting.
+                        </p>
+                        <h4>Video essays</h4>
+                        <ul>
+                          <li>Upload an <strong>mp4</strong> file, or provide a link to a video publicly available on YouTube, Vimeo, Facebook, or similar.</li>
+                        </ul>
+                        <h4>Deadline</h4>
+                        <p>
+                          Essays must be submitted by <strong>August 21, 2026, 11:30pm PDT</strong>. Incomplete
+                          submissions are not accepted. The deadline is not uncommonly extended by 10 days, but this is
+                          never guaranteed &mdash; plan for the original date.
+                        </p>
+                        <p>
+                          <a href="https://docs.google.com/forms/d/e/1FAIpQLScb5fqy3hN7dwmFluJNH--P8CD5tnKbSuwB1bc2e3UZD92uYg/viewform" target="_blank" rel="noopener" class="btn btn-ne-ghost" style="margin-top: 8px;">Open the submission form&nbsp;&rsaquo;</a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Selection -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSelect">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSelect" aria-expanded="false" aria-controls="collapseSelect">
+                        How essays are judged
+                      </button>
+                    </h2>
+                    <div id="collapseSelect" class="accordion-collapse collapse" aria-labelledby="headingSelect" data-bs-parent="#rulesAccordion">
+                      <div class="accordion-body">
+                        <p>
+                          Essays are judged on originality and structure of argument, conceptual clarity, rigor of
+                          defense, quality of writing, and conclusions, following this year's scoring rubric. Video
+                          essays are not judged on production quality.
+                        </p>
+                        <p>
+                          See the scoring rubric for <a href="https://neuroethicsessaycontest.com/wp-content/uploads/Essay-Scoring-Rubric-2023-Written.pdf" target="_blank" rel="noopener">written essays (pdf)</a> and
+                          <a href="https://neuroethicsessaycontest.com/wp-content/uploads/Essay-Scoring-Rubric-2023-Video.pdf" target="_blank" rel="noopener">video essays (pdf)</a>.
+                        </p>
+                        <h4>Review process</h4>
+                        <p>
+                          Every submission goes through anonymous review by two or more referees from the INS
+                          Student/Postdoc Committee, or by a panel of judges chosen by the IYNA Journal Editorial Team.
+                          Referees are students and postdocs from neuroscience, law, medicine, philosophy, and other
+                          areas of the sciences and humanities. All decisions are final.
+                        </p>
+                        <h4>Results</h4>
+                        <p>
+                          Winning and honorable mention submissions are emailed to all participating authors by
+                          November 2026. You can browse
+                          <a href="#">winners and honorable mentions from previous contests</a><!-- TODO-LINK C -->.
+                        </p>
+                        <h4>After the contest</h4>
+                        <p>
+                          Winners are warmly encouraged, but not required, to attend the upcoming INS Annual Meeting.
+                          Entering does not prevent you from later submitting an extended version of your manuscript to
+                          academic journals or other publications. You may enter in future years regardless of prior
+                          participation, though past winners cannot win again in the same category &mdash; they are
+                          still welcome to submit and may receive an honorable mention.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Publishing -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPublish">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePublish" aria-expanded="false" aria-controls="collapsePublish">
+                        Publishing your essay
+                      </button>
+                    </h2>
+                    <div id="collapsePublish" class="accordion-collapse collapse" aria-labelledby="headingPublish" data-bs-parent="#rulesAccordion">
+                      <div class="accordion-body">
+                        <p>
+                          Winning and honorable mention essays are posted on the contest website and may be considered
+                          for publication elsewhere, at an outlet suited to the topic. Recent winning essays have been
+                          published online by the Dana Foundation, and past winners have gone on to publish in outlets
+                          such as Scientific American.
+                        </p>
+                        <p>
+                          Everyone who submits to the IYNA-INS High School Neuroethics category may opt to be
+                          considered for publication in the IYNA Journal.
+                        </p>
+                        <p>
+                          Entering does not prevent you from later submitting a version of your manuscript to other
+                          magazines, academic journals, or scholarly and general interest publications.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+
+            <!-- ============ PARTNERS ============ -->
+            <section class="ne-section ne-section-grey">
+              <div class="ne-container">
+                <h2 class="ne-heading ne-heading-center">Who Runs the Contest</h2>
+                <p class="ne-sub">
+                  Two organizations, collaborating to advance neuroscience education and neuroethics research worldwide.
+                </p>
+
+                <div class="ne-grid">
+                  <div class="ne-card">
+                    <h3 class="ne-card-title">International Neuroethics Society</h3>
+                    <p class="ne-card-who">(INS)</p>
+                    <p>
+                      An interdisciplinary group of scholars, scientists, clinicians, and other professionals dedicated
+                      to encouraging and inspiring research and dialogue on the responsible use of advances in brain
+                      science. People at all stages of their careers join the Society to interact, learn, and take part
+                      in discussions that further the growing field of neuroethics.
+                    </p>
+                  </div>
+
+                  <div class="ne-card">
+                    <h3 class="ne-card-title">International Youth Neuroscience Association</h3>
+                    <p class="ne-card-who">(IYNA)</p>
+                    <p>
+                      A global, youth-led nonprofit that supports and advocates for neuroscience education. The IYNA
+                      Journal publishes articles on neuroethics and other neuroscience topics, supported by a worldwide
+                      network of members across more than 100 countries.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============ LEARN MORE / EMBED ============ -->
+            <section class="ne-section ne-section-wash">
+              <div class="ne-container">
+                <h2 class="ne-heading ne-heading-center">Learn More About the Contest</h2>
+                <div class="ne-embed-wrap">
+                  <!-- TODO-LINK B: upload the 2026 pamphlet to this path (or change the src) -->
+                  <iframe class="ne-embed" src="docs/Neuroethics-EssayContest-2026-English.pdf#toolbar=0&view=FitH" title="Neuroethics Essay Contest 2026 information"></iframe>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============ CONTACT ============ -->
+            <section class="ne-section">
+              <div class="ne-container">
+                <h2 class="ne-heading ne-heading-center">Questions?</h2>
+                <p class="ne-sub">Reach the right person directly &mdash; it is the fastest way to get an answer before the deadline.</p>
+
+                <div class="ne-contact-grid">
+                  <div class="ne-contact">
+                    <h3>General contest questions</h3>
+                    <p style="color:#6c757d; font-size:0.98rem; margin-bottom:12px;">Co-chairs, INS Student/Postdoc Committee</p>
+                    <a href="mailto:nathan.higgins@monash.edu">nathan.higgins@monash.edu</a>
+                    <a href="mailto:diego.borbon1@uexternado.edu.co">diego.borbon1@uexternado.edu.co</a>
+                  </div>
+                  <div class="ne-contact">
+                    <h3>High school category</h3>
+                    <p style="color:#6c757d; font-size:0.98rem; margin-bottom:12px;">Anish Kurra, Managing Editor, IYNA Journal</p>
+                    <a href="mailto:akurra@youthneuro.org">akurra@youthneuro.org</a>
+                  </div>
+                  <div class="ne-contact">
+                    <h3>Eligibility questions</h3>
+                    <p style="color:#6c757d; font-size:0.98rem; margin-bottom:12px;">INS staff</p>
+                    <a href="mailto:staff@neuroethicssociety.org">staff@neuroethicssociety.org</a>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============ CLOSING CTA ============ -->
+            <section class="ne-cta">
+              <div class="ne-container">
+                <h2>Ready to submit?</h2>
+                <p>
+                  Essays are due August 21, 2026 at 11:30pm PDT. Download the template first &mdash; it carries the cover
+                  page your submission needs to be anonymized for review.
+                </p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScb5fqy3hN7dwmFluJNH--P8CD5tnKbSuwB1bc2e3UZD92uYg/viewform" target="_blank" rel="noopener" class="btn btn-ne-ghost">Submit your essay&nbsp;&rsaquo;</a>
+              </div>
+            </section>
+
+        </main>
+
+        <!-- Footer placeholder - will be loaded by JavaScript -->
+        <div id="footer-placeholder"></div>
+
+        <!-- SCRIPTS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/nav-login-state.js"></script>
+        <script src="js/load-nav.js"></script>
+        <script src="js/load-footer.js"></script>
+    </body>
 </html>
-          
