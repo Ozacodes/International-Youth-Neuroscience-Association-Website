@@ -190,6 +190,51 @@
             .vbb-material-card .mat-title { font-size: 1.15rem; font-weight: 700; color: #1B4965; margin-bottom: 8px; }
             .vbb-material-card .mat-desc { font-size: 0.97rem; color: #555; line-height: 1.55; }
 
+            /* ---------- SAMPLE QUESTIONS ---------- */
+            .vbb-q-wrapper { max-width: 860px; margin: 0 auto; }
+            .vbb-q-group-label {
+                font-size: 0.9rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+                color: #62B6CB; margin: 46px 0 18px 0; padding-bottom: 10px;
+                border-bottom: 2px solid rgba(98,182,203,0.35);
+            }
+            .vbb-q-group-label:first-of-type { margin-top: 0; }
+            .vbb-q-stem-block {
+                background: #ECF1F4; border-radius: 14px; padding: 24px 28px; margin-bottom: 22px;
+                font-size: 1.03rem; line-height: 1.65; color: #1B4965;
+            }
+            .vbb-q-stem-block p { margin-bottom: 0; }
+            .vbb-q-card {
+                background: #fff; border-radius: 14px; box-shadow: 0 4px 16px rgba(27,73,101,0.07);
+                border-left: 6px solid #62B6CB; padding: 28px 32px; margin-bottom: 22px;
+            }
+            .vbb-q-text { font-size: 1.06rem; font-weight: 600; color: #1B4965; line-height: 1.6; margin-bottom: 16px; }
+            .vbb-q-text .vbb-q-num { color: #62B6CB; margin-right: 8px; }
+            .vbb-q-options { list-style: none; margin: 0; padding: 0; }
+            .vbb-q-options li {
+                font-size: 1rem; color: #333; line-height: 1.55; padding: 7px 0 7px 34px;
+                position: relative;
+            }
+            .vbb-q-options li span.opt-letter {
+                position: absolute; left: 0; top: 7px; width: 24px; height: 24px; border-radius: 50%;
+                background: #ECF1F4; color: #1B4965; font-size: 0.82rem; font-weight: 700;
+                display: flex; align-items: center; justify-content: center;
+            }
+            .vbb-q-source { font-size: 0.88rem; color: #777; font-style: italic; margin-top: 16px; }
+            .vbb-q-figure { text-align: center; margin-bottom: 22px; }
+            .vbb-q-figure img { max-width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(27,73,101,0.1); }
+            .vbb-q-figure figcaption { font-size: 0.88rem; color: #777; font-style: italic; margin-top: 10px; }
+            .vbb-case-tests { list-style: none; margin: 18px 0 0 0; padding: 0; }
+            .vbb-case-tests li {
+                font-size: 0.99rem; color: #333; line-height: 1.55; padding: 12px 0;
+                border-bottom: 1px solid rgba(27,73,101,0.1);
+            }
+            .vbb-case-tests li:last-child { border-bottom: none; }
+            .vbb-case-tests li strong { color: #1B4965; display: block; margin-bottom: 2px; }
+            .vbb-q-note {
+                background: #CAE9FF; border-radius: 12px; padding: 18px 24px; margin-bottom: 22px;
+                font-size: 0.98rem; color: #1B4965; line-height: 1.6;
+            }
+
             /* ---------- RULES (dark, text only) ---------- */
             .vbb-rules-section { background: #1B4965; color: #fff; padding: 80px 0; }
             .vbb-rules-section .vbb-section-title { color: #fff; }
@@ -201,6 +246,10 @@
             }
             .vbb-rule-card h4 { font-size: 1.15rem; font-weight: 700; color: #BEE9E8; margin-bottom: 10px; }
             .vbb-rule-card p { font-size: 0.98rem; line-height: 1.6; color: rgba(255,255,255,0.88); margin: 0; }
+            .vbb-rules-note {
+                max-width: 1000px; margin: 32px auto 0 auto; padding: 0 30px;
+                text-align: center; font-size: 1.05rem; font-weight: 600; color: #BEE9E8;
+            }
 
             /* ---------- REGISTRATION STEPS ---------- */
             .vbb-steps { max-width: 820px; margin: 0 auto; }
@@ -263,6 +312,8 @@
                 .vbb-final-cta h2 { font-size: 1.8rem; }
                 .vbb-step { flex-direction: column; gap: 14px; padding: 26px 22px; }
                 .vbb-panel { padding: 28px 24px; }
+                .vbb-q-card { padding: 24px 22px; }
+                .vbb-q-stem-block { padding: 20px 22px; }
             }
         </style>
     </head>
@@ -289,7 +340,7 @@
                             <a href="https://forms.gle/izmk8RYKLc9y84887" class="vbb-btn-primary">Register Now&nbsp;&rsaquo;</a>
                             <a href="https://youthneuro.org/signup" class="vbb-btn-outline">Become an IYNA Member&nbsp;&rsaquo;</a>
                             <p class="vbb-hero-note">
-                                Registration closes <strong>July 4, 2026</strong> &nbsp;·&nbsp; Round 1 begins July 25, 2026
+                                Registration closes <strong>July 4, 2026</strong> &nbsp;·&nbsp; Round 1 begins August 8, 2026
                             </p>
                         </div>
                     </div>
@@ -371,7 +422,7 @@
                         </div>
                         <div class="timeline-item left">
                             <div class="timeline-card">
-                                <div class="timeline-date-block"><div class="date-main">Jul 25</div><div class="date-year">2026</div></div>
+                                <div class="timeline-date-block"><div class="date-main">Aug 08</div><div class="date-year">2026</div></div>
                                 <div class="timeline-divider"></div>
                                 <div class="timeline-content-block">
                                     <div class="event-title">Round 1 — Preliminary</div>
@@ -381,7 +432,7 @@
                         </div>
                         <div class="timeline-item right">
                             <div class="timeline-card">
-                                <div class="timeline-date-block"><div class="date-main">Aug 01</div><div class="date-year">2026</div></div>
+                                <div class="timeline-date-block"><div class="date-main">Aug 15</div><div class="date-year">2026</div></div>
                                 <div class="timeline-divider"></div>
                                 <div class="timeline-content-block">
                                     <div class="event-title">Finalists Announced</div>
@@ -391,7 +442,7 @@
                         </div>
                         <div class="timeline-item left">
                             <div class="timeline-card">
-                                <div class="timeline-date-block"><div class="date-main">Aug 08</div><div class="date-year">2026</div></div>
+                                <div class="timeline-date-block"><div class="date-main">Aug 22</div><div class="date-year">2026</div></div>
                                 <div class="timeline-divider"></div>
                                 <div class="timeline-content-block">
                                     <div class="event-title">Round 2 — Final</div>
@@ -401,10 +452,10 @@
                         </div>
                         <div class="timeline-item right">
                             <div class="timeline-card">
-                                <div class="timeline-date-block"><div class="date-main">Aug 15</div><div class="date-year">2026</div></div>
+                                <div class="timeline-date-block"><div class="date-main">Aug 29</div><div class="date-year">2026</div></div>
                                 <div class="timeline-divider"></div>
                                 <div class="timeline-content-block">
-                                    <div class="event-title">Awards Announced</div>
+                                    <div class="event-title">Final Award Ceremony</div>
                                     <div class="event-description">The top 3 finalists are recognized at the closing ceremony, about one week after Round 2.</div>
                                 </div>
                             </div>
@@ -454,7 +505,7 @@
                                 from the official study materials. The top-performing competitors — after eligibility
                                 and recording review — advance as finalists.
                             </p>
-                            <div class="round-date">Saturday, July 25, 2026</div>
+                            <div class="round-date">Saturday, August 8, 2026</div>
                         </div>
                         <div class="vbb-round-card">
                             <div class="vbb-round-eyebrow">ROUND 2 · FINALISTS ONLY</div>
@@ -464,7 +515,7 @@
                                 questions, based on the same study materials. The top 3 finalists are announced at the
                                 closing ceremony.
                             </p>
-                            <div class="round-date">Saturday, August 8, 2026</div>
+                            <div class="round-date">Saturday, August 22, 2026</div>
                         </div>
                     </div>
 
@@ -505,6 +556,136 @@
                 </div>
             </section>
 
+            <!-- ============================= SAMPLE QUESTIONS ============================= -->
+            <section class="vbb-section vbb-bg-light">
+                <div class="vbb-inner">
+                    <h2 class="vbb-section-title">Example Questions</h2>
+                    <p class="vbb-section-sub">
+                        These questions will be similar to the level of the multiple-choice questions participants
+                        will receive in Round 1.
+                    </p>
+
+                    <div class="vbb-q-wrapper">
+
+                        <!-- ---------- MULTIPLE CHOICE ---------- -->
+                        <div class="vbb-q-group-label">Multiple Choice</div>
+
+                        <div class="vbb-q-card">
+                            <div class="vbb-q-text"><span class="vbb-q-num">1.</span>Planning tasks, prioritizing responsibilities, and following multi-step instructions are all examples of which cognitive ability?</div>
+                            <ul class="vbb-q-options">
+                                <li><span class="opt-letter">A</span>Cognitive shifting</li>
+                                <li><span class="opt-letter">B</span>Working memory</li>
+                                <li><span class="opt-letter">C</span>Executive functioning</li>
+                                <li><span class="opt-letter">D</span>Abstract thinking</li>
+                            </ul>
+                            <div class="vbb-q-source">Source: Brain Facts, p. 73</div>
+                        </div>
+
+                        <div class="vbb-q-card">
+                            <div class="vbb-q-text"><span class="vbb-q-num">2.</span>A patient diagnosed with depression is prescribed ketamine. Which of the following is a direct effect of treatment with this pharmacologic agent?</div>
+                            <ul class="vbb-q-options">
+                                <li><span class="opt-letter">A</span>Change in glutamate signalling within minutes to hours</li>
+                                <li><span class="opt-letter">B</span>Decrease in serotonin signalling within minutes to hours</li>
+                                <li><span class="opt-letter">C</span>Increase in serotonin signalling within weeks to months</li>
+                                <li><span class="opt-letter">D</span>Change in glutamate signalling within weeks to months</li>
+                            </ul>
+                        </div>
+
+                        <div class="vbb-q-stem-block">
+                            <p>
+                                A scientist is interested in investigating how microglia contribute to Alzheimer's
+                                disease. They wish to mutate a gene which is important in microglial responses to
+                                amyloid plaques so that it no longer functions normally, and test the effects of this
+                                change on behavior in mice.
+                            </p>
+                        </div>
+
+                        <div class="vbb-q-card">
+                            <div class="vbb-q-text"><span class="vbb-q-num">3.</span>Which of the following tools would most effectively allow the researchers to eliminate expression of their target gene?</div>
+                            <ul class="vbb-q-options">
+                                <li><span class="opt-letter">A</span>Optogenetics</li>
+                                <li><span class="opt-letter">B</span>Chemogenetics</li>
+                                <li><span class="opt-letter">C</span>CRISPR-Cas9 System</li>
+                                <li><span class="opt-letter">D</span>Anterograde tracing</li>
+                            </ul>
+                        </div>
+
+                        <div class="vbb-q-card">
+                            <div class="vbb-q-text"><span class="vbb-q-num">4.</span>Suppose the researchers examined the number of amyloid plaques in male mice without the mutation, and female mice with the mutation. If sex has an impact on amyloid plaque buildup in this experiment, sex would most likely be a(n)</div>
+                            <ul class="vbb-q-options">
+                                <li><span class="opt-letter">A</span>Independent variable</li>
+                                <li><span class="opt-letter">B</span>Dependent variable</li>
+                                <li><span class="opt-letter">C</span>Control variable</li>
+                                <li><span class="opt-letter">D</span>Confounding variable</li>
+                            </ul>
+                        </div>
+
+                        <!-- ---------- NEUROANATOMY ---------- -->
+                        <div class="vbb-q-group-label">Neuroanatomy</div>
+
+                        <!-- TODO: replace src with the neuroanatomy figure file once uploaded to /images -->
+                        <figure class="vbb-q-figure">
+                            <img src="hippocampus.jpeg" alt="Sagittal brain diagram with one structure labeled in blue">
+                            
+                        </figure>
+
+                        <div class="vbb-q-card">
+                            <div class="vbb-q-text"><span class="vbb-q-num">5.</span>The structure labeled in blue is the</div>
+                            <ul class="vbb-q-options">
+                                <li><span class="opt-letter">A</span>Hypothalamus</li>
+                                <li><span class="opt-letter">B</span>Hippocampus</li>
+                                <li><span class="opt-letter">C</span>Amygdala</li>
+                                <li><span class="opt-letter">D</span>Thalamus</li>
+                            </ul>
+                        </div>
+
+                        <div class="vbb-q-card">
+                            <div class="vbb-q-text"><span class="vbb-q-num">6.</span>A primary function of the structure labeled in blue is</div>
+                            <ul class="vbb-q-options">
+                                <li><span class="opt-letter">A</span>Memory consolidation</li>
+                                <li><span class="opt-letter">B</span>Sensory processing</li>
+                                <li><span class="opt-letter">C</span>Hormonal signaling</li>
+                                <li><span class="opt-letter">D</span>Emotional regulation</li>
+                            </ul>
+                        </div>
+
+                        <!-- ---------- DISEASE DIAGNOSIS ---------- -->
+                        <div class="vbb-q-group-label">Disease Diagnosis</div>
+
+                        <div class="vbb-q-note">
+                            In the live exam, you will be able to request the results of <strong>three</strong> of the
+                            available tests before making your diagnosis.
+                        </div>
+
+                        <div class="vbb-q-stem-block">
+                            <p>
+                                Mary is a 79-year-old woman who was brought to the clinic by her son, who was worried
+                                about her ability to live independently. Mary had become increasingly forgetful over the
+                                past several months, occasionally leaving doors unlocked. Last week, she walked out of
+                                the house to go to the grocery store and got lost, needing the help of a city official
+                                to get home.
+                            </p>
+                        </div>
+
+                        <div class="vbb-q-card">
+                            <div class="vbb-q-text">Available tests</div>
+                            <ul class="vbb-case-tests">
+                                <li><strong>MRI Scan</strong>Enlargement of lateral ventricles; atrophy of hippocampus and medial temporal lobe.</li>
+                                <li><strong>PET Scan</strong>Diffuse reduction in glucose metabolism, notably in the temporal lobe.</li>
+                                <li><strong>Electroencephalography</strong>Reduced high-frequency activity, increased low-frequency activity.</li>
+                                <li><strong>Polysomnography</strong>Minor reduction in slow-wave sleep detected.</li>
+                                <li><strong>CSF Analysis / Spinal Tap</strong>No abnormalities in CSF pressure, CSF glucose levels, or CSF total protein levels.</li>
+                                <li><strong>Blood Test (including antibodies and vitamin levels)</strong>No abnormalities detected.</li>
+                                <li><strong>Electromyography / Nerve Conduction Study</strong>No abnormalities detected.</li>
+                                <li><strong>Genetic Test</strong>No abnormalities detected.</li>
+                                <li><strong>Cognitive Test</strong>Aware of identity, place, and knows the year but not the month. Remembered 0/5 objects after 5 minutes.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
             <!-- ============================= RULES & PROCTORING ============================= -->
             <section class="vbb-rules-section">
                 <h2 class="vbb-section-title">Rules &amp; Proctoring</h2>
@@ -535,6 +716,7 @@
                         <p>Before exam day you must complete a platform demonstration to check device compatibility and practice using the testing system.</p>
                     </div>
                 </div>
+                <p class="vbb-rules-note">More information will be sent to the eligible participants via email.</p>
             </section>
 
             <!-- ============================= HOW TO REGISTER ============================= -->
@@ -593,7 +775,7 @@
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFAQ(this)">When does the 2026 Virtual Brain Bee take place?<span class="faq-arrow">▼</span></button>
                         <div class="faq-answer"><div class="faq-answer-content">
-                            The competition is fully online. <span class="highlight">Round 1</span> is tentatively scheduled for Saturday, July 25, and <span class="highlight">Round 2</span> about two weeks later on Saturday, August 8. Finalists are announced roughly one week after Round 1, and award recipients about one week after Round 2.
+                            The competition is fully online. <span class="highlight">Round 1</span> is tentatively scheduled for Saturday, August 8, and <span class="highlight">Round 2</span> about two weeks later on Saturday, August 22. Finalists are announced roughly one week after Round 1, and award recipients about one week after Round 2.
                         </div></div>
                     </div>
 
